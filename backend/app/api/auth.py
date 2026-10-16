@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.responses import RedirectResponse
 from pydantic import ValidationError
 
-from app.config import NO_AUTH_CONFIGURED_MESSAGE, get_settings
+from app.config import NO_AUTH_CONFIGURED_MESSAGE, get_settings, parse_allowed_emails
 from app.database import DbSession
 from app.models.user import User
 from app.schemas.auth import IDENTITY_TOKEN
@@ -215,6 +215,12 @@ async def _oidc_identity(
         # Apple sends the claim as the string "true"; nothing else counts as verified.
         and (verified_claim is True or verified_claim == "true")
     )
+    allowed = parse_allowed_emails(settings.oidc_allowed_emails)
+    if allowed and not (email_verified and effective_email.lower() in allowed):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="This account is not allowed to sign in to this deployment",
+        )
     return sync_data, "oidc", email_verified
 
 

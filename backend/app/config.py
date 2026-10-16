@@ -17,6 +17,13 @@ NO_AUTH_CONFIGURED_MESSAGE = (
 )
 
 
+def parse_allowed_emails(raw: object) -> frozenset[str]:
+    """Parse a comma-separated email list; anything other than a non-empty string means none."""
+    if not isinstance(raw, str) or not raw.strip():
+        return frozenset()
+    return frozenset(e.strip().lower() for e in raw.split(",") if e.strip())
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -77,6 +84,14 @@ class Settings(BaseSettings):
     oidc_client_secret: str | None = None
     oidc_mobile_client_id: str | None = None
     oidc_ca_bundle: str | None = Field(default=None)
+    # Comma-separated emails allowed to sign in with OIDC. A public provider such as Google lets
+    # anyone with an account through, so a private deployment lists its people here. Unset or
+    # empty allows every account the provider accepts, as before.
+    oidc_allowed_emails: str | None = Field(default=None)
+
+    @property
+    def oidc_allowed_email_set(self) -> frozenset[str]:
+        return parse_allowed_emails(self.oidc_allowed_emails)
 
     # Shared secret the authenticating reverse proxy adds as X-Forward-Auth-Secret,
     # so that Remote-* identity headers are only trusted when the proxy sent them.
