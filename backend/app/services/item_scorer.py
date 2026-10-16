@@ -5,6 +5,7 @@ from uuid import UUID
 
 from app.models.item import ClothingItem
 from app.models.preference import UserPreference
+from app.services.footwear_rules import footwear_weather_multiplier
 from app.services.weather_service import WeatherData
 from app.utils.clothing import ITEM_ROLE
 from app.utils.garment_vocabulary import FORMALITY, OCCASION_FORMALITY
@@ -239,6 +240,8 @@ def _weather_score(
 
     if rain_likely(weather) and item_type in RAIN_LAYER_TYPES:
         score = min(1.0, score + 0.1)
+
+    score *= footwear_weather_multiplier(item_type, subtype, material, weather)
 
     return score
 
