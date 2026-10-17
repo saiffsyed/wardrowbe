@@ -24,6 +24,7 @@ from app.models.outfit import (
 from app.models.preference import UserPreference
 from app.models.user import User
 from app.services.ai_service import AIResponseTruncatedError, AIService, require_internal_ai
+from app.services.footwear_rules import footwear_prompt_hint
 from app.services.item_scorer import (
     get_season,
     rain_likely,
@@ -85,6 +86,12 @@ def format_temp_range_text(weather: WeatherData) -> str:
         f"- Temperature ahead ranges from {low:.1f}°C to {high:.1f}°C, a large swing, "
         "favour adaptable layers that work at both ends."
     )
+
+
+def weather_notes_text(weather: WeatherData) -> str:
+    """Extra weather lines for the outfit prompt: the temperature swing and the footwear rule."""
+    lines = [format_temp_range_text(weather), footwear_prompt_hint(weather)]
+    return "\n".join(line for line in lines if line)
 
 
 def suggestion_context(
@@ -958,7 +965,7 @@ class RecommendationService:
             feels_like=weather.feels_like,
             condition=weather.condition,
             precipitation_chance=weather.precipitation_chance,
-            temp_range_text=format_temp_range_text(weather),
+            temp_range_text=weather_notes_text(weather),
             preferences_text=preferences_text,
             items_text=items_text,
             mandatory_items_section=mandatory_items_section,
