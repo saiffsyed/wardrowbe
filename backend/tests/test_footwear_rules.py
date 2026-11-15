@@ -95,6 +95,13 @@ class TestMultiplier:
         oxfords = footwear_weather_multiplier("shoes", "oxfords", "leather", rain)
         assert heels < oxfords
 
+    def test_heels_and_flats_as_types_are_penalised_like_the_subtypes(self):
+        rain = _weather(precipitation=80)
+        oxfords = footwear_weather_multiplier("shoes", "oxfords", "leather", rain)
+        assert footwear_weather_multiplier("heels", "", "leather", rain) < oxfords
+        assert footwear_weather_multiplier("flats", "", "leather", rain) < oxfords
+        assert footwear_weather_multiplier("heels", "", "leather", _weather()) == 1.0
+
     def test_snow_wants_boots(self):
         snow = _weather(temp=-2, code=HEAVY_SNOW)
         assert footwear_weather_multiplier("boots", "ankle", "leather", snow) == 1.0

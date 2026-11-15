@@ -24,6 +24,8 @@ SNOW_CODES = {71, 73, 75, 77, 85, 86}
 WATER_SENSITIVE_MATERIALS = {"suede", "canvas", "velvet", "knit", "linen", "silk"}
 # Subtypes that leave the foot exposed or are hard to walk in on wet or icy ground.
 DELICATE_SUBTYPES = {"heels", "mules", "flats", "platforms", "slip-on", "espadrilles"}
+# Heels and flats are garment types of their own in newer vocabularies, and delicate as such.
+DELICATE_TYPES = {"heels", "flats"}
 WATERPROOF_SUBTYPES = {"rain", "wellington", "wellies", "duck", "snow"}
 
 
@@ -69,7 +71,7 @@ def footwear_weather_multiplier(
     else:  # shoes
         factor = 0.85 if material == "leather" else 0.7
 
-    if subtype in DELICATE_SUBTYPES:
+    if subtype in DELICATE_SUBTYPES or item_type in DELICATE_TYPES:
         factor *= 0.7
     if material in WATER_SENSITIVE_MATERIALS:
         factor *= 0.4
