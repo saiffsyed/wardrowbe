@@ -21,6 +21,7 @@
   <a href="#ai-configuration">AI</a> •
   <a href="#deployment">Deployment</a> •
   <a href="#configuration">Configuration</a> •
+  <a href="#self-hosted-and-cloud">Self-Hosted and Cloud</a> •
   <a href="#contributing">Contributing</a>
 </p>
 
@@ -31,7 +32,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Google%20Play-Coming%20Soon-34A853?style=for-the-badge&logo=googleplay&logoColor=white" alt="Google Play - Coming Soon">
+  <a href="https://play.google.com/store/apps/details?id=app.wardrowbe.mobile">
+    <img src="https://img.shields.io/badge/Google%20Play-34A853?style=for-the-badge&logo=googleplay&logoColor=white" alt="Google Play">
+  </a>
   &nbsp;
   <a href="https://apps.apple.com/us/app/wardrowbe/id6759947671">
     <img src="https://img.shields.io/badge/App%20Store-0D96F6?style=for-the-badge&logo=appstore&logoColor=white" alt="App Store">
@@ -167,6 +170,16 @@ to an external agent. You can also disable a single capability with
 reported at `GET /api/v1/capabilities`. Defaults keep internal AI **on**, so
 existing deployments are unaffected.
 
+When internal AI is fully off, the web app hides Suggest, Pairings and AI Learning
+from the navigation, sends those pages back to the dashboard, and drops the AI
+buttons (suggest, generate pairings, re-analyze, the analysis queue, "Let AI finish"
+in the outfit builder and the AI endpoint settings), while adding, editing and
+wearing items and building outfits by hand all keep working. If an external agent
+fills in suggestions and pairings for you, set `AI_UI_ENABLED=true` on the backend
+to keep that UI; `AI_UI_ENABLED=false` hides it even with internal AI on, while
+uploads are still tagged in the background. It is read at runtime, so no frontend
+rebuild is needed.
+
 </details>
 
 ## Architecture
@@ -215,7 +228,7 @@ docker compose -f docker-compose.prod.yml up -d
 docker compose -f docker-compose.prod.yml exec backend alembic upgrade head
 ```
 
-Images are tagged `backend-latest` / `frontend-latest`, and each release also publishes `backend-<version>` / `frontend-<version>`. To pin a release, replace the `-latest` tags in the compose file, e.g. `ghcr.io/anyesh/wardrowbe:backend-1.3.0`.
+Images are tagged `backend-latest` / `frontend-latest`, and each release also publishes `backend-<version>` / `frontend-<version>`. To pin a release, replace the `-latest` tags in the compose file, e.g. `ghcr.io/anyesh/wardrowbe:backend-1.12.0`. Releases from 1.12.1 on also publish the same tags in version-first form, `<version>-backend` / `<version>-frontend`. If Renovate keeps your pins up to date, use that form (`ghcr.io/anyesh/wardrowbe:<version>-backend`): Renovate's default Docker versioning reads it as a version for the `backend` variant and proposes upgrades without a custom rule, while it cannot parse `backend-<version>`.
 
 ### Kubernetes
 
@@ -305,11 +318,11 @@ Upgrading from a release before sign-in identities (the `user_identities` table)
 | `NTFY_TOKEN` | Access token for `NTFY_SERVER`, used for any ntfy channel on that server that has no token of its own | No |
 | `SMTP_HOST` | SMTP server for email notifications | No |
 | `SMTP_PORT` | SMTP port (default: 587) | No |
-| `SMTP_USER` | SMTP username | No |
-| `SMTP_PASSWORD` | SMTP password | No |
+| `SMTP_USER` | SMTP username; leave unset for a relay that accepts mail without authentication | No |
+| `SMTP_PASSWORD` | SMTP password; only used with `SMTP_USER` | No |
 | `SMTP_USE_TLS` | Use STARTTLS for SMTP (default: true) | No |
 | `SMTP_FROM_NAME` | Sender name on notification emails (default: Wardrowbe) | No |
-| `SMTP_FROM_EMAIL` | Sender address (default: `SMTP_USER`) | No |
+| `SMTP_FROM_EMAIL` | Sender address (default: `SMTP_USER`); required when `SMTP_USER` is unset | No |
 
 </details>
 
@@ -384,7 +397,7 @@ An account can sign in through more than one provider. To block a person or unli
 
 ### Notifications
 
-Users add their own channels in the app: **ntfy** push notifications, **Mattermost** webhooks, or **email** (set `SMTP_HOST`, `SMTP_USER`, `SMTP_PASSWORD` in `.env`).
+Users add their own channels in the app: **ntfy** push notifications, **Mattermost** webhooks, or **email** (set `SMTP_HOST` and either `SMTP_USER`/`SMTP_PASSWORD` or, for a relay without authentication, `SMTP_FROM_EMAIL` in `.env`).
 
 ### Weather and location
 
@@ -529,6 +542,10 @@ docker stats
 </details>
 
 Still stuck? Check the [issues](https://github.com/Anyesh/wardrowbe/issues) and [discussions](https://github.com/Anyesh/wardrowbe/discussions), or open a new issue with the output of `docker compose ps`, the relevant logs, your `.env` with secrets redacted, and the steps to reproduce.
+
+## Self-Hosted and Cloud
+
+This repo is the self-hosted edition. [Wardrowbe Cloud](https://wardrowbe.com) shares the same core but has its own roadmap, so features differ and aren't ported 1:1; this README describes the self-hosted edition. Ideas and core fixes go back and forth between the two. Community contributions stay free and open here and never go behind a paywall. Want a cloud feature here, or have an idea? Please open an issue or discussion; if there's strong interest, we'll look into bringing it over. If you contribute here and are happy for it to go into Cloud too, say so in your PR. More in [this discussion](https://github.com/Anyesh/wardrowbe/discussions/267).
 
 ## Contributing
 

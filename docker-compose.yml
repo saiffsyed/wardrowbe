@@ -22,6 +22,7 @@ x-backend-env: &backend-env
   AI_INTERNAL_ENABLED: ${AI_INTERNAL_ENABLED:-true}
   AI_VISION_ENABLED: ${AI_VISION_ENABLED:-}
   AI_TEXT_ENABLED: ${AI_TEXT_ENABLED:-}
+  AI_UI_ENABLED: ${AI_UI_ENABLED:-}
   AI_REASONING_EFFORT: ${AI_REASONING_EFFORT:-none}
   MAX_IMAGE_MEGAPIXELS: ${MAX_IMAGE_MEGAPIXELS:-50}
   MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-}
@@ -84,6 +85,7 @@ services:
       OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
       OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
       OIDC_CA_BUNDLE: ${OIDC_CA_BUNDLE:-}
+      OIDC_ALLOWED_EMAILS: ${OIDC_ALLOWED_EMAILS:-}
       FORWARD_AUTH_SECRET: ${FORWARD_AUTH_SECRET:-}
       # 0 because clients reach the frontend and API directly here, so any X-Forwarded-For is
       # theirs; set 1 once a proxy is the only way in (README: Client IPs behind a reverse proxy)

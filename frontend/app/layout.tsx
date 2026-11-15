@@ -25,6 +25,13 @@ export const metadata: Metadata = {
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
+  // iPhone ignores most of the web manifest, so Safari's "Add to Home Screen"
+  // needs these tags to open the app full screen with its own name.
+  appleWebApp: {
+    capable: true,
+    title: 'Wardrowbe',
+    statusBarStyle: 'default',
+  },
 };
 
 export const viewport: Viewport = {
@@ -32,6 +39,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
 };
 
 export default async function RootLayout({

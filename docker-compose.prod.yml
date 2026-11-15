@@ -26,6 +26,7 @@ x-backend-env: &backend-env
   AI_INTERNAL_ENABLED: ${AI_INTERNAL_ENABLED:-true}
   AI_VISION_ENABLED: ${AI_VISION_ENABLED:-}
   AI_TEXT_ENABLED: ${AI_TEXT_ENABLED:-}
+  AI_UI_ENABLED: ${AI_UI_ENABLED:-}
   AI_REASONING_EFFORT: ${AI_REASONING_EFFORT:-none}
   MAX_IMAGE_MEGAPIXELS: ${MAX_IMAGE_MEGAPIXELS:-50}
   MAX_UPLOAD_SIZE_MB: ${MAX_UPLOAD_SIZE_MB:-}
@@ -90,6 +91,7 @@ services:
       OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
       OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
       OIDC_CA_BUNDLE: ${OIDC_CA_BUNDLE:-}
+      OIDC_ALLOWED_EMAILS: ${OIDC_ALLOWED_EMAILS:-}
       # The authenticating proxy must send this as X-Forward-Auth-Secret (docs/forward-auth.md)
       FORWARD_AUTH_SECRET: ${FORWARD_AUTH_SECRET:-}
       # nginx appends X-Forwarded-For; add one for each proxy in front of it that appends too

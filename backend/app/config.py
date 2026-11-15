@@ -17,6 +17,13 @@ NO_AUTH_CONFIGURED_MESSAGE = (
 )
 
 
+def parse_allowed_emails(raw: object) -> frozenset[str]:
+    """Parse a comma-separated email list; anything other than a non-empty string means none."""
+    if not isinstance(raw, str) or not raw.strip():
+        return frozenset()
+    return frozenset(e.strip().lower() for e in raw.split(",") if e.strip())
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -77,6 +84,14 @@ class Settings(BaseSettings):
     oidc_client_secret: str | None = None
     oidc_mobile_client_id: str | None = None
     oidc_ca_bundle: str | None = Field(default=None)
+    # Comma-separated emails allowed to sign in with OIDC. A public provider such as Google lets
+    # anyone with an account through, so a private deployment lists its people here. Unset or
+    # empty allows every account the provider accepts, as before.
+    oidc_allowed_emails: str | None = Field(default=None)
+
+    @property
+    def oidc_allowed_email_set(self) -> frozenset[str]:
+        return parse_allowed_emails(self.oidc_allowed_emails)
 
     # Shared secret the authenticating reverse proxy adds as X-Forward-Auth-Secret,
     # so that Remote-* identity headers are only trusted when the proxy sent them.
@@ -90,6 +105,9 @@ class Settings(BaseSettings):
     ai_internal_enabled: bool = Field(default=True)
     ai_vision_enabled: bool | None = Field(default=None)
     ai_text_enabled: bool | None = Field(default=None)
+    # Unset follows internal AI; true keeps the AI UI for an external agent that
+    # authors suggestions and pairings while internal AI is off.
+    ai_ui_enabled: bool | None = Field(default=None)
 
     # AI Service (OpenAI-compatible API - supports Ollama, OpenAI, etc.)
     ai_base_url: str = Field(default="")
@@ -197,6 +215,10 @@ class Settings(BaseSettings):
     def ai_enabled(self) -> bool:
         """True if any internal AI capability is active."""
         return self.effective_ai_vision_enabled or self.effective_ai_text_enabled
+
+    @property
+    def effective_ai_ui_enabled(self) -> bool:
+        return self.ai_enabled if self.ai_ui_enabled is None else self.ai_ui_enabled
 
     @property
     def oidc_configured(self) -> bool:

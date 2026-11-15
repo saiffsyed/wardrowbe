@@ -9,12 +9,20 @@ _DATA = json.loads(_VOCABULARY_PATH.read_text())
 ROLES: tuple[str, ...] = tuple(_DATA["roles"])
 TYPES: tuple[str, ...] = tuple(entry["value"] for entry in _DATA["types"])
 ITEM_ROLE: dict[str, str] = {entry["value"]: entry["role"] for entry in _DATA["types"]}
+# Layers that are commonly worn with nothing under them, so they dress the upper body alone.
+WORN_ALONE_TYPES: frozenset[str] = frozenset(
+    entry["value"] for entry in _DATA["types"] if entry.get("worn_alone")
+)
 DEFAULT_WASH_INTERVALS: dict[str, int] = {
     entry["value"]: entry["wash_interval"] for entry in _DATA["types"]
 }
 MATERIALS: tuple[str, ...] = tuple(_DATA["materials"])
 # Ordered from least to most formal; the scorer measures distance along this scale.
 FORMALITY: tuple[str, ...] = tuple(_DATA["formality"])
+PATTERNS: tuple[str, ...] = tuple(_DATA["patterns"])
+STYLES: tuple[str, ...] = tuple(_DATA["styles"])
+SEASONS: tuple[str, ...] = tuple(_DATA["seasons"])
+FITS: tuple[str, ...] = tuple(_DATA["fits"])
 OCCASIONS: tuple[str, ...] = tuple(entry["value"] for entry in _DATA["occasions"])
 OCCASION_FORMALITY: dict[str, tuple[str, ...]] = {
     entry["value"]: tuple(entry["formality"]) for entry in _DATA["occasions"]
@@ -78,6 +86,10 @@ def render_tagging_prompt(template: str) -> str:
         .replace("<<MATERIALS>>", ", ".join(MATERIALS))
         .replace("<<FORMALITY>>", ", ".join(FORMALITY))
         .replace("<<COLORS>>", ", ".join(COLORS))
+        .replace("<<PATTERNS>>", ", ".join(PATTERNS))
+        .replace("<<STYLES>>", ", ".join(STYLES))
+        .replace("<<SEASONS>>", ", ".join(SEASONS))
+        .replace("<<FITS>>", ", ".join(FITS))
     )
 
 
