@@ -15,9 +15,11 @@ import {
   Shirt,
   Sparkles,
   RefreshCw,
+  Replace,
   RotateCcw,
   RotateCw,
   Eraser,
+  Scissors,
   Undo2,
   ImagePlus,
   Layers,
@@ -60,6 +62,8 @@ import {
 import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { toast } from 'sonner';
+import { SplitPhotoDialog } from '@/components/split-photo-dialog';
+import { ApiError } from '@/lib/api';
 import { useUpdateItem, useDeleteItem, useReanalyzeItem, useRotateImage, useRemoveBackground, useRestoreOriginal, useReplaceItemImage, useLogWear, useLogWash, useWashHistory, useItemWearStats, useItemWearHistory, useAddItemImage, useDeleteItemImage, useSetPrimaryImage } from '@/lib/hooks/use-items';
 import { CLOTHING_SUBTYPES, Item } from '@/lib/types';
 import {
@@ -79,7 +83,17 @@ import {
 import { ColorEyedropper } from '@/components/color-eyedropper';
 import { ACCEPTED_IMAGE_INPUT } from '@/lib/image-types';
 import { GeneratePairingsDialog } from '@/components/generate-pairings-dialog';
-import { useFeatures } from '@/lib/hooks/use-features';
+import { ItemTagsEditor } from '@/components/item-tags-editor';
+import { ReplaceAnalysisDialog } from '@/components/replace-analysis-dialog';
+import {
+  diffTags,
+  draftFromTags,
+  primaryColorOfItem,
+  subtypeAfterTypeChange,
+  type ItemEdits,
+  type TagDraft,
+} from '@/lib/tag-edits';
+import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatDate } from '@/lib/utils';
 
@@ -102,6 +116,17 @@ interface EditForm {
   wash_interval: number | undefined;
 }
 
+// The sign-in redirect handles these, as in the global error handler.
+function isUnauthorized(error: unknown): boolean {
+  return error instanceof ApiError && error.status === 401;
+}
+
+function isInvalidTagValue(error: unknown): boolean {
+  if (!(error instanceof ApiError)) return false;
+  const data = error.data as { detail?: { error_code?: string } } | undefined;
+  return data?.detail?.error_code === 'INVALID_TAG_VALUE';
+}
+
 function editFormFromItem(item: Item): EditForm {
   return {
     name: item.name || '',
@@ -110,7 +135,7 @@ function editFormFromItem(item: Item): EditForm {
     // supported type doesn't lose what the model actually saw.
     subtype: item.subtype || (item.type === 'unknown' && item.ai_unrecognized_type) || '',
     brand: item.brand || '',
-    primary_color: item.primary_color || '',
+    primary_color: primaryColorOfItem(item) || '',
     notes: item.notes || '',
     favorite: item.favorite,
     wash_interval: item.wash_interval ?? undefined,
@@ -137,6 +162,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   const fitLabel = useFitLabel();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showReplaceConfirm, setShowReplaceConfirm] = useState(false);
   const [showPairingsDialog, setShowPairingsDialog] = useState(false);
   const [imageKey, setImageKey] = useState(0);
   const [editForm, setEditForm] = useState<EditForm>({
@@ -149,7 +175,15 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
     favorite: false,
     wash_interval: undefined,
   });
+  const [tagDraft, setTagDraft] = useState<TagDraft>(() =>
+    draftFromTags(item?.tags ?? { colors: [], style: [], season: [] }, primaryColorOfItem(item)),
+  );
+  // The item as it was when editing began. Saving compares the form with this, not with the
+  // item as it is now: tagging can finish while the form is open, and diffing against the fresh
+  // item would send its new tags back as clears and resend untouched fields as edits.
+  const [editBase, setEditBase] = useState<Item | null>(item);
   const [showWashHistory, setShowWashHistory] = useState(false);
+  const [showSplit, setShowSplit] = useState(false);
   const [showWearHistory, setShowWearHistory] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -162,6 +196,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   const replaceImage = useReplaceItemImage();
   const replaceImageInputRef = useRef<HTMLInputElement>(null);
   const { data: features } = useFeatures();
+  const aiUiEnabled = useAiUiEnabled();
   const logWear = useLogWear();
   const logWash = useLogWash();
   const { data: washHistory } = useWashHistory(item?.id || '');
@@ -174,6 +209,8 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   useEffect(() => {
     if (item) {
       setEditForm(editFormFromItem(item));
+      setTagDraft(draftFromTags(item.tags, primaryColorOfItem(item)));
+      setEditBase(item);
       setIsEditing(false);
       setActiveImageIndex(0);
     }
@@ -182,24 +219,41 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   if (!item) return null;
 
   const handleSave = async () => {
+    const base = editBase ?? item;
+    // Only what the person changed since editing began; an untouched field is not sent at all.
+    const before: EditForm = { ...editFormFromItem(base), subtype: base.subtype || '' };
+    const data: ItemEdits = {};
+    if (editForm.name !== before.name) data.name = editForm.name || undefined;
+    if (editForm.type !== before.type) data.type = editForm.type;
+    const subtype = editForm.subtype.trim();
+    // null (not undefined) so clearing the field actually clears it server-side.
+    if (subtype !== before.subtype) data.subtype = subtype || null;
+    if (editForm.brand !== before.brand) data.brand = editForm.brand || undefined;
+    if (editForm.primary_color !== before.primary_color) {
+      data.primary_color = editForm.primary_color || undefined;
+    }
+    if (editForm.notes !== before.notes) data.notes = editForm.notes || undefined;
+    if (editForm.favorite !== before.favorite) data.favorite = editForm.favorite;
+    if (editForm.wash_interval !== before.wash_interval) data.wash_interval = editForm.wash_interval;
+    const tagChanges = diffTags(
+      base.tags,
+      tagDraft,
+      editForm.primary_color || undefined,
+      primaryColorOfItem(base),
+    );
+    if (Object.keys(tagChanges).length > 0) data.tags = tagChanges;
+
+    if (Object.keys(data).length === 0) {
+      setIsEditing(false);
+      return;
+    }
     try {
-      await updateItem.mutateAsync({
-        id: item.id,
-        data: {
-          name: editForm.name || undefined,
-          type: editForm.type,
-          // null (not undefined) so clearing the field actually clears it server-side.
-          subtype: editForm.subtype.trim() || null,
-          brand: editForm.brand || undefined,
-          primary_color: editForm.primary_color || undefined,
-          notes: editForm.notes || undefined,
-          favorite: editForm.favorite,
-          wash_interval: editForm.wash_interval,
-        },
-      });
+      await updateItem.mutateAsync({ id: item.id, data });
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to update item:', error);
+      if (isUnauthorized(error)) return;
+      toast.error(isInvalidTagValue(error) ? t('tagsEditor.invalidValue') : t('actions.saveError'));
     }
   };
 
@@ -247,14 +301,17 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
       });
     } catch (error) {
       console.error('Failed to toggle favorite:', error);
+      if (!isUnauthorized(error)) toast.error(t('actions.saveError'));
     }
   };
 
-  const handleReanalyze = async () => {
+  const handleReanalyze = async (replace = false) => {
     try {
-      const result = await reanalyzeItem.mutateAsync(item.id);
+      const result = await reanalyzeItem.mutateAsync({ id: item.id, replace });
       if (result.status === 'cooldown' && result.retry_after_seconds) {
         toast.info(tw('ai.retryCooldown', { seconds: result.retry_after_seconds }));
+      } else if (replace && result.status === 'already_queued') {
+        toast.info(t('replaceAnalysis.alreadyQueued'));
       }
       // Otherwise status will update to 'processing' and UI will reflect it
     } catch (error) {
@@ -357,38 +414,51 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     }`}
                   />
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowPairingsDialog(true)}
-                  disabled={item.status !== 'ready'}
-                  title={t('titles.findMatchingOutfits')}
-                >
-                  <Layers className="h-5 w-5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    onOpenChange(false);
-                    router.push(`/dashboard/suggest?item=${item.id}`);
-                  }}
-                  disabled={item.status !== 'ready'}
-                  title={t('titles.suggestOutfit')}
-                >
-                  <Sparkles className="h-5 w-5 text-primary" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleReanalyze}
-                  disabled={isAnalyzing}
-                  title={isAnalyzing ? t('titles.analysisInProgress') : t('titles.reanalyzeWithAI')}
-                >
-                  <RefreshCw
-                    className={`h-5 w-5 ${isAnalyzing ? 'animate-spin text-primary' : ''}`}
-                  />
-                </Button>
+                {aiUiEnabled && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setShowPairingsDialog(true)}
+                      disabled={item.status !== 'ready'}
+                      title={t('titles.findMatchingOutfits')}
+                    >
+                      <Layers className="h-5 w-5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        onOpenChange(false);
+                        router.push(`/dashboard/suggest?item=${item.id}`);
+                      }}
+                      disabled={item.status !== 'ready'}
+                      title={t('titles.suggestOutfit')}
+                    >
+                      <Sparkles className="h-5 w-5 text-primary" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleReanalyze()}
+                      disabled={isAnalyzing}
+                      title={isAnalyzing ? t('titles.analysisInProgress') : t('titles.reanalyzeWithAI')}
+                    >
+                      <RefreshCw
+                        className={`h-5 w-5 ${isAnalyzing ? 'animate-spin text-primary' : ''}`}
+                      />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setShowReplaceConfirm(true)}
+                      disabled={isAnalyzing}
+                      title={t('titles.reanalyzeAndReplace')}
+                    >
+                      <Replace className="h-5 w-5" />
+                    </Button>
+                  </>
+                )}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -458,6 +528,16 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     <ImagePlus className="h-5 w-5" />
                   )}
                 </Button>
+                {item.image_url && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowSplit(true)}
+                    title={t('titles.splitPhoto')}
+                  >
+                    <Scissors className="h-5 w-5" />
+                  </Button>
+                )}
                 <input
                   ref={replaceImageInputRef}
                   type="file"
@@ -477,7 +557,11 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                   onClick={() => {
                     // Re-read the item on entering edit mode: tagging can finish while the
                     // dialog is open (same id, so the effect above doesn't re-run).
-                    if (!isEditing) setEditForm(editFormFromItem(item));
+                    if (!isEditing) {
+                      setEditForm(editFormFromItem(item));
+                      setTagDraft(draftFromTags(item.tags, primaryColorOfItem(item)));
+                      setEditBase(item);
+                    }
                     setIsEditing(!isEditing);
                   }}
                   title={isEditing ? t('actions.cancelEditing') : t('actions.editItem')}
@@ -650,7 +734,9 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     )}
                     <Select
                       value={editForm.type}
-                      onValueChange={(v) => setEditForm({ ...editForm, type: v })}
+                      onValueChange={(v) =>
+                        setEditForm({ ...editForm, type: v, subtype: subtypeAfterTypeChange(v, editForm.subtype) })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -741,6 +827,11 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       {t('view.washIntervalHint')}
                     </p>
                   </div>
+                  <ItemTagsEditor
+                    draft={tagDraft}
+                    onChange={setTagDraft}
+                    primaryColor={editForm.primary_color || undefined}
+                  />
                   <div className="flex gap-2 pt-2">
                     <Button
                       variant="outline"
@@ -1083,6 +1174,22 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
         </DialogContent>
       </Dialog>
 
+      {showSplit && item.image_url && (
+        <SplitPhotoDialog
+          itemId={item.id}
+          imageUrl={item.medium_url ?? item.image_url}
+          open
+          onClose={() => setShowSplit(false)}
+          onDone={() => onOpenChange(false)}
+        />
+      )}
+
+      <ReplaceAnalysisDialog
+        open={showReplaceConfirm}
+        onOpenChange={setShowReplaceConfirm}
+        onConfirm={() => handleReanalyze(true)}
+      />
+
       {/* Delete Confirmation */}
       <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
         <AlertDialogContent>
@@ -1108,12 +1215,13 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Generate Pairings Dialog */}
-      <GeneratePairingsDialog
-        item={item}
-        open={showPairingsDialog}
-        onOpenChange={setShowPairingsDialog}
-      />
+      {aiUiEnabled && (
+        <GeneratePairingsDialog
+          item={item}
+          open={showPairingsDialog}
+          onOpenChange={setShowPairingsDialog}
+        />
+      )}
     </>
   );
 }
