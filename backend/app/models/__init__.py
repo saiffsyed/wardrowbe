@@ -1,4 +1,5 @@
 from app.models.family import Family, FamilyInvite
+from app.models.home import Home
 from app.models.identity import UserIdentity
 from app.models.item import ClothingItem, ItemHistory, ItemImage, WashHistory
 from app.models.learning import (
@@ -16,6 +17,7 @@ from app.models.user import User
 __all__ = [
     "Family",
     "FamilyInvite",
+    "Home",
     "User",
     "UserIdentity",
     "UserPreference",

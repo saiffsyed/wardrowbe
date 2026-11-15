@@ -251,7 +251,21 @@
     "tights": "Tights",
     "top": "Top",
     "vest": "Vest",
-    "watch": "Watch"
+    "watch": "Watch",
+    "ring": "Ring",
+    "necklace": "Necklace",
+    "earrings": "Earrings",
+    "bracelet": "Bracelet",
+    "bangles": "Bangles",
+    "cufflinks": "Cufflinks",
+    "kurta": "Kurta",
+    "sherwani": "Sherwani",
+    "saree": "Saree",
+    "lehenga": "Lehenga",
+    "salwar-kameez": "Salwar kameez",
+    "dupatta": "Dupatta",
+    "dhoti": "Dhoti",
+    "mojari": "Mojari"
   },
   "weatherConditions": {
     "clear": "Clear",

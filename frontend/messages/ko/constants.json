@@ -251,7 +251,21 @@
     "tights": "타이츠",
     "top": "상의",
     "vest": "조끼",
-    "watch": "시계"
+    "watch": "시계",
+    "ring": "반지",
+    "necklace": "목걸이",
+    "earrings": "귀걸이",
+    "bracelet": "팔찌",
+    "bangles": "뱅글",
+    "cufflinks": "커프스 단추",
+    "kurta": "쿠르타",
+    "sherwani": "셰르와니",
+    "saree": "사리",
+    "lehenga": "레헹가",
+    "salwar-kameez": "살와르 카미즈",
+    "dupatta": "두파타",
+    "dhoti": "도티",
+    "mojari": "모자리"
   },
   "weatherConditions": {
     "clear": "맑음",

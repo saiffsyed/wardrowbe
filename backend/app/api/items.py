@@ -59,7 +59,7 @@ from app.schemas.item import (
     WashHistoryResponse,
 )
 from app.services.image_service import ImageService
-from app.services.item_service import ItemService, TagVocabularyError
+from app.services.item_service import ItemService, TagVocabularyError, UnknownHomeError
 from app.utils.auth import get_current_user
 from app.utils.signed_urls import sign_optional
 from app.utils.timezone import get_user_today
@@ -147,6 +147,11 @@ async def list_items(
     needs_wash: bool | None = None,
     is_archived: bool = False,
     search: str | None = None,
+    home_id: UUID | None = None,
+    occasion: str | None = None,
+    brand: str | None = None,
+    material: str | None = None,
+    season: str | None = None,
     sort_by: str | None = None,
     sort_order: str = "desc",
 ) -> ItemListResponse:
@@ -162,6 +167,11 @@ async def list_items(
         needs_wash=needs_wash,
         is_archived=is_archived,
         search=search,
+        home_id=home_id,
+        occasion=occasion,
+        brand=brand,
+        material=material,
+        season=season,
         sort_by=sort_by,
         sort_order=sort_order,
     )
@@ -1298,6 +1308,8 @@ async def update_item(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={"message": str(e), "error_code": "INVALID_TAG_VALUE"},
         ) from e
+    except UnknownHomeError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
     return ItemResponse.model_validate(item)
 
 

@@ -251,7 +251,21 @@
     "tights": "Collant",
     "top": "Top",
     "vest": "Gilet",
-    "watch": "Orologio"
+    "watch": "Orologio",
+    "ring": "Anello",
+    "necklace": "Collana",
+    "earrings": "Orecchini",
+    "bracelet": "Bracciale",
+    "bangles": "Bracciali rigidi",
+    "cufflinks": "Gemelli",
+    "kurta": "Kurta",
+    "sherwani": "Sherwani",
+    "saree": "Sari",
+    "lehenga": "Lehenga",
+    "salwar-kameez": "Salwar kameez",
+    "dupatta": "Dupatta",
+    "dhoti": "Dhoti",
+    "mojari": "Mojari"
   },
   "weatherConditions": {
     "clear": "Sereno",

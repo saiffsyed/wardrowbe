@@ -1,15 +1,50 @@
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, computed_field, model_validator
+from pydantic import (
+    AfterValidator,
+    BaseModel,
+    ConfigDict,
+    Field,
+    computed_field,
+    field_validator,
+    model_validator,
+)
 
 from app.models.item import ItemStatus, ProcessingKind, TaggingStatus
 from app.schemas.color import ColorList, ColorName
 from app.schemas.outfit import Occasion
 from app.utils.garment_vocabulary import DEFAULT_WASH_INTERVALS
 from app.utils.signed_urls import sign_image_url, sign_optional
+
+
+class MaterialShare(BaseModel):
+    """One line of a care label's fibre content, e.g. 70% silk."""
+
+    material: str = Field(min_length=1, max_length=40)
+    percent: float = Field(gt=0, le=100)
+
+    @field_validator("material")
+    @classmethod
+    def _clean_material(cls, value: str) -> str:
+        return " ".join(value.split()).lower()
+
+
+def _clean_occasions(values: list[str]) -> list[str]:
+    # Occasions are free text so each person can add their own ("sangeet", "client dinner");
+    # they are lower-cased and de-duplicated so filters match however they were typed.
+    cleaned = [" ".join(v.split()).lower() for v in values]
+    result = list(dict.fromkeys(v for v in cleaned if v))
+    if any(len(v) > 40 for v in result):
+        raise ValueError("an occasion tag is at most 40 characters")
+    if len(result) > 20:
+        raise ValueError("an item has at most 20 occasion tags")
+    return result
+
+
+OccasionTags = Annotated[list[str], AfterValidator(_clean_occasions)]
 
 
 class ItemTags(BaseModel):
@@ -26,12 +61,40 @@ class ItemTags(BaseModel):
     size: str | None = Field(None, max_length=32)
     care_instructions: str | None = Field(None, max_length=255)
     source_url: str | None = Field(None, max_length=500)
+    # More user-owned keys: what a care label and a receipt say about the item.
+    size_system: str | None = Field(None, max_length=32)
+    fit_note: str | None = Field(None, max_length=120)
+    # Where the item was bought (a shop, city or country), not where it was made.
+    purchase_place: str | None = Field(None, max_length=100)
+    composition: list[MaterialShare] | None = Field(None, max_length=8)
+    occasions: OccasionTags | None = None
     # Tag keys changed by hand, kept so a later "re-analyse and replace" can leave them alone.
     # The server maintains it; whatever a client sends for it is ignored.
     user_edited_keys: list[str] = Field(default_factory=list)
 
+    @field_validator("composition")
+    @classmethod
+    def _composition_adds_up(cls, value: list[MaterialShare] | None) -> list[MaterialShare] | None:
+        # Labels round, and some list a lining separately, so anything up to 100% in total is
+        # accepted; more than that is a misread.
+        if value and sum(share.percent for share in value) > 100.5:
+            raise ValueError("material percentages add up to more than 100")
+        return value
 
-USER_TAG_KEYS = frozenset({"size", "care_instructions", "source_url", "user_edited_keys"})
+
+USER_TAG_KEYS = frozenset(
+    {
+        "size",
+        "care_instructions",
+        "source_url",
+        "size_system",
+        "fit_note",
+        "purchase_place",
+        "composition",
+        "occasions",
+        "user_edited_keys",
+    }
+)
 
 
 class ItemBase(BaseModel):
@@ -64,6 +127,8 @@ class ItemUpdate(BaseModel):
     colors: ColorList | None = None
     primary_color: ColorName | None = None
     wash_interval: int | None = None
+    # One of the user's homes; an explicit null takes the item out of every home.
+    home_id: UUID | None = None
 
 
 class ItemResponse(ItemBase):
@@ -95,6 +160,7 @@ class ItemResponse(ItemBase):
 
     id: UUID
     user_id: UUID
+    home_id: UUID | None = None
     image_path: str
     thumbnail_path: str | None = None
     medium_path: str | None = None
@@ -220,6 +286,11 @@ class ItemFilterFields(BaseModel):
     needs_wash: bool | None = None
     is_archived: bool = False
     search: str | None = None
+    home_id: UUID | None = None
+    occasion: str | None = None
+    brand: str | None = None
+    material: str | None = None
+    season: str | None = None
 
 
 class ItemFilter(ItemFilterFields):

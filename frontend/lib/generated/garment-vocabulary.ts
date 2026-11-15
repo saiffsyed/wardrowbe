@@ -1,6 +1,6 @@
 // Generated from backend/app/data/garment_vocabulary.json by scripts/gen-shared-data.mjs.
 // Do not edit by hand; run `npm run vocab:gen`.
-export const CLOTHING_TYPE_VALUES = ['shirt', 't-shirt', 'top', 'pants', 'jeans', 'shorts', 'dress', 'jumpsuit', 'skirt', 'jacket', 'coat', 'sweater', 'hoodie', 'blazer', 'suit', 'vest', 'cardigan', 'polo', 'blouse', 'tank-top', 'shoes', 'sneakers', 'boots', 'sandals', 'socks', 'tights', 'tie', 'hat', 'scarf', 'belt', 'bag', 'accessories', 'leggings', 'camisole', 'bodysuit', 'sweatshirt', 'heels', 'flats', 'overalls', 'poncho', 'watch'] as const;
+export const CLOTHING_TYPE_VALUES = ['shirt', 't-shirt', 'top', 'pants', 'jeans', 'shorts', 'dress', 'jumpsuit', 'skirt', 'jacket', 'coat', 'sweater', 'hoodie', 'blazer', 'suit', 'vest', 'cardigan', 'polo', 'blouse', 'tank-top', 'shoes', 'sneakers', 'boots', 'sandals', 'socks', 'tights', 'tie', 'hat', 'scarf', 'belt', 'bag', 'accessories', 'leggings', 'camisole', 'bodysuit', 'sweatshirt', 'heels', 'flats', 'overalls', 'poncho', 'watch', 'ring', 'necklace', 'earrings', 'bracelet', 'bangles', 'cufflinks', 'kurta', 'sherwani', 'saree', 'lehenga', 'salwar-kameez', 'dupatta', 'dhoti', 'mojari'] as const;
 export const MATERIAL_VALUES = ['cotton', 'denim', 'leather', 'wool', 'polyester', 'silk', 'linen', 'knit', 'fleece', 'suede', 'velvet', 'nylon', 'canvas', 'down', 'shearling'] as const;
 export const FORMALITY_VALUES = ['very-casual', 'casual', 'smart-casual', 'business-casual', 'formal', 'very-formal'] as const;
 export const PATTERN_VALUES = ['solid', 'striped', 'plaid', 'checkered', 'floral', 'graphic', 'geometric', 'polka-dot', 'camouflage', 'animal-print'] as const;
@@ -52,6 +52,20 @@ export const ITEM_ROLE: Record<string, string> = {
   overalls: 'bottom',
   poncho: 'outer_layer',
   watch: 'accessory',
+  ring: 'accessory',
+  necklace: 'accessory',
+  earrings: 'accessory',
+  bracelet: 'accessory',
+  bangles: 'accessory',
+  cufflinks: 'accessory',
+  kurta: 'base_top',
+  sherwani: 'outer_layer',
+  saree: 'full_body',
+  lehenga: 'full_body',
+  'salwar-kameez': 'full_body',
+  dupatta: 'accessory',
+  dhoti: 'bottom',
+  mojari: 'footwear',
 };
 
 export const CLOTHING_COLORS = [

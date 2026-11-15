@@ -251,7 +251,21 @@
     "tights": "タイツ",
     "top": "トップス",
     "vest": "ベスト",
-    "watch": "腕時計"
+    "watch": "腕時計",
+    "ring": "リング",
+    "necklace": "ネックレス",
+    "earrings": "イヤリング",
+    "bracelet": "ブレスレット",
+    "bangles": "バングル",
+    "cufflinks": "カフスボタン",
+    "kurta": "クルタ",
+    "sherwani": "シェルワニ",
+    "saree": "サリー",
+    "lehenga": "レヘンガ",
+    "salwar-kameez": "サルワール・カミーズ",
+    "dupatta": "ドゥパッタ",
+    "dhoti": "ドーティ",
+    "mojari": "モジャリ"
   },
   "weatherConditions": {
     "clear": "晴れ",

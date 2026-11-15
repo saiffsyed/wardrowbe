@@ -6,6 +6,7 @@ from sqlalchemy import and_, func, or_, select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes, selectinload
 
+from app.models.home import Home
 from app.models.item import (
     TAG_COLUMNS,
     ClothingItem,
@@ -14,6 +15,7 @@ from app.models.item import (
     TaggingStatus,
     WashHistory,
 )
+from app.models.user import User
 from app.schemas.item import (
     DEFAULT_WASH_INTERVALS,
     USER_TAG_KEYS,
@@ -30,6 +32,10 @@ _EDITABLE_ITEM_FIELDS = ("type", "subtype", "primary_color", "colors")
 
 class TagVocabularyError(ValueError):
     """A tag value outside its vocabulary that the item did not already have."""
+
+
+class UnknownHomeError(ValueError):
+    """A home that does not exist or belongs to someone else."""
 
 
 def _keep_colours_in_step(update_data: dict, incoming: dict, current: dict, existing: dict) -> None:
@@ -130,6 +136,23 @@ class ItemService:
             clauses.append(ClothingItem.colors.overlap(filters.colors))
         if filters.needs_wash is not None:
             clauses.append(ClothingItem.needs_wash == filters.needs_wash)
+        if filters.home_id:
+            clauses.append(ClothingItem.home_id == filters.home_id)
+        if filters.occasion:
+            clauses.append(ClothingItem.tags["occasions"].contains([filters.occasion.lower()]))
+        if filters.brand:
+            clauses.append(func.lower(ClothingItem.brand) == filters.brand.strip().lower())
+        if filters.material:
+            material = filters.material.strip().lower()
+            # Either the single material the tagger saw or a line of the label's composition.
+            clauses.append(
+                or_(
+                    func.lower(ClothingItem.material) == material,
+                    ClothingItem.tags["composition"].contains([{"material": material}]),
+                )
+            )
+        if filters.season:
+            clauses.append(ClothingItem.season.contains([filters.season]))
         if filters.search:
             search_term = f"%{filters.search}%"
             clauses.append(
@@ -168,6 +191,8 @@ class ItemService:
             "wear_count": ClothingItem.wear_count,
             "name": ClothingItem.name,
             "type": ClothingItem.type,
+            "brand": ClothingItem.brand,
+            "purchase_price": ClothingItem.purchase_price,
         }
         sort_col = sort_columns.get(filters.sort_by or "", ClothingItem.created_at)
         if filters.sort_order == "asc":
@@ -260,9 +285,15 @@ class ItemService:
         if item_data.tags:
             tags = item_data.tags.model_dump(exclude_none=True)
 
+        # A new item goes into the home the user says they are in, if they have set one.
+        home_id = (
+            await self.db.execute(select(User.current_home_id).where(User.id == user_id))
+        ).scalar_one_or_none()
+
         # Create item
         item = ClothingItem(
             user_id=user_id,
+            home_id=home_id,
             image_path=image_paths["image_path"],
             thumbnail_path=image_paths.get("thumbnail_path"),
             medium_path=image_paths.get("medium_path"),
@@ -289,6 +320,15 @@ class ItemService:
 
     async def update(self, item: ClothingItem, item_data: ItemUpdate) -> ClothingItem:
         update_data = item_data.model_dump(exclude_unset=True)
+
+        if update_data.get("home_id") is not None:
+            owned = await self.db.scalar(
+                select(Home.id).where(
+                    Home.id == update_data["home_id"], Home.user_id == item.user_id
+                )
+            )
+            if owned is None:
+                raise UnknownHomeError("Home not found")
 
         # A null (or empty) tags object means "no change". Clearing one tag is a null
         # *inside* the object; writing None for the whole thing would wipe every tag, the

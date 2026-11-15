@@ -251,7 +251,21 @@
     "tights": "Strumpfhose",
     "top": "Top",
     "vest": "Weste",
-    "watch": "Armbanduhr"
+    "watch": "Armbanduhr",
+    "ring": "Ring",
+    "necklace": "Halskette",
+    "earrings": "Ohrringe",
+    "bracelet": "Armband",
+    "bangles": "Armreifen",
+    "cufflinks": "Manschettenknöpfe",
+    "kurta": "Kurta",
+    "sherwani": "Sherwani",
+    "saree": "Sari",
+    "lehenga": "Lehenga",
+    "salwar-kameez": "Salwar Kameez",
+    "dupatta": "Dupatta",
+    "dhoti": "Dhoti",
+    "mojari": "Mojari"
   },
   "weatherConditions": {
     "clear": "Klar",

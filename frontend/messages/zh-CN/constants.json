@@ -251,7 +251,21 @@
     "tights": "连裤袜",
     "top": "上装",
     "vest": "马甲",
-    "watch": "手表"
+    "watch": "手表",
+    "ring": "戒指",
+    "necklace": "项链",
+    "earrings": "耳环",
+    "bracelet": "手链",
+    "bangles": "手镯",
+    "cufflinks": "袖扣",
+    "kurta": "库尔塔",
+    "sherwani": "谢尔瓦尼",
+    "saree": "纱丽",
+    "lehenga": "莱恒加",
+    "salwar-kameez": "沙尔瓦卡米兹",
+    "dupatta": "杜帕塔",
+    "dhoti": "多蒂",
+    "mojari": "莫贾里"
   },
   "weatherConditions": {
     "clear": "晴天",

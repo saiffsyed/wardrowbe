@@ -251,7 +251,21 @@
     "tights": "Collants",
     "top": "Haut",
     "vest": "Gilet sans manches",
-    "watch": "Montre"
+    "watch": "Montre",
+    "ring": "Bague",
+    "necklace": "Collier",
+    "earrings": "Boucles d'oreilles",
+    "bracelet": "Bracelet",
+    "bangles": "Joncs",
+    "cufflinks": "Boutons de manchette",
+    "kurta": "Kurta",
+    "sherwani": "Sherwani",
+    "saree": "Sari",
+    "lehenga": "Lehenga",
+    "salwar-kameez": "Salwar kameez",
+    "dupatta": "Dupatta",
+    "dhoti": "Dhoti",
+    "mojari": "Mojari"
   },
   "weatherConditions": {
     "clear": "Dégagé",
