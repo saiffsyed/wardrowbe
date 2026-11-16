@@ -412,7 +412,10 @@
       "save": "儲存詳情",
       "cancel": "取消",
       "saved": "詳情已儲存",
-      "saveFailed": "無法儲存詳情"
+      "saveFailed": "無法儲存詳情",
+      "status": "狀態",
+      "statusReady": "可以穿",
+      "statusNeedsWash": "需要清洗"
     },
     "labelScan": {
       "title": "掃描標籤",

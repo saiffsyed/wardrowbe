@@ -23,8 +23,8 @@ export function LabelPhotos({ itemId }: { itemId: string }) {
   if (!photos?.length) return null;
 
   return (
-    <div className="space-y-1.5">
-      <p className="text-xs text-muted-foreground">{t('photos')}</p>
+    <div className="space-y-2">
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('photos')}</h3>
       <ul className="flex gap-2 overflow-x-auto">
         {photos.map((photo, index) => (
           <li key={photo.id} className="shrink-0">

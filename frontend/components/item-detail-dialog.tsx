@@ -10,7 +10,6 @@ import {
   X,
   Loader2,
   Calendar,
-  Tag,
   Palette,
   Shirt,
   Sparkles,
@@ -869,12 +868,6 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       <p className="text-xs text-amber-600 dark:text-amber-500">
                         {t('unrecognizedType', { value: unrecognizedType })}
                       </p>
-                    )}
-                    {item.brand && (
-                      <div className="flex items-center gap-2 text-sm">
-                        <Tag className="h-4 w-4 text-muted-foreground" />
-                        <span>{item.brand}</span>
-                      </div>
                     )}
                     {colorInfo && (
                       <div className="flex items-center gap-2 text-sm">

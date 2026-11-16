@@ -412,7 +412,10 @@
       "save": "保存详情",
       "cancel": "取消",
       "saved": "详情已保存",
-      "saveFailed": "无法保存详情"
+      "saveFailed": "无法保存详情",
+      "status": "状态",
+      "statusReady": "可以穿",
+      "statusNeedsWash": "需要清洗"
     },
     "labelScan": {
       "title": "扫描标签",

@@ -412,7 +412,10 @@
       "save": "Details speichern",
       "cancel": "Abbrechen",
       "saved": "Details gespeichert",
-      "saveFailed": "Details konnten nicht gespeichert werden"
+      "saveFailed": "Details konnten nicht gespeichert werden",
+      "status": "Status",
+      "statusReady": "Tragebereit",
+      "statusNeedsWash": "Muss gewaschen werden"
     },
     "labelScan": {
       "title": "Etikett scannen",

@@ -142,12 +142,27 @@ function CompositionBar({ shares }: { shares: MaterialShare[] }) {
   );
 }
 
+const CARD = 'rounded-2xl border bg-card';
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{children}</h3>;
+}
+
+function Tile({ label, value }: { label: string; value: string }) {
+  return (
+    <div className={`${CARD} flex min-h-[3.75rem] flex-col justify-center gap-0.5 px-3`}>
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="truncate text-[15px] font-semibold">{value}</span>
+    </div>
+  );
+}
+
 function Fact({ label, value }: { label: string; value: string | undefined }) {
   if (!value) return null;
   return (
-    <div className="flex items-baseline justify-between gap-4 py-1.5">
-      <dt className="shrink-0 text-xs text-muted-foreground">{label}</dt>
-      <dd className="min-w-0 break-words text-right text-sm font-medium">{value}</dd>
+    <div className="flex min-h-[3rem] items-center justify-between gap-4 py-2">
+      <dt className="shrink-0 text-sm text-muted-foreground">{label}</dt>
+      <dd className="min-w-0 break-words text-right text-[15px] font-semibold">{value}</dd>
     </div>
   );
 }
@@ -216,50 +231,84 @@ export function ClosetDetails({ item }: { item: Item }) {
   };
 
   if (!editing) {
+    // Care is typed and read as one line, and shown one instruction to a row.
+    const careSteps = (tags.care_instructions ?? '')
+      .split(/[,;\n]/)
+      .map((step) => step.trim())
+      .filter(Boolean)
+      // Each row starts a line of its own, so it starts with a capital.
+      .map((step) => step.charAt(0).toLocaleUpperCase() + step.slice(1));
+    const hasFacts = !!(item.brand || size || tags.fit_note || tags.purchase_place);
+
     return (
-      <div className="space-y-2 border-t pt-2">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-sm font-medium">
-            <Tag className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-            {t('title')}
-          </div>
-          <div className="flex items-center">
-            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => setScanning(true)}>
-              <ScanLine className="h-3.5 w-3.5" aria-hidden="true" />
-              {t('scanLabel')}
-            </Button>
-            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={startEditing}>
-              <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
-              {hasAnything ? t('edit') : t('add')}
-            </Button>
-          </div>
+      <div className="space-y-4 border-t pt-3">
+        <div className="grid grid-cols-2 gap-2.5">
+          {home && <Tile label={t('home')} value={home.name} />}
+          <Tile label={t('status')} value={item.needs_wash ? t('statusNeedsWash') : t('statusReady')} />
         </div>
 
-        {!hasAnything && <p className="text-xs text-muted-foreground">{t('empty')}</p>}
-
         {!!tags.occasions?.length && (
-          <ul className="flex flex-wrap gap-1.5" aria-label={t('occasions')}>
-            {tags.occasions.map((occasion) => (
-              <li key={occasion}>
-                <Badge variant="secondary">{occasionLabel(occasion)}</Badge>
-              </li>
-            ))}
-          </ul>
+          <section className="space-y-2">
+            <SectionLabel>{t('occasions')}</SectionLabel>
+            <ul className="flex flex-wrap gap-2" aria-label={t('occasions')}>
+              {tags.occasions.map((occasion) => (
+                <li
+                  key={occasion}
+                  className="flex h-9 items-center rounded-[10px] border border-primary bg-accent px-3.5 text-sm font-semibold text-accent-foreground"
+                >
+                  {occasionLabel(occasion)}
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
 
-        <dl className="divide-y">
-          <Fact label={t('home')} value={home?.name} />
-          <Fact label={t('size')} value={size} />
-          <Fact label={t('fitNote')} value={tags.fit_note} />
-          <Fact label={t('boughtIn')} value={tags.purchase_place} />
-          <Fact label={t('care')} value={tags.care_instructions} />
-        </dl>
+        <section className="space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <SectionLabel>{t('title')}</SectionLabel>
+            <div className="-my-1 flex items-center">
+              <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={() => setScanning(true)}>
+                <ScanLine className="h-3.5 w-3.5" aria-hidden="true" />
+                {t('scanLabel')}
+              </Button>
+              <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={startEditing}>
+                <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+                {hasAnything ? t('edit') : t('add')}
+              </Button>
+            </div>
+          </div>
+          {hasFacts ? (
+            <dl className={`${CARD} divide-y px-3.5`}>
+              <Fact label={t('brand')} value={item.brand ?? undefined} />
+              <Fact label={t('size')} value={size} />
+              <Fact label={t('fitNote')} value={tags.fit_note} />
+              <Fact label={t('boughtIn')} value={tags.purchase_place} />
+            </dl>
+          ) : (
+            !hasAnything && <p className="text-xs text-muted-foreground">{t('empty')}</p>
+          )}
+        </section>
 
         {!!tags.composition?.length && (
-          <div className="space-y-1.5">
-            <p className="text-xs text-muted-foreground">{t('materials')}</p>
-            <CompositionBar shares={tags.composition} />
-          </div>
+          <section className="space-y-2">
+            <SectionLabel>{t('materials')}</SectionLabel>
+            <div className={`${CARD} p-3.5`}>
+              <CompositionBar shares={tags.composition} />
+            </div>
+          </section>
+        )}
+
+        {careSteps.length > 0 && (
+          <section className="space-y-2">
+            <SectionLabel>{t('care')}</SectionLabel>
+            <ol className={`${CARD} divide-y px-3.5`} aria-label={t('care')}>
+              {careSteps.map((step, index) => (
+                <li key={index} className="flex min-h-[2.75rem] items-center py-2 text-[15px]">
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </section>
         )}
 
         <LabelPhotos itemId={item.id} />

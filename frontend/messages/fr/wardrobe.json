@@ -412,7 +412,10 @@
       "save": "Enregistrer les détails",
       "cancel": "Annuler",
       "saved": "Détails enregistrés",
-      "saveFailed": "Impossible d'enregistrer les détails"
+      "saveFailed": "Impossible d'enregistrer les détails",
+      "status": "État",
+      "statusReady": "Prêt à porter",
+      "statusNeedsWash": "À laver"
     },
     "labelScan": {
       "title": "Scanner l'étiquette",

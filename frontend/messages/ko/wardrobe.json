@@ -412,7 +412,10 @@
       "save": "상세 정보 저장",
       "cancel": "취소",
       "saved": "상세 정보를 저장했습니다",
-      "saveFailed": "상세 정보를 저장하지 못했습니다"
+      "saveFailed": "상세 정보를 저장하지 못했습니다",
+      "status": "상태",
+      "statusReady": "입을 수 있음",
+      "statusNeedsWash": "세탁 필요"
     },
     "labelScan": {
       "title": "라벨 스캔",

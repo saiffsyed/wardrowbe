@@ -412,7 +412,10 @@
       "save": "詳細を保存",
       "cancel": "キャンセル",
       "saved": "詳細を保存しました",
-      "saveFailed": "詳細を保存できませんでした"
+      "saveFailed": "詳細を保存できませんでした",
+      "status": "状態",
+      "statusReady": "着用できます",
+      "statusNeedsWash": "洗濯が必要"
     },
     "labelScan": {
       "title": "ラベルをスキャン",

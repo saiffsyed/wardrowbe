@@ -93,7 +93,10 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   suits, Outerwear, Traditional, Shoes, Jewellery, Accessories. Traditional holds kurta,
   sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari. The mock-up had six
   (with Bags); two were added so every item type has a place.
-- **Not applied yet**: item screen with details grouped in cards.
+- **Item screen follows the mock-up's cards** (built): Kept in and Status tiles, occasion
+  chips, a Details card (brand, size, fit note, bought in), a Material card and a Care
+  card with one instruction per row. The top row of icon buttons, wash status, wear
+  history and AI analysis sections below are still the original app's.
 - **Clothes photos have their background removed automatically when an item is added**
   (built). The cleaned photo is saved on white; the untouched photo is kept, so the
   existing "undo background removal" button brings it back. If removal fails the item is
@@ -141,7 +144,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Item screen in the mock-up's card layout; currency, "app starts in"
+- Rest of the item screen (icon row, wash, history, AI sections) in the new style;
+  bought-on date and price in the Details card; currency, "app starts in"
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar

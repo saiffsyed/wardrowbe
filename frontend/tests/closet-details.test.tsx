@@ -97,6 +97,26 @@ describe('ClosetDetails', () => {
     })
   })
 
+  it('shows the brand, the wash status and care one instruction to a row', () => {
+    render(
+      <ClosetDetails
+        item={item({
+          needs_wash: true,
+          tags: { care_instructions: 'Dry clean only, do not tumble dry; cool iron' },
+        } as Partial<Item>)}
+      />
+    )
+
+    expect(screen.getByText('Tailor-made')).toBeTruthy()
+    expect(screen.getByText('statusNeedsWash')).toBeTruthy()
+    const care = screen.getByRole('list', { name: 'care' })
+    expect(Array.from(care.children).map((li) => li.textContent)).toEqual([
+      'Dry clean only',
+      'Do not tumble dry',
+      'Cool iron',
+    ])
+  })
+
   it('offers a label scan and shows the label photos that were kept', () => {
     labelPhotos = [{ id: 'photo-1', image_url: '/full.jpg', thumbnail_url: '/thumb.jpg' }]
     render(<ClosetDetails item={item()} />)

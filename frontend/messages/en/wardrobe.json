@@ -412,7 +412,10 @@
       "save": "Save details",
       "cancel": "Cancel",
       "saved": "Details saved",
-      "saveFailed": "Couldn't save the details"
+      "saveFailed": "Couldn't save the details",
+      "status": "Status",
+      "statusReady": "Ready to wear",
+      "statusNeedsWash": "Needs a wash"
     },
     "labelScan": {
       "title": "Scan the label",
