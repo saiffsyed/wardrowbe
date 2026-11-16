@@ -35,8 +35,14 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   upstream merges stay easy. Frontend additions live in `frontend/components/wardrobe/`
   and `frontend/lib/hooks/use-homes.ts`; backend in `backend/app/api/homes.py`,
   `backend/app/api/wardrobe_facets.py`, `backend/app/models/home.py`.
-- Our database migration `b8e4d0f2a6c3_add_homes` hangs off upstream head `a7d3c9e1f5b2`.
-  After merging upstream migrations, re-parent ours onto the new head.
+- Label reader: backend `backend/app/api/label_scan.py`,
+  `backend/app/services/label_reader.py` (the AI instructions and answer parsing),
+  `backend/app/services/label_photos.py`, `backend/app/models/label_photo.py`; frontend
+  `frontend/components/wardrobe/label-*.tsx`, `frontend/lib/label-scan.ts`,
+  `frontend/lib/hooks/use-label-scan.ts`.
+- Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
+  `a7d3c9e1f5b2`, and `c9f5e1a3b7d4_add_item_label_photos` hangs off that. After merging
+  upstream migrations, re-parent the first of ours onto the new head.
 - `backend/tests/migration_helpers.py` has a `FORK_COLUMNS` list so upstream's
   migration tests still pass; add any new fork column on an upstream table there.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
@@ -58,7 +64,8 @@ NextAuth, vitest.
 
 Needs PostgreSQL and Redis running locally.
 
-Backend (from `backend/`, in a Python 3.13 virtualenv with `requirements.txt` + `ruff`):
+Backend (from `backend/`, in a Python 3.13 virtualenv with `requirements.txt` + `ruff`; the
+virtualenv's `bin` must be first on `PATH`, because the tests run `python -m alembic`):
 
 ```
 TEST_DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/wardrobe_test \

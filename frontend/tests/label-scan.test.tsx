@@ -119,8 +119,8 @@ describe('LabelScanDialog', () => {
     const radios = screen.getAllByRole('radio')
     expect(radios.map((radio) => (radio as HTMLInputElement).checked)).toEqual([true, false, true, false])
     fireEvent.click(radios[1])
-    // Inputs in order: size, size system, care.
-    fireEvent.change(screen.getAllByLabelText('fromLabelValue', { selector: 'input' })[0], { target: { value: ' 44 ' } })
+    // Boxes in order: size, size system, care.
+    fireEvent.change(screen.getAllByLabelText('fromLabelValue')[0], { target: { value: ' 44 ' } })
     // The size system is new and ticked; untick the care line.
     fireEvent.click(screen.getAllByRole('checkbox')[1])
     fireEvent.click(screen.getByRole('button', { name: 'confirm' }))

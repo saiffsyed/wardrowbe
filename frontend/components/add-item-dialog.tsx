@@ -261,7 +261,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   return (
     <>
     <Dialog open={open} onOpenChange={handleCloseRequest}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>
@@ -615,6 +615,15 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+
+    {labelScan && (
+      <LabelScanDialog
+        item={labelScan.item}
+        initialFiles={labelScan.files}
+        open
+        onOpenChange={(next) => !next && setLabelScan(null)}
+      />
+    )}
     </>
   );
 }

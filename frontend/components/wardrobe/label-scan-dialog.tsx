@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { getErrorMessage } from '@/lib/api';
 import { useUpdateClosetDetails } from '@/lib/hooks/use-homes';
 import { MAX_LABEL_PHOTOS_PER_SCAN, useScanLabel } from '@/lib/hooks/use-label-scan';
@@ -87,11 +88,21 @@ function ReviewRow({
   const labelValue =
     row.field === 'composition' ? (
       <p className="break-words text-sm font-medium">{summary(row.read)}</p>
+    ) : row.field === 'care_instructions' ? (
+      // Care runs to several instructions; a one-line box would hide most of it.
+      <Textarea
+        aria-label={t('fromLabelValue', { field: label })}
+        value={choice.value}
+        maxLength={255}
+        rows={3}
+        className="min-h-0 resize-none"
+        onChange={(event) => onChange({ ...choice, value: event.target.value })}
+      />
     ) : (
       <Input
         aria-label={t('fromLabelValue', { field: label })}
         value={choice.value}
-        maxLength={row.field === 'care_instructions' ? 255 : row.field === 'brand' ? 100 : 32}
+        maxLength={row.field === 'brand' ? 100 : 32}
         onChange={(event) => onChange({ ...choice, value: event.target.value })}
       />
     );
@@ -117,8 +128,11 @@ function ReviewRow({
   }
 
   return (
-    <fieldset className="space-y-2 py-2.5">
-      <legend className="text-xs text-muted-foreground">{t('differs', { field: label })}</legend>
+    // Not a fieldset: its legend would cut through the divider line above the row.
+    <div role="radiogroup" aria-labelledby={`${id}-title`} className="space-y-2 py-2.5">
+      <p id={`${id}-title`} className="text-xs text-muted-foreground">
+        {t('differs', { field: label })}
+      </p>
       <label className="flex items-start gap-3 text-sm">
         <input
           type="radio"
@@ -148,7 +162,7 @@ function ReviewRow({
           {labelValue}
         </div>
       </div>
-    </fieldset>
+    </div>
   );
 }
 
@@ -254,7 +268,7 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
         {picked.length > 0 && (
           <ul className="flex gap-2 overflow-x-auto" aria-label={t('photos')}>
             {picked.map((photo, index) => (
-              <li key={photo.preview} className="relative h-28 w-28 shrink-0 overflow-hidden rounded-md border bg-muted">
+              <li key={photo.preview} className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border bg-muted">
                 {/* A local preview of a file not uploaded yet; next/image has nothing to fetch. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={photo.preview} alt={t('photoNumber', { number: index + 1 })} className="h-full w-full object-cover" />

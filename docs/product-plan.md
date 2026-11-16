@@ -25,6 +25,13 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
 - Brand, size, size system, fit note, **where it was bought** (not where it was made),
   material mix with percentages, care, price / receipt.
 - **Label photo reader**: photograph the tag, AI extracts the details, the user confirms.
+  - Started from a "Scan label" button in Details, or as an optional step when adding an item.
+  - One scan takes up to 3 photos (front, back, hang tag).
+  - Nothing is saved until Confirm. If a detail is already filled in and the label differs,
+    both are shown and the saved one is kept unless the label is picked.
+  - The label photos are kept with the item, compressed (about 30–200 KB each), up to 6 per
+    item, so a size or care symbol can be checked again later.
+- **Details sit at the top of the item screen**, right under the photo and basic facts.
 
 ### Homes
 - Clothes are spread over three homes: Europe, Chennai, Kadiri.
@@ -86,7 +93,12 @@ Built and tested (backend + frontend, on branch `stage-1`):
 - Homes: create, rename, delete, set current, move items; first home adopts existing
   items; switching home updates the weather city. Settings card and a home bar on the
   wardrobe page.
-- New item details with in-place editing (`ClosetDetails` in the item dialog).
+- New item details with in-place editing (`ClosetDetails` in the item dialog), shown at the
+  top of the item screen.
+- Label photo reader: reads brand, size, size system, material mix and care; review and
+  confirm screen; kept label photos open large and can be deleted. Works with whichever AI
+  provider is configured. **Only tested with a stand-in AI so far, not with real label
+  photos and a real provider.**
 - Filters by home, occasion, brand, material, season, with counts
   (`GET /wardrobe/facets`); sort by brand and price.
 - Three views: cut-outs, tiles, list.
@@ -94,8 +106,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
   sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari.
 
 Still to do in Stage 1:
-- Label photo reader (backend AI endpoint + confirm screen) — suggested next
-- Move Details to the top of the item screen (asked, not yet answered)
+- Try the label reader on real labels once an AI provider is chosen, and tune its
+  instructions if it misreads
 - Apply the agreed dark / green design; Display setting, currency, "app starts in"
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
@@ -106,9 +118,8 @@ Still to do in Stage 1:
 
 ## Open questions for Saiff
 
-- What to build next: label reader (recommended), dark design, or tabs?
-- Details at the top of the item screen?
-- AI provider: OpenAI or Gemini (label reader can be built to work with either)
+- What to build next: dark design, or tabs?
+- AI provider: OpenAI or Gemini (the label reader works with either)
 - App name and domain (a domain is needed for Google sign-in)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
