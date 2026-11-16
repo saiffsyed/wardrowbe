@@ -384,6 +384,7 @@
       "title": "Dettagli",
       "edit": "Modifica dettagli",
       "add": "Aggiungi dettagli",
+      "scanLabel": "Scansiona etichetta",
       "empty": "Aggiungi taglia, materiale e dove lo hai comprato.",
       "home": "Si trova a",
       "none": "Non impostato",
@@ -412,6 +413,43 @@
       "cancel": "Annulla",
       "saved": "Dettagli salvati",
       "saveFailed": "Impossibile salvare i dettagli"
+    },
+    "labelScan": {
+      "title": "Scansiona l'etichetta",
+      "pickHint": "Fotografa l'etichetta di manutenzione. Aggiungi l'altro lato o il cartellino se le informazioni sono divise.",
+      "reviewHint": "Controlla ciò che è stato letto. Nulla viene salvato finché non confermi.",
+      "unreadTitle": "Non è stato possibile leggere l'etichetta",
+      "photos": "Foto dell'etichetta",
+      "photoNumber": "Foto etichetta {number}",
+      "removePhoto": "Rimuovi la foto etichetta {number}",
+      "addPhoto": "Aggiungi una foto dell'etichetta",
+      "addAnother": "Aggiungi un'altra foto",
+      "tip": "Stendi bene l'etichetta, con buona luce, e inquadrala da vicino. Fino a 3 foto.",
+      "cancel": "Annulla",
+      "read": "Leggi etichetta",
+      "reading": "Lettura dell'etichetta…",
+      "unread": {
+        "nothing_read": "In queste foto non si distingue alcun dettaglio. Riprova più da vicino e con più luce.",
+        "ai_disabled": "La lettura delle etichette è disattivata su questo server.",
+        "ai_unreachable": "Il servizio di IA non è raggiungibile. Riprova tra un momento."
+      },
+      "photosKept": "Le foto restano salvate con questo capo, così puoi ricontrollarle in seguito.",
+      "close": "Chiudi",
+      "confirm": "Conferma",
+      "saved": "Dettagli dell'etichetta salvati",
+      "saveFailed": "Impossibile salvare i dettagli",
+      "scanFailed": "Impossibile scansionare l'etichetta",
+      "alreadySaved": "{field} · già salvato",
+      "fromLabelValue": "{field} dall'etichetta",
+      "take": "Salva {field}",
+      "differs": "{field} · l'etichetta riporta altro",
+      "keepSaved": "Mantieni il valore salvato",
+      "useLabel": "Usa l'etichetta",
+      "openPhoto": "Apri la foto etichetta {number}",
+      "deletePhoto": "Elimina foto",
+      "removeFailed": "Impossibile eliminare la foto",
+      "optionalStep": "Foto dell'etichetta (facoltativo)",
+      "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te."
     }
   }
 }

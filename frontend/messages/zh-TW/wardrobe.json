@@ -384,6 +384,7 @@
       "title": "詳情",
       "edit": "編輯詳情",
       "add": "新增詳情",
+      "scanLabel": "掃描標籤",
       "empty": "新增尺碼、材質和購買地點。",
       "home": "存放於",
       "none": "未設定",
@@ -412,6 +413,43 @@
       "cancel": "取消",
       "saved": "詳情已儲存",
       "saveFailed": "無法儲存詳情"
+    },
+    "labelScan": {
+      "title": "掃描標籤",
+      "pickHint": "拍一張洗滌標籤的照片。如果資訊分散在多處，可以再加入背面或吊牌。",
+      "reviewHint": "請核對讀取的內容。確認之前不會儲存任何內容。",
+      "unreadTitle": "無法讀取標籤",
+      "photos": "標籤照片",
+      "photoNumber": "標籤照片 {number}",
+      "removePhoto": "移除標籤照片 {number}",
+      "addPhoto": "新增標籤照片",
+      "addAnother": "再新增一張照片",
+      "tip": "把標籤鋪平，在光線充足處拍攝並讓標籤佔滿畫面。最多 3 張。",
+      "cancel": "取消",
+      "read": "讀取標籤",
+      "reading": "正在讀取標籤…",
+      "unread": {
+        "nothing_read": "這些照片中無法辨識出任何資訊。請靠近一些並在更亮的地方重試。",
+        "ai_disabled": "此伺服器已關閉標籤讀取功能。",
+        "ai_unreachable": "無法連線至 AI 服務。請稍後再試。"
+      },
+      "photosKept": "照片會與這件單品一起保存，方便日後查看。",
+      "close": "關閉",
+      "confirm": "確認",
+      "saved": "已儲存標籤上的資訊",
+      "saveFailed": "無法儲存詳細資料",
+      "scanFailed": "無法掃描標籤",
+      "alreadySaved": "{field} · 已儲存",
+      "fromLabelValue": "標籤上的{field}",
+      "take": "儲存{field}",
+      "differs": "{field} · 標籤上的內容不同",
+      "keepSaved": "保留已儲存的內容",
+      "useLabel": "使用標籤上的內容",
+      "openPhoto": "開啟標籤照片 {number}",
+      "deletePhoto": "刪除照片",
+      "removeFailed": "無法刪除照片",
+      "optionalStep": "標籤照片（選填）",
+      "optionalHint": "新增洗滌標籤的照片，尺寸、材質和保養方式會自動讀取。"
     }
   }
 }

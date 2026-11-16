@@ -43,6 +43,7 @@ export const queryKeys = {
   taggingProgress: ['tagging-progress'] as const,
   washHistory: (itemId: string) => ['wash-history', itemId] as const,
   garmentDetection: (itemId: string) => ['garment-detection', itemId] as const,
+  labelPhotos: (itemId: string) => ['label-photos', itemId] as const,
   wearStats: {
     all: WEAR_STATS,
     item: (itemId: string) => [...WEAR_STATS, itemId] as const,

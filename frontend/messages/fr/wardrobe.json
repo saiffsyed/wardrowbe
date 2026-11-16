@@ -384,6 +384,7 @@
       "title": "Détails",
       "edit": "Modifier les détails",
       "add": "Ajouter des détails",
+      "scanLabel": "Scanner l'étiquette",
       "empty": "Ajoutez la taille, la matière et le lieu d'achat.",
       "home": "Rangé à",
       "none": "Non défini",
@@ -412,6 +413,43 @@
       "cancel": "Annuler",
       "saved": "Détails enregistrés",
       "saveFailed": "Impossible d'enregistrer les détails"
+    },
+    "labelScan": {
+      "title": "Scanner l'étiquette",
+      "pickHint": "Prenez en photo l'étiquette d'entretien. Ajoutez l'autre face ou l'étiquette volante si les informations sont réparties.",
+      "reviewHint": "Vérifiez ce qui a été lu. Rien n'est enregistré avant votre confirmation.",
+      "unreadTitle": "L'étiquette n'a pas pu être lue",
+      "photos": "Photos de l'étiquette",
+      "photoNumber": "Photo d'étiquette {number}",
+      "removePhoto": "Retirer la photo d'étiquette {number}",
+      "addPhoto": "Ajouter une photo d'étiquette",
+      "addAnother": "Ajouter une autre photo",
+      "tip": "Posez l'étiquette à plat, sous une bonne lumière, et cadrez-la de près. Jusqu'à 3 photos.",
+      "cancel": "Annuler",
+      "read": "Lire l'étiquette",
+      "reading": "Lecture de l'étiquette…",
+      "unread": {
+        "nothing_read": "Aucune information n'a pu être distinguée sur ces photos. Réessayez de plus près et avec plus de lumière.",
+        "ai_disabled": "La lecture des étiquettes est désactivée sur ce serveur.",
+        "ai_unreachable": "Le service d'IA est injoignable. Réessayez dans un instant."
+      },
+      "photosKept": "Les photos sont conservées avec cet article pour que vous puissiez les consulter plus tard.",
+      "close": "Fermer",
+      "confirm": "Confirmer",
+      "saved": "Détails de l'étiquette enregistrés",
+      "saveFailed": "Impossible d'enregistrer les détails",
+      "scanFailed": "Impossible de scanner l'étiquette",
+      "alreadySaved": "{field} · déjà enregistré",
+      "fromLabelValue": "{field} d'après l'étiquette",
+      "take": "Enregistrer {field}",
+      "differs": "{field} · l'étiquette indique autre chose",
+      "keepSaved": "Garder la valeur enregistrée",
+      "useLabel": "Utiliser l'étiquette",
+      "openPhoto": "Ouvrir la photo d'étiquette {number}",
+      "deletePhoto": "Supprimer la photo",
+      "removeFailed": "Impossible de supprimer la photo",
+      "optionalStep": "Photos de l'étiquette (facultatif)",
+      "optionalHint": "Ajoutez une photo de l'étiquette d'entretien : la taille, la matière et l'entretien seront lus pour vous."
     }
   }
 }

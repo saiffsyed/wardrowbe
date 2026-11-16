@@ -384,6 +384,7 @@
       "title": "Details",
       "edit": "Details bearbeiten",
       "add": "Details hinzufügen",
+      "scanLabel": "Etikett scannen",
       "empty": "Füge Größe, Material und Kaufort hinzu.",
       "home": "Liegt in",
       "none": "Nicht festgelegt",
@@ -412,6 +413,43 @@
       "cancel": "Abbrechen",
       "saved": "Details gespeichert",
       "saveFailed": "Details konnten nicht gespeichert werden"
+    },
+    "labelScan": {
+      "title": "Etikett scannen",
+      "pickHint": "Fotografiere das Pflegeetikett. Füge die Rückseite oder das Hängeetikett hinzu, wenn die Angaben verteilt sind.",
+      "reviewHint": "Prüfe, was gelesen wurde. Gespeichert wird erst, wenn du bestätigst.",
+      "unreadTitle": "Das Etikett konnte nicht gelesen werden",
+      "photos": "Etikettfotos",
+      "photoNumber": "Etikettfoto {number}",
+      "removePhoto": "Etikettfoto {number} entfernen",
+      "addPhoto": "Etikettfoto hinzufügen",
+      "addAnother": "Weiteres Foto hinzufügen",
+      "tip": "Lege das Etikett flach in gutes Licht und fülle das Bild damit aus. Bis zu 3 Fotos.",
+      "cancel": "Abbrechen",
+      "read": "Etikett lesen",
+      "reading": "Etikett wird gelesen …",
+      "unread": {
+        "nothing_read": "Auf diesen Fotos waren keine Angaben zu erkennen. Versuche es näher und bei besserem Licht erneut.",
+        "ai_disabled": "Das Lesen von Etiketten ist auf diesem Server ausgeschaltet.",
+        "ai_unreachable": "Der KI-Dienst war nicht erreichbar. Versuche es gleich noch einmal."
+      },
+      "photosKept": "Die Fotos bleiben bei diesem Teil gespeichert, damit du später nachsehen kannst.",
+      "close": "Schließen",
+      "confirm": "Bestätigen",
+      "saved": "Angaben vom Etikett gespeichert",
+      "saveFailed": "Die Angaben konnten nicht gespeichert werden",
+      "scanFailed": "Das Etikett konnte nicht gescannt werden",
+      "alreadySaved": "{field} · bereits gespeichert",
+      "fromLabelValue": "{field} vom Etikett",
+      "take": "{field} speichern",
+      "differs": "{field} · auf dem Etikett steht etwas anderes",
+      "keepSaved": "Gespeicherten Wert behalten",
+      "useLabel": "Etikett übernehmen",
+      "openPhoto": "Etikettfoto {number} öffnen",
+      "deletePhoto": "Foto löschen",
+      "removeFailed": "Das Foto konnte nicht gelöscht werden",
+      "optionalStep": "Etikettfotos (optional)",
+      "optionalHint": "Füge ein Foto des Pflegeetiketts hinzu, dann werden Größe, Material und Pflege für dich gelesen."
     }
   }
 }

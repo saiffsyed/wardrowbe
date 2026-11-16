@@ -384,6 +384,7 @@
       "title": "상세 정보",
       "edit": "상세 정보 수정",
       "add": "상세 정보 추가",
+      "scanLabel": "라벨 스캔",
       "empty": "사이즈, 소재, 구매 장소를 추가하세요.",
       "home": "보관 장소",
       "none": "미설정",
@@ -412,6 +413,43 @@
       "cancel": "취소",
       "saved": "상세 정보를 저장했습니다",
       "saveFailed": "상세 정보를 저장하지 못했습니다"
+    },
+    "labelScan": {
+      "title": "라벨 스캔",
+      "pickHint": "케어 라벨을 촬영하세요. 정보가 나뉘어 있으면 뒷면이나 행택도 추가하세요.",
+      "reviewHint": "읽은 내용을 확인하세요. 확인하기 전에는 아무것도 저장되지 않습니다.",
+      "unreadTitle": "라벨을 읽지 못했습니다",
+      "photos": "라벨 사진",
+      "photoNumber": "라벨 사진 {number}",
+      "removePhoto": "라벨 사진 {number} 삭제",
+      "addPhoto": "라벨 사진 추가",
+      "addAnother": "사진 하나 더 추가",
+      "tip": "라벨을 평평하게 펴고 밝은 곳에서 화면에 가득 차게 찍으세요. 최대 3장.",
+      "cancel": "취소",
+      "read": "라벨 읽기",
+      "reading": "라벨을 읽는 중…",
+      "unread": {
+        "nothing_read": "이 사진에서는 정보를 알아볼 수 없었습니다. 더 가까이, 더 밝은 곳에서 다시 시도하세요.",
+        "ai_disabled": "이 서버에서는 라벨 읽기가 꺼져 있습니다.",
+        "ai_unreachable": "AI 서비스에 연결할 수 없습니다. 잠시 후 다시 시도하세요."
+      },
+      "photosKept": "사진은 이 아이템과 함께 보관되어 나중에 확인할 수 있습니다.",
+      "close": "닫기",
+      "confirm": "확인",
+      "saved": "라벨 정보를 저장했습니다",
+      "saveFailed": "세부 정보를 저장하지 못했습니다",
+      "scanFailed": "라벨을 스캔하지 못했습니다",
+      "alreadySaved": "{field} · 이미 저장됨",
+      "fromLabelValue": "라벨의 {field}",
+      "take": "{field} 저장",
+      "differs": "{field} · 라벨 내용이 다릅니다",
+      "keepSaved": "저장된 내용 유지",
+      "useLabel": "라벨 내용 사용",
+      "openPhoto": "라벨 사진 {number} 열기",
+      "deletePhoto": "사진 삭제",
+      "removeFailed": "사진을 삭제하지 못했습니다",
+      "optionalStep": "라벨 사진 (선택)",
+      "optionalHint": "케어 라벨 사진을 추가하면 사이즈, 소재, 관리 방법을 자동으로 읽어 드립니다."
     }
   }
 }

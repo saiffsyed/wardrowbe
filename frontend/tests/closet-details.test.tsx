@@ -5,6 +5,7 @@ import { activeFacetCount } from '@/components/wardrobe/facet-filters'
 import type { Item } from '@/lib/types'
 
 const mutate = vi.fn()
+let labelPhotos: { id: string; image_url: string; thumbnail_url: string }[] = []
 
 vi.mock('@/lib/hooks/use-homes', () => ({
   useHomes: () => ({
@@ -14,6 +15,12 @@ vi.mock('@/lib/hooks/use-homes', () => ({
     ],
   }),
   useUpdateClosetDetails: () => ({ mutate, isPending: false }),
+}))
+vi.mock('@/lib/hooks/use-label-scan', () => ({
+  MAX_LABEL_PHOTOS_PER_SCAN: 3,
+  useLabelPhotos: () => ({ data: labelPhotos }),
+  useDeleteLabelPhoto: () => ({ mutate: vi.fn(), isPending: false }),
+  useScanLabel: () => ({ mutate: vi.fn(), isPending: false, reset: vi.fn() }),
 }))
 vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useMaterialLabel: () => (value: string) => value,
@@ -45,7 +52,10 @@ function lastEdits() {
   return mutate.mock.calls.at(-1)![0].edits
 }
 
-beforeEach(() => mutate.mockReset())
+beforeEach(() => {
+  mutate.mockReset()
+  labelPhotos = []
+})
 
 describe('ClosetDetails', () => {
   it('shows the label details, largest material first', () => {
@@ -85,6 +95,17 @@ describe('ClosetDetails', () => {
         occasions: ['wedding', 'festive'],
       },
     })
+  })
+
+  it('offers a label scan and shows the label photos that were kept', () => {
+    labelPhotos = [{ id: 'photo-1', image_url: '/full.jpg', thumbnail_url: '/thumb.jpg' }]
+    render(<ClosetDetails item={item()} />)
+
+    expect(screen.getByRole('button', { name: 'scanLabel' })).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'openPhoto' }))
+
+    expect(screen.getByRole('img', { name: 'photoNumber' }).getAttribute('src')).toBe('/full.jpg')
+    expect(screen.getByRole('button', { name: 'deletePhoto' })).toBeTruthy()
   })
 
   it('will not save material percentages that add up to more than 100', () => {

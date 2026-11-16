@@ -384,6 +384,7 @@
       "title": "Details",
       "edit": "Edit details",
       "add": "Add details",
+      "scanLabel": "Scan label",
       "empty": "Add the size, material and where you bought it.",
       "home": "Kept in",
       "none": "Not set",
@@ -412,6 +413,43 @@
       "cancel": "Cancel",
       "saved": "Details saved",
       "saveFailed": "Couldn't save the details"
+    },
+    "labelScan": {
+      "title": "Scan the label",
+      "pickHint": "Take a photo of the care label. Add the other side or the hang tag if the details are spread out.",
+      "reviewHint": "Check what was read. Nothing is saved until you confirm.",
+      "unreadTitle": "The label couldn't be read",
+      "photos": "Label photos",
+      "photoNumber": "Label photo {number}",
+      "removePhoto": "Remove label photo {number}",
+      "addPhoto": "Add a label photo",
+      "addAnother": "Add another photo",
+      "tip": "Lay the label flat in good light and fill the frame. Up to 3 photos.",
+      "cancel": "Cancel",
+      "read": "Read label",
+      "reading": "Reading the label…",
+      "unread": {
+        "nothing_read": "No details could be made out in these photos. Try again closer and in better light.",
+        "ai_disabled": "Label reading is turned off on this server.",
+        "ai_unreachable": "The AI service couldn't be reached. Try again in a moment."
+      },
+      "photosKept": "The photos are kept with this item, so you can check them later.",
+      "close": "Close",
+      "confirm": "Confirm",
+      "saved": "Details saved from the label",
+      "saveFailed": "Couldn't save the details",
+      "scanFailed": "Couldn't scan the label",
+      "alreadySaved": "{field} · already saved",
+      "fromLabelValue": "{field} from the label",
+      "take": "Save {field}",
+      "differs": "{field} · the label says something different",
+      "keepSaved": "Keep what's saved",
+      "useLabel": "Use the label",
+      "openPhoto": "Open label photo {number}",
+      "deletePhoto": "Delete photo",
+      "removeFailed": "Couldn't delete the photo",
+      "optionalStep": "Label photos (optional)",
+      "optionalHint": "Add a photo of the care label and the size, material and care are read for you."
     }
   }
 }

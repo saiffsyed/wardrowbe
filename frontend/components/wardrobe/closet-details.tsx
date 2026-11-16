@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { Pencil, Plus, Tag, X } from 'lucide-react';
+import { Pencil, Plus, ScanLine, Tag, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { LabelPhotos } from '@/components/wardrobe/label-photos';
+import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
 import { getErrorMessage } from '@/lib/api';
 import {
   useHomes,
@@ -162,6 +164,7 @@ export function ClosetDetails({ item }: { item: Item }) {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState<DetailsForm>(() => formFromItem(item));
   const [occasionDraft, setOccasionDraft] = useState('');
+  const [scanning, setScanning] = useState(false);
 
   const tags = item.tags ?? {};
   const home = homes?.find((candidate) => candidate.id === item.home_id);
@@ -220,10 +223,16 @@ export function ClosetDetails({ item }: { item: Item }) {
             <Tag className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
             {t('title')}
           </div>
-          <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={startEditing}>
-            <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
-            {hasAnything ? t('edit') : t('add')}
-          </Button>
+          <div className="flex items-center">
+            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => setScanning(true)}>
+              <ScanLine className="h-3.5 w-3.5" aria-hidden="true" />
+              {t('scanLabel')}
+            </Button>
+            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={startEditing}>
+              <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+              {hasAnything ? t('edit') : t('add')}
+            </Button>
+          </div>
         </div>
 
         {!hasAnything && <p className="text-xs text-muted-foreground">{t('empty')}</p>}
@@ -252,6 +261,9 @@ export function ClosetDetails({ item }: { item: Item }) {
             <CompositionBar shares={tags.composition} />
           </div>
         )}
+
+        <LabelPhotos itemId={item.id} />
+        <LabelScanDialog item={item} open={scanning} onOpenChange={setScanning} />
       </div>
     );
   }

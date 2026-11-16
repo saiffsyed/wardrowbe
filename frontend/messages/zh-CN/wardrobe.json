@@ -384,6 +384,7 @@
       "title": "详情",
       "edit": "编辑详情",
       "add": "添加详情",
+      "scanLabel": "扫描标签",
       "empty": "添加尺码、材质和购买地点。",
       "home": "存放于",
       "none": "未设置",
@@ -412,6 +413,43 @@
       "cancel": "取消",
       "saved": "详情已保存",
       "saveFailed": "无法保存详情"
+    },
+    "labelScan": {
+      "title": "扫描标签",
+      "pickHint": "拍一张洗涤标签的照片。如果信息分散在多处，可以再添加背面或吊牌。",
+      "reviewHint": "请核对读取的内容。确认之前不会保存任何内容。",
+      "unreadTitle": "无法读取标签",
+      "photos": "标签照片",
+      "photoNumber": "标签照片 {number}",
+      "removePhoto": "移除标签照片 {number}",
+      "addPhoto": "添加标签照片",
+      "addAnother": "再添加一张照片",
+      "tip": "把标签铺平，在光线充足处拍摄并让标签占满画面。最多 3 张。",
+      "cancel": "取消",
+      "read": "读取标签",
+      "reading": "正在读取标签…",
+      "unread": {
+        "nothing_read": "这些照片中未能辨认出任何信息。请靠近一些并在更亮的地方重试。",
+        "ai_disabled": "此服务器已关闭标签读取功能。",
+        "ai_unreachable": "无法连接 AI 服务。请稍后重试。"
+      },
+      "photosKept": "照片会与这件单品一起保存，方便以后查看。",
+      "close": "关闭",
+      "confirm": "确认",
+      "saved": "已保存标签上的信息",
+      "saveFailed": "无法保存详情",
+      "scanFailed": "无法扫描标签",
+      "alreadySaved": "{field} · 已保存",
+      "fromLabelValue": "标签上的{field}",
+      "take": "保存{field}",
+      "differs": "{field} · 标签上的内容不同",
+      "keepSaved": "保留已保存的内容",
+      "useLabel": "使用标签上的内容",
+      "openPhoto": "打开标签照片 {number}",
+      "deletePhoto": "删除照片",
+      "removeFailed": "无法删除照片",
+      "optionalStep": "标签照片（可选）",
+      "optionalHint": "添加洗涤标签的照片，尺码、材质和护理方式会自动读取。"
     }
   }
 }

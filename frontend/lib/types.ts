@@ -8,6 +8,29 @@ export interface MaterialShare {
   percent: number;
 }
 
+// A kept photo of an item's care label or hang tag.
+export interface LabelPhoto {
+  id: string;
+  image_url: string;
+  thumbnail_url: string;
+}
+
+// What the AI read off an item's labels. Only ever a suggestion for the person to confirm.
+export interface LabelReading {
+  brand: string | null;
+  size: string | null;
+  size_system: string | null;
+  composition: MaterialShare[];
+  care_instructions: string | null;
+}
+
+export interface LabelScanResult {
+  // read: at least one detail was found. Otherwise nothing was read, and the photos are kept.
+  status: 'read' | 'nothing_read' | 'ai_disabled' | 'ai_unreachable';
+  reading: LabelReading | null;
+  photos: LabelPhoto[];
+}
+
 export interface Home {
   id: string;
   name: string;

@@ -901,6 +901,8 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     )}
                   </div>
 
+                  <ClosetDetails key={item.id} item={item} />
+
                   {/* Wash Status */}
                   <div className="space-y-2 pt-2 border-t">
                     <div className="flex items-center justify-between">
@@ -1147,8 +1149,6 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       <p className="text-sm text-muted-foreground">{item.notes}</p>
                     </div>
                   )}
-
-                  <ClosetDetails key={item.id} item={item} />
 
                   {/* Metadata */}
                   <div className="text-xs text-muted-foreground pt-2 border-t">

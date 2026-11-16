@@ -40,6 +40,9 @@ import { useClothingTypes, useClothingColors } from '@/lib/hooks/use-translated-
 import { ACCEPTED_IMAGE_TYPES } from '@/lib/image-types';
 import { useTranslations } from 'next-intl';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
+import { LabelPhotoPicker } from '@/components/wardrobe/label-photo-picker';
+import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
+import type { Item } from '@/lib/types';
 
 interface AddItemDialogProps {
   open: boolean;
@@ -67,6 +70,9 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   const [brand, setBrand] = useState('');
   const [primaryColor, setPrimaryColor] = useState('');
   const [notes, setNotes] = useState('');
+  // Label photos chosen with the item, read once the item exists.
+  const [labelFiles, setLabelFiles] = useState<File[]>([]);
+  const [labelScan, setLabelScan] = useState<{ item: Item; files: File[] } | null>(null);
 
   // Bulk upload state
   const [bulkFiles, setBulkFiles] = useState<FileWithPreview[]>([]);
@@ -144,7 +150,8 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
     if (notes) formData.append('notes', notes);
 
     try {
-      await createItem.mutateAsync(formData);
+      const created: Item = await createItem.mutateAsync(formData);
+      if (labelFiles.length) setLabelScan({ item: created, files: labelFiles });
       handleClose();
     } catch (error) {
       console.error('Failed to create item:', error);
@@ -209,6 +216,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
     setBrand('');
     setPrimaryColor('');
     setNotes('');
+    setLabelFiles([]);
 
     // Bulk upload cleanup - also clean up from the ref
     bulkFiles.forEach((f) => {
@@ -380,6 +388,8 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                   />
                 </div>
               </div>
+
+              {preview && <LabelPhotoPicker files={labelFiles} onChange={setLabelFiles} />}
 
               <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" variant="outline" onClick={handleCloseRequest}>
