@@ -95,6 +95,7 @@ import {
 } from '@/lib/tag-edits';
 import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
+import { ClosetDetails } from '@/components/wardrobe/closet-details';
 import { formatDate } from '@/lib/utils';
 
 interface ItemDetailDialogProps {
@@ -1146,6 +1147,8 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       <p className="text-sm text-muted-foreground">{item.notes}</p>
                     </div>
                   )}
+
+                  <ClosetDetails key={item.id} item={item} />
 
                   {/* Metadata */}
                   <div className="text-xs text-muted-foreground pt-2 border-t">

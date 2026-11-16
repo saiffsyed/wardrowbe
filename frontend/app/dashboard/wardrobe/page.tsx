@@ -37,6 +37,21 @@ import { toast } from 'sonner';
 import { formatWornAgo, getWornAgoColorClass } from '@/lib/utils';
 import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
+import { HomeBar, type HomeScope } from '@/components/wardrobe/home-bar';
+import {
+  FacetFilters,
+  FACET_KEYS,
+  activeFacetCount,
+  type FacetKey,
+  type FacetSelection,
+} from '@/components/wardrobe/facet-filters';
+import {
+  CutoutTile,
+  ItemListRow,
+  ViewModeToggle,
+  useWardrobeViewMode,
+} from '@/components/wardrobe/wardrobe-views';
+import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
@@ -49,11 +64,13 @@ const SORT_OPTIONS = [
   { value: 'wear_count', order: 'asc' as const },
   { value: 'name', order: 'asc' as const },
   { value: 'name', order: 'desc' as const },
+  { value: 'brand', order: 'asc' as const },
+  { value: 'purchase_price', order: 'desc' as const },
 ] as const;
 
 const SORT_LABEL_KEYS = [
   'newestFirst', 'oldestFirst', 'recentlyWorn', 'leastRecentlyWorn',
-  'mostWorn', 'leastWorn', 'nameAZ', 'nameZA',
+  'mostWorn', 'leastWorn', 'nameAZ', 'nameZA', 'brandAZ', 'priceHighLow',
 ] as const;
 
 function ItemCard({
@@ -351,6 +368,25 @@ export default function WardrobePage() {
     searchParams.get('favorite') === 'true' ? true : undefined
   );
   const [showFilters, setShowFilters] = useState(false);
+  const [homeScope, setHomeScope] = useState<HomeScope>(() =>
+    searchParams.get('homes') === 'all' ? 'all' : 'here'
+  );
+  const [facetSelection, setFacetSelection] = useState<FacetSelection>(() =>
+    Object.fromEntries(
+      FACET_KEYS.map((key) => [key, searchParams.get(key) || undefined])
+    ) as FacetSelection
+  );
+  const [viewMode, setViewMode] = useWardrobeViewMode();
+  const { data: homes } = useHomes();
+  const currentHome = homes?.find((home) => home.is_current);
+  // "This home" only narrows the wardrobe once the person has said which home they are in.
+  const scopedHomeId = homeScope === 'here' ? currentHome?.id : undefined;
+  const { data: facets } = useWardrobeFacets(scopedHomeId);
+  const handleFacetChange = (key: FacetKey, value: string | undefined) => {
+    setFacetSelection((previous) => ({ ...previous, [key]: value }));
+    setPage(1);
+  };
+  const clearFacets = () => setFacetSelection({});
   const [page, setPage] = useState(() => {
     const raw = Number(searchParams.get('page'));
     return Number.isInteger(raw) && raw > 0 ? raw : 1;
@@ -397,6 +433,11 @@ export default function WardrobePage() {
     if (sortIndex !== 0) params.set('sort', String(sortIndex)); else params.delete('sort');
     if (needsWash) params.set('needsWash', 'true'); else params.delete('needsWash');
     if (favoriteFilter) params.set('favorite', 'true'); else params.delete('favorite');
+    if (homeScope === 'all') params.set('homes', 'all'); else params.delete('homes');
+    for (const key of FACET_KEYS) {
+      const value = facetSelection[key];
+      if (value) params.set(key, value); else params.delete(key);
+    }
     if (page !== 1) params.set('page', String(page)); else params.delete('page');
     if (pageSize !== DEFAULT_PAGE_SIZE) params.set('pageSize', String(pageSize)); else params.delete('pageSize');
 
@@ -404,9 +445,13 @@ export default function WardrobePage() {
     if (next !== searchParams.toString()) {
       router.replace(next ? `/dashboard/wardrobe?${next}` : '/dashboard/wardrobe', { scroll: false });
     }
-  }, [search, typeFilter, sortIndex, needsWash, favoriteFilter, page, pageSize, searchParams, router]);
+  }, [search, typeFilter, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
 
   const sortOption = SORT_OPTIONS[sortIndex];
+
+  // In "select all matching" mode everything is selected except what was unticked.
+  const isItemSelected = (id: string) =>
+    selection.mode === 'all' ? !selection.excludedIds.has(id) : selection.selectedIds.has(id);
 
   const listFilters: BulkItemFilters = {
     search: search || undefined,
@@ -414,6 +459,8 @@ export default function WardrobePage() {
     needs_wash: needsWash,
     favorite: favoriteFilter,
     is_archived: false,
+    home_id: scopedHomeId,
+    ...facetSelection,
   };
   const filters = { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
 
@@ -421,7 +468,7 @@ export default function WardrobePage() {
     needsWash !== undefined,
     favoriteFilter !== undefined,
     typeFilter !== 'all',
-  ].filter(Boolean).length;
+  ].filter(Boolean).length + activeFacetCount(facetSelection);
 
   // Fetch items with automatic polling (faster when items are processing)
   const { data, isLoading, error } = useItems(filters, page, pageSize);
@@ -724,6 +771,15 @@ export default function WardrobePage() {
         </Button>
       </div>
 
+      <HomeBar
+        homes={homes ?? []}
+        scope={homeScope}
+        onScopeChange={(scope) => {
+          setHomeScope(scope);
+          setPage(1);
+        }}
+      />
+
       <div className="space-y-3">
         {/* Main row: search + sort + filter toggle */}
         <div className="flex flex-col sm:flex-row gap-3">
@@ -772,6 +828,7 @@ export default function WardrobePage() {
                 </span>
               )}
             </Button>
+            <ViewModeToggle mode={viewMode} onChange={setViewMode} />
           </div>
         </div>
 
@@ -797,6 +854,8 @@ export default function WardrobePage() {
                 ))}
               </SelectContent>
             </Select>
+
+            <FacetFilters facets={facets} selection={facetSelection} onChange={handleFacetChange} />
 
             <Select
               value={String(pageSize)}
@@ -852,6 +911,7 @@ export default function WardrobePage() {
                   setTypeFilter('all');
                   setNeedsWash(undefined);
                   setFavoriteFilter(undefined);
+                  clearFacets();
                   setPage(1);
                 }}
               >
@@ -883,7 +943,7 @@ export default function WardrobePage() {
           ))}
         </div>
       ) : items.length === 0 ? (
-        search || typeFilter !== 'all' || needsWash !== undefined || favoriteFilter !== undefined ? (
+        search || typeFilter !== 'all' || needsWash !== undefined || favoriteFilter !== undefined || activeFacetCount(facetSelection) > 0 || scopedHomeId ? (
           <div className="text-center py-8">
             <p className="text-muted-foreground">
               {t('errors.noItemsFound')}
@@ -896,6 +956,8 @@ export default function WardrobePage() {
                 setTypeFilter('all');
                 setNeedsWash(undefined);
                 setFavoriteFilter(undefined);
+                clearFacets();
+                setHomeScope('all');
                 setPage(1);
               }}
             >
@@ -905,13 +967,37 @@ export default function WardrobePage() {
         ) : (
           <EmptyWardrobe onAddClick={() => setAddDialogOpen(true)} />
         )
+      ) : viewMode === 'cutouts' ? (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 pb-20">
+          {items.map((item) => (
+            <CutoutTile
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+            />
+          ))}
+        </div>
+      ) : viewMode === 'list' ? (
+        <ul className="pb-20">
+          {items.map((item) => (
+            <ItemListRow
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+              home={scopedHomeId ? undefined : homes?.find((home) => home.id === item.home_id)}
+            />
+          ))}
+        </ul>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-20">
           {items.map((item) => {
-            // Determine if item is selected based on selection mode
-            const isSelected = selection.mode === 'all'
-              ? !selection.excludedIds.has(item.id)
-              : selection.selectedIds.has(item.id);
+            const isSelected = isItemSelected(item.id);
             return (
               <ItemCard
                 key={item.id}

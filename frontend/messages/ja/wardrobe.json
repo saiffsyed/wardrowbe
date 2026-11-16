@@ -272,7 +272,9 @@
     "nameZA": "名前 Z–A",
     "newestFirst": "新しい順",
     "oldestFirst": "古い順",
-    "recentlyWorn": "最近着用"
+    "recentlyWorn": "最近着用",
+    "brandAZ": "ブランド順",
+    "priceHighLow": "価格の高い順"
   },
   "splitPhoto": {
     "addBox": "枠を追加",
@@ -324,5 +326,91 @@
     "daysAgo": "{days}日前に着用",
     "today": "今日着用",
     "yesterday": "昨日着用"
+  },
+  "closet": {
+    "homes": {
+      "here": "この家",
+      "everywhere": "すべての家",
+      "scopeLabel": "表示する服",
+      "youAreIn": "現在地：{home}",
+      "noHome": "現在地を選択",
+      "setUp": "家を設定",
+      "setUpHint": "服の保管場所を登録すると、手元にある服だけを表示できます。",
+      "manage": "家を管理",
+      "title": "家",
+      "description": "服を保管している場所です。新しいアイテムは現在いる家に追加され、天気はその都市に合わせます。",
+      "name": "名前",
+      "namePlaceholder": "例：チェンナイの家",
+      "city": "都市",
+      "cityPlaceholder": "例：チェンナイ",
+      "add": "家を追加",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "editHome": "{home}を編集",
+      "deleteHome": "{home}を削除しますか？",
+      "deleteConfirm": "アイテムは家の指定なしでワードローブに残ります。",
+      "current": "現在地",
+      "setCurrent": "ここにいます",
+      "itemCount": "{count, plural, other {#点}}",
+      "errors": {
+        "saveFailed": "家を保存できませんでした"
+      }
+    },
+    "view": {
+      "label": "表示",
+      "cutouts": "写真のみ",
+      "tiles": "写真と詳細",
+      "list": "詳細リスト",
+      "select": "{item}を選択",
+      "processing": "処理中",
+      "needsAttention": "確認が必要",
+      "needsWash": "洗濯が必要"
+    },
+    "filters": {
+      "occasion": "シーン",
+      "brand": "ブランド",
+      "material": "素材",
+      "season": "季節",
+      "any": "{filter}：すべて",
+      "option": "{label}（{count}）"
+    },
+    "list": {
+      "size": "サイズ {size}",
+      "worn": "{count, plural, =0 {未着用} other {#回着用}}"
+    },
+    "details": {
+      "title": "詳細",
+      "edit": "詳細を編集",
+      "add": "詳細を追加",
+      "empty": "サイズ、素材、購入場所を追加しましょう。",
+      "home": "保管場所",
+      "none": "未設定",
+      "brand": "ブランド",
+      "size": "サイズ",
+      "sizeSystem": "サイズ規格",
+      "sizeSystemPlaceholder": "例：EU、UK、IN",
+      "fitNote": "フィット感メモ",
+      "fitNotePlaceholder": "例：小さめ",
+      "boughtIn": "購入場所",
+      "boughtInPlaceholder": "購入した都市または国",
+      "care": "お手入れ",
+      "carePlaceholder": "例：ドライクリーニングのみ",
+      "materials": "素材",
+      "compositionSummary": "素材：{summary}",
+      "materialName": "素材{number}",
+      "materialPercent": "素材{number}の割合",
+      "removeMaterial": "素材{number}を削除",
+      "addMaterial": "素材を追加",
+      "tooMuch": "割合の合計が100を超えています。",
+      "occasions": "シーン",
+      "occasionPlaceholder": "例：結婚式",
+      "addOccasion": "追加",
+      "removeOccasion": "{occasion}を削除",
+      "save": "詳細を保存",
+      "cancel": "キャンセル",
+      "saved": "詳細を保存しました",
+      "saveFailed": "詳細を保存できませんでした"
+    }
   }
 }

@@ -272,7 +272,9 @@
     "nameZA": "Name Z–A",
     "newestFirst": "Neueste zuerst",
     "oldestFirst": "Älteste zuerst",
-    "recentlyWorn": "Kürzlich getragen"
+    "recentlyWorn": "Kürzlich getragen",
+    "brandAZ": "Marke A–Z",
+    "priceHighLow": "Preis absteigend"
   },
   "splitPhoto": {
     "addBox": "Rahmen hinzufügen",
@@ -324,5 +326,91 @@
     "daysAgo": "Vor {days} T. getragen",
     "today": "Heute getragen",
     "yesterday": "Gestern getragen"
+  },
+  "closet": {
+    "homes": {
+      "here": "Dieses Zuhause",
+      "everywhere": "Alle Zuhause",
+      "scopeLabel": "Welche Kleidung angezeigt wird",
+      "youAreIn": "Du bist in {home}",
+      "noHome": "Wähle, wo du bist",
+      "setUp": "Zuhause einrichten",
+      "setUpHint": "Sag der App, wo deine Kleidung liegt, damit sie zeigt, was greifbar ist.",
+      "manage": "Zuhause verwalten",
+      "title": "Zuhause",
+      "description": "Die Orte, an denen du Kleidung aufbewahrst. Neue Teile kommen in das Zuhause, in dem du bist, und das Wetter richtet sich nach dessen Stadt.",
+      "name": "Name",
+      "namePlaceholder": "z. B. Wohnung Chennai",
+      "city": "Stadt",
+      "cityPlaceholder": "z. B. Chennai",
+      "add": "Zuhause hinzufügen",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "editHome": "{home} bearbeiten",
+      "deleteHome": "{home} löschen?",
+      "deleteConfirm": "Die Teile bleiben in deinem Kleiderschrank, ohne Zuhause.",
+      "current": "Du bist hier",
+      "setCurrent": "Ich bin hier",
+      "itemCount": "{count, plural, one {# Teil} other {# Teile}}",
+      "errors": {
+        "saveFailed": "Zuhause konnte nicht gespeichert werden"
+      }
+    },
+    "view": {
+      "label": "Ansicht",
+      "cutouts": "Nur Fotos",
+      "tiles": "Fotos mit Details",
+      "list": "Liste mit Details",
+      "select": "{item} auswählen",
+      "processing": "Wird verarbeitet",
+      "needsAttention": "Braucht Aufmerksamkeit",
+      "needsWash": "Muss gewaschen werden"
+    },
+    "filters": {
+      "occasion": "Anlass",
+      "brand": "Marke",
+      "material": "Material",
+      "season": "Saison",
+      "any": "{filter}: alle",
+      "option": "{label} ({count})"
+    },
+    "list": {
+      "size": "Größe {size}",
+      "worn": "{count, plural, =0 {Noch nicht getragen} one {Einmal getragen} other {# Mal getragen}}"
+    },
+    "details": {
+      "title": "Details",
+      "edit": "Details bearbeiten",
+      "add": "Details hinzufügen",
+      "empty": "Füge Größe, Material und Kaufort hinzu.",
+      "home": "Liegt in",
+      "none": "Nicht festgelegt",
+      "brand": "Marke",
+      "size": "Größe",
+      "sizeSystem": "Größensystem",
+      "sizeSystemPlaceholder": "z. B. EU, UK, IN",
+      "fitNote": "Passform-Notiz",
+      "fitNotePlaceholder": "z. B. fällt klein aus",
+      "boughtIn": "Gekauft in",
+      "boughtInPlaceholder": "Stadt oder Land, wo du es gekauft hast",
+      "care": "Pflege",
+      "carePlaceholder": "z. B. Nur chemische Reinigung",
+      "materials": "Material",
+      "compositionSummary": "Besteht aus {summary}",
+      "materialName": "Material {number}",
+      "materialPercent": "Prozent von Material {number}",
+      "removeMaterial": "Material {number} entfernen",
+      "addMaterial": "Material hinzufügen",
+      "tooMuch": "Die Prozentwerte ergeben mehr als 100.",
+      "occasions": "Anlässe",
+      "occasionPlaceholder": "z. B. Hochzeit",
+      "addOccasion": "Hinzufügen",
+      "removeOccasion": "{occasion} entfernen",
+      "save": "Details speichern",
+      "cancel": "Abbrechen",
+      "saved": "Details gespeichert",
+      "saveFailed": "Details konnten nicht gespeichert werden"
+    }
   }
 }

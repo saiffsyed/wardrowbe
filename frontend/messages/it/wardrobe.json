@@ -272,7 +272,9 @@
     "nameZA": "Nome Z–A",
     "newestFirst": "Più recenti prima",
     "oldestFirst": "Più vecchi prima",
-    "recentlyWorn": "Indossati di recente"
+    "recentlyWorn": "Indossati di recente",
+    "brandAZ": "Marca A–Z",
+    "priceHighLow": "Prezzo decrescente"
   },
   "splitPhoto": {
     "addBox": "Aggiungi un riquadro",
@@ -324,5 +326,91 @@
     "daysAgo": "Indossato {days}g fa",
     "today": "Indossato oggi",
     "yesterday": "Indossato ieri"
+  },
+  "closet": {
+    "homes": {
+      "here": "Questa casa",
+      "everywhere": "Tutte le case",
+      "scopeLabel": "Quali capi mostrare",
+      "youAreIn": "Sei a {home}",
+      "noHome": "Scegli dove ti trovi",
+      "setUp": "Imposta le tue case",
+      "setUpHint": "Indica all'app dove tieni i vestiti, così mostra quelli a portata di mano.",
+      "manage": "Gestisci le case",
+      "title": "Case",
+      "description": "I luoghi in cui tieni i vestiti. I nuovi capi vanno nella casa in cui ti trovi e il meteo segue la sua città.",
+      "name": "Nome",
+      "namePlaceholder": "es. Casa di Chennai",
+      "city": "Città",
+      "cityPlaceholder": "es. Chennai",
+      "add": "Aggiungi casa",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "editHome": "Modifica {home}",
+      "deleteHome": "Eliminare {home}?",
+      "deleteConfirm": "I suoi capi restano nel guardaroba, senza una casa.",
+      "current": "Sei qui",
+      "setCurrent": "Sono qui",
+      "itemCount": "{count, plural, one {# capo} other {# capi}}",
+      "errors": {
+        "saveFailed": "Impossibile salvare la casa"
+      }
+    },
+    "view": {
+      "label": "Vista",
+      "cutouts": "Solo foto",
+      "tiles": "Foto con dettagli",
+      "list": "Elenco con dettagli",
+      "select": "Seleziona {item}",
+      "processing": "In elaborazione",
+      "needsAttention": "Richiede attenzione",
+      "needsWash": "Da lavare"
+    },
+    "filters": {
+      "occasion": "Occasione",
+      "brand": "Marca",
+      "material": "Materiale",
+      "season": "Stagione",
+      "any": "{filter}: tutti",
+      "option": "{label} ({count})"
+    },
+    "list": {
+      "size": "Taglia {size}",
+      "worn": "{count, plural, =0 {Mai indossato} one {Indossato una volta} other {Indossato # volte}}"
+    },
+    "details": {
+      "title": "Dettagli",
+      "edit": "Modifica dettagli",
+      "add": "Aggiungi dettagli",
+      "empty": "Aggiungi taglia, materiale e dove lo hai comprato.",
+      "home": "Si trova a",
+      "none": "Non impostato",
+      "brand": "Marca",
+      "size": "Taglia",
+      "sizeSystem": "Sistema di taglie",
+      "sizeSystemPlaceholder": "es. EU, UK, IN",
+      "fitNote": "Nota sulla vestibilità",
+      "fitNotePlaceholder": "es. veste piccolo",
+      "boughtIn": "Comprato a",
+      "boughtInPlaceholder": "Città o paese in cui lo hai comprato",
+      "care": "Cura",
+      "carePlaceholder": "es. Solo lavaggio a secco",
+      "materials": "Materiale",
+      "compositionSummary": "Composizione: {summary}",
+      "materialName": "Materiale {number}",
+      "materialPercent": "Percentuale del materiale {number}",
+      "removeMaterial": "Rimuovi materiale {number}",
+      "addMaterial": "Aggiungi materiale",
+      "tooMuch": "Le percentuali superano il 100.",
+      "occasions": "Occasioni",
+      "occasionPlaceholder": "es. matrimonio",
+      "addOccasion": "Aggiungi",
+      "removeOccasion": "Rimuovi {occasion}",
+      "save": "Salva dettagli",
+      "cancel": "Annulla",
+      "saved": "Dettagli salvati",
+      "saveFailed": "Impossibile salvare i dettagli"
+    }
   }
 }

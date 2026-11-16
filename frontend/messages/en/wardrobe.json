@@ -272,7 +272,9 @@
     "nameZA": "Name Z–A",
     "newestFirst": "Newest first",
     "oldestFirst": "Oldest first",
-    "recentlyWorn": "Recently worn"
+    "recentlyWorn": "Recently worn",
+    "brandAZ": "Brand A–Z",
+    "priceHighLow": "Price, high to low"
   },
   "splitPhoto": {
     "addBox": "Add a box",
@@ -324,5 +326,91 @@
     "daysAgo": "Worn {days}d ago",
     "today": "Worn today",
     "yesterday": "Worn yesterday"
+  },
+  "closet": {
+    "homes": {
+      "here": "This home",
+      "everywhere": "All homes",
+      "scopeLabel": "Which clothes to show",
+      "youAreIn": "You're in {home}",
+      "noHome": "Choose where you are",
+      "setUp": "Set up your homes",
+      "setUpHint": "Tell the app where your clothes are kept, so it shows what's on hand.",
+      "manage": "Manage homes",
+      "title": "Homes",
+      "description": "The places you keep clothes. New items go to the home you're in, and the weather follows its city.",
+      "name": "Name",
+      "namePlaceholder": "e.g. Chennai home",
+      "city": "City",
+      "cityPlaceholder": "e.g. Chennai",
+      "add": "Add home",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "editHome": "Edit {home}",
+      "deleteHome": "Delete {home}?",
+      "deleteConfirm": "Its items stay in your wardrobe, without a home.",
+      "current": "You are here",
+      "setCurrent": "I'm here",
+      "itemCount": "{count, plural, one {# item} other {# items}}",
+      "errors": {
+        "saveFailed": "Couldn't save the home"
+      }
+    },
+    "view": {
+      "label": "View",
+      "cutouts": "Photos only",
+      "tiles": "Photos with details",
+      "list": "List with details",
+      "select": "Select {item}",
+      "processing": "Working on it",
+      "needsAttention": "Needs attention",
+      "needsWash": "Needs a wash"
+    },
+    "filters": {
+      "occasion": "Occasion",
+      "brand": "Brand",
+      "material": "Material",
+      "season": "Season",
+      "any": "{filter}: any",
+      "option": "{label} ({count})"
+    },
+    "list": {
+      "size": "Size {size}",
+      "worn": "{count, plural, =0 {Not worn yet} one {Worn once} other {Worn # times}}"
+    },
+    "details": {
+      "title": "Details",
+      "edit": "Edit details",
+      "add": "Add details",
+      "empty": "Add the size, material and where you bought it.",
+      "home": "Kept in",
+      "none": "Not set",
+      "brand": "Brand",
+      "size": "Size",
+      "sizeSystem": "Size system",
+      "sizeSystemPlaceholder": "e.g. EU, UK, IN",
+      "fitNote": "Fit note",
+      "fitNotePlaceholder": "e.g. runs small",
+      "boughtIn": "Bought in",
+      "boughtInPlaceholder": "City or country where you bought it",
+      "care": "Care",
+      "carePlaceholder": "e.g. Dry clean only",
+      "materials": "Material",
+      "compositionSummary": "Made of {summary}",
+      "materialName": "Material {number}",
+      "materialPercent": "Percent of material {number}",
+      "removeMaterial": "Remove material {number}",
+      "addMaterial": "Add material",
+      "tooMuch": "The percentages add up to more than 100.",
+      "occasions": "Occasions",
+      "occasionPlaceholder": "e.g. wedding",
+      "addOccasion": "Add",
+      "removeOccasion": "Remove {occasion}",
+      "save": "Save details",
+      "cancel": "Cancel",
+      "saved": "Details saved",
+      "saveFailed": "Couldn't save the details"
+    }
   }
 }

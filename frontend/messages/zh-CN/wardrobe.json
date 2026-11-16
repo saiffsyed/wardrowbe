@@ -272,7 +272,9 @@
     "nameZA": "名称 Z–A",
     "newestFirst": "最新在前",
     "oldestFirst": "最早在前",
-    "recentlyWorn": "最近穿过"
+    "recentlyWorn": "最近穿过",
+    "brandAZ": "品牌 A–Z",
+    "priceHighLow": "价格从高到低"
   },
   "splitPhoto": {
     "addBox": "添加框",
@@ -324,5 +326,91 @@
     "daysAgo": "{days}天前穿过",
     "today": "今天穿过",
     "yesterday": "昨天穿过"
+  },
+  "closet": {
+    "homes": {
+      "here": "这个家",
+      "everywhere": "所有的家",
+      "scopeLabel": "显示哪些衣物",
+      "youAreIn": "你在{home}",
+      "noHome": "选择你所在的位置",
+      "setUp": "设置你的家",
+      "setUpHint": "告诉应用衣物放在哪里，它就只显示你手边的衣物。",
+      "manage": "管理家",
+      "title": "家",
+      "description": "你存放衣物的地方。新衣物会放入你所在的家，天气跟随它所在的城市。",
+      "name": "名称",
+      "namePlaceholder": "例如：金奈的家",
+      "city": "城市",
+      "cityPlaceholder": "例如：金奈",
+      "add": "添加家",
+      "save": "保存",
+      "cancel": "取消",
+      "delete": "删除",
+      "editHome": "编辑{home}",
+      "deleteHome": "删除{home}？",
+      "deleteConfirm": "其中的衣物会保留在衣橱里，但不再属于任何家。",
+      "current": "你在这里",
+      "setCurrent": "我在这里",
+      "itemCount": "{count, plural, other {# 件}}",
+      "errors": {
+        "saveFailed": "无法保存这个家"
+      }
+    },
+    "view": {
+      "label": "视图",
+      "cutouts": "仅照片",
+      "tiles": "照片和详情",
+      "list": "详情列表",
+      "select": "选择{item}",
+      "processing": "处理中",
+      "needsAttention": "需要留意",
+      "needsWash": "需要清洗"
+    },
+    "filters": {
+      "occasion": "场合",
+      "brand": "品牌",
+      "material": "材质",
+      "season": "季节",
+      "any": "{filter}：全部",
+      "option": "{label}（{count}）"
+    },
+    "list": {
+      "size": "尺码 {size}",
+      "worn": "{count, plural, =0 {尚未穿过} other {穿过 # 次}}"
+    },
+    "details": {
+      "title": "详情",
+      "edit": "编辑详情",
+      "add": "添加详情",
+      "empty": "添加尺码、材质和购买地点。",
+      "home": "存放于",
+      "none": "未设置",
+      "brand": "品牌",
+      "size": "尺码",
+      "sizeSystem": "尺码体系",
+      "sizeSystemPlaceholder": "例如：EU、UK、IN",
+      "fitNote": "合身备注",
+      "fitNotePlaceholder": "例如：偏小",
+      "boughtIn": "购买地点",
+      "boughtInPlaceholder": "购买时所在的城市或国家",
+      "care": "护理",
+      "carePlaceholder": "例如：仅限干洗",
+      "materials": "材质",
+      "compositionSummary": "成分：{summary}",
+      "materialName": "材质 {number}",
+      "materialPercent": "材质 {number} 的百分比",
+      "removeMaterial": "移除材质 {number}",
+      "addMaterial": "添加材质",
+      "tooMuch": "百分比总和超过了 100。",
+      "occasions": "场合",
+      "occasionPlaceholder": "例如：婚礼",
+      "addOccasion": "添加",
+      "removeOccasion": "移除{occasion}",
+      "save": "保存详情",
+      "cancel": "取消",
+      "saved": "详情已保存",
+      "saveFailed": "无法保存详情"
+    }
   }
 }

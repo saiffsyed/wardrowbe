@@ -25,6 +25,11 @@ export const queryKeys = {
   weather: ['weather'] as const,
   preferences: ['preferences'] as const,
   family: ['family'] as const,
+  homes: ['homes'] as const,
+  wardrobeFacets: {
+    all: ['wardrobe-facets'] as const,
+    home: (homeId: string | undefined) => ['wardrobe-facets', homeId ?? 'all'] as const,
+  },
 
   items: {
     all: ITEMS,
