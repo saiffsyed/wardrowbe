@@ -44,6 +44,12 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   from `ItemService.create`. Setting `AUTO_REMOVE_BACKGROUND` (default on; the test suite
   turns it off in `tests/conftest.py`). Needs `requirements-extras.txt` installed, which
   the Docker image already does.
+- See-through cut-outs: `backend/app/utils/cutouts.py`. They are extra files beside an
+  item's photo, found by name (`abc.jpg` → `abc_cut.webp`, `_cut_medium`, `_cut_thumb`),
+  with no database column. `sign_image_url` swaps a photo for its cut-out, so every screen
+  gets it without frontend changes; `ImageService` writes, rotates and deletes them with
+  the photo. Anything that reads pixels (AI, duplicate check, split) uses the JPEG on
+  white. On screens, put a clothes photo on the `photo-ground` CSS class, never on grey.
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
   `a7d3c9e1f5b2`, and `c9f5e1a3b7d4_add_item_label_photos` hangs off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.

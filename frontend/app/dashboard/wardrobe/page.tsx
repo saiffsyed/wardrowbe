@@ -122,7 +122,7 @@ function ItemCard({
       }`}
       onClick={onClick}
     >
-      <div className="relative aspect-square bg-muted">
+      <div className="photo-ground relative aspect-square">
         {item.thumbnail_url ? (
           <Image
             src={item.thumbnail_url}

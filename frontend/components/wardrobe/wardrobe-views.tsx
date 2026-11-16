@@ -138,7 +138,7 @@ export function CutoutTile({ item, selected, onSelect, onClick, errorDismissed }
         type="button"
         onClick={onClick}
         aria-label={name}
-        className="absolute inset-0 overflow-hidden rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="photo-ground absolute inset-0 overflow-hidden rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {item.thumbnail_url ? (
           <Image
@@ -193,7 +193,7 @@ export function ItemListRow({
   return (
     <li className={`group relative flex items-center gap-3 border-b py-2 ${selected ? 'bg-primary/5' : ''}`}>
       <div className="relative h-16 w-16 shrink-0">
-        <div className="relative h-full w-full overflow-hidden rounded-md bg-muted/40">
+        <div className="photo-ground relative h-full w-full overflow-hidden rounded-md">
           {item.thumbnail_url && (
             <Image src={item.thumbnail_url} alt="" fill className="object-contain p-0.5" sizes="64px" />
           )}

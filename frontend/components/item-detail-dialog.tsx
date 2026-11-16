@@ -591,7 +591,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
             <div className="grid gap-6 sm:grid-cols-2 [&>*]:min-w-0">
             {/* Image Gallery */}
             <div className="space-y-2">
-              <div className="relative aspect-square bg-muted rounded-lg overflow-hidden">
+              <div className="photo-ground relative aspect-square rounded-lg overflow-hidden">
                 {(() => {
                   const allImages = [
                     { url: `${imageUrl}&v=${imageKey}`, id: 'primary' },

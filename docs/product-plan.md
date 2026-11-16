@@ -89,9 +89,13 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   still added with the photo as taken. Adding one photo took about 1.4 seconds on the
   build machine (the server will be slower); the very first photo after the server
   starts took about 19 seconds there while the removal tool loaded.
-- In dark mode the photos still sit on white squares, because the cleaned photo is saved
-  with a white backing. Floating on the dark ground needs see-through cut-outs: open
-  question below.
+- **See-through cut-outs** (built; Saiff chose this because the dressing room and collage
+  need clothes that can be stacked). When a background is removed the app keeps two
+  copies: the photo on white (read by the AI and the image tools) and a see-through
+  cut-out, which is what every screen shows. In light mode clothes sit on the white page;
+  in dark mode they sit on a faint lighter tile so black and navy clothes stay visible.
+- Cut-outs keep the photo's framing; they are not yet trimmed to the garment's edges. The
+  dressing room will probably want them trimmed.
 
 ## Build order
 
@@ -118,7 +122,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
   (`GET /wardrobe/facets`); sort by brand and price.
 - Three views: cut-outs, tiles, list.
 - Agreed colours and Figtree font across the app; Display setting in Settings; automatic
-  background removal for newly added photos (items added earlier are not changed).
+  background removal with see-through cut-outs for newly added photos. Items whose
+  background was removed earlier get cut-outs from `python -m scripts.make_cutouts`.
 - New garment types: ring, necklace, earrings, bracelet, bangles, cufflinks, kurta,
   sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari.
 
@@ -136,8 +141,6 @@ Still to do in Stage 1:
 
 ## Open questions for Saiff
 
-- In dark mode, should clothes float on the dark ground (needs see-through cut-outs) or
-  stay on white squares?
 - AI provider: OpenAI or Gemini (the label reader works with either)
 - App name and domain (a domain is needed for Google sign-in)
 - Confirm the starter list of traditional garments
