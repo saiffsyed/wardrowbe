@@ -359,3 +359,59 @@ class TestNewGarmentTypes:
         assert ITEM_ROLE["salwar-kameez"] == "full_body"
         assert ITEM_ROLE["dhoti"] == "bottom"
         assert ITEM_ROLE["mojari"] == "footwear"
+
+
+class TestWardrobeFacets:
+    @pytest.mark.asyncio
+    async def test_facets_count_what_is_in_the_wardrobe(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        await _item(
+            db_session,
+            test_user,
+            brand="Zara",
+            material="cotton",
+            tags={"occasions": ["work", "casual"]},
+        )
+        await _item(
+            db_session,
+            test_user,
+            brand="ZARA ",
+            tags={
+                "occasions": ["work"],
+                "composition": [
+                    {"material": "cotton", "percent": 97},
+                    {"material": "elastane", "percent": 3},
+                ],
+            },
+        )
+        await _item(db_session, test_user, brand="Tailor-made", is_archived=True)
+        other, _ = await _other_user_headers(db_session)
+        await _item(db_session, other, brand="Theirs", tags={"occasions": ["gym"]})
+
+        response = await client.get("/api/v1/wardrobe/facets", headers=auth_headers)
+
+        assert response.status_code == 200
+        assert response.json() == {
+            "brands": [{"value": "Zara", "count": 2}],
+            "occasions": [{"value": "work", "count": 2}, {"value": "casual", "count": 1}],
+            "materials": [{"value": "cotton", "count": 2}, {"value": "elastane", "count": 1}],
+        }
+
+    @pytest.mark.asyncio
+    async def test_facets_can_be_limited_to_one_home(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        await _item(db_session, test_user, brand="Here")
+        chennai = await _home(client, auth_headers, "Chennai home", "Chennai")
+        kadiri = await _home(client, auth_headers, "Kadiri home", "Kadiri")
+        away = await _item(db_session, test_user, brand="Away")
+        await client.post(
+            f"{HOMES}/{kadiri['id']}/items", json={"item_ids": [str(away.id)]}, headers=auth_headers
+        )
+
+        response = await client.get(
+            "/api/v1/wardrobe/facets", params={"home_id": chennai["id"]}, headers=auth_headers
+        )
+
+        assert [b["value"] for b in response.json()["brands"]] == ["Here"]
