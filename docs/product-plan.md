@@ -78,8 +78,9 @@ Agreed design: light ground **plain white** (`#FFFFFF`; Saiff did not like the g
 accent `#7FD6BC`; font Figtree. Design mock-ups:
 https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Colours and font are applied** to the whole app (`frontend/app/globals.css`,
-  `frontend/app/layout.tsx`). The app follows the phone's light / dark setting; the sun /
-  moon button in the top bar switches it.
+  `frontend/app/layout.tsx`). The app follows the phone's light / dark setting.
+- **Display setting lives in Settings** (Same as phone / Light / Dark). Saiff did not want
+  the light / dark button in the top bar, so it was removed from there.
 - **The mock-up layout is not applied yet**: three-tab bottom bar, home switcher pill,
   category chips, details grouped in cards.
 - Clothes photos should have their background removed automatically when an item is added
@@ -116,8 +117,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Apply the mock-up layout (colours and font are done); Display setting in Settings,
-  currency, "app starts in"
+- Apply the mock-up layout (colours, font and the Display setting are done); currency,
+  "app starts in"
 - Remove photo backgrounds automatically when an item is added
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row

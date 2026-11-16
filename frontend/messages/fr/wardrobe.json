@@ -450,6 +450,13 @@
       "removeFailed": "Impossible de supprimer la photo",
       "optionalStep": "Photos de l'étiquette (facultatif)",
       "optionalHint": "Ajoutez une photo de l'étiquette d'entretien : la taille, la matière et l'entretien seront lus pour vous."
+    },
+    "display": {
+      "title": "Affichage",
+      "description": "Choisissez l'apparence de l'application.",
+      "system": "Comme le téléphone",
+      "light": "Clair",
+      "dark": "Sombre"
     }
   }
 }

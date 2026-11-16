@@ -450,6 +450,13 @@
       "removeFailed": "Das Foto konnte nicht gelöscht werden",
       "optionalStep": "Etikettfotos (optional)",
       "optionalHint": "Füge ein Foto des Pflegeetiketts hinzu, dann werden Größe, Material und Pflege für dich gelesen."
+    },
+    "display": {
+      "title": "Darstellung",
+      "description": "Wähle, wie die App aussieht.",
+      "system": "Wie das Handy",
+      "light": "Hell",
+      "dark": "Dunkel"
     }
   }
 }

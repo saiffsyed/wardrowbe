@@ -450,6 +450,13 @@
       "removeFailed": "Couldn't delete the photo",
       "optionalStep": "Label photos (optional)",
       "optionalHint": "Add a photo of the care label and the size, material and care are read for you."
+    },
+    "display": {
+      "title": "Display",
+      "description": "Choose how the app looks.",
+      "system": "Same as phone",
+      "light": "Light",
+      "dark": "Dark"
     }
   }
 }

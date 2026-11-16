@@ -450,6 +450,13 @@
       "removeFailed": "無法刪除照片",
       "optionalStep": "標籤照片（選填）",
       "optionalHint": "新增洗滌標籤的照片，尺寸、材質和保養方式會自動讀取。"
+    },
+    "display": {
+      "title": "顯示",
+      "description": "選擇應用程式的外觀。",
+      "system": "跟隨手機",
+      "light": "淺色",
+      "dark": "深色"
     }
   }
 }

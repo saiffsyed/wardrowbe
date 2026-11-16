@@ -450,6 +450,13 @@
       "removeFailed": "사진을 삭제하지 못했습니다",
       "optionalStep": "라벨 사진 (선택)",
       "optionalHint": "케어 라벨 사진을 추가하면 사이즈, 소재, 관리 방법을 자동으로 읽어 드립니다."
+    },
+    "display": {
+      "title": "화면",
+      "description": "앱의 모양을 선택하세요.",
+      "system": "휴대폰 설정과 동일",
+      "light": "라이트",
+      "dark": "다크"
     }
   }
 }

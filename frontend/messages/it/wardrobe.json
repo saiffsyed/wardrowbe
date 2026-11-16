@@ -450,6 +450,13 @@
       "removeFailed": "Impossibile eliminare la foto",
       "optionalStep": "Foto dell'etichetta (facoltativo)",
       "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te."
+    },
+    "display": {
+      "title": "Aspetto",
+      "description": "Scegli l'aspetto dell'app.",
+      "system": "Come il telefono",
+      "light": "Chiaro",
+      "dark": "Scuro"
     }
   }
 }
