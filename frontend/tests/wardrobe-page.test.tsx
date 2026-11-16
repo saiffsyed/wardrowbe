@@ -29,6 +29,11 @@ vi.mock('@/lib/hooks/use-items', async (importOriginal) => {
 })
 
 vi.mock('@/lib/hooks/use-user', () => ({ useUserTimezone: () => 'UTC' }))
+vi.mock('@/lib/hooks/use-homes', () => ({
+  useHomes: () => ({ data: [] }),
+  useWardrobeFacets: () => ({ data: undefined }),
+  useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-features', () => ({ useAiUiEnabled: () => true }))
 
 vi.mock('@/lib/hooks/use-translated-constants', () => ({

@@ -45,13 +45,14 @@ describe('wardrobe select-all', () => {
           has_more: true,
         }
       }
-      return path === '/items/types' ? [] : {}
+      return path === '/items/types' || path === '/homes' ? [] : {}
     })
     vi.mocked(api.post).mockResolvedValue({ queued: 29, failed: 0, has_more: false })
 
     render(<WardrobePage />, { wrapper })
 
-    await screen.findAllByText('Blue shirt')
+    // The wardrobe opens on photos only, where an item's name is its accessible name.
+    await screen.findAllByLabelText('Blue shirt')
     fireEvent.click(await screen.findByText('selectAll'))
     fireEvent.click(await screen.findByText('bulkActions.selectAllMatching'))
     fireEvent.click(screen.getByRole('button', { name: 'bulkActions.rotateCw' }))
