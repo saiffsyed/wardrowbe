@@ -83,9 +83,15 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   the light / dark button in the top bar, so it was removed from there.
 - **The mock-up layout is not applied yet**: three-tab bottom bar, home switcher pill,
   category chips, details grouped in cards.
-- Clothes photos should have their background removed automatically when an item is added
-  (agreed). Measured at about half a second per photo on the build machine; the server
-  will be slower. Not built yet.
+- **Clothes photos have their background removed automatically when an item is added**
+  (built). The cleaned photo is saved on white; the untouched photo is kept, so the
+  existing "undo background removal" button brings it back. If removal fails the item is
+  still added with the photo as taken. Adding one photo took about 1.4 seconds on the
+  build machine (the server will be slower); the very first photo after the server
+  starts took about 19 seconds there while the removal tool loaded.
+- In dark mode the photos still sit on white squares, because the cleaned photo is saved
+  with a white backing. Floating on the dark ground needs see-through cut-outs: open
+  question below.
 
 ## Build order
 
@@ -111,6 +117,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
 - Filters by home, occasion, brand, material, season, with counts
   (`GET /wardrobe/facets`); sort by brand and price.
 - Three views: cut-outs, tiles, list.
+- Agreed colours and Figtree font across the app; Display setting in Settings; automatic
+  background removal for newly added photos (items added earlier are not changed).
 - New garment types: ring, necklace, earrings, bracelet, bangles, cufflinks, kurta,
   sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari.
 
@@ -119,7 +127,6 @@ Still to do in Stage 1:
   instructions if it misreads
 - Apply the mock-up layout (colours, font and the Display setting are done); currency,
   "app starts in"
-- Remove photo backgrounds automatically when an item is added
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar

@@ -40,6 +40,10 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `backend/app/services/label_photos.py`, `backend/app/models/label_photo.py`; frontend
   `frontend/components/wardrobe/label-*.tsx`, `frontend/lib/label-scan.ts`,
   `frontend/lib/hooks/use-label-scan.ts`.
+- Automatic background removal on add: `backend/app/services/auto_background.py`, called
+  from `ItemService.create`. Setting `AUTO_REMOVE_BACKGROUND` (default on; the test suite
+  turns it off in `tests/conftest.py`). Needs `requirements-extras.txt` installed, which
+  the Docker image already does.
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
   `a7d3c9e1f5b2`, and `c9f5e1a3b7d4_add_item_label_photos` hangs off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.

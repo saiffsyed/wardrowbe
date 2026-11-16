@@ -24,6 +24,7 @@ from app.schemas.item import (
     ItemFilterFields,
     ItemUpdate,
 )
+from app.services.auto_background import remove_background_on_add
 from app.utils.tag_validation import normalize_tag_edits
 
 # Values the AI fills in that can also be changed on the item itself rather than inside tags.
@@ -285,6 +286,10 @@ class ItemService:
         if item_data.tags:
             tags = item_data.tags.model_dump(exclude_none=True)
 
+        # Mutates image_paths, so a caller that cleans up after a failed create also removes
+        # the kept original.
+        await remove_background_on_add(image_paths)
+
         # A new item goes into the home the user says they are in, if they have set one.
         home_id = (
             await self.db.execute(select(User.current_home_id).where(User.id == user_id))
@@ -298,6 +303,7 @@ class ItemService:
             thumbnail_path=image_paths.get("thumbnail_path"),
             medium_path=image_paths.get("medium_path"),
             image_hash=image_paths.get("image_hash"),
+            original_image_path=image_paths.get("original_backup_path"),
             type=item_data.type,
             subtype=item_data.subtype,
             tags=tags,
