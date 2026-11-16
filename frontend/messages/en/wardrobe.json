@@ -373,7 +373,8 @@
       "material": "Material",
       "season": "Season",
       "any": "{filter}: any",
-      "option": "{label} ({count})"
+      "option": "{label} ({count})",
+      "toggle": "Filters"
     },
     "list": {
       "size": "Size {size}",

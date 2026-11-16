@@ -373,7 +373,8 @@
       "material": "소재",
       "season": "계절",
       "any": "{filter}: 전체",
-      "option": "{label} ({count})"
+      "option": "{label} ({count})",
+      "toggle": "필터"
     },
     "list": {
       "size": "사이즈 {size}",

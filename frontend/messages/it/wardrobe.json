@@ -373,7 +373,8 @@
       "material": "Materiale",
       "season": "Stagione",
       "any": "{filter}: tutti",
-      "option": "{label} ({count})"
+      "option": "{label} ({count})",
+      "toggle": "Filtri"
     },
     "list": {
       "size": "Taglia {size}",

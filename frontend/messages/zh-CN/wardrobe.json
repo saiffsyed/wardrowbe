@@ -373,7 +373,8 @@
       "material": "材质",
       "season": "季节",
       "any": "{filter}：全部",
-      "option": "{label}（{count}）"
+      "option": "{label}（{count}）",
+      "toggle": "筛选"
     },
     "list": {
       "size": "尺码 {size}",

@@ -819,9 +819,11 @@ export default function WardrobePage() {
               variant={showFilters || activeFilterCount > 0 ? 'default' : 'outline'}
               size="icon"
               className="shrink-0 relative"
+              aria-label={t('closet.filters.toggle')}
+              aria-expanded={showFilters}
               onClick={() => setShowFilters((v) => !v)}
             >
-              <SlidersHorizontal className="h-4 w-4" />
+              <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
               {activeFilterCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
                   {activeFilterCount}

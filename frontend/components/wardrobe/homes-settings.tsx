@@ -139,10 +139,10 @@ export function HomesSettings() {
               ) : (
                 <li key={home.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 p-3">
                   <div className="min-w-0 flex-1">
-                    <p className="flex items-center gap-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 text-sm font-medium">
                       <span className="truncate">{home.name}</span>
                       {home.is_current && <Badge variant="secondary">{t('current')}</Badge>}
-                    </p>
+                    </div>
                     <p className="flex items-center gap-1 text-xs text-muted-foreground">
                       <MapPin className="h-3 w-3" aria-hidden="true" />
                       {home.city} · {t('itemCount', { count: home.item_count })}

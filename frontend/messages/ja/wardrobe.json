@@ -373,7 +373,8 @@
       "material": "素材",
       "season": "季節",
       "any": "{filter}：すべて",
-      "option": "{label}（{count}）"
+      "option": "{label}（{count}）",
+      "toggle": "フィルター"
     },
     "list": {
       "size": "サイズ {size}",
