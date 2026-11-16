@@ -81,8 +81,19 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   `frontend/app/layout.tsx`). The app follows the phone's light / dark setting.
 - **Display setting lives in Settings** (Same as phone / Light / Dark). Saiff did not want
   the light / dark button in the top bar, so it was removed from there.
-- **The mock-up layout is not applied yet**: three-tab bottom bar, home switcher pill,
-  category chips, details grouped in cards.
+- **Wardrobe screen follows the mock-up** (built): one row with the menu button, the home
+  pill, and round filter / search / add buttons; the title with the This home / All homes
+  switch; category chips; search opens from its button.
+- **Phones have no top bar.** The menu button is in the wardrobe header (other screens
+  show it alone at the top until they are redesigned). Name, language and sign-out are at
+  the top of the side menu.
+- **Bottom bar has three tabs: Wardrobe / Outfits / Plan.** Plan opens the old Dashboard
+  screen until the Plan area is built. Everything else is in the side menu.
+- **Category chips** (open: Saiff will review the list): All, Tops, Bottoms, Dresses &
+  suits, Outerwear, Traditional, Shoes, Jewellery, Accessories. Traditional holds kurta,
+  sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari. The mock-up had six
+  (with Bags); two were added so every item type has a place.
+- **Not applied yet**: item screen with details grouped in cards.
 - **Clothes photos have their background removed automatically when an item is added**
   (built). The cleaned photo is saved on white; the untouched photo is kept, so the
   existing "undo background removal" button brings it back. If removal fails the item is
@@ -130,8 +141,7 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Apply the mock-up layout (colours, font and the Display setting are done); currency,
-  "app starts in"
+- Item screen in the mock-up's card layout; currency, "app starts in"
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar
@@ -141,6 +151,7 @@ Still to do in Stage 1:
 
 ## Open questions for Saiff
 
+- Category chips: are the nine right? (Saiff: come back to this after the layout work)
 - AI provider: OpenAI or Gemini (the label reader works with either)
 - App name and domain (a domain is needed for Google sign-in)
 - Confirm the starter list of traditional garments

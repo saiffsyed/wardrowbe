@@ -26,6 +26,7 @@ from app.schemas.item import (
 )
 from app.services.auto_background import remove_background_on_add
 from app.utils.tag_validation import normalize_tag_edits
+from app.utils.wardrobe_categories import types_in
 
 # Values the AI fills in that can also be changed on the item itself rather than inside tags.
 _EDITABLE_ITEM_FIELDS = ("type", "subtype", "primary_color", "colors")
@@ -154,6 +155,9 @@ class ItemService:
             )
         if filters.season:
             clauses.append(ClothingItem.season.contains([filters.season]))
+        if filters.category:
+            # A name that is not a category matches nothing rather than everything.
+            clauses.append(ClothingItem.type.in_(types_in(filters.category) or ()))
         if filters.search:
             search_term = f"%{filters.search}%"
             clauses.append(

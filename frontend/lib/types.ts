@@ -193,6 +193,8 @@ export interface ItemFilter {
   brand?: string;
   material?: string;
   season?: string;
+  // One of the wardrobe's category chips (lib/wardrobe-categories.ts).
+  category?: string;
   sort_by?: string;
   sort_order?: 'asc' | 'desc';
   ids?: string;

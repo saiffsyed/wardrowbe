@@ -457,6 +457,24 @@
       "system": "Comme le téléphone",
       "light": "Clair",
       "dark": "Sombre"
+    },
+    "header": {
+      "title": "Garde-robe",
+      "count": "{count, plural, one {# article} other {# articles}}",
+      "search": "Rechercher dans la garde-robe",
+      "closeSearch": "Fermer la recherche"
+    },
+    "categories": {
+      "label": "Catégorie",
+      "all": "Tout",
+      "tops": "Hauts",
+      "bottoms": "Bas",
+      "dresses": "Robes et costumes",
+      "outerwear": "Vestes et manteaux",
+      "traditional": "Traditionnel",
+      "shoes": "Chaussures",
+      "jewellery": "Bijoux",
+      "accessories": "Accessoires"
     }
   }
 }

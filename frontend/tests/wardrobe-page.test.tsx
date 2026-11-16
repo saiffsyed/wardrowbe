@@ -48,10 +48,12 @@ vi.mock('@/components/analysis-queue-panel', () => ({ AnalysisQueuePanel: () => 
 vi.mock('@/components/item-detail-dialog', () => ({ ItemDetailDialog: () => null }))
 vi.mock('@/components/bulk-action-toolbar', () => ({ BulkActionToolbar: () => null }))
 
-describe('WardrobePage add buttons', () => {
-  it('names both the phone and desktop add buttons', () => {
+describe('WardrobePage header', () => {
+  it('names its round buttons, which show only an icon', () => {
     render(<WardrobePage />)
 
-    expect(screen.getAllByRole('button', { name: 'actions.addItem' })).toHaveLength(2)
+    expect(screen.getByRole('button', { name: 'actions.addItem' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'closet.header.search' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'closet.filters.toggle' })).toBeTruthy()
   })
 })

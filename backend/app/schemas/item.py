@@ -291,6 +291,8 @@ class ItemFilterFields(BaseModel):
     brand: str | None = None
     material: str | None = None
     season: str | None = None
+    # One of the wardrobe's category chips (app.utils.wardrobe_categories).
+    category: str | None = None
 
 
 class ItemFilter(ItemFilterFields):

@@ -457,6 +457,24 @@
       "system": "휴대폰 설정과 동일",
       "light": "라이트",
       "dark": "다크"
+    },
+    "header": {
+      "title": "옷장",
+      "count": "{count}개",
+      "search": "옷장 검색",
+      "closeSearch": "검색 닫기"
+    },
+    "categories": {
+      "label": "카테고리",
+      "all": "전체",
+      "tops": "상의",
+      "bottoms": "하의",
+      "dresses": "원피스·정장",
+      "outerwear": "아우터",
+      "traditional": "전통 의상",
+      "shoes": "신발",
+      "jewellery": "주얼리",
+      "accessories": "액세서리"
     }
   }
 }

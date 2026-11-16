@@ -8,14 +8,16 @@ import { MobileNav } from '@/components/mobile-nav'
 
 const AI_HREFS = ['/dashboard/suggest', '/dashboard/pairings', '/dashboard/learning']
 
+// The phone's bottom bar is not here: it holds only Wardrobe, Outfits and Plan, none of them AI.
 const NAVS = {
   'desktop sidebar': () => <Sidebar />,
   'mobile sidebar': () => <MobileSidebar open onClose={() => {}} />,
-  'mobile bottom nav': () => <MobileNav />,
 }
 
 function mockFeatures(response: Response | Promise<Response>) {
-  global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch
+  // A fresh copy per call: the side menu's account controls fetch too, and a response body can
+  // only be read once.
+  global.fetch = vi.fn(() => Promise.resolve(response).then((r) => r.clone())) as unknown as typeof fetch
 }
 
 function featuresResponse(body: Record<string, unknown>) {
@@ -68,5 +70,16 @@ describe.each(Object.entries(NAVS))('AI entries in the %s', (_, nav) => {
     renderNav(nav)
     expect(hrefs()).toContain('/dashboard/outfits')
     expect(hrefs()).not.toContain('/dashboard/suggest')
+  })
+})
+
+describe('the phone bottom bar', () => {
+  it('has the three main places and nothing else', async () => {
+    mockFeatures(featuresResponse({ ai_ui_enabled: true }))
+    renderNav(() => <MobileNav />)
+
+    await waitFor(() =>
+      expect(hrefs()).toEqual(['/dashboard/wardrobe', '/dashboard/outfits', '/dashboard'])
+    )
   })
 })

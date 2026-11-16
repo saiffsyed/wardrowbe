@@ -50,6 +50,12 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   gets it without frontend changes; `ImageService` writes, rotates and deletes them with
   the photo. Anything that reads pixels (AI, duplicate check, split) uses the JPEG on
   white. On screens, put a clothes photo on the `photo-ground` CSS class, never on grey.
+- Wardrobe categories (the chips): types per category in
+  `backend/app/utils/wardrobe_categories.py`, keys repeated in
+  `frontend/lib/wardrobe-categories.ts`. A new garment type must be added to a category
+  or a backend test fails.
+- Phones have no top bar: `components/header.tsx` is desktop-only, and a page's own header
+  shows `MobileMenuButton` (`components/wardrobe/mobile-menu.tsx`).
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
   `a7d3c9e1f5b2`, and `c9f5e1a3b7d4_add_item_label_photos` hangs off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.

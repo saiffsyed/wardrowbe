@@ -37,7 +37,9 @@ import { toast } from 'sonner';
 import { formatWornAgo, getWornAgoColorClass } from '@/lib/utils';
 import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
-import { HomeBar, type HomeScope } from '@/components/wardrobe/home-bar';
+import { type HomeScope } from '@/components/wardrobe/home-bar';
+import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header';
+import { isWardrobeCategory, type WardrobeCategory } from '@/lib/wardrobe-categories';
 import {
   FacetFilters,
   FACET_KEYS,
@@ -368,6 +370,10 @@ export default function WardrobePage() {
     searchParams.get('favorite') === 'true' ? true : undefined
   );
   const [showFilters, setShowFilters] = useState(false);
+  const [category, setCategory] = useState<WardrobeCategory | 'all'>(() => {
+    const param = searchParams.get('category');
+    return isWardrobeCategory(param) ? param : 'all';
+  });
   const [homeScope, setHomeScope] = useState<HomeScope>(() =>
     searchParams.get('homes') === 'all' ? 'all' : 'here'
   );
@@ -433,6 +439,7 @@ export default function WardrobePage() {
     if (sortIndex !== 0) params.set('sort', String(sortIndex)); else params.delete('sort');
     if (needsWash) params.set('needsWash', 'true'); else params.delete('needsWash');
     if (favoriteFilter) params.set('favorite', 'true'); else params.delete('favorite');
+    if (category !== 'all') params.set('category', category); else params.delete('category');
     if (homeScope === 'all') params.set('homes', 'all'); else params.delete('homes');
     for (const key of FACET_KEYS) {
       const value = facetSelection[key];
@@ -445,7 +452,7 @@ export default function WardrobePage() {
     if (next !== searchParams.toString()) {
       router.replace(next ? `/dashboard/wardrobe?${next}` : '/dashboard/wardrobe', { scroll: false });
     }
-  }, [search, typeFilter, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
+  }, [search, typeFilter, category, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
 
   const sortOption = SORT_OPTIONS[sortIndex];
 
@@ -460,6 +467,7 @@ export default function WardrobePage() {
     favorite: favoriteFilter,
     is_archived: false,
     home_id: scopedHomeId,
+    category: category !== 'all' ? category : undefined,
     ...facetSelection,
   };
   const filters = { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
@@ -512,7 +520,7 @@ export default function WardrobePage() {
   // Clear selection when filters change (but not page - allow cross-page selection)
   useEffect(() => {
     setSelection({ mode: 'none', selectedIds: new Set(), excludedIds: new Set() });
-  }, [search, typeFilter, needsWash, favoriteFilter, sortIndex]);
+  }, [search, typeFilter, category, needsWash, favoriteFilter, sortIndex]);
 
   const handleRetry = (itemId: string) => {
     reanalyze.mutate(itemId, {
@@ -700,25 +708,32 @@ export default function WardrobePage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="min-w-0">
-          <div className="flex items-center justify-between sm:justify-start gap-3">
-            <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-            <Button
-              onClick={() => setAddDialogOpen(true)}
-              className="sm:hidden"
-              size="sm"
-              aria-label={t('actions.addItem')}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            {t('itemCount', { count: total })}
-          </p>
-          {(queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
-            <div className="flex items-center gap-2 mt-2">
+    <div className="space-y-4">
+      <WardrobeHeader
+        homes={homes ?? []}
+        scope={homeScope}
+        onScopeChange={(scope) => {
+          setHomeScope(scope);
+          setPage(1);
+        }}
+        category={category}
+        onCategoryChange={(value) => {
+          setCategory(value);
+          setPage(1);
+        }}
+        search={search}
+        onSearchChange={(value) => {
+          setSearch(value);
+          setPage(1);
+        }}
+        filterCount={activeFilterCount}
+        filtersOpen={showFilters}
+        onToggleFilters={() => setShowFilters((v) => !v)}
+        onAdd={() => setAddDialogOpen(true)}
+        total={total}
+        status={
+          (queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
+            <div className="flex flex-wrap items-center gap-2">
               {analyzingCount > 0 && (
                 <Badge variant="secondary" className="gap-1 text-xs">
                   <Loader2 className="h-3 w-3 animate-spin" />
@@ -763,39 +778,12 @@ export default function WardrobePage() {
                 </Badge>
               )}
             </div>
-          )}
-        </div>
-        <Button onClick={() => setAddDialogOpen(true)} className="hidden sm:flex">
-          <Plus className="mr-2 h-4 w-4" />
-          {t('actions.addItem')}
-        </Button>
-      </div>
-
-      <HomeBar
-        homes={homes ?? []}
-        scope={homeScope}
-        onScopeChange={(scope) => {
-          setHomeScope(scope);
-          setPage(1);
-        }}
+          )
+        }
       />
 
       <div className="space-y-3">
-        {/* Main row: search + sort + filter toggle */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={t('search')}
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              className="pl-9"
-            />
-          </div>
-          <div className="flex gap-2">
+        <div className="flex items-center justify-between gap-2">
             <Select
               value={String(sortIndex)}
               onValueChange={(v) => {
@@ -803,7 +791,7 @@ export default function WardrobePage() {
                 setPage(1);
               }}
             >
-              <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectTrigger className="h-11 w-auto min-w-[10.5rem] gap-1 rounded-full bg-card">
                 <ArrowUpDown className="h-3.5 w-3.5 mr-1.5 shrink-0" />
                 <SelectValue />
               </SelectTrigger>
@@ -815,23 +803,7 @@ export default function WardrobePage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button
-              variant={showFilters || activeFilterCount > 0 ? 'default' : 'outline'}
-              size="icon"
-              className="shrink-0 relative"
-              aria-label={t('closet.filters.toggle')}
-              aria-expanded={showFilters}
-              onClick={() => setShowFilters((v) => !v)}
-            >
-              <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
-              {activeFilterCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </Button>
-            <ViewModeToggle mode={viewMode} onChange={setViewMode} />
-          </div>
+          <ViewModeToggle mode={viewMode} onChange={setViewMode} />
         </div>
 
         {/* Expandable filter row */}
@@ -945,7 +917,7 @@ export default function WardrobePage() {
           ))}
         </div>
       ) : items.length === 0 ? (
-        search || typeFilter !== 'all' || needsWash !== undefined || favoriteFilter !== undefined || activeFacetCount(facetSelection) > 0 || scopedHomeId ? (
+        search || typeFilter !== 'all' || category !== 'all' || needsWash !== undefined || favoriteFilter !== undefined || activeFacetCount(facetSelection) > 0 || scopedHomeId ? (
           <div className="text-center py-8">
             <p className="text-muted-foreground">
               {t('errors.noItemsFound')}

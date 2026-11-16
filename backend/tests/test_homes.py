@@ -415,3 +415,30 @@ class TestWardrobeFacets:
         )
 
         assert [b["value"] for b in response.json()["brands"]] == ["Here"]
+
+
+class TestWardrobeCategories:
+    def test_every_garment_type_is_in_exactly_one_category(self):
+        from app.utils.garment_vocabulary import TYPES
+        from app.utils.wardrobe_categories import CATEGORY_TYPES
+
+        grouped = [t for types in CATEGORY_TYPES.values() for t in types]
+
+        assert sorted(grouped) == sorted(TYPES)
+
+    @pytest.mark.asyncio
+    async def test_items_filter_by_category(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        await _item(db_session, test_user, type="shirt")
+        sherwani = await _item(db_session, test_user, type="sherwani")
+        dupatta = await _item(db_session, test_user, type="dupatta")
+
+        traditional = await client.get(f"{ITEMS}?category=traditional", headers=auth_headers)
+        unknown = await client.get(f"{ITEMS}?category=hats-only", headers=auth_headers)
+
+        assert {i["id"] for i in traditional.json()["items"]} == {
+            str(sherwani.id),
+            str(dupatta.id),
+        }
+        assert unknown.json()["items"] == []

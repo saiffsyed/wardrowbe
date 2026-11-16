@@ -457,6 +457,24 @@
       "system": "端末に合わせる",
       "light": "ライト",
       "dark": "ダーク"
+    },
+    "header": {
+      "title": "ワードローブ",
+      "count": "{count}点",
+      "search": "ワードローブを検索",
+      "closeSearch": "検索を閉じる"
+    },
+    "categories": {
+      "label": "カテゴリー",
+      "all": "すべて",
+      "tops": "トップス",
+      "bottoms": "ボトムス",
+      "dresses": "ワンピース・スーツ",
+      "outerwear": "アウター",
+      "traditional": "伝統衣装",
+      "shoes": "シューズ",
+      "jewellery": "ジュエリー",
+      "accessories": "小物"
     }
   }
 }

@@ -457,6 +457,24 @@
       "system": "跟隨手機",
       "light": "淺色",
       "dark": "深色"
+    },
+    "header": {
+      "title": "衣櫥",
+      "count": "{count} 件",
+      "search": "搜尋衣櫥",
+      "closeSearch": "關閉搜尋"
+    },
+    "categories": {
+      "label": "類別",
+      "all": "全部",
+      "tops": "上衣",
+      "bottoms": "下身",
+      "dresses": "洋裝與西裝",
+      "outerwear": "外套",
+      "traditional": "傳統服飾",
+      "shoes": "鞋履",
+      "jewellery": "首飾",
+      "accessories": "配件"
     }
   }
 }

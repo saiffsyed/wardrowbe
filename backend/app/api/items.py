@@ -153,6 +153,7 @@ async def list_items(
     brand: str | None = None,
     material: str | None = None,
     season: str | None = None,
+    category: str | None = None,
     sort_by: str | None = None,
     sort_order: str = "desc",
 ) -> ItemListResponse:
@@ -173,6 +174,7 @@ async def list_items(
         brand=brand,
         material=material,
         season=season,
+        category=category,
         sort_by=sort_by,
         sort_order=sort_order,
     )

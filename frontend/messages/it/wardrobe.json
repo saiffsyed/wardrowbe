@@ -457,6 +457,24 @@
       "system": "Come il telefono",
       "light": "Chiaro",
       "dark": "Scuro"
+    },
+    "header": {
+      "title": "Guardaroba",
+      "count": "{count, plural, one {# capo} other {# capi}}",
+      "search": "Cerca nel guardaroba",
+      "closeSearch": "Chiudi la ricerca"
+    },
+    "categories": {
+      "label": "Categoria",
+      "all": "Tutti",
+      "tops": "Parti sopra",
+      "bottoms": "Parti sotto",
+      "dresses": "Abiti e completi",
+      "outerwear": "Giacche e cappotti",
+      "traditional": "Tradizionale",
+      "shoes": "Scarpe",
+      "jewellery": "Gioielli",
+      "accessories": "Accessori"
     }
   }
 }

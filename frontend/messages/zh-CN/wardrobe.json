@@ -457,6 +457,24 @@
       "system": "跟随手机",
       "light": "浅色",
       "dark": "深色"
+    },
+    "header": {
+      "title": "衣橱",
+      "count": "{count} 件",
+      "search": "搜索衣橱",
+      "closeSearch": "关闭搜索"
+    },
+    "categories": {
+      "label": "类别",
+      "all": "全部",
+      "tops": "上装",
+      "bottoms": "下装",
+      "dresses": "连衣裙与西装",
+      "outerwear": "外套",
+      "traditional": "传统服饰",
+      "shoes": "鞋履",
+      "jewellery": "首饰",
+      "accessories": "配饰"
     }
   }
 }

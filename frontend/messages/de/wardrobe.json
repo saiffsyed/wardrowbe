@@ -457,6 +457,24 @@
       "system": "Wie das Handy",
       "light": "Hell",
       "dark": "Dunkel"
+    },
+    "header": {
+      "title": "Kleiderschrank",
+      "count": "{count, plural, one {# Teil} other {# Teile}}",
+      "search": "Kleiderschrank durchsuchen",
+      "closeSearch": "Suche schließen"
+    },
+    "categories": {
+      "label": "Kategorie",
+      "all": "Alle",
+      "tops": "Oberteile",
+      "bottoms": "Hosen & Röcke",
+      "dresses": "Kleider & Anzüge",
+      "outerwear": "Jacken & Mäntel",
+      "traditional": "Traditionell",
+      "shoes": "Schuhe",
+      "jewellery": "Schmuck",
+      "accessories": "Accessoires"
     }
   }
 }

@@ -457,6 +457,24 @@
       "system": "Same as phone",
       "light": "Light",
       "dark": "Dark"
+    },
+    "header": {
+      "title": "Wardrobe",
+      "count": "{count, plural, one {# item} other {# items}}",
+      "search": "Search wardrobe",
+      "closeSearch": "Close search"
+    },
+    "categories": {
+      "label": "Category",
+      "all": "All",
+      "tops": "Tops",
+      "bottoms": "Bottoms",
+      "dresses": "Dresses & suits",
+      "outerwear": "Outerwear",
+      "traditional": "Traditional",
+      "shoes": "Shoes",
+      "jewellery": "Jewellery",
+      "accessories": "Accessories"
     }
   }
 }
