@@ -22,7 +22,7 @@ export function MobileNav() {
   ].filter((item) => aiUiEnabled || !isAiRoute(item.href));
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card lg:hidden">
       <div className="flex h-16 items-center justify-around">
         {navigation.map((item) => {
           const isActive = item.href === '/dashboard'

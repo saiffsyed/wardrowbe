@@ -73,10 +73,18 @@ Social feed, followers, OOTD stories, subscriptions / credits, catalogue search,
 stickers, hairstyles, 3D avatar.
 
 ### Look
-Agreed design: light ground `#F3F4F1` with accent `#1E5B4F`; dark ground `#121417` with
+Agreed design: light ground **plain white** (`#FFFFFF`; Saiff did not like the grey-green
+`#F3F4F1` showing around clothes photos) with accent `#1E5B4F`; dark ground `#121417` with
 accent `#7FD6BC`; font Figtree. Design mock-ups:
 https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
-**Not applied yet** — screens still use upstream's styling.
+- **Colours and font are applied** to the whole app (`frontend/app/globals.css`,
+  `frontend/app/layout.tsx`). The app follows the phone's light / dark setting; the sun /
+  moon button in the top bar switches it.
+- **The mock-up layout is not applied yet**: three-tab bottom bar, home switcher pill,
+  category chips, details grouped in cards.
+- Clothes photos should have their background removed automatically when an item is added
+  (agreed). Measured at about half a second per photo on the build machine; the server
+  will be slower. Not built yet.
 
 ## Build order
 
@@ -108,7 +116,9 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Apply the agreed dark / green design; Display setting, currency, "app starts in"
+- Apply the mock-up layout (colours and font are done); Display setting in Settings,
+  currency, "app starts in"
+- Remove photo backgrounds automatically when an item is added
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar
@@ -118,7 +128,8 @@ Still to do in Stage 1:
 
 ## Open questions for Saiff
 
-- What to build next: dark design, or tabs?
+- In dark mode, should clothes float on the dark ground (needs see-through cut-outs) or
+  stay on white squares?
 - AI provider: OpenAI or Gemini (the label reader works with either)
 - App name and domain (a domain is needed for Google sign-in)
 - Confirm the starter list of traditional garments
