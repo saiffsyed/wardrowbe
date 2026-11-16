@@ -2,6 +2,7 @@ from app.models.family import Family, FamilyInvite
 from app.models.home import Home
 from app.models.identity import UserIdentity
 from app.models.item import ClothingItem, ItemHistory, ItemImage, WashHistory
+from app.models.label_photo import ItemLabelPhoto
 from app.models.learning import (
     ItemPairScore,
     OutfitPerformance,
@@ -30,6 +31,7 @@ __all__ = [
     "ClothingItem",
     "ItemHistory",
     "ItemImage",
+    "ItemLabelPhoto",
     "WashHistory",
     "FamilyOutfitRating",
     "Outfit",

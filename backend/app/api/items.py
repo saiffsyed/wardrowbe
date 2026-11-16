@@ -60,6 +60,7 @@ from app.schemas.item import (
 )
 from app.services.image_service import ImageService
 from app.services.item_service import ItemService, TagVocabularyError, UnknownHomeError
+from app.services.label_photos import delete_label_photo_files_of_item
 from app.utils.auth import get_current_user
 from app.utils.signed_urls import sign_optional
 from app.utils.timezone import get_user_today
@@ -567,6 +568,7 @@ async def bulk_delete_items(
                     "original_backup_path": item.original_image_path,
                 }
             )
+            await delete_label_photo_files_of_item(db, item.id)
 
             await item_service.delete(item)
             deleted += 1
@@ -1337,6 +1339,7 @@ async def delete_item(
             "original_backup_path": item.original_image_path,
         }
     )
+    await delete_label_photo_files_of_item(db, item.id)
 
     await item_service.delete(item)
 
