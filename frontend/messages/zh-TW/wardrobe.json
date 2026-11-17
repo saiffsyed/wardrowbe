@@ -531,7 +531,18 @@
       "resetConfirm": "再點一次以重設",
       "resetDone": "已恢復標準類別",
       "saved": "類別已儲存",
-      "saveFailed": "無法儲存類別"
+      "saveFailed": "無法儲存類別",
+      "kindsTitle": "我自己的單品種類",
+      "kindsHint": "有清單裡沒有的東西嗎？在這裡新增，之後新增或編輯單品時就能選擇。",
+      "kindOf": "{type}的一種",
+      "deleteKind": "刪除{name}",
+      "addKind": "新增單品種類",
+      "kindAdded": "已新增單品種類",
+      "kindSheetHint": "填寫你平時的叫法，並選擇最接近的種類。",
+      "kindNamePlaceholder": "例如：帕圖帕瓦代",
+      "kindBase": "它屬於",
+      "kindBasePlaceholder": "選擇最接近的",
+      "kindBaseHint": "用於搭配和洗滌。在你移動之前，它位於同一類別中。"
     }
   }
 }

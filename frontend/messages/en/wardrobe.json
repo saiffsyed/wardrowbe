@@ -531,7 +531,18 @@
       "resetConfirm": "Tap again to reset",
       "resetDone": "Back to the standard categories",
       "saved": "Categories saved",
-      "saveFailed": "Couldn't save the categories"
+      "saveFailed": "Couldn't save the categories",
+      "kindsTitle": "Your own kinds of item",
+      "kindsHint": "Something you own that isn't on the list? Add it here. It then appears when you add or edit an item.",
+      "kindOf": "a kind of {type}",
+      "deleteKind": "Delete {name}",
+      "addKind": "Add a kind of item",
+      "kindAdded": "Kind of item added",
+      "kindSheetHint": "Give it the name you use, and say what it is closest to.",
+      "kindNamePlaceholder": "e.g. Pattu pavadai",
+      "kindBase": "It is a kind of",
+      "kindBasePlaceholder": "Choose the closest",
+      "kindBaseHint": "Used for outfits and washing. It sits in the same category until you move it."
     }
   }
 }

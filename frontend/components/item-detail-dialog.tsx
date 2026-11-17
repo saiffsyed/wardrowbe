@@ -95,6 +95,7 @@ import {
 import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
 import { ClosetDetails } from '@/components/wardrobe/closet-details';
+import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
 import { formatDate } from '@/lib/utils';
 
 interface ItemDetailDialogProps {
@@ -152,6 +153,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   const clothingTypes = useClothingTypes();
   const clothingColors = useClothingColors();
   const subtypeLabel = useSubtypeLabel();
+  const { kinds: customKinds, resolve: resolveKind } = useCustomKinds();
   const materialLabel = useMaterialLabel();
   const occasionLabel = useOccasionLabel();
   const formalityLabel = useFormalityLabel();
@@ -734,14 +736,26 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     )}
                     <Select
                       value={editForm.type}
-                      onValueChange={(v) =>
-                        setEditForm({ ...editForm, type: v, subtype: subtypeAfterTypeChange(v, editForm.subtype) })
-                      }
+                      onValueChange={(v) => {
+                        // One of the person's own kinds fills in both the type and the subtype.
+                        const chosen = resolveKind(v);
+                        if (!chosen.type) return;
+                        setEditForm({
+                          ...editForm,
+                          type: chosen.type,
+                          subtype: chosen.subtype ?? subtypeAfterTypeChange(chosen.type, editForm.subtype),
+                        });
+                      }}
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
+                        {customKinds.map((kind) => (
+                          <SelectItem key={kind.id} value={CUSTOM_KIND_PREFIX + kind.id}>
+                            {kind.name}
+                          </SelectItem>
+                        ))}
                         {clothingTypes.map((ct) => (
                           <SelectItem key={ct.value} value={ct.value}>
                             {ct.label}
@@ -761,6 +775,11 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       placeholder={t('placeholders.subtype')}
                     />
                     <datalist id="item-subtype-suggestions">
+                      {customKinds
+                        .filter((kind) => kind.base_type === editForm.type)
+                        .map((kind) => (
+                          <option key={kind.id} value={kind.name} />
+                        ))}
                       {subtypeSuggestions.map((st) => (
                         <option key={st} value={st}>{subtypeLabel(st)}</option>
                       ))}

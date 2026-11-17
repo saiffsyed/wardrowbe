@@ -531,7 +531,18 @@
       "resetConfirm": "もう一度タップでリセット",
       "resetDone": "標準のカテゴリーに戻しました",
       "saved": "カテゴリーを保存しました",
-      "saveFailed": "カテゴリーを保存できませんでした"
+      "saveFailed": "カテゴリーを保存できませんでした",
+      "kindsTitle": "自分で追加したアイテムの種類",
+      "kindsHint": "リストにないものをお持ちですか？ここで追加すると、アイテムの追加や編集のときに選べます。",
+      "kindOf": "{type}の一種",
+      "deleteKind": "{name}を削除",
+      "addKind": "アイテムの種類を追加",
+      "kindAdded": "アイテムの種類を追加しました",
+      "kindSheetHint": "普段使っている名前を付けて、いちばん近い種類を選んでください。",
+      "kindNamePlaceholder": "例：パットゥ・パヴァダイ",
+      "kindBase": "次の種類の一種",
+      "kindBasePlaceholder": "いちばん近いものを選択",
+      "kindBaseHint": "コーディネートと洗濯に使われます。移動するまで同じカテゴリーに入ります。"
     }
   }
 }

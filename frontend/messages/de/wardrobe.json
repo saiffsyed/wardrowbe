@@ -531,7 +531,18 @@
       "resetConfirm": "Zum Zurücksetzen erneut tippen",
       "resetDone": "Standardkategorien wiederhergestellt",
       "saved": "Kategorien gespeichert",
-      "saveFailed": "Die Kategorien konnten nicht gespeichert werden"
+      "saveFailed": "Die Kategorien konnten nicht gespeichert werden",
+      "kindsTitle": "Deine eigenen Arten von Teilen",
+      "kindsHint": "Du besitzt etwas, das nicht in der Liste steht? Füge es hier hinzu. Es erscheint dann beim Hinzufügen und Bearbeiten von Teilen.",
+      "kindOf": "eine Art von {type}",
+      "deleteKind": "{name} löschen",
+      "addKind": "Art von Teil hinzufügen",
+      "kindAdded": "Art von Teil hinzugefügt",
+      "kindSheetHint": "Gib den Namen an, den du verwendest, und was dem am nächsten kommt.",
+      "kindNamePlaceholder": "z. B. Pattu Pavadai",
+      "kindBase": "Es ist eine Art von",
+      "kindBasePlaceholder": "Das Nächstliegende wählen",
+      "kindBaseHint": "Wird für Outfits und Wäsche verwendet. Es liegt in derselben Kategorie, bis du es verschiebst."
     }
   }
 }

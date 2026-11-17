@@ -15,6 +15,7 @@ from app.models.preference import UserPreference
 from app.models.schedule import Schedule
 from app.models.user import User
 from app.models.wardrobe_category import WardrobeCategoryTree
+from app.models.wardrobe_kind import WardrobeCustomKind
 
 __all__ = [
     "Family",
@@ -40,4 +41,5 @@ __all__ = [
     "UserFeedback",
     "Notification",
     "WardrobeCategoryTree",
+    "WardrobeCustomKind",
 ]

@@ -89,8 +89,7 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   the top of the side menu.
 - **Bottom bar has three tabs: Wardrobe / Outfits / Plan.** Plan opens the old Dashboard
   screen until the Plan area is built. Everything else is in the side menu.
-- **Categories are grouped and each person can edit them** (built, awaiting Saiff's
-  approval of the preview). Saiff asked for categories that suit an Indian woman's
+- **Categories are grouped and each person can edit them** (built and approved). Saiff asked for categories that suit an Indian woman's
   wardrobe, "grouped, but sensible", with editing in Settings like the Fits app's
   "Manage tags".
   - Main chips: All · Indian wear · Western wear · Shoes · Jewellery · Accessories.
@@ -103,8 +102,12 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   - Settings → Categories: rename, add and delete groups and sub-groups, choose which
     kinds of item each sub-group holds, and go back to the standard set. Each person has
     their own arrangement.
-  - Not possible yet: adding a brand-new *kind of item* (for example "pattu pavadai") from
-    Settings. New kinds are added in the code.
+  - **Your own kinds of item** (built): Settings → Categories → "Add a kind of item" takes a
+    name ("Pattu pavadai") and the built-in kind it is closest to (Lehenga). It then
+    appears in the type list when adding or editing an item, and can be ticked into any
+    category. An item of that kind is stored as the built-in type plus the name as its
+    subtype, so outfits, washing and weather rules treat it like the built-in type.
+    Deleting a kind leaves its items as they are.
 - **Item screen follows the mock-up's cards** (built): Kept in and Status tiles, occasion
   chips, a Details card (brand, size, fit note, bought in), a Material card and a Care
   card with one instruction per row. The top row of icon buttons, wash status, wear
@@ -170,8 +173,7 @@ Still to do in Stage 1:
 
 ## Open questions for Saiff
 
-- Grouped categories: approve the preview; does the grouping make sense to his partner?
-- Should people be able to add their own kinds of item from Settings?
+- Grouped categories: does the grouping make sense to his partner?
 - AI provider: OpenAI or Gemini (the label reader works with either)
 - App name and domain (a domain is needed for Google sign-in)
 - Confirm the starter list of traditional garments

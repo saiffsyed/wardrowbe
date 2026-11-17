@@ -9,7 +9,15 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.wardrobe_category import WardrobeCategoryTree
-from app.utils.wardrobe_categories import CategoryTree, default_tree
+from app.models.wardrobe_kind import WardrobeCustomKind
+from app.utils.wardrobe_categories import (
+    CategoryFilter,
+    CategoryTree,
+    KindPair,
+    default_tree,
+    filter_for,
+    kind_pair,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -44,3 +52,23 @@ async def save_tree(db: AsyncSession, user_id: UUID, tree: CategoryTree) -> None
 
 async def reset_tree(db: AsyncSession, user_id: UUID) -> None:
     await db.execute(delete(WardrobeCategoryTree).where(WardrobeCategoryTree.user_id == user_id))
+
+
+async def kinds_of(db: AsyncSession, user_id: UUID) -> list[WardrobeCustomKind]:
+    """The kinds of item this person added themselves, oldest first."""
+    result = await db.execute(
+        select(WardrobeCustomKind)
+        .where(WardrobeCustomKind.user_id == user_id)
+        .order_by(WardrobeCustomKind.created_at, WardrobeCustomKind.id)
+    )
+    return list(result.scalars().all())
+
+
+def pairs_by_id(kinds: list[WardrobeCustomKind]) -> dict[str, KindPair]:
+    return {str(kind.id): kind_pair(kind.base_type, kind.name) for kind in kinds}
+
+
+async def category_filter(db: AsyncSession, user_id: UUID, category_id: str) -> CategoryFilter:
+    """Which of this person's items one of their categories holds."""
+    tree = await tree_for(db, user_id)
+    return filter_for(tree, category_id, pairs_by_id(await kinds_of(db, user_id)))

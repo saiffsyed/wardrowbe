@@ -8,6 +8,17 @@ export interface CategorySubGroup {
   key?: string | null;
   name?: string | null;
   types: string[];
+  // Ids of the person's own kinds of item that were put here.
+  kinds: string[];
+  item_count: number;
+}
+
+// A kind of item the person added themselves. It is always a kind of one built-in type, and an
+// item of this kind is stored as that type with this name as its subtype.
+export interface CustomKind {
+  id: string;
+  name: string;
+  base_type: string;
   item_count: number;
 }
 
@@ -24,6 +35,7 @@ export interface WardrobeCategories {
   groups: CategoryGroup[];
   // Item types in no category; their items show only under "All".
   unplaced_types: string[];
+  kinds: CustomKind[];
 }
 
 // What is sent back when a person saves their own arrangement: the tree without the counts.
@@ -32,7 +44,7 @@ export interface CategoryTreeInput {
     id: string;
     key?: string;
     name?: string;
-    children: { id: string; key?: string; name?: string; types: string[] }[];
+    children: { id: string; key?: string; name?: string; types: string[]; kinds: string[] }[];
   }[];
 }
 
@@ -45,7 +57,12 @@ export function toTreeInput(groups: CategoryGroup[]): CategoryTreeInput {
     groups: groups.map((group) => ({
       id: group.id,
       ...label(group),
-      children: group.children.map((child) => ({ id: child.id, ...label(child), types: child.types })),
+      children: group.children.map((child) => ({
+        id: child.id,
+        ...label(child),
+        types: child.types,
+        kinds: child.kinds ?? [],
+      })),
     })),
   };
 }

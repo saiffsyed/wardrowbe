@@ -531,7 +531,18 @@
       "resetConfirm": "Tocca di nuovo per ripristinare",
       "resetDone": "Categorie standard ripristinate",
       "saved": "Categorie salvate",
-      "saveFailed": "Impossibile salvare le categorie"
+      "saveFailed": "Impossibile salvare le categorie",
+      "kindsTitle": "I tuoi tipi di capo",
+      "kindsHint": "Possiedi qualcosa che non è nell'elenco? Aggiungilo qui. Comparirà quando aggiungi o modifichi un capo.",
+      "kindOf": "un tipo di {type}",
+      "deleteKind": "Elimina {name}",
+      "addKind": "Aggiungi un tipo di capo",
+      "kindAdded": "Tipo di capo aggiunto",
+      "kindSheetHint": "Dagli il nome che usi e indica a cosa somiglia di più.",
+      "kindNamePlaceholder": "es. Pattu pavadai",
+      "kindBase": "È un tipo di",
+      "kindBasePlaceholder": "Scegli il più simile",
+      "kindBaseHint": "Serve per gli outfit e i lavaggi. Resta nella stessa categoria finché non lo sposti."
     }
   }
 }

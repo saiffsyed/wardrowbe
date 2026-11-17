@@ -41,6 +41,7 @@ import { ACCEPTED_IMAGE_TYPES } from '@/lib/image-types';
 import { useTranslations } from 'next-intl';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
 import { LabelPhotoPicker } from '@/components/wardrobe/label-photo-picker';
+import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
 import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
 import type { Item } from '@/lib/types';
 
@@ -62,6 +63,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   const clothingTypes = useClothingTypes();
   const clothingColors = useClothingColors();
   const aiUiEnabled = useAiUiEnabled();
+  const { kinds: customKinds, resolve: resolveKind } = useCustomKinds();
   // Single upload state
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -143,7 +145,11 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
     const formData = new FormData();
     formData.append('image', file);
     // Type is optional - AI will detect if not provided
-    if (type) formData.append('type', type);
+    // One of the person's own kinds is sent as the built-in type it is a kind of, with its name
+    // as the subtype.
+    const chosen = resolveKind(type);
+    if (chosen.type) formData.append('type', chosen.type);
+    if (chosen.subtype) formData.append('subtype', chosen.subtype);
     if (name) formData.append('name', name);
     if (brand) formData.append('brand', brand);
     if (primaryColor) formData.append('primary_color', primaryColor);
@@ -325,6 +331,11 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                       <SelectValue placeholder={aiUiEnabled ? t('letAiDetect') : t('selectPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
+                      {customKinds.map((kind) => (
+                        <SelectItem key={kind.id} value={CUSTOM_KIND_PREFIX + kind.id}>
+                          {kind.name}
+                        </SelectItem>
+                      ))}
                       {clothingTypes.map((ct) => (
                         <SelectItem key={ct.value} value={ct.value}>
                           {ct.label}

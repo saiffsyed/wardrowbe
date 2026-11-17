@@ -18,7 +18,7 @@ const HOMES = [
   { id: 'home-2', name: 'Europe', city: 'Amsterdam', is_current: false, item_count: 3 },
 ] as Home[]
 
-const sub = (id: string, item_count: number) => ({ id, key: id, types: [], item_count })
+const sub = (id: string, item_count: number) => ({ id, key: id, types: [], kinds: [], item_count })
 const GROUPS: CategoryGroup[] = [
   { id: 'indian', key: 'indian', item_count: 5, children: [sub('sarees', 3), sub('lehengas', 2), sub('dupattas', 0)] },
   { id: 'shoes', key: 'shoes', item_count: 2, children: [sub('heels', 2), sub('boots', 0)] },

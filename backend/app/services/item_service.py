@@ -25,9 +25,9 @@ from app.schemas.item import (
     ItemUpdate,
 )
 from app.services.auto_background import remove_background_on_add
-from app.services.wardrobe_category_service import tree_for
+from app.services.wardrobe_category_service import category_filter
 from app.utils.tag_validation import normalize_tag_edits
-from app.utils.wardrobe_categories import types_in
+from app.utils.wardrobe_categories import CategoryFilter, subtype_as_kind
 
 # Values the AI fills in that can also be changed on the item itself rather than inside tags.
 _EDITABLE_ITEM_FIELDS = ("type", "subtype", "primary_color", "colors")
@@ -119,14 +119,14 @@ class ItemService:
         )
         return result.scalar() or 0
 
-    async def _category_types(self, user_id: UUID, category: str | None) -> tuple | None:
-        """The garment types of one of the person's categories; None when not filtering by one."""
+    async def _category_filter(self, user_id: UUID, category: str | None) -> CategoryFilter | None:
+        """What one of the person's categories holds; None when not filtering by one."""
         if not category:
             return None
-        return types_in(await tree_for(self.db, user_id), category)
+        return await category_filter(self.db, user_id, category)
 
     def _build_filter_clauses(
-        self, user_id: UUID, filters: ItemFilterFields, category_types: tuple | None = None
+        self, user_id: UUID, filters: ItemFilterFields, category: CategoryFilter | None = None
     ) -> list:
         clauses = [
             ClothingItem.user_id == user_id,
@@ -164,9 +164,18 @@ class ItemService:
             )
         if filters.season:
             clauses.append(ClothingItem.season.contains([filters.season]))
-        if category_types is not None:
+        if category is not None:
+            # A person's own kind of item is its built-in type plus its name as the subtype.
+            kind = subtype_as_kind(ClothingItem.subtype)
+
+            def is_kind(pair: tuple[str, str]):
+                return and_(ClothingItem.type == pair[0], kind == pair[1])
+
             # An id that is not a category has no types, so it matches nothing, not everything.
-            clauses.append(ClothingItem.type.in_(category_types))
+            of_its_types = ClothingItem.type.in_(category.types)
+            if category.moved_out:
+                of_its_types = and_(of_its_types, ~or_(*map(is_kind, category.moved_out)))
+            clauses.append(or_(of_its_types, *map(is_kind, category.moved_in)))
         if filters.search:
             search_term = f"%{filters.search}%"
             clauses.append(
@@ -187,10 +196,10 @@ class ItemService:
         page: int = 1,
         page_size: int = 20,
     ) -> tuple[list[ClothingItem], int]:
-        category_types = await self._category_types(user_id, filters.category)
+        category = await self._category_filter(user_id, filters.category)
         query = (
             select(ClothingItem)
-            .where(*self._build_filter_clauses(user_id, filters, category_types))
+            .where(*self._build_filter_clauses(user_id, filters, category))
             .options(selectinload(ClothingItem.additional_images))
         )
 
@@ -230,9 +239,9 @@ class ItemService:
         limit: int | None = None,
     ) -> list[UUID]:
         filters = filters or ItemFilterFields()
-        category_types = await self._category_types(user_id, filters.category)
+        category = await self._category_filter(user_id, filters.category)
         query = select(ClothingItem.id).where(
-            *self._build_filter_clauses(user_id, filters, category_types)
+            *self._build_filter_clauses(user_id, filters, category)
         )
 
         if excluded_ids:

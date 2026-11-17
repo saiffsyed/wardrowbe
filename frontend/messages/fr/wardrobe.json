@@ -531,7 +531,18 @@
       "resetConfirm": "Touchez encore pour réinitialiser",
       "resetDone": "Catégories standard rétablies",
       "saved": "Catégories enregistrées",
-      "saveFailed": "Impossible d'enregistrer les catégories"
+      "saveFailed": "Impossible d'enregistrer les catégories",
+      "kindsTitle": "Vos propres types d'articles",
+      "kindsHint": "Vous possédez quelque chose qui n'est pas dans la liste ? Ajoutez-le ici. Il apparaîtra quand vous ajoutez ou modifiez un article.",
+      "kindOf": "un type de {type}",
+      "deleteKind": "Supprimer {name}",
+      "addKind": "Ajouter un type d'article",
+      "kindAdded": "Type d'article ajouté",
+      "kindSheetHint": "Donnez-lui le nom que vous utilisez et indiquez ce qui s'en rapproche le plus.",
+      "kindNamePlaceholder": "p. ex. Pattu pavadai",
+      "kindBase": "C'est un type de",
+      "kindBasePlaceholder": "Choisir le plus proche",
+      "kindBaseHint": "Sert pour les tenues et le lavage. Il reste dans la même catégorie jusqu'à ce que vous le déplaciez."
     }
   }
 }

@@ -531,7 +531,18 @@
       "resetConfirm": "再点一次以重置",
       "resetDone": "已恢复标准类别",
       "saved": "类别已保存",
-      "saveFailed": "无法保存类别"
+      "saveFailed": "无法保存类别",
+      "kindsTitle": "我自己的单品种类",
+      "kindsHint": "有清单里没有的东西吗？在这里添加，之后添加或编辑单品时就能选择。",
+      "kindOf": "{type}的一种",
+      "deleteKind": "删除{name}",
+      "addKind": "添加单品种类",
+      "kindAdded": "已添加单品种类",
+      "kindSheetHint": "填写你平时的叫法，并选择最接近的种类。",
+      "kindNamePlaceholder": "例如：帕图帕瓦代",
+      "kindBase": "它属于",
+      "kindBasePlaceholder": "选择最接近的",
+      "kindBaseHint": "用于搭配和洗涤。在你移动之前，它位于同一类别中。"
     }
   }
 }

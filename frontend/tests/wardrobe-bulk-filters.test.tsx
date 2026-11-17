@@ -15,6 +15,8 @@ vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
   useWardrobeCategories: () => ({ data: { customised: false, groups: [], unplaced_types: [] }, refetch: vi.fn() }),
   useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
     node.name ?? node.key ?? node.id,
+  useCustomKinds: () => ({ kinds: [], resolve: (type: string) => ({ type }) }),
+  CUSTOM_KIND_PREFIX: 'kind:',
 }))
 vi.mock('@/lib/api', () => ({
   api: { get: vi.fn(), post: vi.fn() },

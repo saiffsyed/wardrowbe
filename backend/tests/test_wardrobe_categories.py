@@ -213,3 +213,128 @@ class TestFilterByCategory:
         assert [i["id"] for i in office.json()["items"]] == [str(shirt.id)]
         # "western" is not one of this person's categories any more.
         assert western.json()["items"] == []
+
+
+KINDS = "/api/v1/wardrobe/kinds"
+
+
+async def _kind(client: AsyncClient, headers: dict, name: str, base_type: str) -> dict:
+    response = await client.post(
+        KINDS, json={"name": name, "base_type": base_type}, headers=headers
+    )
+    assert response.status_code == 201, response.text
+    return response.json()
+
+
+class TestOwnKindsOfItem:
+    @pytest.mark.asyncio
+    async def test_a_new_kind_sits_with_the_type_it_is_a_kind_of(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        pavadai = await _item(db_session, test_user, "lehenga", subtype=" Pattu  Pavadai ")
+        await _item(db_session, test_user, "lehenga")
+
+        kind = await _kind(client, auth_headers, "Pattu pavadai", "lehenga")
+
+        assert kind["item_count"] == 1
+        body = (await client.get(CATEGORIES, headers=auth_headers)).json()
+        assert [k["name"] for k in body["kinds"]] == ["Pattu pavadai"]
+        lehengas = next(c for c in body["groups"][0]["children"] if c["id"] == "lehengas")
+        assert lehengas["item_count"] == 2
+        listed = await client.get(f"{ITEMS}?category=lehengas", headers=auth_headers)
+        assert str(pavadai.id) in {i["id"] for i in listed.json()["items"]}
+
+    @pytest.mark.asyncio
+    async def test_a_kind_ticked_into_another_category_moves_there(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        pavadai = await _item(db_session, test_user, "lehenga", subtype="pattu pavadai")
+        plain = await _item(db_session, test_user, "lehenga")
+        kind = await _kind(client, auth_headers, "Pattu pavadai", "lehenga")
+        tree = {
+            "groups": [
+                {
+                    "id": "indian",
+                    "key": "indian",
+                    "children": [
+                        {"id": "lehengas", "key": "lehengas", "types": ["lehenga"]},
+                        {"id": "pattu", "name": "Pattu", "types": [], "kinds": [kind["id"]]},
+                    ],
+                }
+            ]
+        }
+
+        saved = await client.put(CATEGORIES, json=tree, headers=auth_headers)
+
+        assert saved.status_code == 200, saved.text
+        counts = {c["id"]: c["item_count"] for c in saved.json()["groups"][0]["children"]}
+        assert counts == {"lehengas": 1, "pattu": 1}
+        assert saved.json()["groups"][0]["item_count"] == 2
+        pattu = await client.get(f"{ITEMS}?category=pattu", headers=auth_headers)
+        lehengas = await client.get(f"{ITEMS}?category=lehengas", headers=auth_headers)
+        indian = await client.get(f"{ITEMS}?category=indian", headers=auth_headers)
+        assert [i["id"] for i in pattu.json()["items"]] == [str(pavadai.id)]
+        assert [i["id"] for i in lehengas.json()["items"]] == [str(plain.id)]
+        assert len(indian.json()["items"]) == 2
+
+    @pytest.mark.asyncio
+    async def test_names_must_be_new_and_the_base_a_real_type(
+        self, client: AsyncClient, auth_headers: dict
+    ):
+        await _kind(client, auth_headers, "Pattu pavadai", "lehenga")
+
+        again = await client.post(
+            KINDS, json={"name": "pattu  PAVADAI", "base_type": "skirt"}, headers=auth_headers
+        )
+        built_in = await client.post(
+            KINDS, json={"name": "Saree Blouse", "base_type": "blouse"}, headers=auth_headers
+        )
+        bad_base = await client.post(
+            KINDS, json={"name": "Veshti", "base_type": "spacesuit"}, headers=auth_headers
+        )
+
+        assert again.status_code == 409
+        assert built_in.status_code == 409
+        assert bad_base.status_code == 422
+
+    @pytest.mark.asyncio
+    async def test_deleting_a_kind_leaves_items_alone_and_takes_it_out_of_categories(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        pavadai = await _item(db_session, test_user, "lehenga", subtype="pattu pavadai")
+        kind = await _kind(client, auth_headers, "Pattu pavadai", "lehenga")
+        tree = {
+            "groups": [
+                {
+                    "id": "indian",
+                    "key": "indian",
+                    "children": [
+                        {"id": "lehengas", "key": "lehengas", "types": ["lehenga"]},
+                        {"id": "pattu", "name": "Pattu", "types": [], "kinds": [kind["id"]]},
+                    ],
+                }
+            ]
+        }
+        await client.put(CATEGORIES, json=tree, headers=auth_headers)
+
+        response = await client.delete(f"{KINDS}/{kind['id']}", headers=auth_headers)
+
+        assert response.status_code == 204
+        body = (await client.get(CATEGORIES, headers=auth_headers)).json()
+        assert body["kinds"] == []
+        children = {c["id"]: c for c in body["groups"][0]["children"]}
+        assert children["pattu"]["kinds"] == []
+        assert children["lehengas"]["item_count"] == 1
+        await db_session.refresh(pavadai)
+        assert pavadai.subtype == "pattu pavadai"
+
+    @pytest.mark.asyncio
+    async def test_someone_elses_kind_cannot_be_put_in_a_category(
+        self, client: AsyncClient, auth_headers: dict
+    ):
+        tree = _own_tree()
+        tree["groups"][0]["children"][1]["kinds"] = [str(uuid4())]
+
+        response = await client.put(CATEGORIES, json=tree, headers=auth_headers)
+
+        assert response.status_code == 422
