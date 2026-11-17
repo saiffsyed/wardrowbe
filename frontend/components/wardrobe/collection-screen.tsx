@@ -200,9 +200,9 @@ export function CollectionScreen({ collectionId }: { collectionId: string }) {
               return (
                 <li key={entry.id} className="relative">
                   {editing && <RemoveButton label={t('remove', { name })} onClick={() => takeOut(entry, name)} />}
-                  <Link href={`/dashboard/outfits/${outfit.id}`} className="block">
+                  <Link href={`/dashboard/outfits/${outfit.id}`} className="block rounded-2xl border bg-card p-2 shadow-sm">
                     <CollectionCover urls={outfit.thumbnail_urls} />
-                    <p className="mt-2 truncate font-semibold">{name}</p>
+                    <p className="mt-2 truncate px-1 pb-1 font-semibold">{name}</p>
                   </Link>
                 </li>
               );

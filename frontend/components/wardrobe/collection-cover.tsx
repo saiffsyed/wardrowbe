@@ -13,9 +13,9 @@ export function CollectionCover({ urls }: { urls: string[] }) {
     );
   }
   return (
-    <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-1 overflow-hidden rounded-xl border p-1">
+    <div className="grid aspect-square grid-cols-2 grid-rows-2 gap-1 overflow-hidden rounded-lg">
       {[0, 1, 2, 3].map((i) => (
-        <div key={i} className={`relative overflow-hidden rounded-md ${urls[i] ? 'photo-ground' : 'bg-muted/50'}`}>
+        <div key={i} className={`relative overflow-hidden rounded-md ${urls[i] ? 'photo-ground' : 'bg-muted/40'}`}>
           {urls[i] && (
             <Image src={urls[i]} alt="" fill className="object-contain p-1" sizes="25vw" />
           )}

@@ -64,11 +64,11 @@ export function CollectionsTab() {
             <li key={collection.id}>
               <Link
                 href={`/dashboard/wardrobe/collections/${collection.id}`}
-                className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="block rounded-2xl border bg-card p-2 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <CollectionCover urls={collection.cover_urls} />
-                <p className="mt-2 truncate font-semibold">{collection.name}</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="mt-2 truncate px-1 font-semibold">{collection.name}</p>
+                <p className="px-1 pb-1 text-sm text-muted-foreground">
                   {t('entryCount', { count: collection.entry_count })}
                 </p>
               </Link>
