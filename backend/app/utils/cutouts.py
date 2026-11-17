@@ -6,6 +6,9 @@ module keeps the same picture with nothing behind the garment (WebP with transpa
 same three sizes. Screens are sent the cut-out whenever one exists, so clothes sit on whatever
 is behind them: a white page, a dark page, a mannequin, or another garment in an outfit.
 
+A cut-out is trimmed to the garment's edges with a thin margin, so a shirt can sit right on
+top of the trousers in an outfit and a garment fills its tile in the wardrobe.
+
 Cut-outs are found by file name, not stored in the database: `abc.jpg` has `abc_cut.webp`,
 `abc_medium.jpg` has `abc_cut_medium.webp`, `abc_thumb.jpg` has `abc_cut_thumb.webp`.
 """
@@ -20,6 +23,10 @@ from app.config import get_settings
 # (suffix of the photo it stands in for, longest side in px, WebP quality)
 _SIZES = (("", 1600, 90), ("_medium", 800, 88), ("_thumb", 400, 86))
 _CUT = "_cut"
+# Pixels fainter than this are leftover haze from the removal, not garment.
+_SOLID_ALPHA = 12
+# Margin kept round the garment when trimming, as a share of its longer side.
+_TRIM_MARGIN = 0.02
 
 
 def _storage_root() -> Path:
@@ -63,9 +70,29 @@ def _encode(image: Image.Image, max_px: int, quality: int) -> bytes:
     return buffer.getvalue()
 
 
-def write_cutouts(storage_root: Path, image_path: str, cutout: Image.Image) -> None:
-    """Save a background-removed photo (with transparency) beside the item's main photo."""
+def trim(cutout: Image.Image) -> Image.Image:
+    """The cut-out cropped to the garment with a thin margin. One with nothing solid in it,
+    or already trimmed, comes back the same size."""
     rgba = cutout.convert("RGBA")
+    solid = rgba.getchannel("A").point(lambda a: 255 if a > _SOLID_ALPHA else 0)
+    box = solid.getbbox()
+    if box is None:
+        return rgba
+    left, top, right, bottom = box
+    margin = round(max(right - left, bottom - top) * _TRIM_MARGIN)
+    box = (
+        max(0, left - margin),
+        max(0, top - margin),
+        min(rgba.width, right + margin),
+        min(rgba.height, bottom + margin),
+    )
+    return rgba.crop(box)
+
+
+def write_cutouts(storage_root: Path, image_path: str, cutout: Image.Image) -> None:
+    """Save a background-removed photo (with transparency), trimmed, beside the item's main
+    photo."""
+    rgba = trim(cutout)
     for path, (_, max_px, quality) in zip(cutout_paths(image_path), _SIZES, strict=True):
         (storage_root / path).write_bytes(_encode(rgba, max_px, quality))
 

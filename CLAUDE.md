@@ -44,7 +44,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   from `ItemService.create`. Setting `AUTO_REMOVE_BACKGROUND` (default on; the test suite
   turns it off in `tests/conftest.py`). Needs `requirements-extras.txt` installed, which
   the Docker image already does.
-- See-through cut-outs: `backend/app/utils/cutouts.py`. They are extra files beside an
+- See-through cut-outs: `backend/app/utils/cutouts.py`, trimmed to the garment's edges
+  (`trim`). They are extra files beside an
   item's photo, found by name (`abc.jpg` → `abc_cut.webp`, `_cut_medium`, `_cut_thumb`),
   with no database column. `sign_image_url` swaps a photo for its cut-out, so every screen
   gets it without frontend changes; `ImageService` writes, rotates and deletes them with

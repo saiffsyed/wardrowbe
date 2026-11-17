@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.models.item import ClothingItem
 from app.services.image_service import ImageService
-from app.utils.cutouts import cutout_paths, display_path
+from app.utils.cutouts import cutout_paths, display_path, trim
 
 WALL = (120, 60, 40)
 SHIRT = (20, 60, 160)
@@ -94,7 +94,8 @@ class TestCutoutsAreMade:
                 centre = rgba.getpixel((w // 2, h // 2))
                 assert centre[3] == 255, "the garment is solid"
                 assert all(abs(a - b) < 25 for a, b in zip(centre[:3], SHIRT, strict=True))
-        assert longest_sides == [600, 600, 400]
+        # Trimmed to the 161 x 241 px shirt with a 5 px margin, so no size needs shrinking.
+        assert longest_sides == [251, 251, 251]
         # The photo on white is still there for the tagger and the image tools.
         with Image.open(ImageService().storage_path / item.image_path) as flat:
             assert flat.mode == "RGB"
@@ -136,7 +137,7 @@ class TestCutoutsStayInStep:
         ImageService().rotate_image(item.image_path, "cw")
 
         with Image.open(_cutout_files(item)[0]) as cutout:
-            assert cutout.size == (600, 400)
+            assert cutout.size == (251, 171)
             assert cutout.convert("RGBA").getpixel((3, 3))[3] == 0
         with Image.open(ImageService().storage_path / item.image_path) as flat:
             assert flat.size == (600, 400)
@@ -177,3 +178,20 @@ class TestDisplayPath:
         assert display_path("a_thumb.jpg", tmp_path) == "a_cut_thumb.webp"
         assert display_path("c.jpg", tmp_path) == "c.jpg"
         assert display_path("a_cut.webp", tmp_path) == "a_cut.webp"
+
+
+class TestTrim:
+    def test_a_cutout_is_cropped_to_the_garment_with_a_thin_margin(self):
+        canvas = Image.new("RGBA", (400, 400), (0, 0, 0, 0))
+        ImageDraw.Draw(canvas).rectangle((100, 50, 199, 249), fill=(30, 60, 200, 255))
+        # Faint haze left by the removal does not count as garment.
+        canvas.putpixel((5, 5), (0, 0, 0, 6))
+
+        trimmed = trim(canvas)
+
+        assert trimmed.size == (108, 208)  # 100 x 200 plus 4 px on each side
+        assert trim(trimmed).size == trimmed.size
+
+    def test_an_empty_cutout_is_left_alone(self):
+        empty = Image.new("RGBA", (50, 80), (0, 0, 0, 0))
+        assert trim(empty).size == (50, 80)

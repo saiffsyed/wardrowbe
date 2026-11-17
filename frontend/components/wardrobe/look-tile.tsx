@@ -9,13 +9,27 @@ const BAND_WEIGHT = { head: 1.8, top: 4, bottom: 4, full: 8, feet: 2.2 } as cons
 type Band = keyof typeof BAND_WEIGHT;
 const BANDS: Band[] = ['head', 'top', 'full', 'bottom', 'feet'];
 
-function Row({ pieces }: { pieces: LookPiece[] }) {
+// The top rests on the bottom edge of its band and the trousers hang from the top of theirs,
+// so the two meet the way an outfit is laid out flat. Jewellery sits just above the top and
+// shoes just below the trousers, with a little air.
+const ANCHOR: Record<Band, string> = {
+  head: 'object-bottom pb-[6%]',
+  top: 'object-bottom',
+  full: 'object-center',
+  bottom: 'object-top',
+  feet: 'object-top pt-[8%]',
+};
+
+// Jewellery and shoes are drawn narrower than clothes, closer to how they look worn.
+const ROW_INSET: Partial<Record<Band, string>> = { head: 'px-[28%]', feet: 'px-[18%]' };
+
+function Row({ band, pieces }: { band: Band; pieces: LookPiece[] }) {
   return (
-    <div className="flex min-h-0 justify-center">
+    <div className={`flex min-h-0 justify-center ${ROW_INSET[band] ?? ''}`}>
       {pieces.map((piece, i) => (
         // Pieces in one band overlap a little, as clothes laid out together do.
         <div key={i} className={`relative h-full flex-1 ${i > 0 ? '-ml-[8%]' : ''}`}>
-          <Image src={piece.url} alt="" fill className="object-contain" sizes="30vw" />
+          <Image src={piece.url} alt="" fill className={`object-contain ${ANCHOR[band]}`} sizes="30vw" />
         </div>
       ))}
     </div>
@@ -31,9 +45,9 @@ export function LookTile({ pieces }: { pieces: LookPiece[] }) {
 
   return (
     <div className="photo-ground flex aspect-[3/5] gap-1 overflow-hidden rounded-2xl border p-3">
-      <div className="grid min-w-0 flex-1 gap-1" style={{ gridTemplateRows: rows || '1fr' }}>
+      <div className="grid min-w-0 flex-1" style={{ gridTemplateRows: rows || '1fr' }}>
         {bands.map((band) => (
-          <Row key={band} pieces={layout[band]} />
+          <Row key={band} band={band} pieces={layout[band]} />
         ))}
       </div>
       {layout.side.length > 0 && (

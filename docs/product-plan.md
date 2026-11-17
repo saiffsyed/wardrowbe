@@ -9,7 +9,7 @@ A private wardrobe for two people (plus at most 1–2 family members). "When I s
 it should be a wardrobe": the clothes come first, shown visually; planning and AI are
 helpers. Simpler and more organised than upstream Wardrowbe.
 
-Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits**,
+Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfits**,
 **Plan**.
 
 ## Decisions
@@ -26,12 +26,14 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
   sort is switched off while grouping. Grouping works page by page (20 items by
   default), so a large group can continue on the next page.
 
-- **Wardrobe tabs Clothes / Lookbook / Collections** (built, awaiting Saiff's approval).
+- **Wardrobe tabs Clothes / Lookbook / Collections** (built and approved).
   - Lookbook: saved looks (outfits kept to wear again, not tied to a day), two per row.
     Each look is laid out as it is worn, like the Fits app: head jewellery at the top, then
     top, bottom and shoes; a saree, lehenga or dress fills top and bottom; dupatta, bag and
     bangles in a column beside. White tile with a thin border (faint tile in dark mode),
-    name and occasion underneath. Outfits inside a collection use the same tile.
+    name and occasion underneath. Outfits inside a collection use the same tile. The top
+    and the bottom touch, with no gap, like an outfit laid flat; jewellery and shoes are
+    drawn a little narrower.
     The bottom-bar Outfits tab becomes the outfit maker in Stage 2.
   - Collections: named sets holding clothes and outfits together ("Wedding season").
     Card with a 2×2 picture collage, name and count. Add from an item's ⋯ menu or the
@@ -155,8 +157,9 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   copies: the photo on white (read by the AI and the image tools) and a see-through
   cut-out, which is what every screen shows. In light mode clothes sit on the white page;
   in dark mode they sit on a faint lighter tile so black and navy clothes stay visible.
-- Cut-outs keep the photo's framing; they are not yet trimmed to the garment's edges. The
-  dressing room will probably want them trimmed.
+- **Cut-outs are trimmed to the garment's edges** (built; Saiff agreed) with a thin margin,
+  so clothes fill their wardrobe tiles and a shirt sits right on the trousers in a look.
+  Cut-outs made before this are trimmed by `python -m scripts.make_cutouts --trim`.
 
 ## Build order
 

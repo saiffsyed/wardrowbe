@@ -6,6 +6,7 @@ it is. Safe to run again: items that already have cut-outs are skipped.
 
     python -m scripts.make_cutouts            # do it
     python -m scripts.make_cutouts --dry-run  # only count
+    python -m scripts.make_cutouts --trim     # also trim cut-outs made before trimming existed
 """
 
 import argparse
@@ -19,13 +20,13 @@ from app.config import get_settings
 from app.models.item import ClothingItem
 from app.services import background_removal
 from app.services.image_service import ImageService
-from app.utils.cutouts import cutout_paths, write_cutouts
+from app.utils.cutouts import cutout_paths, trim, write_cutouts
 
 
-async def main(dry_run: bool) -> None:
+async def main(dry_run: bool, retrim: bool = False) -> None:
     engine = create_async_engine(str(get_settings().database_url))
     storage = ImageService().storage_path
-    made = skipped = missing = 0
+    made = skipped = missing = trimmed = 0
     async with async_sessionmaker(engine)() as db:
         rows = (
             await db.execute(
@@ -35,7 +36,17 @@ async def main(dry_run: bool) -> None:
             )
         ).all()
     for image_path, original_path in rows:
-        if (storage / cutout_paths(image_path)[0]).is_file():
+        existing = storage / cutout_paths(image_path)[0]
+        if existing.is_file():
+            if retrim:
+                with Image.open(existing) as image:
+                    image.load()
+                    size = image.size
+                    smaller = trim(image)
+                if smaller.size != size:
+                    if not dry_run:
+                        write_cutouts(storage, image_path, smaller)
+                    trimmed += 1
             skipped += 1
             continue
         original = storage / original_path
@@ -50,9 +61,13 @@ async def main(dry_run: bool) -> None:
     await engine.dispose()
     verb = "would make" if dry_run else "made"
     print(f"{verb} {made}, already had {skipped}, original missing {missing}")
+    if retrim:
+        print(f"{'would trim' if dry_run else 'trimmed'} {trimmed}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--dry-run", action="store_true")
-    asyncio.run(main(parser.parse_args().dry_run))
+    parser.add_argument("--trim", action="store_true")
+    args = parser.parse_args()
+    asyncio.run(main(args.dry_run, args.trim))
