@@ -543,6 +543,46 @@
       "kindBase": "次の種類の一種",
       "kindBasePlaceholder": "いちばん近いものを選択",
       "kindBaseHint": "コーディネートと洗濯に使われます。移動するまで同じカテゴリーに入ります。"
+    },
+    "more": {
+      "title": "その他",
+      "back": "その他",
+      "features": "機能",
+      "settings": "設定",
+      "language": "言語",
+      "accountHint": "ログイン中のアカウントとアプリの言語。",
+      "items": {
+        "insights": {
+          "title": "インサイト",
+          "hint": "ワードローブの統計と傾向"
+        },
+        "history": {
+          "title": "履歴",
+          "hint": "着たもの"
+        },
+        "family": {
+          "title": "ファミリー",
+          "hint": "アプリを共有している人"
+        },
+        "homes": {
+          "title": "住まい"
+        },
+        "categories": {
+          "title": "カテゴリー"
+        },
+        "display": {
+          "title": "表示"
+        },
+        "preferences": {
+          "title": "スタイルと天気の設定"
+        },
+        "notifications": {
+          "title": "通知"
+        },
+        "account": {
+          "title": "アカウント"
+        }
+      }
     }
   }
 }

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header'
-import { MobileMenuProvider } from '@/components/wardrobe/mobile-menu'
 import type { Home } from '@/lib/types'
 import type { CategoryGroup } from '@/lib/wardrobe-categories'
 
@@ -42,13 +41,8 @@ function setup(overrides: Partial<Parameters<typeof WardrobeHeader>[0]> = {}) {
     total: 7,
     ...overrides,
   }
-  const openMenu = vi.fn()
-  render(
-    <MobileMenuProvider onOpen={openMenu}>
-      <WardrobeHeader {...props} />
-    </MobileMenuProvider>
-  )
-  return { props, openMenu }
+  render(<WardrobeHeader {...props} />)
+  return { props }
 }
 
 describe('WardrobeHeader', () => {
@@ -90,18 +84,16 @@ describe('WardrobeHeader', () => {
     expect(screen.queryByRole('button', { name: 'allOf' })).toBeNull()
   })
 
-  it('reports the category, home scope, add and menu taps', () => {
-    const { props, openMenu } = setup()
+  it('reports the category, home scope and add taps', () => {
+    const { props } = setup()
 
     fireEvent.click(screen.getByRole('button', { name: 'shoes' }))
     fireEvent.click(screen.getByRole('button', { name: 'everywhere' }))
     fireEvent.click(screen.getByRole('button', { name: 'actions.addItem' }))
-    fireEvent.click(screen.getByRole('button', { name: 'openSidebar' }))
 
     expect(props.onCategoryChange).toHaveBeenCalledWith('shoes')
     expect(props.onScopeChange).toHaveBeenCalledWith('all')
     expect(props.onAdd).toHaveBeenCalled()
-    expect(openMenu).toHaveBeenCalled()
   })
 
   it('keeps search tucked away until asked for, and clears it on close', () => {

@@ -543,6 +543,46 @@
       "kindBase": "它屬於",
       "kindBasePlaceholder": "選擇最接近的",
       "kindBaseHint": "用於搭配和洗滌。在你移動之前，它位於同一類別中。"
+    },
+    "more": {
+      "title": "更多",
+      "back": "更多",
+      "features": "功能",
+      "settings": "設定",
+      "language": "語言",
+      "accountHint": "目前登入的帳戶和應用程式語言。",
+      "items": {
+        "insights": {
+          "title": "洞察",
+          "hint": "衣櫥統計與趨勢"
+        },
+        "history": {
+          "title": "歷史",
+          "hint": "穿過的衣服"
+        },
+        "family": {
+          "title": "家人",
+          "hint": "共用應用程式的人"
+        },
+        "homes": {
+          "title": "住所"
+        },
+        "categories": {
+          "title": "類別"
+        },
+        "display": {
+          "title": "顯示"
+        },
+        "preferences": {
+          "title": "風格與天氣偏好"
+        },
+        "notifications": {
+          "title": "通知"
+        },
+        "account": {
+          "title": "帳戶"
+        }
+      }
     }
   }
 }

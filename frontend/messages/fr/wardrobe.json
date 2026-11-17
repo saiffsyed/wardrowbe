@@ -543,6 +543,46 @@
       "kindBase": "C'est un type de",
       "kindBasePlaceholder": "Choisir le plus proche",
       "kindBaseHint": "Sert pour les tenues et le lavage. Il reste dans la même catégorie jusqu'à ce que vous le déplaciez."
+    },
+    "more": {
+      "title": "Plus",
+      "back": "Plus",
+      "features": "Fonctionnalités",
+      "settings": "Réglages",
+      "language": "Langue",
+      "accountHint": "Qui est connecté, et la langue de l'application.",
+      "items": {
+        "insights": {
+          "title": "Statistiques",
+          "hint": "Chiffres et tendances"
+        },
+        "history": {
+          "title": "Historique",
+          "hint": "Ce que vous avez porté"
+        },
+        "family": {
+          "title": "Famille",
+          "hint": "Qui partage l'application"
+        },
+        "homes": {
+          "title": "Domiciles"
+        },
+        "categories": {
+          "title": "Catégories"
+        },
+        "display": {
+          "title": "Affichage"
+        },
+        "preferences": {
+          "title": "Préférences de style et météo"
+        },
+        "notifications": {
+          "title": "Notifications"
+        },
+        "account": {
+          "title": "Compte"
+        }
+      }
     }
   }
 }

@@ -543,6 +543,46 @@
       "kindBase": "È un tipo di",
       "kindBasePlaceholder": "Scegli il più simile",
       "kindBaseHint": "Serve per gli outfit e i lavaggi. Resta nella stessa categoria finché non lo sposti."
+    },
+    "more": {
+      "title": "Altro",
+      "back": "Altro",
+      "features": "Funzioni",
+      "settings": "Impostazioni",
+      "language": "Lingua",
+      "accountHint": "Chi ha effettuato l'accesso e la lingua dell'app.",
+      "items": {
+        "insights": {
+          "title": "Statistiche",
+          "hint": "Numeri e tendenze"
+        },
+        "history": {
+          "title": "Cronologia",
+          "hint": "Cosa hai indossato"
+        },
+        "family": {
+          "title": "Famiglia",
+          "hint": "Chi condivide l'app"
+        },
+        "homes": {
+          "title": "Case"
+        },
+        "categories": {
+          "title": "Categorie"
+        },
+        "display": {
+          "title": "Aspetto"
+        },
+        "preferences": {
+          "title": "Preferenze di stile e meteo"
+        },
+        "notifications": {
+          "title": "Notifiche"
+        },
+        "account": {
+          "title": "Account"
+        }
+      }
     }
   }
 }

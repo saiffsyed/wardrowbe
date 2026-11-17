@@ -543,6 +543,46 @@
       "kindBase": "다음의 한 종류",
       "kindBasePlaceholder": "가장 비슷한 것 선택",
       "kindBaseHint": "코디와 세탁에 사용됩니다. 옮기기 전까지 같은 카테고리에 있습니다."
+    },
+    "more": {
+      "title": "더보기",
+      "back": "더보기",
+      "features": "기능",
+      "settings": "설정",
+      "language": "언어",
+      "accountHint": "로그인한 계정과 앱 언어입니다.",
+      "items": {
+        "insights": {
+          "title": "인사이트",
+          "hint": "옷장 통계와 추세"
+        },
+        "history": {
+          "title": "기록",
+          "hint": "입었던 옷"
+        },
+        "family": {
+          "title": "가족",
+          "hint": "앱을 함께 쓰는 사람"
+        },
+        "homes": {
+          "title": "집"
+        },
+        "categories": {
+          "title": "카테고리"
+        },
+        "display": {
+          "title": "화면"
+        },
+        "preferences": {
+          "title": "스타일 및 날씨 설정"
+        },
+        "notifications": {
+          "title": "알림"
+        },
+        "account": {
+          "title": "계정"
+        }
+      }
     }
   }
 }

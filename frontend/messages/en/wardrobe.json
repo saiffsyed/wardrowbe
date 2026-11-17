@@ -543,6 +543,46 @@
       "kindBase": "It is a kind of",
       "kindBasePlaceholder": "Choose the closest",
       "kindBaseHint": "Used for outfits and washing. It sits in the same category until you move it."
+    },
+    "more": {
+      "title": "More",
+      "back": "More",
+      "features": "Features",
+      "settings": "Settings",
+      "language": "Language",
+      "accountHint": "Who is signed in, and the app's language.",
+      "items": {
+        "insights": {
+          "title": "Insights",
+          "hint": "Wardrobe stats and trends"
+        },
+        "history": {
+          "title": "History",
+          "hint": "What you wore"
+        },
+        "family": {
+          "title": "Family",
+          "hint": "Who shares the app"
+        },
+        "homes": {
+          "title": "Homes"
+        },
+        "categories": {
+          "title": "Categories"
+        },
+        "display": {
+          "title": "Display"
+        },
+        "preferences": {
+          "title": "Style & weather preferences"
+        },
+        "notifications": {
+          "title": "Notifications"
+        },
+        "account": {
+          "title": "Account"
+        }
+      }
     }
   }
 }

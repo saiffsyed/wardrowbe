@@ -35,9 +35,6 @@ import { AVOID_REPEAT_DAYS, STYLE_SCORE, TEMPERATURE_THRESHOLDS_CELSIUS } from '
 import { DEFAULT_STYLE_PROFILE } from '@/lib/preferences';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
-import { CategoriesSettings } from '@/components/wardrobe/categories-settings';
-import { DisplaySettings } from '@/components/wardrobe/display-settings';
-import { HomesSettings } from '@/components/wardrobe/homes-settings';
 
 // Kept out of the catalogs because model names are example input, identical in every locale.
 const EXAMPLE_VISION_MODEL = 'moondream';
@@ -588,12 +585,6 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
-
-        <HomesSettings />
-
-        <CategoriesSettings />
-
-        <DisplaySettings />
 
         {/* Location Section */}
         <Card>

@@ -74,12 +74,12 @@ describe.each(Object.entries(NAVS))('AI entries in the %s', (_, nav) => {
 })
 
 describe('the phone bottom bar', () => {
-  it('has the three main places and nothing else', async () => {
+  it('has the three main places and More, nothing else', async () => {
     mockFeatures(featuresResponse({ ai_ui_enabled: true }))
     renderNav(() => <MobileNav />)
 
     await waitFor(() =>
-      expect(hrefs()).toEqual(['/dashboard/wardrobe', '/dashboard/outfits', '/dashboard'])
+      expect(hrefs()).toEqual(['/dashboard/wardrobe', '/dashboard/outfits', '/dashboard', '/dashboard/more'])
     )
   })
 })

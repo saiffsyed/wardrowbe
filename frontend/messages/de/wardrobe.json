@@ -543,6 +543,46 @@
       "kindBase": "Es ist eine Art von",
       "kindBasePlaceholder": "Das Nächstliegende wählen",
       "kindBaseHint": "Wird für Outfits und Wäsche verwendet. Es liegt in derselben Kategorie, bis du es verschiebst."
+    },
+    "more": {
+      "title": "Mehr",
+      "back": "Mehr",
+      "features": "Funktionen",
+      "settings": "Einstellungen",
+      "language": "Sprache",
+      "accountHint": "Wer angemeldet ist und die Sprache der App.",
+      "items": {
+        "insights": {
+          "title": "Einblicke",
+          "hint": "Statistiken und Trends"
+        },
+        "history": {
+          "title": "Verlauf",
+          "hint": "Was du getragen hast"
+        },
+        "family": {
+          "title": "Familie",
+          "hint": "Wer die App teilt"
+        },
+        "homes": {
+          "title": "Zuhause"
+        },
+        "categories": {
+          "title": "Kategorien"
+        },
+        "display": {
+          "title": "Darstellung"
+        },
+        "preferences": {
+          "title": "Stil- und Wettereinstellungen"
+        },
+        "notifications": {
+          "title": "Benachrichtigungen"
+        },
+        "account": {
+          "title": "Konto"
+        }
+      }
     }
   }
 }

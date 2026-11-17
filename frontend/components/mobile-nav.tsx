@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { CalendarDays, Layers, Shirt } from 'lucide-react';
+import { CalendarDays, LayoutGrid, Layers, Shirt } from 'lucide-react';
+import { isReachedFromMore, MORE_HREF } from '@/lib/more-routes';
 import { cn } from '@/lib/utils';
 import { isAiRoute } from '@/lib/ai-routes';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
@@ -13,21 +14,24 @@ export function MobileNav() {
   const t = useTranslations('nav');
   const aiUiEnabled = useAiUiEnabled();
 
-  // Three places, as in the agreed design. Everything else (settings, history, analytics and
-  // the rest) is in the side menu behind the top-left button.
+  // The three places of the agreed design, and More for everything else (settings, history,
+  // insights and the rest).
   const navigation = [
     { name: t('wardrobe'), href: '/dashboard/wardrobe', icon: Shirt },
     { name: t('outfits'), href: '/dashboard/outfits', icon: Layers },
     { name: t('plan'), href: '/dashboard', icon: CalendarDays },
+    { name: t('more'), href: MORE_HREF, icon: LayoutGrid },
   ].filter((item) => aiUiEnabled || !isAiRoute(item.href));
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card lg:hidden">
-      <div className="grid h-[4.5rem] grid-cols-3">
+      <div className="grid h-[4.5rem] grid-cols-4">
         {navigation.map((item) => {
           const isActive = item.href === '/dashboard'
             ? pathname === '/dashboard'
-            : pathname === item.href || pathname.startsWith(item.href + '/');
+            : item.href === MORE_HREF
+              ? isReachedFromMore(pathname)
+              : pathname === item.href || pathname.startsWith(item.href + '/');
           return (
             <Link
               key={item.name}

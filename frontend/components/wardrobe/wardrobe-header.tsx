@@ -4,7 +4,6 @@ import { useState, type ReactNode } from 'react';
 import { Plus, Search, SlidersHorizontal, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
-import { MobileMenuButton } from '@/components/wardrobe/mobile-menu';
 import { HomePill, HomeScopeToggle, type HomeScope } from '@/components/wardrobe/home-bar';
 import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
 import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
@@ -103,10 +102,7 @@ export function WardrobeHeader({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <MobileMenuButton />
-          <HomePill homes={homes} />
-        </div>
+        <HomePill homes={homes} />
         <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"
