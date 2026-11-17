@@ -38,6 +38,9 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
 - **Each user adds their own homes and cities during setup.**
 - The app shows only items in the home you are in, with an "all homes" switch.
 - Location is set by hand. Weather follows the current home's city.
+- **First-run setup asks for homes** (built): the original Location step became "Where do
+  you keep your clothes?". The first home added becomes the current one and sets the
+  weather city. It can be skipped. New accounts no longer see a "Location not set" alert.
 
 ### Occasions
 - Tags: wedding, work, casual, gym, festive, plus custom ones.
@@ -177,7 +180,7 @@ Still to do in Stage 1:
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar
 - Split "Style & weather preferences" (the original settings page) into clearer screens
-- Homes setup during first-run onboarding; photo tip on the add-item screen
+- Photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)
 
 ## Open questions for Saiff
