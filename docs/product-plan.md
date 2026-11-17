@@ -1,6 +1,6 @@
 # Product plan and decisions
 
-Last updated: 16 November 2026. All points below were confirmed by Saiff unless marked
+Last updated: 17 November 2026. All points below were confirmed by Saiff unless marked
 "open".
 
 ## What the app is
@@ -25,6 +25,14 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
   **Group by** kind, colour, home or brand shows a heading with a count over each group;
   sort is switched off while grouping. Grouping works page by page (20 items by
   default), so a large group can continue on the next page.
+
+- **Wardrobe tabs Clothes / Lookbook / Collections** (built, awaiting Saiff's approval).
+  - Lookbook: saved looks (outfits kept to wear again, not tied to a day), as outfit cards.
+    The bottom-bar Outfits tab becomes the outfit maker in Stage 2.
+  - Collections: named sets holding clothes and outfits together ("Wedding season").
+    Card with a 2×2 picture collage, name and count. Add from an item's ⋯ menu or the
+    "Add to collection" button on an outfit; take things out with Edit on the collection.
+  - Collections are private for now; a "share with family" switch can come later.
 
 ### Item details (the database)
 - Brand, size, size system, fit note, **where it was bought** (not where it was made),
@@ -183,7 +191,6 @@ Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
 - "App starts in" setting
-- Wardrobe tabs Clothes / Outfits / Collections
 - Split "Style & weather preferences" (the original settings page) into clearer screens
 - Photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)

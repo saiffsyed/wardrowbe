@@ -8,6 +8,7 @@ import { HomePill, HomeScopeToggle, type HomeScope } from '@/components/wardrobe
 import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
 import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
 import type { Home } from '@/lib/types';
+import { WardrobeTabs } from './wardrobe-tabs';
 
 interface WardrobeHeaderProps {
   homes: Home[];
@@ -147,6 +148,8 @@ export function WardrobeHeader({
         </div>
         <HomeScopeToggle homes={homes} scope={scope} onScopeChange={onScopeChange} />
       </div>
+
+      <WardrobeTabs value="clothes" />
 
       {status}
 

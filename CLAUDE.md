@@ -68,8 +68,15 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
   `a7d3c9e1f5b2`, `c9f5e1a3b7d4_add_item_label_photos` hangs off that, and
   `d0a6f2b4c8e5_add_wardrobe_category_trees` off that, and
-  `e1b7a3c5d9f6_add_wardrobe_custom_kinds` off that. After merging
+  `e1b7a3c5d9f6_add_wardrobe_custom_kinds` off that, and `f2c8b4d6e0a7_add_collections`
+  off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
+- Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
+  (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
+  `lookbook-tab.tsx`, `collections-tab.tsx`, `collection-screen.tsx` (route
+  `app/dashboard/wardrobe/collections/[id]`), `add-to-collection.tsx`,
+  `lib/hooks/use-collections.ts`; backend `backend/app/api/collections.py`,
+  `backend/app/models/collection.py`.
 - `backend/tests/migration_helpers.py` has a `FORK_COLUMNS` list so upstream's
   migration tests still pass; add any new fork column on an upstream table there.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in

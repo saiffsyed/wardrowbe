@@ -56,6 +56,9 @@ import {
   useWardrobeViewMode,
 } from '@/components/wardrobe/wardrobe-views';
 import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
+import { useWardrobeTab } from '@/components/wardrobe/wardrobe-tabs';
+import { LookbookTab } from '@/components/wardrobe/lookbook-tab';
+import { CollectionsTab } from '@/components/wardrobe/collections-tab';
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
@@ -348,6 +351,7 @@ export default function WardrobePage() {
   const typeLabel = useTypeLabel();
   const colorLabel = useColorLabel();
   const searchParams = useSearchParams();
+  const tab = useWardrobeTab();
   const router = useRouter();
   const userTimezone = useUserTimezone();
   const t = useTranslations('wardrobe');
@@ -788,6 +792,9 @@ export default function WardrobePage() {
           })}
         </div>
       );
+
+  if (tab === 'lookbook') return <LookbookTab />;
+  if (tab === 'collections') return <CollectionsTab />;
 
   return (
     <div className="space-y-4">
