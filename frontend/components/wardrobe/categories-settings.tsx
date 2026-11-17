@@ -45,6 +45,9 @@ export function CategoriesSettings() {
   const reset = useResetWardrobeCategories();
   const [editing, setEditing] = useState<Editing | null>(null);
   const [draft, setDraft] = useState<Draft>({ name: '', types: [] });
+  // The kinds already in the category when its sheet opened: listed first, and kept there while
+  // boxes are ticked so rows do not jump under the finger.
+  const [pinned, setPinned] = useState<string[]>([]);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
 
@@ -53,10 +56,12 @@ export function CategoriesSettings() {
     const labels = new Map<string, string>(clothingTypes.map((type) => [type.value, type.label]));
     return (value: string) => labels.get(value) ?? value;
   }, [clothingTypes]);
-  const sortedTypes = useMemo(
-    () => [...clothingTypes].sort((a, b) => a.label.localeCompare(b.label)),
-    [clothingTypes]
-  );
+  const sortedTypes = useMemo(() => {
+    const first = new Set(pinned);
+    return [...clothingTypes].sort(
+      (a, b) => Number(first.has(b.value)) - Number(first.has(a.value)) || a.label.localeCompare(b.label)
+    );
+  }, [clothingTypes, pinned]);
   // Where each kind of item sits now, so the list can say "in Tops" beside one that would move.
   const homeOfType = useMemo(() => {
     const homes = new Map<string, { id: string; label: string }>();
@@ -83,10 +88,9 @@ export function CategoriesSettings() {
     const group = groups.find((candidate) => candidate.id === target.groupId);
     const node =
       target.kind === 'group' ? group : group?.children.find((child) => child.id === target.childId);
-    setDraft({
-      name: node ? categoryLabel(node) : '',
-      types: target.kind === 'subgroup' && node && 'types' in node ? [...node.types] : [],
-    });
+    const types = target.kind === 'subgroup' && node && 'types' in node ? [...node.types] : [];
+    setDraft({ name: node ? categoryLabel(node) : '', types });
+    setPinned(types);
     setConfirmingDelete(false);
     setEditing(target);
   };
@@ -168,7 +172,7 @@ export function CategoriesSettings() {
               aria-label={t('editNamed', { name: categoryLabel(group) })}
               className="flex min-h-[3rem] w-full items-center justify-between gap-3 bg-muted/50 px-3.5 py-2 text-left hover:bg-muted"
             >
-              <span className="min-w-0 truncate text-[15px] font-semibold">{categoryLabel(group)}</span>
+              <span className="line-clamp-1 min-w-0 break-all text-[15px] font-semibold">{categoryLabel(group)}</span>
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
             </button>
             <ul className="divide-y border-t">
@@ -181,8 +185,8 @@ export function CategoriesSettings() {
                     className="flex min-h-[3.25rem] w-full items-center justify-between gap-3 px-3.5 py-2 text-left hover:bg-accent/50"
                   >
                     <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">{categoryLabel(child)}</span>
-                      <span className="block truncate text-xs text-muted-foreground">
+                      <span className="line-clamp-1 break-all text-sm font-medium">{categoryLabel(child)}</span>
+                      <span className="line-clamp-1 break-all text-xs text-muted-foreground">
                         {child.types.length ? child.types.map(typeLabel).join(', ') : t('noTypes')}
                       </span>
                     </span>

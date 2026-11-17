@@ -50,14 +50,18 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   gets it without frontend changes; `ImageService` writes, rotates and deletes them with
   the photo. Anything that reads pixels (AI, duplicate check, split) uses the JPEG on
   white. On screens, put a clothes photo on the `photo-ground` CSS class, never on grey.
-- Wardrobe categories (the chips): types per category in
-  `backend/app/utils/wardrobe_categories.py`, keys repeated in
-  `frontend/lib/wardrobe-categories.ts`. A new garment type must be added to a category
-  or a backend test fails.
+- Wardrobe categories: a two-level tree. The built-in tree and its rules are in
+  `backend/app/utils/wardrobe_categories.py`; a person's own tree is one row in
+  `wardrobe_category_trees` (`backend/app/services/wardrobe_category_service.py`,
+  `backend/app/api/wardrobe_categories.py`). The frontend lists no categories itself: it
+  reads `/wardrobe/categories` (`frontend/lib/hooks/use-wardrobe-categories.ts`) and
+  translates built-in ones by key under `wardrobe.closet.categories`. A new garment type
+  must be added to the built-in tree or a backend test fails.
 - Phones have no top bar: `components/header.tsx` is desktop-only, and a page's own header
   shows `MobileMenuButton` (`components/wardrobe/mobile-menu.tsx`).
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
-  `a7d3c9e1f5b2`, and `c9f5e1a3b7d4_add_item_label_photos` hangs off that. After merging
+  `a7d3c9e1f5b2`, `c9f5e1a3b7d4_add_item_label_photos` hangs off that, and
+  `d0a6f2b4c8e5_add_wardrobe_category_trees` off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - `backend/tests/migration_helpers.py` has a `FORK_COLUMNS` list so upstream's
   migration tests still pass; add any new fork column on an upstream table there.
