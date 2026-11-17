@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { api } from '@/lib/api';
 import { useSetTokenIfAvailable, applySessionToken } from '@/lib/hooks/use-session-token';
 import { queryKeys } from '@/lib/hooks/query-keys';
+import type { BulkBatchResponse } from '@/lib/bulk-batches';
+import { drainBulkAction, type BulkOperationParams } from '@/lib/hooks/use-items';
 import type { Home, Item, MaterialShare, WardrobeFacets } from '@/lib/types';
 
 export interface HomeInput {
@@ -156,6 +158,28 @@ export function useUpdateClosetDetails() {
     onSuccess: (item) => {
       queryClient.setQueryData(queryKeys.item(item.id), item);
       invalidateHomeViews(queryClient);
+    },
+  });
+}
+
+/** Moves the wardrobe's multi-selection into one home, in batches for a large "select all". */
+export function useMoveSelectionToHome() {
+  const queryClient = useQueryClient();
+  const { data: session } = useSession();
+
+  return useMutation({
+    meta: { toastsOwnErrors: true },
+    mutationFn: async ({ homeId, selection }: { homeId: string; selection: BulkOperationParams }) => {
+      applySessionToken(session);
+      return drainBulkAction<BulkBatchResponse & { moved: number }>(
+        `/homes/${homeId}/items/bulk`,
+        selection,
+        ['moved']
+      );
+    },
+    onSuccess: () => {
+      invalidateHomeViews(queryClient);
+      queryClient.invalidateQueries({ queryKey: queryKeys.everyItem });
     },
   });
 }

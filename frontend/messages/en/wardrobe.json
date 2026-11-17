@@ -356,8 +356,13 @@
       "setCurrent": "I'm here",
       "itemCount": "{count, plural, one {# item} other {# items}}",
       "errors": {
-        "saveFailed": "Couldn't save the home"
-      }
+        "saveFailed": "Couldn't save the home",
+        "moveFailed": "Couldn't move the items"
+      },
+      "moveSelected": "Move selected items to a home",
+      "moveShort": "Move",
+      "moveTo": "Move to {home}",
+      "moved": "{count, plural, one {# item} other {# items}} moved to {home}"
     },
     "view": {
       "label": "View",

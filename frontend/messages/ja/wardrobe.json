@@ -356,8 +356,13 @@
       "setCurrent": "ここにいます",
       "itemCount": "{count, plural, other {#点}}",
       "errors": {
-        "saveFailed": "家を保存できませんでした"
-      }
+        "saveFailed": "家を保存できませんでした",
+        "moveFailed": "アイテムを移動できませんでした"
+      },
+      "moveSelected": "選択したアイテムを住まいに移動",
+      "moveShort": "移動",
+      "moveTo": "{home}に移動",
+      "moved": "{count}点を{home}に移動しました"
     },
     "view": {
       "label": "表示",

@@ -356,8 +356,13 @@
       "setCurrent": "我在這裡",
       "itemCount": "{count, plural, other {# 件}}",
       "errors": {
-        "saveFailed": "無法儲存這個家"
-      }
+        "saveFailed": "無法儲存這個家",
+        "moveFailed": "無法移動單品"
+      },
+      "moveSelected": "將所選單品移到某個住所",
+      "moveShort": "移動",
+      "moveTo": "移到{home}",
+      "moved": "已將 {count} 件單品移到{home}"
     },
     "view": {
       "label": "檢視",

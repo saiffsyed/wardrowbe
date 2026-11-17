@@ -39,6 +39,7 @@ import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
 import { type HomeScope } from '@/components/wardrobe/home-bar';
 import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header';
+import { MoveToHomeButton } from '@/components/wardrobe/move-to-home';
 import { useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
 import {
   FacetFilters,
@@ -1014,6 +1015,7 @@ export default function WardrobePage() {
         isRemovingBackground={bulkRemoveBackground.isPending}
         variant="items"
         pagination={{ page, pageSize, onPageChange: handlePageChange }}
+        extraActions={<MoveToHomeButton getSelection={getBulkParams} onDone={handleClearSelection} />}
       />
 
       <AddItemDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />

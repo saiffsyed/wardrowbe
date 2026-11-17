@@ -356,8 +356,13 @@
       "setCurrent": "Ich bin hier",
       "itemCount": "{count, plural, one {# Teil} other {# Teile}}",
       "errors": {
-        "saveFailed": "Zuhause konnte nicht gespeichert werden"
-      }
+        "saveFailed": "Zuhause konnte nicht gespeichert werden",
+        "moveFailed": "Die Teile konnten nicht verschoben werden"
+      },
+      "moveSelected": "Ausgewählte Teile in ein Zuhause verschieben",
+      "moveShort": "Verschieben",
+      "moveTo": "Nach {home} verschieben",
+      "moved": "{count, plural, one {# Teil} other {# Teile}} nach {home} verschoben"
     },
     "view": {
       "label": "Ansicht",

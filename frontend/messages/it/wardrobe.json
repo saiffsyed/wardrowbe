@@ -356,8 +356,13 @@
       "setCurrent": "Sono qui",
       "itemCount": "{count, plural, one {# capo} other {# capi}}",
       "errors": {
-        "saveFailed": "Impossibile salvare la casa"
-      }
+        "saveFailed": "Impossibile salvare la casa",
+        "moveFailed": "Impossibile spostare i capi"
+      },
+      "moveSelected": "Sposta i capi selezionati in una casa",
+      "moveShort": "Sposta",
+      "moveTo": "Sposta in {home}",
+      "moved": "{count, plural, one {# capo spostato} other {# capi spostati}} in {home}"
     },
     "view": {
       "label": "Vista",

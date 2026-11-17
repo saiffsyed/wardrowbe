@@ -8,12 +8,16 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import func, select, update
 from sqlalchemy.exc import IntegrityError
 
+# Shared with the other bulk actions so a "select all" behaves the same everywhere.
+from app.api.items import _resolve_bulk_item_ids
 from app.database import DbSession
 from app.models.home import Home
 from app.models.item import ClothingItem
 from app.models.user import User
+from app.schemas.item import BulkBatchResponse, BulkSelectionRequest
 from app.schemas.text import SingleLineName
 from app.schemas.user import Latitude, Longitude
+from app.services.item_service import ItemService
 from app.utils.auth import get_current_user
 
 router = APIRouter(prefix="/homes", tags=["Homes"])
@@ -245,3 +249,38 @@ async def move_items_to_home(
     )
     await db.flush()
     return MoveItemsResponse(moved=result.rowcount or 0)
+
+
+class BulkMoveResponse(BulkBatchResponse):
+    moved: int
+    # Always empty: a move cannot fail item by item. Kept so it reads like the other bulk actions.
+    errors: list[str] = Field(default_factory=list)
+
+
+@router.post("/{home_id}/items/bulk", response_model=BulkMoveResponse)
+async def bulk_move_items_to_home(
+    home_id: UUID,
+    request: BulkSelectionRequest,
+    db: DbSession,
+    current_user: Annotated[User, Depends(get_current_user)],
+) -> BulkMoveResponse:
+    """Move the wardrobe's selected items into one home.
+
+    Takes the same selection as the other bulk actions: either ids, or "everything matching
+    these filters except these", walked in batches. A walk stays correct while it moves items,
+    because it pages by id rather than by position in the filtered list.
+    """
+    home = await _owned_home(db, current_user, home_id)
+    item_ids, next_cursor, has_more = await _resolve_bulk_item_ids(
+        ItemService(db), current_user.id, request, "move-to-home"
+    )
+    moved = 0
+    if item_ids:
+        result = await db.execute(
+            update(ClothingItem)
+            .where(ClothingItem.user_id == current_user.id, ClothingItem.id.in_(item_ids))
+            .values(home_id=home.id)
+        )
+        moved = result.rowcount or 0
+    await db.flush()
+    return BulkMoveResponse(moved=moved, next_cursor=next_cursor, has_more=has_more)

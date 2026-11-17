@@ -356,8 +356,13 @@
       "setCurrent": "Je suis ici",
       "itemCount": "{count, plural, one {# pièce} other {# pièces}}",
       "errors": {
-        "saveFailed": "Impossible d'enregistrer le logement"
-      }
+        "saveFailed": "Impossible d'enregistrer le logement",
+        "moveFailed": "Impossible de déplacer les articles"
+      },
+      "moveSelected": "Déplacer les articles sélectionnés vers un domicile",
+      "moveShort": "Déplacer",
+      "moveTo": "Déplacer vers {home}",
+      "moved": "{count, plural, one {# article déplacé} other {# articles déplacés}} vers {home}"
     },
     "view": {
       "label": "Affichage",

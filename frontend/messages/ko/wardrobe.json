@@ -356,8 +356,13 @@
       "setCurrent": "여기 있어요",
       "itemCount": "{count, plural, other {#개}}",
       "errors": {
-        "saveFailed": "집을 저장하지 못했습니다"
-      }
+        "saveFailed": "집을 저장하지 못했습니다",
+        "moveFailed": "아이템을 옮기지 못했습니다"
+      },
+      "moveSelected": "선택한 아이템을 집으로 옮기기",
+      "moveShort": "옮기기",
+      "moveTo": "{home}(으)로 옮기기",
+      "moved": "아이템 {count}개를 {home}(으)로 옮겼습니다"
     },
     "view": {
       "label": "보기",

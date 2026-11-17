@@ -38,6 +38,8 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
 - **Each user adds their own homes and cities during setup.**
 - The app shows only items in the home you are in, with an "all homes" switch.
 - Location is set by hand. Weather follows the current home's city.
+- **Move to home** (built): select items in the wardrobe, tap Move (a pin icon on a phone)
+  and pick a home. Works for "select all" too. Only offered once there are two homes.
 - **First-run setup asks for homes** (built): the original Location step became "Where do
   you keep your clothes?". The first home added becomes the current one and sets the
   weather city. It can be skipped. New accounts no longer see a "Location not set" alert.
@@ -178,7 +180,6 @@ Still to do in Stage 1:
 - "App starts in" setting
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
-- "Move to home" in the multi-select toolbar
 - Split "Style & weather preferences" (the original settings page) into clearer screens
 - Photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)

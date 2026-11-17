@@ -441,3 +441,80 @@ class TestPurchaseCurrency:
         assert saved.json()["tags"]["currency"] == "INR"
         assert float(saved.json()["purchase_price"]) == 4500
         assert bad.status_code == 422
+
+
+class TestBulkMoveToHome:
+    @pytest.mark.asyncio
+    async def test_moves_the_chosen_items(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        chennai = await _home(client, auth_headers, "Chennai", "Chennai")
+        europe = await _home(client, auth_headers, "Europe", "Amsterdam")
+        a = await _item(db_session, test_user)
+        b = await _item(db_session, test_user)
+        c = await _item(db_session, test_user)
+
+        response = await client.post(
+            f"{HOMES}/{europe['id']}/items/bulk",
+            json={"item_ids": [str(a.id), str(b.id)]},
+            headers=auth_headers,
+        )
+
+        assert response.status_code == 200, response.text
+        assert response.json()["moved"] == 2
+        for item, home in ((a, europe), (b, europe), (c, None)):
+            await db_session.refresh(item)
+            assert (str(item.home_id) if item.home_id else None) == (home and home["id"])
+        assert chennai  # still exists, untouched
+
+    @pytest.mark.asyncio
+    async def test_moves_everything_matching_except_the_unticked(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        europe = await _home(client, auth_headers, "Europe", "Amsterdam")
+        shirt = await _item(db_session, test_user, type="shirt")
+        kept = await _item(db_session, test_user, type="shirt")
+        saree = await _item(db_session, test_user, type="saree")
+
+        response = await client.post(
+            f"{HOMES}/{europe['id']}/items/bulk",
+            json={
+                "select_all": True,
+                "filters": {"type": "shirt"},
+                "excluded_ids": [str(kept.id)],
+            },
+            headers=auth_headers,
+        )
+
+        assert response.status_code == 200, response.text
+        assert response.json() == {"moved": 1, "next_cursor": None, "has_more": False, "errors": []}
+        await db_session.refresh(shirt)
+        await db_session.refresh(kept)
+        await db_session.refresh(saree)
+        assert str(shirt.home_id) == europe["id"]
+        assert kept.home_id is None
+        assert saree.home_id is None
+
+    @pytest.mark.asyncio
+    async def test_someone_elses_items_and_homes_are_out_of_reach(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        mine = await _home(client, auth_headers, "Chennai", "Chennai")
+        other, other_headers = await _other_user_headers(db_session)
+        theirs = await _item(db_session, other)
+
+        into_mine = await client.post(
+            f"{HOMES}/{mine['id']}/items/bulk",
+            json={"item_ids": [str(theirs.id)]},
+            headers=auth_headers,
+        )
+        into_theirs = await client.post(
+            f"{HOMES}/{mine['id']}/items/bulk",
+            json={"item_ids": [str(theirs.id)]},
+            headers=other_headers,
+        )
+
+        assert into_mine.json()["moved"] == 0
+        assert into_theirs.status_code == 404
+        await db_session.refresh(theirs)
+        assert theirs.home_id is None
