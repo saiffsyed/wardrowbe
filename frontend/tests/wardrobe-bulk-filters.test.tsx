@@ -11,6 +11,11 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/dashboard/wardrobe',
   useSearchParams: () => new URLSearchParams('needsWash=true&favorite=true&type=shirt&search=blue'),
 }))
+vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
+  useWardrobeCategories: () => ({ data: { customised: false, groups: [], unplaced_types: [] }, refetch: vi.fn() }),
+  useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
+    node.name ?? node.key ?? node.id,
+}))
 vi.mock('@/lib/api', () => ({
   api: { get: vi.fn(), post: vi.fn() },
   setAccessToken: vi.fn(),

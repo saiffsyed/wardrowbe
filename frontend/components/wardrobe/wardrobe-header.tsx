@@ -6,15 +6,20 @@ import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { MobileMenuButton } from '@/components/wardrobe/mobile-menu';
 import { HomePill, HomeScopeToggle, type HomeScope } from '@/components/wardrobe/home-bar';
-import { WARDROBE_CATEGORIES, type WardrobeCategory } from '@/lib/wardrobe-categories';
+import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
+import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
 import type { Home } from '@/lib/types';
 
 interface WardrobeHeaderProps {
   homes: Home[];
   scope: HomeScope;
   onScopeChange: (scope: HomeScope) => void;
-  category: WardrobeCategory | 'all';
-  onCategoryChange: (category: WardrobeCategory | 'all') => void;
+  // The person's categories with item counts; a group or sub-group with nothing in it is not
+  // offered, so each person's bar holds only what they own.
+  groups: CategoryGroup[];
+  // 'all', or the id of a group or of a sub-group.
+  category: string;
+  onCategoryChange: (category: string) => void;
   search: string;
   onSearchChange: (search: string) => void;
   filterCount: number;
@@ -24,6 +29,39 @@ interface WardrobeHeaderProps {
   total: number;
   // What the app is doing with the photos (analysing, queued, failed), when there is something.
   status?: ReactNode;
+}
+
+const CHIP_ROW =
+  '-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden';
+
+function Chip({
+  selected,
+  small = false,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  small?: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  // Main chips fill solid when chosen; the second row uses the soft accent, so the two rows
+  // read as "where you are" and "narrowed to".
+  const chosen = small
+    ? 'border-primary bg-accent font-semibold text-accent-foreground'
+    : 'border-foreground bg-foreground font-semibold text-background';
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={onClick}
+      className={`shrink-0 rounded-full border text-sm transition-colors ${small ? 'h-10 px-3.5' : 'h-11 px-4'} ${
+        selected ? chosen : 'bg-card font-medium text-foreground hover:bg-accent hover:text-accent-foreground'
+      }`}
+    >
+      {children}
+    </button>
+  );
 }
 
 const ROUND = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors';
@@ -36,6 +74,7 @@ export function WardrobeHeader({
   homes,
   scope,
   onScopeChange,
+  groups,
   category,
   onCategoryChange,
   search,
@@ -53,6 +92,13 @@ export function WardrobeHeader({
   const [searchOpen, setSearchOpen] = useState(false);
   const showSearch = searchOpen || !!search;
   const filtersOn = filtersOpen || filterCount > 0;
+  const categoryLabel = useCategoryLabel();
+  const openGroup = category === 'all' ? undefined : groupOfCategory(groups, category);
+  // What is chosen stays on show even if its last item has just gone.
+  const shownGroups = groups.filter((group) => group.item_count > 0 || group.id === openGroup?.id);
+  const shownChildren = (openGroup?.children ?? []).filter(
+    (child) => child.item_count > 0 || child.id === category
+  );
 
   return (
     <div className="space-y-3">
@@ -134,30 +180,42 @@ export function WardrobeHeader({
       )}
 
       {/* Bleeds to the screen edges so the row visibly scrolls on, instead of ending at the margin. */}
-      <div
-        role="group"
-        aria-label={tc('label')}
-        className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden"
-      >
-        {(['all', ...WARDROBE_CATEGORIES] as const).map((value) => {
-          const selected = category === value;
-          return (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => onCategoryChange(value)}
-              className={`h-11 shrink-0 rounded-full border px-4 text-sm transition-colors ${
-                selected
-                  ? 'border-foreground bg-foreground font-semibold text-background'
-                  : 'bg-card font-medium text-foreground hover:bg-accent hover:text-accent-foreground'
-              }`}
+      {shownGroups.length > 0 && (
+        <div role="group" aria-label={tc('label')} className={CHIP_ROW}>
+          <Chip selected={category === 'all'} onClick={() => onCategoryChange('all')}>
+            {tc('all')}
+          </Chip>
+          {shownGroups.map((group) => (
+            <Chip
+              key={group.id}
+              selected={openGroup?.id === group.id}
+              onClick={() => onCategoryChange(group.id)}
             >
-              {tc(value)}
-            </button>
-          );
-        })}
-      </div>
+              {categoryLabel(group)}
+            </Chip>
+          ))}
+        </div>
+      )}
+
+      {/* The chosen group's own row. With one kind of thing in the group there is nothing to
+          narrow down to. */}
+      {openGroup && shownChildren.length > 1 && (
+        <div role="group" aria-label={categoryLabel(openGroup)} className={CHIP_ROW}>
+          <Chip small selected={category === openGroup.id} onClick={() => onCategoryChange(openGroup.id)}>
+            {tc('allOf', { group: categoryLabel(openGroup) })}
+          </Chip>
+          {shownChildren.map((child) => (
+            <Chip
+              key={child.id}
+              small
+              selected={category === child.id}
+              onClick={() => onCategoryChange(child.id)}
+            >
+              {categoryLabel(child)}
+            </Chip>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

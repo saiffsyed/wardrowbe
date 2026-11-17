@@ -35,6 +35,7 @@ import { AVOID_REPEAT_DAYS, STYLE_SCORE, TEMPERATURE_THRESHOLDS_CELSIUS } from '
 import { DEFAULT_STYLE_PROFILE } from '@/lib/preferences';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+import { CategoriesSettings } from '@/components/wardrobe/categories-settings';
 import { DisplaySettings } from '@/components/wardrobe/display-settings';
 import { HomesSettings } from '@/components/wardrobe/homes-settings';
 
@@ -589,6 +590,8 @@ export default function SettingsPage() {
         </Card>
 
         <HomesSettings />
+
+        <CategoriesSettings />
 
         <DisplaySettings />
 

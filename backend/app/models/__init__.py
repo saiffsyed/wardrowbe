@@ -14,6 +14,7 @@ from app.models.outfit import FamilyOutfitRating, Outfit, OutfitItem, UserFeedba
 from app.models.preference import UserPreference
 from app.models.schedule import Schedule
 from app.models.user import User
+from app.models.wardrobe_category import WardrobeCategoryTree
 
 __all__ = [
     "Family",
@@ -38,4 +39,5 @@ __all__ = [
     "OutfitItem",
     "UserFeedback",
     "Notification",
+    "WardrobeCategoryTree",
 ]

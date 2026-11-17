@@ -25,6 +25,7 @@ from app.schemas.item import (
     ItemUpdate,
 )
 from app.services.auto_background import remove_background_on_add
+from app.services.wardrobe_category_service import tree_for
 from app.utils.tag_validation import normalize_tag_edits
 from app.utils.wardrobe_categories import types_in
 
@@ -118,7 +119,15 @@ class ItemService:
         )
         return result.scalar() or 0
 
-    def _build_filter_clauses(self, user_id: UUID, filters: ItemFilterFields) -> list:
+    async def _category_types(self, user_id: UUID, category: str | None) -> tuple | None:
+        """The garment types of one of the person's categories; None when not filtering by one."""
+        if not category:
+            return None
+        return types_in(await tree_for(self.db, user_id), category)
+
+    def _build_filter_clauses(
+        self, user_id: UUID, filters: ItemFilterFields, category_types: tuple | None = None
+    ) -> list:
         clauses = [
             ClothingItem.user_id == user_id,
             ClothingItem.is_archived == filters.is_archived,
@@ -155,9 +164,9 @@ class ItemService:
             )
         if filters.season:
             clauses.append(ClothingItem.season.contains([filters.season]))
-        if filters.category:
-            # A name that is not a category matches nothing rather than everything.
-            clauses.append(ClothingItem.type.in_(types_in(filters.category) or ()))
+        if category_types is not None:
+            # An id that is not a category has no types, so it matches nothing, not everything.
+            clauses.append(ClothingItem.type.in_(category_types))
         if filters.search:
             search_term = f"%{filters.search}%"
             clauses.append(
@@ -178,9 +187,10 @@ class ItemService:
         page: int = 1,
         page_size: int = 20,
     ) -> tuple[list[ClothingItem], int]:
+        category_types = await self._category_types(user_id, filters.category)
         query = (
             select(ClothingItem)
-            .where(*self._build_filter_clauses(user_id, filters))
+            .where(*self._build_filter_clauses(user_id, filters, category_types))
             .options(selectinload(ClothingItem.additional_images))
         )
 
@@ -219,8 +229,10 @@ class ItemService:
         after_id: UUID | None = None,
         limit: int | None = None,
     ) -> list[UUID]:
+        filters = filters or ItemFilterFields()
+        category_types = await self._category_types(user_id, filters.category)
         query = select(ClothingItem.id).where(
-            *self._build_filter_clauses(user_id, filters or ItemFilterFields())
+            *self._build_filter_clauses(user_id, filters, category_types)
         )
 
         if excluded_ids:

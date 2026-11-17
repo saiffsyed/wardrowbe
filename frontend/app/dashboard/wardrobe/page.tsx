@@ -39,7 +39,7 @@ import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
 import { type HomeScope } from '@/components/wardrobe/home-bar';
 import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header';
-import { isWardrobeCategory, type WardrobeCategory } from '@/lib/wardrobe-categories';
+import { useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
 import {
   FacetFilters,
   FACET_KEYS,
@@ -370,10 +370,7 @@ export default function WardrobePage() {
     searchParams.get('favorite') === 'true' ? true : undefined
   );
   const [showFilters, setShowFilters] = useState(false);
-  const [category, setCategory] = useState<WardrobeCategory | 'all'>(() => {
-    const param = searchParams.get('category');
-    return isWardrobeCategory(param) ? param : 'all';
-  });
+  const [category, setCategory] = useState<string>(() => searchParams.get('category') || 'all');
   const [homeScope, setHomeScope] = useState<HomeScope>(() =>
     searchParams.get('homes') === 'all' ? 'all' : 'here'
   );
@@ -388,6 +385,7 @@ export default function WardrobePage() {
   // "This home" only narrows the wardrobe once the person has said which home they are in.
   const scopedHomeId = homeScope === 'here' ? currentHome?.id : undefined;
   const { data: facets } = useWardrobeFacets(scopedHomeId);
+  const { data: categories, refetch: refetchCategories } = useWardrobeCategories(scopedHomeId);
   const handleFacetChange = (key: FacetKey, value: string | undefined) => {
     setFacetSelection((previous) => ({ ...previous, [key]: value }));
     setPage(1);
@@ -494,6 +492,13 @@ export default function WardrobePage() {
 
   const items = data?.items || [];
   const total = data?.total || 0;
+
+  // The chips count items by type. Adding, deleting or (once the AI has looked) re-typing an
+  // item changes those counts without anything telling the chips, so they follow the list.
+  const typesOnPage = items.map((item) => item.type).join(',');
+  useEffect(() => {
+    refetchCategories();
+  }, [total, typesOnPage, refetchCategories]);
 
   // Get selected item: try from list first, then fetch individually (for deep-link from outfit pages)
   const listItem = detailItemId ? items.find((i) => i.id === detailItemId) || null : null;
@@ -716,6 +721,7 @@ export default function WardrobePage() {
           setHomeScope(scope);
           setPage(1);
         }}
+        groups={categories?.groups ?? []}
         category={category}
         onCategoryChange={(value) => {
           setCategory(value);

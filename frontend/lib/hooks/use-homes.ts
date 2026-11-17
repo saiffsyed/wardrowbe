@@ -33,6 +33,7 @@ export interface ClosetDetailEdits {
 function invalidateHomeViews(queryClient: QueryClient) {
   queryClient.invalidateQueries({ queryKey: queryKeys.homes });
   queryClient.invalidateQueries({ queryKey: queryKeys.wardrobeFacets.all });
+  queryClient.invalidateQueries({ queryKey: queryKeys.wardrobeCategories.all });
   queryClient.invalidateQueries({ queryKey: queryKeys.items.all });
 }
 

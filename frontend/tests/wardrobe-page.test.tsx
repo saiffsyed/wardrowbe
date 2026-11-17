@@ -34,6 +34,11 @@ vi.mock('@/lib/hooks/use-homes', () => ({
   useWardrobeFacets: () => ({ data: undefined }),
   useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
 }))
+vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
+  useWardrobeCategories: () => ({ data: { customised: false, groups: [], unplaced_types: [] }, refetch: vi.fn() }),
+  useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
+    node.name ?? node.key ?? node.id,
+}))
 vi.mock('@/lib/hooks/use-features', () => ({ useAiUiEnabled: () => true }))
 
 vi.mock('@/lib/hooks/use-translated-constants', () => ({

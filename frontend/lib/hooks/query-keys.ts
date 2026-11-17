@@ -26,6 +26,10 @@ export const queryKeys = {
   preferences: ['preferences'] as const,
   family: ['family'] as const,
   homes: ['homes'] as const,
+  wardrobeCategories: {
+    all: ['wardrobe-categories'] as const,
+    home: (homeId: string | undefined) => ['wardrobe-categories', homeId ?? 'all'] as const,
+  },
   wardrobeFacets: {
     all: ['wardrobe-facets'] as const,
     home: (homeId: string | undefined) => ['wardrobe-facets', homeId ?? 'all'] as const,

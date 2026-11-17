@@ -3,7 +3,12 @@ import { describe, expect, it, vi } from 'vitest'
 import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header'
 import { MobileMenuProvider } from '@/components/wardrobe/mobile-menu'
 import type { Home } from '@/lib/types'
+import type { CategoryGroup } from '@/lib/wardrobe-categories'
 
+vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
+  useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
+    node.name ?? node.key ?? node.id,
+}))
 vi.mock('@/lib/hooks/use-homes', () => ({
   useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
 }))
@@ -13,12 +18,20 @@ const HOMES = [
   { id: 'home-2', name: 'Europe', city: 'Amsterdam', is_current: false, item_count: 3 },
 ] as Home[]
 
+const sub = (id: string, item_count: number) => ({ id, key: id, types: [], item_count })
+const GROUPS: CategoryGroup[] = [
+  { id: 'indian', key: 'indian', item_count: 5, children: [sub('sarees', 3), sub('lehengas', 2), sub('dupattas', 0)] },
+  { id: 'shoes', key: 'shoes', item_count: 2, children: [sub('heels', 2), sub('boots', 0)] },
+  { id: 'jewellery', key: 'jewellery', item_count: 0, children: [sub('rings', 0)] },
+]
+
 function setup(overrides: Partial<Parameters<typeof WardrobeHeader>[0]> = {}) {
   const props = {
     homes: HOMES,
     scope: 'here' as const,
     onScopeChange: vi.fn(),
-    category: 'all' as const,
+    groups: GROUPS,
+    category: 'all',
     onCategoryChange: vi.fn(),
     search: '',
     onSearchChange: vi.fn(),
@@ -39,12 +52,42 @@ function setup(overrides: Partial<Parameters<typeof WardrobeHeader>[0]> = {}) {
 }
 
 describe('WardrobeHeader', () => {
-  it('shows the home you are in and marks the chosen category', () => {
-    setup({ category: 'traditional' })
+  it('shows the home you are in and only the groups that hold something', () => {
+    setup()
 
     expect(screen.getByRole('button', { name: 'youAreIn' }).textContent).toContain('Chennai')
-    expect(screen.getByRole('button', { name: 'traditional' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'all' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByRole('button', { name: 'all' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'indian' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'shoes' })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'jewellery' })).toBeNull()
+    // No group is open, so there is no second row.
+    expect(screen.queryByRole('button', { name: 'sarees' })).toBeNull()
+  })
+
+  it('opens a second row for the chosen group, without its empty sub-groups', () => {
+    const { props } = setup({ category: 'indian' })
+
+    expect(screen.getByRole('button', { name: 'indian' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'allOf' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.queryByRole('button', { name: 'dupattas' })).toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: 'sarees' }))
+    expect(props.onCategoryChange).toHaveBeenCalledWith('sarees')
+  })
+
+  it('keeps the group marked while one of its sub-groups is chosen', () => {
+    setup({ category: 'sarees' })
+
+    expect(screen.getByRole('button', { name: 'indian' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'sarees' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'allOf' })).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('has no second row for a group with only one kind of thing in it', () => {
+    setup({ category: 'shoes' })
+
+    expect(screen.queryByRole('button', { name: 'heels' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'allOf' })).toBeNull()
   })
 
   it('reports the category, home scope, add and menu taps', () => {

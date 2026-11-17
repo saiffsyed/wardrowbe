@@ -1,6 +1,6 @@
 // Generated from backend/app/data/garment_vocabulary.json by scripts/gen-shared-data.mjs.
 // Do not edit by hand; run `npm run vocab:gen`.
-export const CLOTHING_TYPE_VALUES = ['shirt', 't-shirt', 'top', 'pants', 'jeans', 'shorts', 'dress', 'jumpsuit', 'skirt', 'jacket', 'coat', 'sweater', 'hoodie', 'blazer', 'suit', 'vest', 'cardigan', 'polo', 'blouse', 'tank-top', 'shoes', 'sneakers', 'boots', 'sandals', 'socks', 'tights', 'tie', 'hat', 'scarf', 'belt', 'bag', 'accessories', 'leggings', 'camisole', 'bodysuit', 'sweatshirt', 'heels', 'flats', 'overalls', 'poncho', 'watch', 'ring', 'necklace', 'earrings', 'bracelet', 'bangles', 'cufflinks', 'kurta', 'sherwani', 'saree', 'lehenga', 'salwar-kameez', 'dupatta', 'dhoti', 'mojari'] as const;
+export const CLOTHING_TYPE_VALUES = ['shirt', 't-shirt', 'top', 'pants', 'jeans', 'shorts', 'dress', 'jumpsuit', 'skirt', 'jacket', 'coat', 'sweater', 'hoodie', 'blazer', 'suit', 'vest', 'cardigan', 'polo', 'blouse', 'tank-top', 'shoes', 'sneakers', 'boots', 'sandals', 'socks', 'tights', 'tie', 'hat', 'scarf', 'belt', 'bag', 'accessories', 'leggings', 'camisole', 'bodysuit', 'sweatshirt', 'heels', 'flats', 'overalls', 'poncho', 'watch', 'ring', 'necklace', 'earrings', 'bracelet', 'bangles', 'cufflinks', 'kurta', 'sherwani', 'saree', 'lehenga', 'salwar-kameez', 'dupatta', 'dhoti', 'mojari', 'kurti', 'anarkali', 'half-saree', 'sharara', 'saree-blouse', 'petticoat', 'churidar', 'palazzo', 'patiala', 'stole', 'juttis', 'kolhapuris', 'jhumkas', 'maang-tikka', 'nose-ring', 'anklets', 'toe-rings', 'waist-belt', 'mangalsutra', 'hair-jewellery', 'clutch', 'potli'] as const;
 export const MATERIAL_VALUES = ['cotton', 'denim', 'leather', 'wool', 'polyester', 'silk', 'linen', 'knit', 'fleece', 'suede', 'velvet', 'nylon', 'canvas', 'down', 'shearling'] as const;
 export const FORMALITY_VALUES = ['very-casual', 'casual', 'smart-casual', 'business-casual', 'formal', 'very-formal'] as const;
 export const PATTERN_VALUES = ['solid', 'striped', 'plaid', 'checkered', 'floral', 'graphic', 'geometric', 'polka-dot', 'camouflage', 'animal-print'] as const;
@@ -66,6 +66,28 @@ export const ITEM_ROLE: Record<string, string> = {
   dupatta: 'accessory',
   dhoti: 'bottom',
   mojari: 'footwear',
+  kurti: 'base_top',
+  anarkali: 'full_body',
+  'half-saree': 'full_body',
+  sharara: 'bottom',
+  'saree-blouse': 'base_top',
+  petticoat: 'legwear',
+  churidar: 'bottom',
+  palazzo: 'bottom',
+  patiala: 'bottom',
+  stole: 'accessory',
+  juttis: 'footwear',
+  kolhapuris: 'footwear',
+  jhumkas: 'accessory',
+  'maang-tikka': 'accessory',
+  'nose-ring': 'accessory',
+  anklets: 'accessory',
+  'toe-rings': 'accessory',
+  'waist-belt': 'accessory',
+  mangalsutra: 'accessory',
+  'hair-jewellery': 'accessory',
+  clutch: 'accessory',
+  potli: 'accessory',
 };
 
 export const CLOTHING_COLORS = [
