@@ -84,11 +84,16 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Wardrobe screen follows the mock-up** (built): one row with the menu button, the home
   pill, and round filter / search / add buttons; the title with the This home / All homes
   switch; category chips; search opens from its button.
-- **Phones have no top bar.** The menu button is in the wardrobe header (other screens
-  show it alone at the top until they are redesigned). Name, language and sign-out are at
-  the top of the side menu.
-- **Bottom bar has three tabs: Wardrobe / Outfits / Plan.** Plan opens the old Dashboard
-  screen until the Plan area is built. Everything else is in the side menu.
+- **Phones have no top bar and no side menu.** Saiff did not like the side menu and
+  chose a More tab like the Fits app's. Laptops keep their side menu.
+- **Bottom bar: Wardrobe / Outfits / Plan / More**, no centre button (adding an item is the
+  green + on the wardrobe screen). Plan opens the old Dashboard screen until the Plan area
+  is built; it also holds the "suggest an outfit" button.
+- **More screen**: name and email at the top (opens Account), tiles for Insights, History
+  and Family, and a settings list whose rows each open a screen: Homes, Categories,
+  Display, Style & weather preferences (the original settings page), Notifications,
+  Account (language, sign-out). Screens opened from More have a "‹ More" back button.
+  Pairings, AI Learning and Family Feed are not offered on a phone.
 - **Categories are grouped and each person can edit them** (built and approved). Saiff asked for categories that suit an Indian woman's
   wardrobe, "grouped, but sensible", with editing in Settings like the Fits app's
   "Manage tags".
@@ -167,7 +172,7 @@ Still to do in Stage 1:
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar
-- Simplify the menu (hide stats, pairings, family feed)
+- Split "Style & weather preferences" (the original settings page) into clearer screens
 - Homes setup during first-run onboarding; photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)
 

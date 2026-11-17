@@ -61,8 +61,10 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   endpoints `/wardrobe/kinds` in `backend/app/api/wardrobe_categories.py`. An item of one
   is stored as its built-in `type` plus the kind's name as `subtype`; category filtering
   matches on both (`CategoryFilter` in `backend/app/utils/wardrobe_categories.py`).
-- Phones have no top bar: `components/header.tsx` is desktop-only, and a page's own header
-  shows `MobileMenuButton` (`components/wardrobe/mobile-menu.tsx`).
+- Phones have no top bar and no side menu: `components/header.tsx` and the sidebar are
+  desktop-only. The phone bottom bar ends in a More tab (`components/wardrobe/more-screen.tsx`,
+  routes under `app/dashboard/more/`); screens listed in `frontend/lib/more-routes.ts` get a
+  back-to-More button on phones. `mobile-sidebar.tsx` and `mobile-menu.tsx` are unused.
 - Our database migrations form a chain: `b8e4d0f2a6c3_add_homes` hangs off upstream head
   `a7d3c9e1f5b2`, `c9f5e1a3b7d4_add_item_label_photos` hangs off that, and
   `d0a6f2b4c8e5_add_wardrobe_category_trees` off that, and
