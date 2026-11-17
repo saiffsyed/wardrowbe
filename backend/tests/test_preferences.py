@@ -20,6 +20,7 @@ DEFAULT_PREFERENCES_RESPONSE = {
     "avoid_repeat_days": 7,
     "prefer_underused_items": True,
     "variety_level": "moderate",
+    "start_screen": "wardrobe",
     "ai_endpoints": [],
 }
 

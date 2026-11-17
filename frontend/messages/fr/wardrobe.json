@@ -685,6 +685,15 @@
       "light": "Utilisez la lumière du jour et évitez les ombres marquées.",
       "whole": "L’article entier dans la photo, un article par photo.",
       "special": "Sari : pliez-le pour montrer la bordure et le pallu. Bijoux : sur une surface unie."
+    },
+    "startScreen": {
+      "title": "L’app s’ouvre sur",
+      "description": "L’écran affiché à l’ouverture, sur tous vos appareils.",
+      "wardrobe": "Garde-robe",
+      "lookbook": "Lookbook",
+      "outfits": "Tenues",
+      "plan": "Planifier",
+      "saveError": "Échec de l’enregistrement. Veuillez réessayer."
     }
   }
 }

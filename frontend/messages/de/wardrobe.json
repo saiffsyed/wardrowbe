@@ -685,6 +685,15 @@
       "light": "Nutze Tageslicht und vermeide harte Schatten.",
       "whole": "Das ganze Teil ins Bild, ein Teil pro Foto.",
       "special": "Saree: so falten, dass Bordüre und Pallu zu sehen sind. Schmuck: auf einer schlichten Fläche."
+    },
+    "startScreen": {
+      "title": "App startet in",
+      "description": "Der Bildschirm, mit dem die App startet, auf jedem deiner Geräte.",
+      "wardrobe": "Kleiderschrank",
+      "lookbook": "Lookbook",
+      "outfits": "Outfits",
+      "plan": "Planen",
+      "saveError": "Speichern fehlgeschlagen. Bitte versuche es erneut."
     }
   }
 }

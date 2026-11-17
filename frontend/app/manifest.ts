@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Wardrowbe',
     short_name: 'Wardrowbe',
     description: 'Your wardrobe and weekly outfit planner',
-    start_url: '/dashboard',
+    start_url: '/dashboard/start',
     scope: '/',
     display: 'standalone',
     orientation: 'portrait',

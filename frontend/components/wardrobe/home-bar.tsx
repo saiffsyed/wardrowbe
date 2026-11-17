@@ -13,6 +13,7 @@ import {
 import { getErrorMessage } from '@/lib/api';
 import { useSetCurrentHome } from '@/lib/hooks/use-homes';
 import type { Home } from '@/lib/types';
+import { HomeWeather } from './home-weather';
 
 export type HomeScope = 'here' | 'all';
 
@@ -54,6 +55,7 @@ export function HomePill({ homes }: { homes: Home[] }) {
         >
           <MapPin className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
           <span className="truncate">{current ? current.name : t('noHome')}</span>
+          {current && <HomeWeather />}
           <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />
         </button>
       </DropdownMenuTrigger>

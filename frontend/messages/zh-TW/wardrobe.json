@@ -685,6 +685,15 @@
       "light": "使用自然光，避免濃重陰影。",
       "whole": "拍下整件單品，每張照片一件。",
       "special": "紗麗：摺疊時露出邊飾和披肩端。首飾：放在素色平面上。"
+    },
+    "startScreen": {
+      "title": "App 啟動時開啟",
+      "description": "開啟 App 時顯示的頁面，在你的所有裝置上都一樣。",
+      "wardrobe": "衣櫥",
+      "lookbook": "造型冊",
+      "outfits": "穿搭",
+      "plan": "計畫",
+      "saveError": "儲存失敗，請再試一次。"
     }
   }
 }

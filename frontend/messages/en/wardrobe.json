@@ -685,6 +685,15 @@
       "light": "Use daylight and avoid strong shadows.",
       "whole": "Get the whole piece in the photo, one item per photo.",
       "special": "A saree: fold it so the border and pallu show. Jewellery: on a plain surface."
+    },
+    "startScreen": {
+      "title": "App starts in",
+      "description": "The screen the app opens on, on every phone you use.",
+      "wardrobe": "Wardrobe",
+      "lookbook": "Lookbook",
+      "outfits": "Outfits",
+      "plan": "Plan",
+      "saveError": "Could not save. Please try again."
     }
   }
 }

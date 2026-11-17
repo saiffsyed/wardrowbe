@@ -685,6 +685,15 @@
       "light": "Usa la luce del giorno ed evita ombre forti.",
       "whole": "Tutto il capo nella foto, un capo per foto.",
       "special": "Sari: piegalo in modo che si vedano bordo e pallu. Gioielli: su una superficie neutra."
+    },
+    "startScreen": {
+      "title": "L’app si apre su",
+      "description": "La schermata iniziale dell’app, su ogni tuo dispositivo.",
+      "wardrobe": "Guardaroba",
+      "lookbook": "Lookbook",
+      "outfits": "Outfit",
+      "plan": "Pianifica",
+      "saveError": "Salvataggio non riuscito. Riprova."
     }
   }
 }

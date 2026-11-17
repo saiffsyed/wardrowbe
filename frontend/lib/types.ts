@@ -238,6 +238,7 @@ export interface Preferences {
   avoid_repeat_days: number;
   prefer_underused_items: boolean;
   variety_level: 'low' | 'moderate' | 'high';
+  start_screen?: 'wardrobe' | 'lookbook' | 'outfits' | 'plan';
   ai_endpoints: AIEndpoint[];
 }
 

@@ -197,6 +197,12 @@ Built and tested (backend + frontend, on branch `stage-1`):
 - Indian women's wear types: kurti, anarkali, half-saree, sharara, saree blouse,
   petticoat, churidar, palazzo, patiala, stole, juttis, kolhapuris, jhumkas, maang tikka,
   nose ring, anklets, toe rings, waist belt, mangalsutra, hair jewellery, clutch, potli.
+- **Weather in the home button** (preview): the wardrobe's home button shows the current
+  home's temperature and a sky icon ("Chennai · 31°C ☀"). The full weather card stays on
+  Plan and becomes part of the Stage 3 "Today" card.
+- **"App starts in"** (preview): More → Display offers Wardrobe (default), Lookbook,
+  Outfits or Plan; kept with the account. The installed app and a fresh sign-in open
+  `/dashboard/start`, which goes on to the chosen screen.
 - Photo tip on the add-item screen (single and bulk): one line, "More tips" opens four
   points (flat or hung on a plain wall, daylight, whole piece and one per photo, saree
   folded with border and pallu showing, jewellery on a plain surface).
@@ -206,7 +212,6 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- "App starts in" setting
 - Split "Style & weather preferences" (the original settings page) into clearer screens
 - Settings page runs ~4 px wider than a phone screen (upstream bug)
 
