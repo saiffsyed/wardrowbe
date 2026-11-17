@@ -36,19 +36,51 @@ function Row({ band, pieces }: { band: Band; pieces: LookPiece[] }) {
   );
 }
 
+// A long kurti over palazzos or churidar, the way it is worn: the kurti covers the upper part
+// of the bottoms, which show from under its hem down to the shoes.
+function LayeredBody({ top, bottom }: { top: LookPiece[]; bottom: LookPiece[] }) {
+  return (
+    <div className="relative min-h-0">
+      <div className="absolute inset-x-0 bottom-0 top-[36%] flex justify-center">
+        {bottom.map((piece, i) => (
+          <div key={i} className={`relative h-full flex-1 ${i > 0 ? '-ml-[8%]' : ''}`}>
+            <Image src={piece.url} alt="" fill className="object-contain object-top" sizes="30vw" />
+          </div>
+        ))}
+      </div>
+      <div className="absolute inset-x-0 top-0 z-10 flex h-[64%] justify-center">
+        {top.map((piece, i) => (
+          <div key={i} className={`relative h-full flex-1 ${i > 0 ? '-ml-[8%]' : ''}`}>
+            <Image src={piece.url} alt="" fill className="object-contain object-top" sizes="30vw" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // A saved look laid out on one tall tile: head jewellery, top, bottom and shoes from top to
 // bottom, with dupatta, bag and bangles in a narrow column beside them.
 export function LookTile({ pieces }: { pieces: LookPiece[] }) {
   const layout = layoutLook(pieces);
-  const bands = BANDS.filter((band) => layout[band].length > 0);
-  const rows = bands.map((band) => `${BAND_WEIGHT[band]}fr`).join(' ');
+  // With a long top, the top and the bottoms share one band, drawn over each other.
+  const bands = BANDS.filter(
+    (band) => layout[band].length > 0 && !(layout.layered && band === 'bottom')
+  );
+  const rows = bands
+    .map((band) => `${layout.layered && band === 'top' ? 8 : BAND_WEIGHT[band]}fr`)
+    .join(' ');
 
   return (
     <div className="photo-ground flex aspect-[3/5] gap-1 overflow-hidden rounded-2xl border p-3">
       <div className="grid min-w-0 flex-1" style={{ gridTemplateRows: rows || '1fr' }}>
-        {bands.map((band) => (
-          <Row key={band} band={band} pieces={layout[band]} />
-        ))}
+        {bands.map((band) =>
+          layout.layered && band === 'top' ? (
+            <LayeredBody key={band} top={layout.top} bottom={layout.bottom} />
+          ) : (
+            <Row key={band} band={band} pieces={layout[band]} />
+          )
+        )}
       </div>
       {layout.side.length > 0 && (
         <div className="flex w-[28%] shrink-0 flex-col justify-center gap-1">

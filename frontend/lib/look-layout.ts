@@ -33,15 +33,29 @@ export function lookZone(type: string): LookZone {
   return ZONE_BY_ROLE[ITEM_ROLE[type] ?? ''] ?? 'side';
 }
 
+// Tops worn long, down to the knee or below, so the bottoms show only from under the hem.
+const LONG_TOPS = new Set(['kurta', 'kurti', 'sherwani']);
+
 export interface LookPiece {
   type: string;
   url: string;
 }
 
-export type LookLayout = Record<LookZone, LookPiece[]>;
+export type LookLayout = Record<LookZone, LookPiece[]> & {
+  // A long top lies over the upper part of the bottoms instead of sitting above them.
+  layered: boolean;
+};
 
 export function layoutLook(pieces: LookPiece[]): LookLayout {
-  const layout: LookLayout = { head: [], top: [], bottom: [], full: [], feet: [], side: [] };
+  const layout: LookLayout = {
+    head: [],
+    top: [],
+    bottom: [],
+    full: [],
+    feet: [],
+    side: [],
+    layered: false,
+  };
   for (const piece of pieces) layout[lookZone(piece.type)].push(piece);
   // Under a saree or lehenga, a blouse or petticoat would only crowd the long piece; they
   // move to the side column, and so does a second long piece.
@@ -51,5 +65,7 @@ export function layoutLook(pieces: LookPiece[]): LookLayout {
     layout.top = [];
     layout.bottom = [];
   }
+  layout.layered =
+    layout.bottom.length > 0 && layout.top.some((piece) => LONG_TOPS.has(piece.type));
   return layout;
 }

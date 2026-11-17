@@ -23,4 +23,10 @@ describe('look layout', () => {
     expect(types(layout.side)).toEqual(['saree-blouse', 'petticoat'])
     expect(types(layout.feet)).toEqual(['heels'])
   })
+
+  it('lays a long kurti over the bottoms but stacks a shirt above them', () => {
+    expect(layoutLook([piece('kurti'), piece('palazzo')]).layered).toBe(true)
+    expect(layoutLook([piece('shirt'), piece('jeans')]).layered).toBe(false)
+    expect(layoutLook([piece('kurti')]).layered).toBe(false)
+  })
 })

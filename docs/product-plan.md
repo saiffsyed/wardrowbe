@@ -33,7 +33,13 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     bangles in a column beside. White tile with a thin border (faint tile in dark mode),
     name and occasion underneath. Outfits inside a collection use the same tile. The top
     and the bottom touch, with no gap, like an outfit laid flat; jewellery and shoes are
-    drawn a little narrower.
+    drawn a little narrower. A long top (kurta, kurti, sherwani) lies over the upper part of
+    the bottoms, which show from under its hem.
+  - **Agreed for Stage 2:** the look you arrange is the look that is saved. The outfit
+    maker's collage board starts from this automatic layout; you drag pieces, resize them
+    and tap Front / Back to choose which lies over which. The positions are saved with the
+    look, and the Lookbook and Collections show it exactly so. Looks never arranged by hand
+    (older ones, the app's suggestions) keep the automatic layout.
     The bottom-bar Outfits tab becomes the outfit maker in Stage 2.
   - Collections: named sets holding clothes and outfits together ("Wedding season").
     Card with a 2×2 picture collage, name and count. Add from an item's ⋯ menu or the
@@ -70,7 +76,7 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
 
 ### Outfits
 - Manual builder including shoes and jewellery. Three modes:
-  1. **Collage** (default)
+  1. **Collage** (default): free arranging on a board, saved with the look (see Lookbook)
   2. **Dressing room**: mannequin outline, swipe to swap, lock, shuffle ("this feature is
      very good so let's keep this")
   3. **AI photo try-on**: both users are comfortable sending body photos to an AI
