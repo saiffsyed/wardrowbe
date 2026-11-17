@@ -381,7 +381,18 @@
       "season": "季節",
       "any": "{filter}：すべて",
       "option": "{label}（{count}）",
-      "toggle": "フィルター"
+      "toggle": "フィルター",
+      "color": "色",
+      "worn": "着用",
+      "inOutfits": "コーディネート",
+      "wornOptions": {
+        "never": "未着用",
+        "not_recently": "3か月着ていない"
+      },
+      "inOutfitsOptions": {
+        "true": "コーディネートあり",
+        "false": "コーディネートなし"
+      }
     },
     "list": {
       "size": "サイズ {size}",
@@ -600,6 +611,18 @@
       "addOneFirst": "続けるには住まいを追加してください",
       "continue": "{count}か所の住まいで続ける",
       "skip": "今はスキップ"
+    },
+    "groupBy": {
+      "label": "グループ化",
+      "none": "グループ化しない",
+      "by": "{what}でグループ化",
+      "type": "種類",
+      "color": "色",
+      "home": "住まい",
+      "brand": "ブランド",
+      "noColor": "色なし",
+      "noHome": "住まいなし",
+      "noBrand": "ブランドなし"
     }
   }
 }

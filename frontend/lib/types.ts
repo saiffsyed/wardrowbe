@@ -50,6 +50,7 @@ export interface WardrobeFacets {
   brands: FacetValue[];
   occasions: FacetValue[];
   materials: FacetValue[];
+  colors: FacetValue[];
 }
 
 export interface ItemTags {
@@ -197,6 +198,12 @@ export interface ItemFilter {
   season?: string;
   // One of the wardrobe's category chips (lib/wardrobe-categories.ts).
   category?: string;
+  // The item's main colour.
+  color?: string;
+  // never: not worn yet; not_recently: not worn in about three months.
+  worn?: string;
+  // 'true' or 'false': in at least one saved outfit, or in none.
+  in_outfits?: string;
   sort_by?: string;
   sort_order?: 'asc' | 'desc';
   ids?: string;

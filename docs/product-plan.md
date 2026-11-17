@@ -20,6 +20,11 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
 - Filters like a shopping site: occasion, colour, material, brand, season, status, not
   worn, used / not used in outfits. Plus sort and group-by.
 - One filter row with a filter button; the first design was "a little too much".
+- **Filter panel** (built): kind, group by, colour, occasion, brand, material, season,
+  worn (never / not in 3 months), outfits (in one / in none), needs wash, favourites.
+  **Group by** kind, colour, home or brand shows a heading with a count over each group;
+  sort is switched off while grouping. Grouping works page by page (20 items by
+  default), so a large group can continue on the next page.
 
 ### Item details (the database)
 - Brand, size, size system, fit note, **where it was bought** (not where it was made),
@@ -179,7 +184,6 @@ Still to do in Stage 1:
   instructions if it misreads
 - "App starts in" setting
 - Wardrobe tabs Clothes / Outfits / Collections
-- Group-by, "used in outfits" filter, colour and status filters in the filter row
 - Split "Style & weather preferences" (the original settings page) into clearer screens
 - Photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)

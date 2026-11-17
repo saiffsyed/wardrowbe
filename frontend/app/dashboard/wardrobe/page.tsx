@@ -32,13 +32,14 @@ import { useItems, useItem, useItemTypes, useReanalyzeItem, useCancelAnalysis, u
 import { useUserTimezone } from '@/lib/hooks/use-user';
 import { colorSwatch, normalizeColor } from '@/lib/colors';
 import { Item } from '@/lib/types';
-import { useClothingTypes, useClothingColors, useSubtypeLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
+import { useClothingTypes, useClothingColors, useColorLabel, useSubtypeLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
 import { toast } from 'sonner';
 import { formatWornAgo, getWornAgoColorClass } from '@/lib/utils';
 import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
 import { type HomeScope } from '@/components/wardrobe/home-bar';
 import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header';
+import { GROUP_BY, GroupBySelect, GroupedItems, isGroupBy, type GroupBy } from '@/components/wardrobe/group-by';
 import { MoveToHomeButton } from '@/components/wardrobe/move-to-home';
 import { useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
 import {
@@ -344,6 +345,8 @@ function EmptyWardrobe({ onAddClick }: { onAddClick: () => void }) {
 }
 
 export default function WardrobePage() {
+  const typeLabel = useTypeLabel();
+  const colorLabel = useColorLabel();
   const searchParams = useSearchParams();
   const router = useRouter();
   const userTimezone = useUserTimezone();
@@ -372,6 +375,10 @@ export default function WardrobePage() {
   );
   const [showFilters, setShowFilters] = useState(false);
   const [category, setCategory] = useState<string>(() => searchParams.get('category') || 'all');
+  const [groupBy, setGroupBy] = useState<GroupBy>(() => {
+    const param = searchParams.get('group');
+    return isGroupBy(param) ? param : 'none';
+  });
   const [homeScope, setHomeScope] = useState<HomeScope>(() =>
     searchParams.get('homes') === 'all' ? 'all' : 'here'
   );
@@ -439,6 +446,7 @@ export default function WardrobePage() {
     if (needsWash) params.set('needsWash', 'true'); else params.delete('needsWash');
     if (favoriteFilter) params.set('favorite', 'true'); else params.delete('favorite');
     if (category !== 'all') params.set('category', category); else params.delete('category');
+    if (groupBy !== 'none') params.set('group', groupBy); else params.delete('group');
     if (homeScope === 'all') params.set('homes', 'all'); else params.delete('homes');
     for (const key of FACET_KEYS) {
       const value = facetSelection[key];
@@ -451,7 +459,7 @@ export default function WardrobePage() {
     if (next !== searchParams.toString()) {
       router.replace(next ? `/dashboard/wardrobe?${next}` : '/dashboard/wardrobe', { scroll: false });
     }
-  }, [search, typeFilter, category, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
+  }, [search, typeFilter, category, groupBy, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
 
   const sortOption = SORT_OPTIONS[sortIndex];
 
@@ -469,7 +477,11 @@ export default function WardrobePage() {
     category: category !== 'all' ? category : undefined,
     ...facetSelection,
   };
-  const filters = { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
+  // Grouping sorts by what is grouped on, so each group's items arrive together.
+  const groupSort = GROUP_BY[groupBy];
+  const filters = groupSort
+    ? { ...listFilters, sort_by: groupSort, sort_order: 'asc' as const }
+    : { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
 
   const activeFilterCount = [
     needsWash !== undefined,
@@ -713,6 +725,70 @@ export default function WardrobePage() {
     setPage(newPage);
   };
 
+  const groupLabel = (key: string) => {
+    if (groupBy === 'type') return typeLabel(key);
+    if (groupBy === 'color') return key ? colorLabel(key) : t('closet.groupBy.noColor');
+    if (groupBy === 'home') return homes?.find((home) => home.id === key)?.name ?? t('closet.groupBy.noHome');
+    if (groupBy === 'brand') {
+      // Grouped case-insensitively; shown the way the first item spells it.
+      const spelled = items.find((item) => item.brand?.trim().toLowerCase() === key)?.brand?.trim();
+      return spelled || t('closet.groupBy.noBrand');
+    }
+    return '';
+  };
+
+  // The wardrobe's grid or list for a run of items: all of them, or one group's.
+  const renderItems = (list: Item[]) =>
+    viewMode === 'cutouts' ? (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3">
+          {list.map((item) => (
+            <CutoutTile
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+            />
+          ))}
+        </div>
+      ) : viewMode === 'list' ? (
+        <ul>
+          {list.map((item) => (
+            <ItemListRow
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+              home={scopedHomeId ? undefined : homes?.find((home) => home.id === item.home_id)}
+            />
+          ))}
+        </ul>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {list.map((item) => {
+            const isSelected = isItemSelected(item.id);
+            return (
+              <ItemCard
+                key={item.id}
+                item={item}
+                selected={isSelected}
+                onSelect={handleSelect}
+                onRetry={aiUiEnabled ? handleRetry : undefined}
+                onRetryBackgroundRemoval={handleRetryBackgroundRemoval}
+                onCancelAnalysis={handleCancelAnalysis}
+                onClick={() => setDetailItemId(item.id)}
+                onDismissError={handleDismissError}
+                errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+                userTimezone={userTimezone}
+              />
+            );
+          })}
+        </div>
+      );
+
   return (
     <div className="space-y-4">
       <WardrobeHeader
@@ -792,6 +868,8 @@ export default function WardrobePage() {
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-2">
             <Select
+              // Grouping decides the order while it is on.
+              disabled={groupBy !== 'none'}
               value={String(sortIndex)}
               onValueChange={(v) => {
                 setSortIndex(Number(v));
@@ -836,6 +914,13 @@ export default function WardrobePage() {
               </SelectContent>
             </Select>
 
+            <GroupBySelect
+              value={groupBy}
+              onChange={(value) => {
+                setGroupBy(value);
+                setPage(1);
+              }}
+            />
             <FacetFilters facets={facets} selection={facetSelection} onChange={handleFacetChange} />
 
             <Select
@@ -948,54 +1033,10 @@ export default function WardrobePage() {
         ) : (
           <EmptyWardrobe onAddClick={() => setAddDialogOpen(true)} />
         )
-      ) : viewMode === 'cutouts' ? (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 pb-20">
-          {items.map((item) => (
-            <CutoutTile
-              key={item.id}
-              item={item}
-              selected={isItemSelected(item.id)}
-              onSelect={handleSelect}
-              onClick={() => setDetailItemId(item.id)}
-              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
-            />
-          ))}
-        </div>
-      ) : viewMode === 'list' ? (
-        <ul className="pb-20">
-          {items.map((item) => (
-            <ItemListRow
-              key={item.id}
-              item={item}
-              selected={isItemSelected(item.id)}
-              onSelect={handleSelect}
-              onClick={() => setDetailItemId(item.id)}
-              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
-              home={scopedHomeId ? undefined : homes?.find((home) => home.id === item.home_id)}
-            />
-          ))}
-        </ul>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-20">
-          {items.map((item) => {
-            const isSelected = isItemSelected(item.id);
-            return (
-              <ItemCard
-                key={item.id}
-                item={item}
-                selected={isSelected}
-                onSelect={handleSelect}
-                onRetry={aiUiEnabled ? handleRetry : undefined}
-                onRetryBackgroundRemoval={handleRetryBackgroundRemoval}
-                onCancelAnalysis={handleCancelAnalysis}
-                onClick={() => setDetailItemId(item.id)}
-                onDismissError={handleDismissError}
-                errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
-                userTimezone={userTimezone}
-              />
-            );
-          })}
-        </div>
+        <GroupedItems items={items} groupBy={groupBy} label={groupLabel} render={(list) => (
+          <div className={groupBy === 'none' ? 'pb-20' : ''}>{renderItems(list)}</div>
+        )} />
       )}
 
       <BulkActionToolbar

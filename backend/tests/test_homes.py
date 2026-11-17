@@ -396,6 +396,7 @@ class TestWardrobeFacets:
             "brands": [{"value": "Zara", "count": 2}],
             "occasions": [{"value": "work", "count": 2}, {"value": "casual", "count": 1}],
             "materials": [{"value": "cotton", "count": 2}, {"value": "elastane", "count": 1}],
+            "colors": [],
         }
 
     @pytest.mark.asyncio
@@ -518,3 +519,54 @@ class TestBulkMoveToHome:
         assert into_theirs.status_code == 404
         await db_session.refresh(theirs)
         assert theirs.home_id is None
+
+
+class TestShoppingFilters:
+    @pytest.mark.asyncio
+    async def test_not_worn_and_in_outfits_filters(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        from datetime import date, timedelta
+
+        from app.models.outfit import Outfit, OutfitItem, OutfitSource, OutfitStatus
+
+        never = await _item(db_session, test_user)
+        long_ago = await _item(
+            db_session, test_user, last_worn_at=date.today() - timedelta(days=200)
+        )
+        lately = await _item(db_session, test_user, last_worn_at=date.today() - timedelta(days=3))
+        outfit = Outfit(
+            user_id=test_user.id,
+            occasion="casual",
+            scheduled_for=date.today(),
+            source=OutfitSource.manual,
+            status=OutfitStatus.accepted,
+        )
+        db_session.add(outfit)
+        await db_session.flush()
+        db_session.add(OutfitItem(outfit_id=outfit.id, item_id=lately.id, position=0))
+        await db_session.commit()
+
+        async def ids(query: str) -> set[str]:
+            response = await client.get(f"{ITEMS}?{query}", headers=auth_headers)
+            assert response.status_code == 200, response.text
+            return {i["id"] for i in response.json()["items"]}
+
+        assert await ids("worn=never") == {str(never.id)}
+        assert await ids("worn=not_recently") == {str(never.id), str(long_ago.id)}
+        assert await ids("in_outfits=true") == {str(lately.id)}
+        assert await ids("in_outfits=false") == {str(never.id), str(long_ago.id)}
+
+    @pytest.mark.asyncio
+    async def test_colours_are_offered_with_counts(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        await _item(db_session, test_user, primary_color="blue")
+        await _item(db_session, test_user, primary_color="blue")
+        await _item(db_session, test_user, primary_color="red")
+
+        body = (await client.get("/api/v1/wardrobe/facets", headers=auth_headers)).json()
+
+        assert body["colors"] == [{"value": "blue", "count": 2}, {"value": "red", "count": 1}]
+        blue = await client.get(f"{ITEMS}?color=blue", headers=auth_headers)
+        assert blue.json()["total"] == 2

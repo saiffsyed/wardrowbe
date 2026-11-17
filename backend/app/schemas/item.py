@@ -297,6 +297,12 @@ class ItemFilterFields(BaseModel):
     season: str | None = None
     # One of the wardrobe's category chips (app.utils.wardrobe_categories).
     category: str | None = None
+    # never: not worn yet. not_recently: not worn in the last NOT_WORN_DAYS days, or never.
+    worn: Literal["never", "not_recently"] | None = None
+    # The item's main colour (unlike `colors`, which matches any of its colours).
+    color: str | None = None
+    # True: in at least one saved outfit. False: in none.
+    in_outfits: bool | None = None
 
 
 class ItemFilter(ItemFilterFields):

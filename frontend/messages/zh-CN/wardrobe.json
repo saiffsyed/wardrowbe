@@ -381,7 +381,18 @@
       "season": "季节",
       "any": "{filter}：全部",
       "option": "{label}（{count}）",
-      "toggle": "筛选"
+      "toggle": "筛选",
+      "color": "颜色",
+      "worn": "穿着",
+      "inOutfits": "搭配",
+      "wornOptions": {
+        "never": "从未穿过",
+        "not_recently": "3个月未穿"
+      },
+      "inOutfitsOptions": {
+        "true": "在搭配中",
+        "false": "不在任何搭配中"
+      }
     },
     "list": {
       "size": "尺码 {size}",
@@ -600,6 +611,18 @@
       "addOneFirst": "添加一个住所以继续",
       "continue": "使用 {count} 个住所继续",
       "skip": "暂时跳过"
+    },
+    "groupBy": {
+      "label": "分组",
+      "none": "不分组",
+      "by": "按{what}分组",
+      "type": "种类",
+      "color": "颜色",
+      "home": "住所",
+      "brand": "品牌",
+      "noColor": "无颜色",
+      "noHome": "无住所",
+      "noBrand": "无品牌"
     }
   }
 }

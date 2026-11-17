@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select';
 import { SEASON_VALUES } from '@/lib/generated/garment-vocabulary';
 import {
+  useColorLabel,
   useMaterialLabel,
   useOccasionLabel,
   useSeasonLabel,
@@ -21,9 +22,13 @@ export interface FacetSelection {
   brand?: string;
   material?: string;
   season?: string;
+  color?: string;
+  worn?: string;
+  in_outfits?: string;
 }
 
-export const FACET_KEYS = ['occasion', 'brand', 'material', 'season'] as const;
+// Each key is also the item list's query parameter of the same name.
+export const FACET_KEYS = ['color', 'occasion', 'brand', 'material', 'season', 'worn', 'in_outfits'] as const;
 export type FacetKey = (typeof FACET_KEYS)[number];
 
 export function activeFacetCount(selection: FacetSelection): number {
@@ -89,10 +94,21 @@ export function FacetFilters({
   const occasionLabel = useOccasionLabel();
   const materialLabel = useMaterialLabel();
   const seasonLabel = useSeasonLabel();
+  const colorLabel = useColorLabel();
   const seasons: FacetValue[] = SEASON_VALUES.map((value) => ({ value, count: 0 }));
+  // Fixed choices rather than counts drawn from the wardrobe.
+  const wornOptions: FacetValue[] = ['never', 'not_recently'].map((value) => ({ value, count: 0 }));
+  const outfitOptions: FacetValue[] = ['true', 'false'].map((value) => ({ value, count: 0 }));
 
   return (
     <>
+      <FacetSelect
+        label={t('color')}
+        value={selection.color}
+        options={facets?.colors ?? []}
+        optionLabel={colorLabel}
+        onChange={(value) => onChange('color', value)}
+      />
       <FacetSelect
         label={t('occasion')}
         value={selection.occasion}
@@ -120,6 +136,20 @@ export function FacetFilters({
         options={seasons}
         optionLabel={seasonLabel}
         onChange={(value) => onChange('season', value)}
+      />
+      <FacetSelect
+        label={t('worn')}
+        value={selection.worn}
+        options={wornOptions}
+        optionLabel={(value) => t(`wornOptions.${value}`)}
+        onChange={(value) => onChange('worn', value)}
+      />
+      <FacetSelect
+        label={t('inOutfits')}
+        value={selection.in_outfits}
+        options={outfitOptions}
+        optionLabel={(value) => t(`inOutfitsOptions.${value}`)}
+        onChange={(value) => onChange('in_outfits', value)}
       />
     </>
   );

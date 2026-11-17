@@ -2,7 +2,7 @@ from collections import Counter
 from datetime import UTC, date, datetime, timedelta
 from uuid import UUID, uuid4
 
-from sqlalchemy import and_, func, or_, select, text, update
+from sqlalchemy import and_, exists, func, or_, select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes, selectinload
 
@@ -15,6 +15,7 @@ from app.models.item import (
     TaggingStatus,
     WashHistory,
 )
+from app.models.outfit import OutfitItem
 from app.models.user import User
 from app.schemas.item import (
     DEFAULT_WASH_INTERVALS,
@@ -31,6 +32,10 @@ from app.utils.wardrobe_categories import CategoryFilter, subtype_as_kind
 
 # Values the AI fills in that can also be changed on the item itself rather than inside tags.
 _EDITABLE_ITEM_FIELDS = ("type", "subtype", "primary_color", "colors")
+
+
+# "Not worn recently" means not in this many days: about a season.
+NOT_WORN_DAYS = 90
 
 
 class TagVocabularyError(ValueError):
@@ -164,6 +169,18 @@ class ItemService:
             )
         if filters.season:
             clauses.append(ClothingItem.season.contains([filters.season]))
+        if filters.color:
+            clauses.append(ClothingItem.primary_color == filters.color)
+        if filters.worn == "never":
+            clauses.append(ClothingItem.last_worn_at.is_(None))
+        elif filters.worn == "not_recently":
+            cutoff = date.today() - timedelta(days=NOT_WORN_DAYS)
+            clauses.append(
+                or_(ClothingItem.last_worn_at.is_(None), ClothingItem.last_worn_at < cutoff)
+            )
+        if filters.in_outfits is not None:
+            in_an_outfit = exists().where(OutfitItem.item_id == ClothingItem.id)
+            clauses.append(in_an_outfit if filters.in_outfits else ~in_an_outfit)
         if category is not None:
             # A person's own kind of item is its built-in type plus its name as the subtype.
             kind = subtype_as_kind(ClothingItem.subtype)
@@ -217,6 +234,9 @@ class ItemService:
             "type": ClothingItem.type,
             "brand": ClothingItem.brand,
             "purchase_price": ClothingItem.purchase_price,
+            # For grouping the wardrobe by colour or by home.
+            "primary_color": ClothingItem.primary_color,
+            "home": ClothingItem.home_id,
         }
         sort_col = sort_columns.get(filters.sort_by or "", ClothingItem.created_at)
         if filters.sort_order == "asc":

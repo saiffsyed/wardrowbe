@@ -25,6 +25,8 @@ class WardrobeFacets(BaseModel):
     brands: list[FacetValue]
     occasions: list[FacetValue]
     materials: list[FacetValue]
+    # The main colour of each item, for the colour filter.
+    colors: list[FacetValue]
 
 
 def _ranked(counts: Counter[str]) -> list[FacetValue]:
@@ -46,9 +48,9 @@ async def wardrobe_facets(
     A wardrobe is a few hundred rows at most, so the three columns are read once and counted
     here rather than with three aggregate queries over JSONB.
     """
-    query = select(ClothingItem.brand, ClothingItem.material, ClothingItem.tags).where(
-        ClothingItem.user_id == current_user.id, ClothingItem.is_archived.is_(False)
-    )
+    query = select(
+        ClothingItem.brand, ClothingItem.material, ClothingItem.tags, ClothingItem.primary_color
+    ).where(ClothingItem.user_id == current_user.id, ClothingItem.is_archived.is_(False))
     if home_id is not None:
         query = query.where(ClothingItem.home_id == home_id)
 
@@ -56,7 +58,10 @@ async def wardrobe_facets(
     brand_spelling: dict[str, str] = {}
     occasions: Counter[str] = Counter()
     materials: Counter[str] = Counter()
-    for brand, material, tags in (await db.execute(query)).all():
+    colors: Counter[str] = Counter()
+    for brand, material, tags, primary_color in (await db.execute(query)).all():
+        if primary_color:
+            colors[primary_color] += 1
         tags = tags if isinstance(tags, dict) else {}
         if brand and brand.strip():
             # The filter matches brands case-insensitively, so "Zara" and "ZARA" are one option,
@@ -75,4 +80,5 @@ async def wardrobe_facets(
         brands=[FacetValue(value=brand_spelling[f.value], count=f.count) for f in _ranked(brands)],
         occasions=_ranked(occasions),
         materials=_ranked(materials),
+        colors=_ranked(colors),
     )

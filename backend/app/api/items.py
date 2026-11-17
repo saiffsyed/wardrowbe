@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from datetime import UTC, datetime
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from arq import create_pool
@@ -154,6 +154,9 @@ async def list_items(
     material: str | None = None,
     season: str | None = None,
     category: str | None = None,
+    worn: Literal["never", "not_recently"] | None = None,
+    in_outfits: bool | None = None,
+    color: str | None = None,
     sort_by: str | None = None,
     sort_order: str = "desc",
 ) -> ItemListResponse:
@@ -175,6 +178,9 @@ async def list_items(
         material=material,
         season=season,
         category=category,
+        worn=worn,
+        in_outfits=in_outfits,
+        color=color,
         sort_by=sort_by,
         sort_order=sort_order,
     )

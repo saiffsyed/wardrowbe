@@ -381,7 +381,18 @@
       "season": "Season",
       "any": "{filter}: any",
       "option": "{label} ({count})",
-      "toggle": "Filters"
+      "toggle": "Filters",
+      "color": "Colour",
+      "worn": "Worn",
+      "inOutfits": "Outfits",
+      "wornOptions": {
+        "never": "Never worn",
+        "not_recently": "Not worn in 3 months"
+      },
+      "inOutfitsOptions": {
+        "true": "In an outfit",
+        "false": "In no outfit"
+      }
     },
     "list": {
       "size": "Size {size}",
@@ -600,6 +611,18 @@
       "addOneFirst": "Add a home to continue",
       "continue": "Continue with {count, plural, one {# home} other {# homes}}",
       "skip": "Skip for now"
+    },
+    "groupBy": {
+      "label": "Group by",
+      "none": "No grouping",
+      "by": "Group by {what}",
+      "type": "kind",
+      "color": "colour",
+      "home": "home",
+      "brand": "brand",
+      "noColor": "No colour",
+      "noHome": "No home",
+      "noBrand": "No brand"
     }
   }
 }
