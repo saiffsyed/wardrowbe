@@ -113,10 +113,15 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
     category. An item of that kind is stored as the built-in type plus the name as its
     subtype, so outfits, washing and weather rules treat it like the built-in type.
     Deleting a kind leaves its items as they are.
-- **Item screen follows the mock-up's cards** (built): Kept in and Status tiles, occasion
-  chips, a Details card (brand, size, fit note, bought in), a Material card and a Care
-  card with one instruction per row. The top row of icon buttons, wash status, wear
-  history and AI analysis sections below are still the original app's.
+- **Item screen follows the mock-up's cards** (built): top row is the name, heart, Edit
+  and a "⋯" menu naming every other action; one line with colour, kind and wear count;
+  Kept in and Status tiles, occasion chips, a Details card (brand, size, fit note, bought
+  in, bought on, price), Material, Care, Wash status, Wear history, AI analysis and Notes
+  as labelled cards.
+- **Price currency is per item** (Saiff agreed): clothes are bought in India and Europe,
+  so each price keeps its own currency (INR, EUR, GBP, USD, AED, CHF, SGD; stored in
+  the item's tags as `currency`). The last one used is offered next. No app-wide
+  currency setting.
 - **Clothes photos have their background removed automatically when an item is added**
   (built). The cleaned photo is saved on white; the untouched photo is kept, so the
   existing "undo background removal" button brings it back. If removal fails the item is
@@ -167,8 +172,7 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Rest of the item screen (icon row, wash, history, AI sections) in the new style;
-  bought-on date and price in the Details card; currency, "app starts in"
+- "App starts in" setting
 - Wardrobe tabs Clothes / Outfits / Collections
 - Group-by, "used in outfits" filter, colour and status filters in the filter row
 - "Move to home" in the multi-select toolbar
