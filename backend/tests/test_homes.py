@@ -415,3 +415,29 @@ class TestWardrobeFacets:
         )
 
         assert [b["value"] for b in response.json()["brands"]] == ["Here"]
+
+
+class TestPurchaseCurrency:
+    @pytest.mark.asyncio
+    async def test_a_price_keeps_the_currency_it_was_paid_in(
+        self, client: AsyncClient, db_session: AsyncSession, test_user: User, auth_headers: dict
+    ):
+        item = await _item(db_session, test_user)
+
+        saved = await client.patch(
+            f"{ITEMS}/{item.id}",
+            json={
+                "purchase_price": 4500,
+                "purchase_date": "2025-10-02",
+                "tags": {"currency": "INR"},
+            },
+            headers=auth_headers,
+        )
+        bad = await client.patch(
+            f"{ITEMS}/{item.id}", json={"tags": {"currency": "rupees"}}, headers=auth_headers
+        )
+
+        assert saved.status_code == 200, saved.text
+        assert saved.json()["tags"]["currency"] == "INR"
+        assert float(saved.json()["purchase_price"]) == 4500
+        assert bad.status_code == 422

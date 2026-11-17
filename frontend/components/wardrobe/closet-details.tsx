@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
+import { useLocale } from 'next-intl';
 import { Pencil, Plus, ScanLine, Tag, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -27,6 +28,44 @@ import { useMaterialLabel, useOccasionLabel } from '@/lib/hooks/use-translated-c
 import type { Item, MaterialShare } from '@/lib/types';
 
 const NO_HOME = '__none__';
+// The currencies offered for a price, the homes' first. Anything else can be added here.
+const CURRENCIES = ['INR', 'EUR', 'GBP', 'USD', 'AED', 'CHF', 'SGD'] as const;
+const LAST_CURRENCY_KEY = 'closet-last-currency';
+
+function lastCurrency(): string {
+  try {
+    return window.localStorage.getItem(LAST_CURRENCY_KEY) || 'INR';
+  } catch {
+    return 'INR';
+  }
+}
+
+function rememberCurrency(currency: string) {
+  try {
+    window.localStorage.setItem(LAST_CURRENCY_KEY, currency);
+  } catch {
+    // Remembering the last currency is a convenience; a blocked store just means picking it again.
+  }
+}
+
+function priceText(amount: number | null | undefined, currency: string | undefined, locale: string) {
+  if (amount == null) return undefined;
+  amount = Number(amount);
+  // Whole amounts without ".00"; prices with cents keep them.
+  const fraction = Number.isInteger(amount) ? 0 : 2;
+  try {
+    return currency
+      ? new Intl.NumberFormat(locale, {
+          style: 'currency',
+          currency,
+          minimumFractionDigits: fraction,
+          maximumFractionDigits: fraction,
+        }).format(amount)
+      : new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(amount);
+  } catch {
+    return `${amount}${currency ? ` ${currency}` : ''}`;
+  }
+}
 const MAX_MATERIALS = 8;
 // Labels round their percentages, so a total a little over 100 is still a faithful copy.
 const MAX_TOTAL_PERCENT = 100.5;
@@ -44,6 +83,9 @@ interface DetailsForm {
   sizeSystem: string;
   fitNote: string;
   purchasePlace: string;
+  purchaseDate: string;
+  price: string;
+  currency: string;
   care: string;
   materials: MaterialRow[];
   occasions: string[];
@@ -57,6 +99,10 @@ function formFromItem(item: Item): DetailsForm {
     sizeSystem: item.tags?.size_system ?? '',
     fitNote: item.tags?.fit_note ?? '',
     purchasePlace: item.tags?.purchase_place ?? '',
+    purchaseDate: item.purchase_date ?? '',
+    // The server sends the price as a decimal string ("4500.00"); edit it as a plain number.
+    price: item.purchase_price != null ? String(Number(item.purchase_price)) : '',
+    currency: item.tags?.currency ?? lastCurrency(),
     care: item.tags?.care_instructions ?? '',
     materials: (item.tags?.composition ?? []).map((share) => ({
       material: share.material,
@@ -85,10 +131,15 @@ function sharesFrom(rows: MaterialRow[]): MaterialShare[] {
 function editsFrom(form: DetailsForm): ClosetDetailEdits {
   const text = (value: string) => value.trim() || null;
   const shares = sharesFrom(form.materials);
+  const price = Number(form.price.replace(',', '.').trim());
+  const hasPrice = form.price.trim() !== '' && Number.isFinite(price) && price >= 0;
   return {
     home_id: form.homeId === NO_HOME ? null : form.homeId,
     brand: text(form.brand),
+    purchase_date: form.purchaseDate || null,
+    purchase_price: hasPrice ? price : null,
     tags: {
+      currency: hasPrice ? form.currency : null,
       size: text(form.size),
       size_system: text(form.sizeSystem),
       fit_note: text(form.fitNote),
@@ -172,6 +223,7 @@ function Fact({ label, value }: { label: string; value: string | undefined }) {
 // on its own, apart from the dialog's main edit form.
 export function ClosetDetails({ item }: { item: Item }) {
   const t = useTranslations('wardrobe.closet.details');
+  const locale = useLocale();
   const occasionLabel = useOccasionLabel();
   const { data: homes } = useHomes();
   const update = useUpdateClosetDetails();
@@ -186,6 +238,8 @@ export function ClosetDetails({ item }: { item: Item }) {
   const size = [tags.size, tags.size_system].filter(Boolean).join(' · ') || undefined;
   const hasAnything =
     !!(size || tags.fit_note || tags.purchase_place || tags.care_instructions || home) ||
+    !!item.purchase_date ||
+    item.purchase_price != null ||
     !!tags.composition?.length ||
     !!tags.occasions?.length;
 
@@ -218,6 +272,7 @@ export function ClosetDetails({ item }: { item: Item }) {
     // An occasion typed but not yet added is still meant.
     const pending = cleanOccasion(occasionDraft);
     const occasions = pending && !form.occasions.includes(pending) ? [...form.occasions, pending] : form.occasions;
+    if (form.price.trim()) rememberCurrency(form.currency);
     update.mutate(
       { id: item.id, edits: editsFrom({ ...form, occasions }) },
       {
@@ -238,7 +293,11 @@ export function ClosetDetails({ item }: { item: Item }) {
       .filter(Boolean)
       // Each row starts a line of its own, so it starts with a capital.
       .map((step) => step.charAt(0).toLocaleUpperCase() + step.slice(1));
-    const hasFacts = !!(item.brand || size || tags.fit_note || tags.purchase_place);
+    const price = priceText(item.purchase_price, tags.currency, locale);
+    const boughtOn = item.purchase_date
+      ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(new Date(`${item.purchase_date}T00:00:00`))
+      : undefined;
+    const hasFacts = !!(item.brand || size || tags.fit_note || tags.purchase_place || boughtOn || price);
 
     return (
       <div className="space-y-4 border-t pt-3">
@@ -283,6 +342,8 @@ export function ClosetDetails({ item }: { item: Item }) {
               <Fact label={t('size')} value={size} />
               <Fact label={t('fitNote')} value={tags.fit_note} />
               <Fact label={t('boughtIn')} value={tags.purchase_place} />
+              <Fact label={t('boughtOn')} value={boughtOn} />
+              <Fact label={t('price')} value={price} />
             </dl>
           ) : (
             !hasAnything && <p className="text-xs text-muted-foreground">{t('empty')}</p>
@@ -393,6 +454,47 @@ export function ClosetDetails({ item }: { item: Item }) {
           placeholder={t('boughtInPlaceholder')}
           onChange={(e) => set('purchasePlace', e.target.value)}
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="col-span-2 space-y-1.5 min-[420px]:col-span-1">
+          <Label htmlFor={field('bought-on')}>{t('boughtOn')}</Label>
+          <Input
+            id={field('bought-on')}
+            type="date"
+            value={form.purchaseDate}
+            max={new Date().toISOString().slice(0, 10)}
+            onChange={(e) => set('purchaseDate', e.target.value)}
+          />
+        </div>
+        <div className="col-span-2 space-y-1.5 min-[420px]:col-span-1">
+          <Label htmlFor={field('price')}>{t('price')}</Label>
+          <div className="flex gap-1.5">
+            <Input
+              id={field('price')}
+              value={form.price}
+              inputMode="decimal"
+              placeholder="0"
+              className="min-w-0"
+              onChange={(e) => set('price', e.target.value)}
+            />
+            <Select value={form.currency} onValueChange={(value) => set('currency', value)}>
+              <SelectTrigger aria-label={t('currency')} className="w-[5.5rem] shrink-0">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {(CURRENCIES.includes(form.currency as (typeof CURRENCIES)[number])
+                  ? CURRENCIES
+                  : [form.currency, ...CURRENCIES]
+                ).map((code) => (
+                  <SelectItem key={code} value={code}>
+                    {code}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </div>
 
       <fieldset className="space-y-2">

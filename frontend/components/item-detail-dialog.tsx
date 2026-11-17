@@ -29,6 +29,7 @@ import {
   Plus,
   Star,
   ImageIcon,
+  MoreHorizontal,
 } from 'lucide-react';
 import {
   Dialog,
@@ -47,6 +48,12 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
@@ -386,195 +393,144 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
         <DialogContent className="sm:max-w-2xl max-h-[90vh] flex flex-col p-0 overflow-hidden [&>button]:hidden">
           {/* Header - sticky */}
           <DialogHeader className="flex flex-row items-center gap-2 space-y-0 p-4 border-b flex-shrink-0">
-            {/* Below sm the title keeps its 45% cap and the actions stay in a
-                scrollable row, so the close control is always reachable on a
-                phone. From sm up the title becomes the flexible item and the
-                actions row is sized to its content instead, so every action
-                stays visible and the name truncates. Previously the title had
-                no cap at all from sm up: because a flex item claims its content
-                width before a flex-1 sibling does, a long name squeezed the
-                actions row and pushed edit and replace-image out of view. */}
-            <DialogTitle className="text-xl min-w-0 truncate max-w-[45%] sm:max-w-none sm:flex-1">
+            {/* The name takes the room left by the buttons and is cut short if it runs out. */}
+            <DialogTitle className="min-w-0 flex-1 truncate text-left text-xl">
               {item.name || (typeInfo ? typeInfo.label : item.type)}
             </DialogTitle>
-            {/* The action row scrolls sideways once it stops fitting, because
-                the dialog clips its own overflow: without this the buttons
-                push the close control past the right edge on a phone and it
-                cannot be reached at all. */}
-            <div className="flex-1 min-w-0 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-none">
-              <div className="flex w-max ml-auto items-center gap-1">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleToggleFavorite}
-                  disabled={updateItem.isPending}
-                  title={t('titles.toggleFavorite')}
-                >
-                  <Heart
-                    className={`h-5 w-5 ${
-                      item.favorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
-                    }`}
-                  />
-                </Button>
-                {aiUiEnabled && (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setShowPairingsDialog(true)}
-                      disabled={item.status !== 'ready'}
-                      title={t('titles.findMatchingOutfits')}
-                    >
-                      <Layers className="h-5 w-5" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => {
-                        onOpenChange(false);
-                        router.push(`/dashboard/suggest?item=${item.id}`);
-                      }}
-                      disabled={item.status !== 'ready'}
-                      title={t('titles.suggestOutfit')}
-                    >
-                      <Sparkles className="h-5 w-5 text-primary" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleReanalyze()}
-                      disabled={isAnalyzing}
-                      title={isAnalyzing ? t('titles.analysisInProgress') : t('titles.reanalyzeWithAI')}
-                    >
-                      <RefreshCw
-                        className={`h-5 w-5 ${isAnalyzing ? 'animate-spin text-primary' : ''}`}
-                      />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setShowReplaceConfirm(true)}
-                      disabled={isAnalyzing}
-                      title={t('titles.reanalyzeAndReplace')}
-                    >
-                      <Replace className="h-5 w-5" />
-                    </Button>
-                  </>
-                )}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRotate('ccw')}
-                  disabled={rotateImage.isPending}
-                  title={t('titles.rotateLeft')}
-                >
-                  {rotateImage.isPending ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <RotateCcw className="h-5 w-5" />
-                  )}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRotate('cw')}
-                  disabled={rotateImage.isPending}
-                  title={t('titles.rotateRight')}
-                >
-                  {rotateImage.isPending ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <RotateCw className="h-5 w-5" />
-                  )}
-                </Button>
-                {features?.background_removal && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleRemoveBackground}
-                    disabled={removeBackground.isPending || !item.image_url}
-                    title={t('titles.removeBackground')}
-                  >
-                    {removeBackground.isPending ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Eraser className="h-5 w-5" />
-                    )}
-                  </Button>
-                )}
-                {item.original_image_path && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleRestoreOriginal}
-                    disabled={restoreOriginal.isPending}
-                    title={t('titles.undoBackgroundRemoval')}
-                  >
-                    {restoreOriginal.isPending ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Undo2 className="h-5 w-5" />
-                    )}
-                  </Button>
-                )}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => replaceImageInputRef.current?.click()}
-                  disabled={replaceImage.isPending}
-                  title={t('titles.replaceImage')}
-                >
-                  {replaceImage.isPending ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <ImagePlus className="h-5 w-5" />
-                  )}
-                </Button>
-                {item.image_url && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setShowSplit(true)}
-                    title={t('titles.splitPhoto')}
-                  >
-                    <Scissors className="h-5 w-5" />
-                  </Button>
-                )}
-                <input
-                  ref={replaceImageInputRef}
-                  type="file"
-                  accept={ACCEPTED_IMAGE_INPUT}
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      handleReplaceImage(file);
-                    }
-                    e.target.value = '';
-                  }}
+            {/* A favourite heart, Edit, and everything else tucked behind one button: a row of a
+                dozen bare icons did not fit a phone and said nothing about what each one did. */}
+            <div className="ml-auto flex shrink-0 items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleToggleFavorite}
+                disabled={updateItem.isPending}
+                title={t('titles.toggleFavorite')}
+              >
+                <Heart
+                  className={`h-5 w-5 ${
+                    item.favorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'
+                  }`}
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    // Re-read the item on entering edit mode: tagging can finish while the
-                    // dialog is open (same id, so the effect above doesn't re-run).
-                    if (!isEditing) {
-                      setEditForm(editFormFromItem(item));
-                      setTagDraft(draftFromTags(item.tags, primaryColorOfItem(item)));
-                      setEditBase(item);
-                    }
-                    setIsEditing(!isEditing);
-                  }}
-                  title={isEditing ? t('actions.cancelEditing') : t('actions.editItem')}
-                >
-                  {isEditing ? (
-                    <X className="h-5 w-5" />
-                  ) : (
-                    <Pencil className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                // While editing it is only a way out; the form's own buttons save or cancel.
+                className={`h-10 gap-1.5 rounded-full ${isEditing ? 'w-10 px-0' : 'px-3.5'}`}
+                aria-label={isEditing ? t('actions.cancelEditing') : undefined}
+                title={isEditing ? t('actions.cancelEditing') : t('actions.editItem')}
+                onClick={() => {
+                  // Re-read the item on entering edit mode: tagging can finish while the
+                  // dialog is open (same id, so the effect above doesn't re-run).
+                  if (!isEditing) {
+                    setEditForm(editFormFromItem(item));
+                    setTagDraft(draftFromTags(item.tags, primaryColorOfItem(item)));
+                    setEditBase(item);
+                  }
+                  setIsEditing(!isEditing);
+                }}
+              >
+                {isEditing ? <X className="h-4 w-4" aria-hidden="true" /> : <Pencil className="h-4 w-4" aria-hidden="true" />}
+                {!isEditing && t('closetEdit')}
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label={t('moreActions')} title={t('moreActions')}>
+                    <MoreHorizontal className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-[15rem]">
+                  {aiUiEnabled && (
+                    <>
+                      <DropdownMenuItem title={t('titles.suggestOutfit')}
+                        disabled={item.status !== 'ready'}
+                        onSelect={() => {
+                          onOpenChange(false);
+                          router.push(`/dashboard/suggest?item=${item.id}`);
+                        }}
+                      >
+                        <Sparkles className="mr-2 h-4 w-4 text-primary" />
+                        {t('titles.suggestOutfit')}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem title={t('titles.findMatchingOutfits')}
+                        disabled={item.status !== 'ready'}
+                        onSelect={() => setShowPairingsDialog(true)}
+                      >
+                        <Layers className="mr-2 h-4 w-4" />
+                        {t('titles.findMatchingOutfits')}
+                      </DropdownMenuItem>
+                      <div role="separator" className="-mx-1 my-1 h-px bg-border" />
+                    </>
                   )}
-                </Button>
-              </div>
+                  <DropdownMenuItem title={t('titles.rotateLeft')} disabled={rotateImage.isPending} onSelect={() => handleRotate('ccw')}>
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                    {t('titles.rotateLeft')}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem title={t('titles.rotateRight')} disabled={rotateImage.isPending} onSelect={() => handleRotate('cw')}>
+                    <RotateCw className="mr-2 h-4 w-4" />
+                    {t('titles.rotateRight')}
+                  </DropdownMenuItem>
+                  {features?.background_removal && !item.original_image_path && (
+                    <DropdownMenuItem title={t('titles.removeBackground')}
+                      disabled={removeBackground.isPending || !item.image_url}
+                      onSelect={handleRemoveBackground}
+                    >
+                      <Eraser className="mr-2 h-4 w-4" />
+                      {t('titles.removeBackground')}
+                    </DropdownMenuItem>
+                  )}
+                  {item.original_image_path && (
+                    <DropdownMenuItem title={t('titles.undoBackgroundRemoval')} disabled={restoreOriginal.isPending} onSelect={handleRestoreOriginal}>
+                      <Undo2 className="mr-2 h-4 w-4" />
+                      {t('titles.undoBackgroundRemoval')}
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem title={t('titles.replaceImage')}
+                    disabled={replaceImage.isPending}
+                    onSelect={() => replaceImageInputRef.current?.click()}
+                  >
+                    <ImagePlus className="mr-2 h-4 w-4" />
+                    {t('titles.replaceImage')}
+                  </DropdownMenuItem>
+                  {item.image_url && (
+                    <DropdownMenuItem title={t('titles.splitPhoto')} onSelect={() => setShowSplit(true)}>
+                      <Scissors className="mr-2 h-4 w-4" />
+                      {t('titles.splitPhoto')}
+                    </DropdownMenuItem>
+                  )}
+                  {aiUiEnabled && (
+                    <>
+                      <div role="separator" className="-mx-1 my-1 h-px bg-border" />
+                      <DropdownMenuItem
+                        title={isAnalyzing ? t('titles.analysisInProgress') : t('titles.reanalyzeWithAI')}
+                        disabled={isAnalyzing}
+                        onSelect={() => handleReanalyze()}
+                      >
+                        <RefreshCw className={`mr-2 h-4 w-4 ${isAnalyzing ? 'animate-spin text-primary' : ''}`} />
+                        {isAnalyzing ? t('titles.analysisInProgress') : t('titles.reanalyzeWithAI')}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem title={t('titles.reanalyzeAndReplace')} disabled={isAnalyzing} onSelect={() => setShowReplaceConfirm(true)}>
+                        <Replace className="mr-2 h-4 w-4" />
+                        {t('titles.reanalyzeAndReplace')}
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <input
+                ref={replaceImageInputRef}
+                type="file"
+                accept={ACCEPTED_IMAGE_INPUT}
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    handleReplaceImage(file);
+                  }
+                  e.target.value = '';
+                }}
+              />
             </div>
             <Button
               variant="ghost"
@@ -874,87 +830,64 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
               ) : (
                 // View mode
                 <div className="space-y-4">
-                  {/* Basic info */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Shirt className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">{typeInfo ? typeInfo.label : item.type}</span>
-                      {item.subtype && (
-                        <span className="text-muted-foreground">• {subtypeLabel(item.subtype)}</span>
+                  {/* What it is, its colour and how often it is worn, on one line under the name. */}
+                  <div className="space-y-1">
+                    <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-muted-foreground">
+                      {colorInfo && (
+                        <span
+                          aria-hidden="true"
+                          className="h-3.5 w-3.5 shrink-0 rounded-full border"
+                          style={{ backgroundColor: colorInfo.hex }}
+                        />
                       )}
-                    </div>
+                      <span className="font-medium text-foreground">{typeInfo ? typeInfo.label : item.type}</span>
+                      {item.subtype && <span>· {subtypeLabel(item.subtype)}</span>}
+                      {colorInfo && <span>· {colorInfo.name}</span>}
+                      {item.wear_count > 0 && <span>· {t('view.wornCount', { count: item.wear_count })}</span>}
+                    </p>
                     {unrecognizedType && (
                       <p className="text-xs text-amber-600 dark:text-amber-500">
                         {t('unrecognizedType', { value: unrecognizedType })}
                       </p>
-                    )}
-                    {colorInfo && (
-                      <div className="flex items-center gap-2 text-sm">
-                        <Palette className="h-4 w-4 text-muted-foreground" />
-                        <div
-                          className="w-4 h-4 rounded-full border"
-                          style={{ backgroundColor: colorInfo.hex }}
-                        />
-                        <span>{colorInfo.name}</span>
-                      </div>
-                    )}
-                    {item.wear_count > 0 && (
-                      <div className="flex items-center gap-2 text-sm">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        <span>
-                          {t('view.wornCount', { count: item.wear_count })}
-                          {item.last_worn_at && (
-                            <span className="text-muted-foreground">
-                              {' '}{t('view.lastWornDate', { date: formatDate(item.last_worn_at, locale) })}
-                            </span>
-                          )}
-                        </span>
-                      </div>
                     )}
                   </div>
 
                   <ClosetDetails key={item.id} item={item} />
 
                   {/* Wash Status */}
-                  <div className="space-y-2 pt-2 border-t">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Droplets className={`h-4 w-4 ${item.needs_wash ? 'text-amber-500' : 'text-muted-foreground'}`} />
-                        {t('view.washStatus')}
-                      </div>
-                      <div className="flex flex-wrap justify-end gap-2">
+                  <section className="space-y-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('view.washStatus')}</h3>
+                    <div className="rounded-2xl border bg-card p-3.5 space-y-3">
+                    <div className="grid grid-cols-2 gap-2">
                         <Button
                           variant="outline"
-                          size="sm"
-                          className="h-7 text-xs"
+                          className="h-11 gap-1.5"
                           onClick={handleLogWear}
                           disabled={logWear.isPending}
                         >
                           {logWear.isPending ? (
-                            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                            <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
-                            <Shirt className="h-3 w-3 mr-1" />
+                            <Shirt className="h-4 w-4" />
                           )}
                           {t('actions.logWear')}
                         </Button>
                         <Button
                           variant="outline"
-                          size="sm"
-                          className="h-7 text-xs"
+                          className="h-11 gap-1.5"
                           onClick={handleMarkWashed}
                           disabled={logWash.isPending}
                         >
                           {logWash.isPending ? (
-                            <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                            <Loader2 className="h-4 w-4 animate-spin" />
                           ) : (
-                            <Droplets className="h-3 w-3 mr-1" />
+                            <Droplets className="h-4 w-4" />
                           )}
                           {t('actions.markWashed')}
                         </Button>
-                      </div>
                     </div>
                     <div className="space-y-1.5">
-                      <div className="flex justify-between text-xs text-muted-foreground">
+                      <div className="flex justify-between text-sm text-muted-foreground">
                         <span>{t('view.wearsSinceWash', { current: item.wears_since_wash, max: item.effective_wash_interval })}</span>
                         {item.needs_wash && (
                           <span className="text-amber-500 font-medium">{t('view.needsWashing')}</span>
@@ -989,21 +922,20 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                         </CollapsibleContent>
                       </Collapsible>
                     )}
-                  </div>
+                    </div>
+                  </section>
 
                   {/* Wear History */}
                   {item.wear_count > 0 && wearStats && (
-                    <div className="space-y-2 pt-2 border-t">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        {t('view.wearHistory')}
-                      </div>
+                    <section className="space-y-2">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('view.wearHistory')}</h3>
+                      <div className="rounded-2xl border bg-card p-3.5 space-y-3">
                       <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="bg-muted/50 rounded-md p-2">
+                        <div className="rounded-xl bg-muted/60 p-2.5">
                           <p className="text-muted-foreground">{t('view.totalWears')}</p>
                           <p className="font-medium text-sm">{wearStats.total_wears}</p>
                         </div>
-                        <div className="bg-muted/50 rounded-md p-2">
+                        <div className="rounded-xl bg-muted/60 p-2.5">
                           <p className="text-muted-foreground">{t('view.lastWorn')}</p>
                           <p className="font-medium text-sm">
                             {wearStats.days_since_last_worn === null
@@ -1013,12 +945,12 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                               : t('view.daysAgo', { count: wearStats.days_since_last_worn })}
                           </p>
                         </div>
-                        <div className="bg-muted/50 rounded-md p-2">
+                        <div className="rounded-xl bg-muted/60 p-2.5">
                           <p className="text-muted-foreground">{t('view.avgPerMonth')}</p>
                           <p className="font-medium text-sm">{wearStats.average_wears_per_month}</p>
                         </div>
                         {wearStats.most_common_occasion && (
-                          <div className="bg-muted/50 rounded-md p-2">
+                          <div className="rounded-xl bg-muted/60 p-2.5">
                             <p className="text-muted-foreground">{t('view.usualOccasion')}</p>
                             <p className="font-medium text-sm">{occasionLabel(wearStats.most_common_occasion)}</p>
                           </div>
@@ -1089,15 +1021,15 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                           </CollapsibleContent>
                         </Collapsible>
                       )}
-                    </div>
+                      </div>
+                    </section>
                   )}
 
                   {/* AI Analysis */}
                   {(hasAiTags || item.ai_description) && item.status === 'ready' && (
-                    <div className="space-y-2 pt-2 border-t">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Sparkles className="h-4 w-4 text-primary" />
-                        {t('view.aiAnalysis')}
+                    <section className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('view.aiAnalysis')}</h3>
                         {item.ai_confidence !== undefined && item.ai_confidence > 0 && (
                           <Badge variant="secondary" className="text-xs">
                             {t('view.complete', { percent: Math.round(item.ai_confidence * 100) })}
@@ -1109,6 +1041,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                           </Badge>
                         )}
                       </div>
+                      <div className="rounded-2xl border bg-card p-3.5 space-y-2">
                       {item.ai_description && (
                         <p className="text-sm text-muted-foreground italic">
                           &ldquo;{item.ai_description}&rdquo;
@@ -1151,15 +1084,16 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                           </Badge>
                         )}
                       </div>}
-                    </div>
+                      </div>
+                    </section>
                   )}
 
                   {/* Notes */}
                   {item.notes && (
-                    <div className="space-y-1 pt-2 border-t">
-                      <p className="text-sm font-medium">{t('notes')}</p>
-                      <p className="text-sm text-muted-foreground">{item.notes}</p>
-                    </div>
+                    <section className="space-y-2">
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('notes')}</h3>
+                      <p className="rounded-2xl border bg-card p-3.5 text-[15px]">{item.notes}</p>
+                    </section>
                   )}
 
                   {/* Metadata */}

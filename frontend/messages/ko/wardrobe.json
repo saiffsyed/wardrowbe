@@ -256,7 +256,9 @@
       "wearsSinceWash": "세탁 후 착용: {current}/{max}",
       "wornCount": "{count, plural, other {#회 착용}}"
     },
-    "washInterval": "세탁 주기"
+    "washInterval": "세탁 주기",
+    "closetEdit": "편집",
+    "moreActions": "더 보기"
   },
   "lightbox": {
     "openInWardrobe": "옷장에서 열기"
@@ -415,7 +417,10 @@
       "saveFailed": "상세 정보를 저장하지 못했습니다",
       "status": "상태",
       "statusReady": "입을 수 있음",
-      "statusNeedsWash": "세탁 필요"
+      "statusNeedsWash": "세탁 필요",
+      "boughtOn": "구매일",
+      "price": "가격",
+      "currency": "통화"
     },
     "labelScan": {
       "title": "라벨 스캔",

@@ -256,7 +256,9 @@
       "wearsSinceWash": "Getragen seit Wäsche: {current}/{max}",
       "wornCount": "{count, plural, one {# Mal getragen} other {# Mal getragen}}"
     },
-    "washInterval": "Waschintervall"
+    "washInterval": "Waschintervall",
+    "closetEdit": "Bearbeiten",
+    "moreActions": "Weitere Aktionen"
   },
   "lightbox": {
     "openInWardrobe": "Im Kleiderschrank öffnen"
@@ -415,7 +417,10 @@
       "saveFailed": "Details konnten nicht gespeichert werden",
       "status": "Status",
       "statusReady": "Tragebereit",
-      "statusNeedsWash": "Muss gewaschen werden"
+      "statusNeedsWash": "Muss gewaschen werden",
+      "boughtOn": "Gekauft am",
+      "price": "Preis",
+      "currency": "Währung"
     },
     "labelScan": {
       "title": "Etikett scannen",

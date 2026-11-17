@@ -72,6 +72,8 @@ export interface ItemTags {
   purchase_place?: string;
   composition?: MaterialShare[];
   occasions?: string[];
+  // Currency of the purchase price (ISO 4217, e.g. INR, EUR).
+  currency?: string;
   // Tag keys changed by hand. Maintained by the server; "re-analyse and replace" leaves these alone.
   user_edited_keys?: string[];
 }

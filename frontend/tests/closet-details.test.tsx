@@ -82,7 +82,10 @@ describe('ClosetDetails', () => {
     expect(lastEdits()).toEqual({
       home_id: 'home-1',
       brand: 'Tailor-made',
+      purchase_date: null,
+      purchase_price: null,
       tags: {
+        currency: null,
         size: '40',
         size_system: null,
         fit_note: 'Slim at the shoulders',
@@ -115,6 +118,32 @@ describe('ClosetDetails', () => {
       'Do not tumble dry',
       'Cool iron',
     ])
+  })
+
+  it('shows when it was bought and the price in its own currency', () => {
+    render(
+      <ClosetDetails
+        item={item({ purchase_date: '2025-10-02', purchase_price: 4500, tags: { currency: 'INR' } } as Partial<Item>)}
+      />
+    )
+
+    expect(screen.getByText('boughtOn')).toBeTruthy()
+    expect(screen.getByText(/₹\s?4,500/)).toBeTruthy()
+  })
+
+  it('saves a price with its currency, and a cleared price without one', () => {
+    render(<ClosetDetails item={item({ purchase_price: 80, tags: { currency: 'EUR' } } as Partial<Item>)} />)
+    fireEvent.click(screen.getByRole('button', { name: 'edit' }))
+
+    fireEvent.change(screen.getByLabelText('price'), { target: { value: '79,5' } })
+    fireEvent.change(screen.getByLabelText('boughtOn'), { target: { value: '2026-03-01' } })
+    fireEvent.click(screen.getByRole('button', { name: 'save' }))
+    expect(lastEdits()).toMatchObject({ purchase_price: 79.5, purchase_date: '2026-03-01', tags: { currency: 'EUR' } })
+
+    // The stand-in save never finishes, so the form is still open.
+    fireEvent.change(screen.getByLabelText('price'), { target: { value: '' } })
+    fireEvent.click(screen.getByRole('button', { name: 'save' }))
+    expect(lastEdits()).toMatchObject({ purchase_price: null, tags: { currency: null } })
   })
 
   it('offers a label scan and shows the label photos that were kept', () => {

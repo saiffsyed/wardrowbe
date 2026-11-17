@@ -68,6 +68,9 @@ class ItemTags(BaseModel):
     purchase_place: str | None = Field(None, max_length=100)
     composition: list[MaterialShare] | None = Field(None, max_length=8)
     occasions: OccasionTags | None = None
+    # The currency the purchase price was paid in (ISO 4217, e.g. INR, EUR). Kept per item,
+    # because clothes are bought in more than one country.
+    currency: str | None = Field(None, pattern=r"^[A-Z]{3}$")
     # Tag keys changed by hand, kept so a later "re-analyse and replace" can leave them alone.
     # The server maintains it; whatever a client sends for it is ignored.
     user_edited_keys: list[str] = Field(default_factory=list)
@@ -92,6 +95,7 @@ USER_TAG_KEYS = frozenset(
         "purchase_place",
         "composition",
         "occasions",
+        "currency",
         "user_edited_keys",
     }
 )

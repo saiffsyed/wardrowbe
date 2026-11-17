@@ -17,6 +17,8 @@ export interface HomeInput {
 export interface ClosetDetailEdits {
   home_id?: string | null;
   brand?: string | null;
+  purchase_date?: string | null;
+  purchase_price?: number | null;
   tags?: {
     size?: string | null;
     size_system?: string | null;
@@ -25,6 +27,7 @@ export interface ClosetDetailEdits {
     care_instructions?: string | null;
     composition?: MaterialShare[] | null;
     occasions?: string[] | null;
+    currency?: string | null;
   };
 }
 

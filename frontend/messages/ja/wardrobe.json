@@ -256,7 +256,9 @@
       "wearsSinceWash": "洗濯後の着用：{current}/{max}",
       "wornCount": "{count, plural, one {# 回着用} other {# 回着用}}"
     },
-    "washInterval": "洗濯間隔"
+    "washInterval": "洗濯間隔",
+    "closetEdit": "編集",
+    "moreActions": "その他の操作"
   },
   "lightbox": {
     "openInWardrobe": "ワードローブで開く"
@@ -415,7 +417,10 @@
       "saveFailed": "詳細を保存できませんでした",
       "status": "状態",
       "statusReady": "着用できます",
-      "statusNeedsWash": "洗濯が必要"
+      "statusNeedsWash": "洗濯が必要",
+      "boughtOn": "購入日",
+      "price": "価格",
+      "currency": "通貨"
     },
     "labelScan": {
       "title": "ラベルをスキャン",

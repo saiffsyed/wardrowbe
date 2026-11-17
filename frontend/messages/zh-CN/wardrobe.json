@@ -256,7 +256,9 @@
       "wearsSinceWash": "清洗后穿着次数：{current}/{max}",
       "wornCount": "{count, plural, one {已穿着 # 次} other {已穿着 # 次}}"
     },
-    "washInterval": "清洗间隔"
+    "washInterval": "清洗间隔",
+    "closetEdit": "编辑",
+    "moreActions": "更多操作"
   },
   "lightbox": {
     "openInWardrobe": "在衣橱中打开"
@@ -415,7 +417,10 @@
       "saveFailed": "无法保存详情",
       "status": "状态",
       "statusReady": "可以穿",
-      "statusNeedsWash": "需要清洗"
+      "statusNeedsWash": "需要清洗",
+      "boughtOn": "购买日期",
+      "price": "价格",
+      "currency": "币种"
     },
     "labelScan": {
       "title": "扫描标签",

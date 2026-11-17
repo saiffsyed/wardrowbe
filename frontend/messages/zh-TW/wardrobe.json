@@ -256,7 +256,9 @@
       "wearsSinceWash": "洗滌後穿著次數：{current}/{max}",
       "wornCount": "{count, plural, one {已穿著 # 次} other {已穿著 # 次}}"
     },
-    "washInterval": "洗滌間隔"
+    "washInterval": "洗滌間隔",
+    "closetEdit": "編輯",
+    "moreActions": "更多操作"
   },
   "lightbox": {
     "openInWardrobe": "在衣櫥中開啟"
@@ -415,7 +417,10 @@
       "saveFailed": "無法儲存詳情",
       "status": "狀態",
       "statusReady": "可以穿",
-      "statusNeedsWash": "需要清洗"
+      "statusNeedsWash": "需要清洗",
+      "boughtOn": "購買日期",
+      "price": "價格",
+      "currency": "幣別"
     },
     "labelScan": {
       "title": "掃描標籤",

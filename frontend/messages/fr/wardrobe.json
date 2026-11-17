@@ -256,7 +256,9 @@
       "wearsSinceWash": "Ports depuis le lavage : {current}/{max}",
       "wornCount": "{count, plural, one {Porté # fois} other {Porté # fois}}"
     },
-    "washInterval": "Intervalle de lavage"
+    "washInterval": "Intervalle de lavage",
+    "closetEdit": "Modifier",
+    "moreActions": "Autres actions"
   },
   "lightbox": {
     "openInWardrobe": "Ouvrir dans la garde-robe"
@@ -415,7 +417,10 @@
       "saveFailed": "Impossible d'enregistrer les détails",
       "status": "État",
       "statusReady": "Prêt à porter",
-      "statusNeedsWash": "À laver"
+      "statusNeedsWash": "À laver",
+      "boughtOn": "Acheté le",
+      "price": "Prix",
+      "currency": "Devise"
     },
     "labelScan": {
       "title": "Scanner l'étiquette",

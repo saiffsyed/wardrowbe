@@ -256,7 +256,9 @@
       "wearsSinceWash": "Wears since wash: {current}/{max}",
       "wornCount": "{count, plural, one {Worn # time} other {Worn # times}}"
     },
-    "washInterval": "Wash Interval"
+    "washInterval": "Wash Interval",
+    "closetEdit": "Edit",
+    "moreActions": "More actions"
   },
   "lightbox": {
     "openInWardrobe": "Open in Wardrobe"
@@ -415,7 +417,10 @@
       "saveFailed": "Couldn't save the details",
       "status": "Status",
       "statusReady": "Ready to wear",
-      "statusNeedsWash": "Needs a wash"
+      "statusNeedsWash": "Needs a wash",
+      "boughtOn": "Bought on",
+      "price": "Price",
+      "currency": "Currency"
     },
     "labelScan": {
       "title": "Scan the label",
