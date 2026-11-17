@@ -63,12 +63,19 @@ class EntryItem(BaseModel):
     thumbnail_url: str | None
 
 
+class OutfitPiece(BaseModel):
+    type: str
+    thumbnail_url: str
+
+
 class EntryOutfit(BaseModel):
     id: UUID
     name: str | None
     occasion: str
     scheduled_for: date | None
     thumbnail_urls: list[str]
+    # The same pictures with each piece's kind, so a look can be laid out as it is worn.
+    pieces: list[OutfitPiece] = []
 
 
 class EntryResponse(BaseModel):
@@ -99,24 +106,29 @@ async def _owned(db: DbSession, user: User, collection_id: UUID) -> Collection:
     return collection
 
 
-async def _outfit_thumbnails(db: DbSession, outfit_ids: list[UUID]) -> dict[UUID, list[str]]:
-    """Each outfit's pieces' thumbnails, in the outfit's own order."""
+async def _outfit_pieces(db: DbSession, outfit_ids: list[UUID]) -> dict[UUID, list[OutfitPiece]]:
+    """Each outfit's pieces with their thumbnails, in the outfit's own order."""
     if not outfit_ids:
         return {}
     rows = (
         await db.execute(
-            select(OutfitItem.outfit_id, ClothingItem.thumbnail_path, ClothingItem.image_path)
+            select(
+                OutfitItem.outfit_id,
+                ClothingItem.type,
+                ClothingItem.thumbnail_path,
+                ClothingItem.image_path,
+            )
             .join(ClothingItem, ClothingItem.id == OutfitItem.item_id)
             .where(OutfitItem.outfit_id.in_(outfit_ids))
             .order_by(OutfitItem.outfit_id, OutfitItem.position)
         )
     ).all()
-    thumbnails: dict[UUID, list[str]] = {}
-    for outfit_id, thumbnail_path, image_path in rows:
+    pieces: dict[UUID, list[OutfitPiece]] = {}
+    for outfit_id, item_type, thumbnail_path, image_path in rows:
         url = sign_optional(thumbnail_path, fallback=image_path)
         if url:
-            thumbnails.setdefault(outfit_id, []).append(url)
-    return thumbnails
+            pieces.setdefault(outfit_id, []).append(OutfitPiece(type=item_type, thumbnail_url=url))
+    return pieces
 
 
 async def _entries(db: DbSession, collection: Collection) -> list[EntryResponse]:
@@ -143,7 +155,7 @@ async def _entries(db: DbSession, collection: Collection) -> list[EntryResponse]
         o.id: o
         for o in (await db.execute(select(Outfit).where(Outfit.id.in_(outfit_ids)))).scalars()
     }
-    thumbnails = await _outfit_thumbnails(db, outfit_ids)
+    pieces = await _outfit_pieces(db, outfit_ids)
 
     result: list[EntryResponse] = []
     for entry in entries:
@@ -172,7 +184,8 @@ async def _entries(db: DbSession, collection: Collection) -> list[EntryResponse]
                         name=outfit.name,
                         occasion=outfit.occasion,
                         scheduled_for=outfit.scheduled_for,
-                        thumbnail_urls=thumbnails.get(outfit.id, []),
+                        thumbnail_urls=[p.thumbnail_url for p in pieces.get(outfit.id, [])],
+                        pieces=pieces.get(outfit.id, []),
                     ),
                 )
             )

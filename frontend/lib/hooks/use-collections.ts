@@ -24,6 +24,7 @@ export interface CollectionEntry {
     occasion: string;
     scheduled_for: string | null;
     thumbnail_urls: string[];
+    pieces?: { type: string; thumbnail_url: string }[];
   } | null;
 }
 

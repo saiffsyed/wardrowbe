@@ -34,7 +34,7 @@ import {
   type CollectionEntry,
 } from '@/lib/hooks/use-collections';
 import { useOccasionLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
-import { CollectionCover } from './collection-cover';
+import { LookCard } from './look-tile';
 import { CollectionNameDialog } from './collection-name-dialog';
 import { tabHref } from './wardrobe-tabs';
 
@@ -193,17 +193,19 @@ export function CollectionScreen({ collectionId }: { collectionId: string }) {
           <h2 className="text-sm font-semibold text-muted-foreground">
             {t('outfitsHeading', { count: outfits.length })}
           </h2>
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-3 lg:grid-cols-4">
             {outfits.map((entry) => {
               const outfit = entry.outfit!;
               const name = outfit.name || occasionLabel(outfit.occasion);
               return (
                 <li key={entry.id} className="relative">
                   {editing && <RemoveButton label={t('remove', { name })} onClick={() => takeOut(entry, name)} />}
-                  <Link href={`/dashboard/outfits/${outfit.id}`} className="block rounded-2xl border bg-card p-2 shadow-sm">
-                    <CollectionCover urls={outfit.thumbnail_urls} />
-                    <p className="mt-2 truncate px-1 pb-1 font-semibold">{name}</p>
-                  </Link>
+                  <LookCard
+                    href={`/dashboard/outfits/${outfit.id}`}
+                    name={name}
+                    occasion={occasionLabel(outfit.occasion)}
+                    pieces={(outfit.pieces ?? []).map((p) => ({ type: p.type, url: p.thumbnail_url }))}
+                  />
                 </li>
               );
             })}

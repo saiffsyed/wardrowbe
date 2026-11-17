@@ -3,16 +3,20 @@
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { OutfitCard } from '@/components/outfits/outfit-card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useInfiniteOutfits } from '@/lib/hooks/use-outfits';
+import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
+import { useOccasionLabel } from '@/lib/hooks/use-translated-constants';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
+import { LookCard } from './look-tile';
 import { WardrobeTabHeading } from './wardrobe-tabs';
 
 // Saved looks: outfits kept to wear again, not tied to a day (upstream's "lookbook" outfits).
 export function LookbookTab() {
   const t = useTranslations('wardrobe.closet.lookbook');
+  const outfitTitle = useOutfitTitle();
+  const occasionLabel = useOccasionLabel();
   const query = useInfiniteOutfits({ is_lookbook: true }, GRID_PAGE_SIZE);
   const outfits = query.data?.pages.flatMap((page) => page.outfits) ?? [];
   const total = query.data?.pages[0]?.total;
@@ -35,9 +39,9 @@ export function LookbookTab() {
       {query.isError ? (
         <p className="py-8 text-center text-destructive">{t('loadError')}</p>
       ) : query.isLoading ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="aspect-[5/4] rounded-lg" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="aspect-[3/5] rounded-2xl" />
           ))}
         </div>
       ) : outfits.length === 0 ? (
@@ -47,9 +51,20 @@ export function LookbookTab() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 md:grid-cols-3 xl:grid-cols-4">
             {outfits.map((outfit) => (
-              <OutfitCard key={outfit.id} outfit={outfit} />
+              <LookCard
+                key={outfit.id}
+                href={`/dashboard/outfits/${outfit.id}`}
+                name={outfitTitle(outfit)}
+                occasion={occasionLabel(outfit.occasion)}
+                pieces={[...outfit.items]
+                  .sort((a, b) => a.position - b.position)
+                  .flatMap((item) => {
+                    const url = item.thumbnail_url ?? item.image_url;
+                    return url ? [{ type: item.type, url }] : [];
+                  })}
+              />
             ))}
           </div>
           {query.hasNextPage && (

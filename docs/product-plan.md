@@ -27,7 +27,11 @@ Three main areas: **Wardrobe** (tabs Clothes / Outfits / Collections), **Outfits
   default), so a large group can continue on the next page.
 
 - **Wardrobe tabs Clothes / Lookbook / Collections** (built, awaiting Saiff's approval).
-  - Lookbook: saved looks (outfits kept to wear again, not tied to a day), as outfit cards.
+  - Lookbook: saved looks (outfits kept to wear again, not tied to a day), two per row.
+    Each look is laid out as it is worn, like the Fits app: head jewellery at the top, then
+    top, bottom and shoes; a saree, lehenga or dress fills top and bottom; dupatta, bag and
+    bangles in a column beside. White tile with a thin border (faint tile in dark mode),
+    name and occasion underneath. Outfits inside a collection use the same tile.
     The bottom-bar Outfits tab becomes the outfit maker in Stage 2.
   - Collections: named sets holding clothes and outfits together ("Wedding season").
     Card with a 2×2 picture collage, name and count. Add from an item's ⋯ menu or the

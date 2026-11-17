@@ -86,6 +86,7 @@ class TestCollections:
         outfit = detail["entries"][1]["outfit"]
         assert outfit["name"] == "Wedding look"
         assert "mojari_thumb.jpg" in outfit["thumbnail_urls"][0]
+        assert outfit["pieces"][0]["type"] == "shirt"
 
         listing = (await client.get(COLLECTIONS, headers=auth_headers)).json()
         assert listing[0]["entry_count"] == 2
