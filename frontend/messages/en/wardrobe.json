@@ -676,6 +676,15 @@
       "deleteHint": "The collection goes away. The clothes and outfits in it stay in your wardrobe.",
       "cancel": "Cancel",
       "deleted": "Deleted \"{name}\""
+    },
+    "photoTip": {
+      "short": "Tip: lay it flat in daylight, whole item in the photo.",
+      "more": "More tips",
+      "less": "Fewer tips",
+      "flat": "Lay the item flat, or hang it against a plain wall.",
+      "light": "Use daylight and avoid strong shadows.",
+      "whole": "Get the whole piece in the photo, one item per photo.",
+      "special": "A saree: fold it so the border and pallu show. Jewellery: on a plain surface."
     }
   }
 }

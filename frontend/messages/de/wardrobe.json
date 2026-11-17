@@ -676,6 +676,15 @@
       "deleteHint": "Die Sammlung wird gelöscht. Kleidung und Outfits darin bleiben in deinem Kleiderschrank.",
       "cancel": "Abbrechen",
       "deleted": "„{name}“ gelöscht"
+    },
+    "photoTip": {
+      "short": "Tipp: flach bei Tageslicht hinlegen, das ganze Teil im Bild.",
+      "more": "Mehr Tipps",
+      "less": "Weniger Tipps",
+      "flat": "Lege das Teil flach hin oder hänge es vor eine schlichte Wand.",
+      "light": "Nutze Tageslicht und vermeide harte Schatten.",
+      "whole": "Das ganze Teil ins Bild, ein Teil pro Foto.",
+      "special": "Saree: so falten, dass Bordüre und Pallu zu sehen sind. Schmuck: auf einer schlichten Fläche."
     }
   }
 }

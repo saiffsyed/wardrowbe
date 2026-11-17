@@ -676,6 +676,15 @@
       "deleteHint": "La collezione viene eliminata. Vestiti e outfit restano nel tuo guardaroba.",
       "cancel": "Annulla",
       "deleted": "«{name}» eliminata"
+    },
+    "photoTip": {
+      "short": "Consiglio: stendilo alla luce del giorno, tutto il capo nella foto.",
+      "more": "Altri consigli",
+      "less": "Meno consigli",
+      "flat": "Stendi il capo o appendilo davanti a una parete neutra.",
+      "light": "Usa la luce del giorno ed evita ombre forti.",
+      "whole": "Tutto il capo nella foto, un capo per foto.",
+      "special": "Sari: piegalo in modo che si vedano bordo e pallu. Gioielli: su una superficie neutra."
     }
   }
 }

@@ -39,6 +39,7 @@ import { useCreateItem, useBulkCreateItems, BulkUploadResponse } from '@/lib/hoo
 import { useClothingTypes, useClothingColors } from '@/lib/hooks/use-translated-constants';
 import { ACCEPTED_IMAGE_TYPES } from '@/lib/image-types';
 import { useTranslations } from 'next-intl';
+import { PhotoTip } from '@/components/wardrobe/photo-tip';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
 import { LabelPhotoPicker } from '@/components/wardrobe/label-photo-picker';
 import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
@@ -322,6 +323,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                   </Button>
                 </div>
               )}
+              {!preview && <PhotoTip />}
 
               <div className="space-y-3">
                 <div className="space-y-2">
@@ -443,6 +445,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                       : t('dropzone')}
                   </p>
                 </div>
+                <PhotoTip />
 
                 {bulkFiles.length > 0 && (
                   <div className="space-y-3">

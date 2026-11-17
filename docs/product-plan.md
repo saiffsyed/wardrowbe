@@ -197,6 +197,9 @@ Built and tested (backend + frontend, on branch `stage-1`):
 - Indian women's wear types: kurti, anarkali, half-saree, sharara, saree blouse,
   petticoat, churidar, palazzo, patiala, stole, juttis, kolhapuris, jhumkas, maang tikka,
   nose ring, anklets, toe rings, waist belt, mangalsutra, hair jewellery, clutch, potli.
+- Photo tip on the add-item screen (single and bulk): one line, "More tips" opens four
+  points (flat or hung on a plain wall, daylight, whole piece and one per photo, saree
+  folded with border and pallu showing, jewellery on a plain surface).
 - New garment types: ring, necklace, earrings, bracelet, bangles, cufflinks, kurta,
   sherwani, saree, lehenga, salwar-kameez, dupatta, dhoti, mojari.
 
@@ -205,7 +208,6 @@ Still to do in Stage 1:
   instructions if it misreads
 - "App starts in" setting
 - Split "Style & weather preferences" (the original settings page) into clearer screens
-- Photo tip on the add-item screen
 - Settings page runs ~4 px wider than a phone screen (upstream bug)
 
 ## Open questions for Saiff

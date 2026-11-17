@@ -676,6 +676,15 @@
       "deleteHint": "La collection disparaît. Ses vêtements et tenues restent dans votre garde-robe.",
       "cancel": "Annuler",
       "deleted": "« {name} » supprimée"
+    },
+    "photoTip": {
+      "short": "Astuce : à plat, à la lumière du jour, l’article entier dans la photo.",
+      "more": "Plus d’astuces",
+      "less": "Moins d’astuces",
+      "flat": "Posez l’article à plat ou suspendez-le devant un mur uni.",
+      "light": "Utilisez la lumière du jour et évitez les ombres marquées.",
+      "whole": "L’article entier dans la photo, un article par photo.",
+      "special": "Sari : pliez-le pour montrer la bordure et le pallu. Bijoux : sur une surface unie."
     }
   }
 }
