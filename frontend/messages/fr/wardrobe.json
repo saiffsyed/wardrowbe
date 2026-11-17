@@ -588,6 +588,13 @@
           "title": "Compte"
         }
       }
+    },
+    "onboarding": {
+      "title": "Où rangez-vous vos vêtements ?",
+      "description": "Ajoutez chaque lieu, comme Chennai ou l'Europe, avec sa ville. L'application montre ce qui se trouve dans le domicile où vous êtes, et la météo suit cette ville.",
+      "addOneFirst": "Ajoutez un domicile pour continuer",
+      "continue": "Continuer avec {count, plural, one {# domicile} other {# domiciles}}",
+      "skip": "Passer pour l'instant"
     }
   }
 }

@@ -588,6 +588,13 @@
           "title": "Account"
         }
       }
+    },
+    "onboarding": {
+      "title": "Dove tieni i tuoi vestiti?",
+      "description": "Aggiungi ogni luogo, come Chennai o l'Europa, con la sua città. L'app mostra cosa c'è nella casa in cui ti trovi e il meteo segue quella città.",
+      "addOneFirst": "Aggiungi una casa per continuare",
+      "continue": "Continua con {count, plural, one {# casa} other {# case}}",
+      "skip": "Salta per ora"
     }
   }
 }

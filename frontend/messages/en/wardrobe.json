@@ -588,6 +588,13 @@
           "title": "Account"
         }
       }
+    },
+    "onboarding": {
+      "title": "Where do you keep your clothes?",
+      "description": "Add each place, like Chennai or Europe, with its city. The app shows what's in the home you're in, and the weather follows that city.",
+      "addOneFirst": "Add a home to continue",
+      "continue": "Continue with {count, plural, one {# home} other {# homes}}",
+      "skip": "Skip for now"
     }
   }
 }

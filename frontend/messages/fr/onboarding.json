@@ -49,6 +49,7 @@
   "steps": {
     "family": "Famille",
     "firstItem": "Premier vêtement",
+    "homes": "Domiciles",
     "location": "Localisation",
     "style": "Style",
     "welcome": "Bienvenue"

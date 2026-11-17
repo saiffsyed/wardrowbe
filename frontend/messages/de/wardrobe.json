@@ -588,6 +588,13 @@
           "title": "Konto"
         }
       }
+    },
+    "onboarding": {
+      "title": "Wo bewahrst du deine Kleidung auf?",
+      "description": "Füge jeden Ort hinzu, etwa Chennai oder Europa, mit seiner Stadt. Die App zeigt, was in deinem aktuellen Zuhause ist, und das Wetter folgt dieser Stadt.",
+      "addOneFirst": "Füge ein Zuhause hinzu, um fortzufahren",
+      "continue": "Weiter mit {count, plural, one {# Zuhause} other {# Zuhause}}",
+      "skip": "Jetzt überspringen"
     }
   }
 }

@@ -49,6 +49,7 @@
   "steps": {
     "family": "ファミリー",
     "firstItem": "最初のアイテム",
+    "homes": "住まい",
     "location": "位置情報",
     "style": "スタイル",
     "welcome": "ようこそ"
