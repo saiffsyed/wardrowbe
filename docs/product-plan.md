@@ -114,6 +114,13 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Wardrobe screen follows the mock-up** (built): one row with the home pill and round
   filter / search / add buttons; the title; the Clothes / Lookbook / Collections switch;
   category chips; sort and views; search opens from its button.
+- **Top row like the Fits app** (preview): logo and app name on the left, the home with
+  its weather in the middle ("Chennai | ☀ 31°", tap to switch home), round buttons on the
+  right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
+  wardrobe tabs. The logo is a stand-in hanger and the name reads "Name" until Saiff picks
+  one (four letters at most); both live in `frontend/lib/app-name.ts` and
+  `components/wardrobe/app-top-bar.tsx`. No item count under the Wardrobe title (Saiff
+  asked for it to go).
 - **The top folds away while scrolling** (preview; Saiff chose this from three ideas,
   https://claude.ai/artifact/Vqxrv43ywELFBSKPfGkKTJ): on a phone, scrolling down leaves only
   the top row (home, weather, filter, search, add) stuck to the screen; scrolling up slides
@@ -225,7 +232,8 @@ Still to do in Stage 1:
 
 - Grouped categories: does the grouping make sense to his partner?
 - AI provider: OpenAI or Gemini (the label reader works with either)
-- App name and domain (a domain is needed for Google sign-in)
+- App name (four letters at most, Saiff will choose), logo, and domain (a domain is
+  needed for Google sign-in)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
 

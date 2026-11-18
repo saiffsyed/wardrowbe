@@ -13,6 +13,10 @@ const create = vi.fn()
 vi.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams('tab=collections'),
 }))
+vi.mock('@/lib/hooks/use-homes', () => ({
+  useHomes: () => ({ data: [] }),
+  useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-collections', () => ({
   useCollections: (holder: { itemId?: string } = {}) => ({
     data: holder.itemId ? holding : all,

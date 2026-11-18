@@ -15,7 +15,7 @@ import {
 import { useWeather } from '@/lib/hooks/use-weather';
 import { usePreferences } from '@/lib/hooks/use-preferences';
 import { useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
-import { displayValue, tempSymbol } from '@/lib/temperature';
+import { displayValue } from '@/lib/temperature';
 
 export function weatherIcon(condition: string, isDay = true): LucideIcon {
   if (condition.includes('thunder')) return CloudLightning;
@@ -37,14 +37,16 @@ export function HomeWeather() {
   if (!weather) return null;
   const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
   const Icon = weatherIcon(weather.condition, weather.is_day);
-  const temperature = `${displayValue(weather.temperature, unit)}${tempSymbol(unit)}`;
+  // "31°": the C or F is left off to save room; the number follows the person's own setting.
+  const temperature = `${displayValue(weather.temperature, unit)}°`;
 
   return (
     <span
-      className="flex shrink-0 items-center gap-1 border-l pl-2 font-medium text-muted-foreground"
+      className="flex shrink-0 items-center gap-1 border-l pl-1.5 font-medium text-muted-foreground"
       title={conditionLabel(weather.condition)}
     >
-      <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
+      {/* On the narrowest phones the home's name gets the room instead. */}
+      <Icon className="h-4 w-4 text-primary max-[374px]:hidden" aria-hidden="true" />
       <span>{temperature}</span>
       <span className="sr-only">{conditionLabel(weather.condition)}</span>
     </span>

@@ -144,3 +144,11 @@ describe('HomesFilter', () => {
     expect(onScopeChange).toHaveBeenCalledWith('all')
   })
 })
+
+describe('AppTopBar', () => {
+  it('shows the app name beside the home button', () => {
+    setup()
+    expect(screen.getByText('Name')).toBeTruthy()
+    expect(screen.getByText('Chennai')).toBeTruthy()
+  })
+})

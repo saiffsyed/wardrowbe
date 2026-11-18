@@ -27,12 +27,9 @@ export function LookbookTab() {
         tab="lookbook"
         subtitle={total !== undefined ? t('count', { count: total }) : undefined}
         action={
-          <Button asChild className="h-11 shrink-0 rounded-full">
-            <Link href="/dashboard/outfits/new">
-              <Plus className="mr-1.5 h-4 w-4" aria-hidden="true" />
-              {t('new')}
-            </Link>
-          </Button>
+          <Link href="/dashboard/outfits/new" aria-label={t('new')} title={t('new')} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
+            <Plus className="h-5 w-5" aria-hidden="true" />
+          </Link>
         }
       />
 

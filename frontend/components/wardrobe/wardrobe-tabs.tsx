@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useHomes } from '@/lib/hooks/use-homes';
+import { AppTopBar } from './app-top-bar';
 
 export const WARDROBE_TABS = ['clothes', 'lookbook', 'collections'] as const;
 export type WardrobeTab = (typeof WARDROBE_TABS)[number];
@@ -53,14 +55,13 @@ export function WardrobeTabHeading({
   action?: React.ReactNode;
 }) {
   const t = useTranslations('wardrobe');
+  const { data: homes } = useHomes();
   return (
     <div className="space-y-3">
-      <div className="flex items-end justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
-          {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
-        </div>
-        {action}
+      <AppTopBar homes={homes ?? []}>{action}</AppTopBar>
+      <div className="min-w-0">
+        <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
+        {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
       </div>
       <WardrobeTabs value={tab} />
     </div>

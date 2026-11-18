@@ -91,6 +91,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Every user-facing text needs a key in **all 8 languages** (`frontend/messages/`:
   en, de, fr, it, ja, ko, zh-CN, zh-TW). `npm run i18n:parity` must pass.
 - "Wardrowbe" is upstream's brand. The app's own name is undecided; do not invent one.
+  Until Saiff picks it, the top bar shows the stand-in "Name" (`frontend/lib/app-name.ts`)
+  beside a stand-in hanger logo (`components/wardrobe/app-top-bar.tsx`).
 
 ## Stack
 

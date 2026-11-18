@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Plus, Search, SlidersHorizontal, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
-import { HomePill, type HomeScope } from '@/components/wardrobe/home-bar';
+import { type HomeScope } from '@/components/wardrobe/home-bar';
+import { AppTopBar } from '@/components/wardrobe/app-top-bar';
 import { useFoldOnScroll } from '@/lib/hooks/use-fold-on-scroll';
 import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
 import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
@@ -68,7 +69,7 @@ function Chip({
   );
 }
 
-const ROUND = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors';
+const ROUND = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors';
 const ROUND_QUIET = `${ROUND} border bg-card text-foreground hover:bg-accent hover:text-accent-foreground`;
 
 // The top of the wardrobe: where you are, the three things you do (filter, search, add), and
@@ -127,9 +128,7 @@ export function WardrobeHeader({
         ref={topRowRef}
         className="sticky top-0 z-30 -mx-4 -mt-4 bg-background px-4 pb-3 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0"
       >
-      <div className="flex items-center justify-between gap-2">
-        <HomePill homes={homes} />
-        <div className="flex shrink-0 items-center gap-2">
+      <AppTopBar homes={homes}>
           <button
             type="button"
             aria-label={t('closet.filters.toggle')}
@@ -139,7 +138,7 @@ export function WardrobeHeader({
               filtersOn ? `${ROUND} border border-primary bg-accent text-accent-foreground` : ROUND_QUIET
             }`}
           >
-            <SlidersHorizontal className="h-5 w-5" aria-hidden="true" />
+            <SlidersHorizontal className="h-[18px] w-[18px]" aria-hidden="true" />
             {filterCount > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">
                 {filterCount}
@@ -153,7 +152,7 @@ export function WardrobeHeader({
             onClick={() => setSearchOpen((open) => !open)}
             className={ROUND_QUIET}
           >
-            <Search className="h-5 w-5" aria-hidden="true" />
+            <Search className="h-[18px] w-[18px]" aria-hidden="true" />
           </button>
           <button
             type="button"
@@ -161,10 +160,9 @@ export function WardrobeHeader({
             onClick={onAdd}
             className={`${ROUND} bg-primary text-primary-foreground hover:bg-primary/90`}
           >
-            <Plus className="h-[22px] w-[22px]" aria-hidden="true" />
+            <Plus className="h-5 w-5" aria-hidden="true" />
           </button>
-        </div>
-      </div>
+      </AppTopBar>
       </div>
 
       {/* Slides up behind the top row while scrolling down, instead of shrinking, so the

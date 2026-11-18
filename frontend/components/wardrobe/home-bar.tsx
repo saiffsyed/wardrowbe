@@ -21,12 +21,15 @@ export const HOMES_SETTINGS_HREF = '/dashboard/settings#homes';
 
 // Says which home the person is in and lets them say they have moved. With no homes yet it is
 // the way in to setting them up.
-export function HomePill({ homes }: { homes: Home[] }) {
+// compact: the version in the top bar, without the pin and arrow, so it fits between the name
+// and the buttons on a phone.
+export function HomePill({ homes, compact = false }: { homes: Home[]; compact?: boolean }) {
   const t = useTranslations('wardrobe.closet.homes');
   const setCurrent = useSetCurrentHome();
   const current = homes.find((home) => home.is_current);
-  const pill =
-    'flex h-11 min-w-0 items-center gap-1.5 rounded-full border bg-card pl-2.5 pr-3.5 text-[15px] font-semibold transition-colors hover:bg-accent hover:text-accent-foreground';
+  const pill = `flex min-w-0 items-center gap-1.5 rounded-full border bg-card font-semibold transition-colors hover:bg-accent hover:text-accent-foreground ${
+    compact ? 'h-9 gap-1 px-2.5 text-sm' : 'h-11 pl-2.5 pr-3.5 text-[15px]'
+  }`;
 
   if (homes.length === 0) {
     return (
@@ -53,10 +56,10 @@ export function HomePill({ homes }: { homes: Home[] }) {
           disabled={setCurrent.isPending}
           aria-label={current ? t('youAreIn', { home: current.name }) : t('noHome')}
         >
-          <MapPin className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+          {!compact && <MapPin className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />}
           <span className="truncate">{current ? current.name : t('noHome')}</span>
           {current && <HomeWeather />}
-          <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {!compact && <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-[14rem]">
