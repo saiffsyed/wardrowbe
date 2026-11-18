@@ -19,13 +19,11 @@ export function LookbookTab() {
   const occasionLabel = useOccasionLabel();
   const query = useInfiniteOutfits({ is_lookbook: true }, GRID_PAGE_SIZE);
   const outfits = query.data?.pages.flatMap((page) => page.outfits) ?? [];
-  const total = query.data?.pages[0]?.total;
 
   return (
     <div className="space-y-4">
       <WardrobeTabHeading
         tab="lookbook"
-        subtitle={total !== undefined ? t('count', { count: total }) : undefined}
         action={
           <Link href="/dashboard/outfits/new" aria-label={t('new')} title={t('new')} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
             <Plus className="h-5 w-5" aria-hidden="true" />

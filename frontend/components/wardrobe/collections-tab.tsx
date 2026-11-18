@@ -32,7 +32,6 @@ export function CollectionsTab() {
     <div className="space-y-4">
       <WardrobeTabHeading
         tab="collections"
-        subtitle={collections ? t('count', { count: collections.length }) : undefined}
         action={
           <button
             type="button"

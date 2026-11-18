@@ -47,11 +47,9 @@ export function WardrobeTabs({ value }: { value: WardrobeTab }) {
 // The heading of the Lookbook and Collections tabs, which have no home or filter buttons.
 export function WardrobeTabHeading({
   tab,
-  subtitle,
   action,
 }: {
   tab: WardrobeTab;
-  subtitle?: string;
   action?: React.ReactNode;
 }) {
   const t = useTranslations('wardrobe');
@@ -59,10 +57,7 @@ export function WardrobeTabHeading({
   return (
     <div className="space-y-3">
       <AppTopBar homes={homes ?? []}>{action}</AppTopBar>
-      <div className="min-w-0">
-        <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
-        {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
-      </div>
+      <h1 className="sr-only">{t('closet.header.title')}</h1>
       <WardrobeTabs value={tab} />
     </div>
   );

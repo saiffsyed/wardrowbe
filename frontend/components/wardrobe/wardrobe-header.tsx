@@ -124,9 +124,10 @@ export function WardrobeHeader({
     // On a phone the two parts stick to the page rather than to this box ("contents"), so they
     // stay in view however far down the clothes go.
     <div className="contents lg:block lg:space-y-3">
+      <h1 className="sr-only">{t('closet.header.title')}</h1>
       <div
         ref={topRowRef}
-        className="sticky top-0 z-30 -mx-4 -mt-4 bg-background px-4 pb-3 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0"
+        className="sticky top-0 z-30 -mx-4 -mt-4 bg-background px-4 pb-2 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0"
       >
       <AppTopBar homes={homes}>
           <button
@@ -177,14 +178,12 @@ export function WardrobeHeader({
         {...(folded ? ({ inert: '' } as Record<string, string>) : {})}
       >
       <div className="space-y-3">
-      <div className="min-w-0">
-        <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
-        {/* No item count (Saiff asked for it to go). "All homes" still shows while it is on,
-            since that choice now lives out of sight in the filter panel. */}
-        {showingAllHomes && (
-          <p className="text-sm text-muted-foreground">{t('closet.homes.everywhere')}</p>
-        )}
-      </div>
+      {/* No visible title or item count: the app's name is in the top row and "Wardrobe" on
+          the bottom bar (Saiff asked for both to go). The heading stays for screen readers.
+          "All homes" still shows while it is on, since that choice lives in the filter panel. */}
+      {showingAllHomes && (
+        <p className="text-sm font-medium text-muted-foreground">{t('closet.homes.everywhere')}</p>
+      )}
 
       <WardrobeTabs value="clothes" />
 

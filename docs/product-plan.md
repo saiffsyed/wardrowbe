@@ -112,21 +112,22 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Display setting lives in Settings** (Same as phone / Light / Dark). Saiff did not want
   the light / dark button in the top bar, so it was removed from there.
 - **Wardrobe screen follows the mock-up** (built): one row with the home pill and round
-  filter / search / add buttons; the title; the Clothes / Lookbook / Collections switch;
+  filter / search / add buttons; the Clothes / Lookbook / Collections switch;
   category chips; sort and views; search opens from its button.
 - **Top row like the Fits app** (preview): logo and app name on the left, the home with
   its weather in the middle ("Chennai | ☀ 31°", tap to switch home), round buttons on the
   right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
   wardrobe tabs. The logo is a stand-in hanger and the name reads "Name" until Saiff picks
   one (four letters at most); both live in `frontend/lib/app-name.ts` and
-  `components/wardrobe/app-top-bar.tsx`. No item count under the Wardrobe title (Saiff
-  asked for it to go).
+  `components/wardrobe/app-top-bar.tsx`. **No "Wardrobe" title and no counts** on the
+  three tabs (Saiff: the name is in the top row and "Wardrobe" on the bottom bar); the
+  title is kept only for screen readers.
 - **The top folds away while scrolling** (preview; Saiff chose this from three ideas,
   https://claude.ai/artifact/Vqxrv43ywELFBSKPfGkKTJ): on a phone, scrolling down leaves only
   the top row (home, weather, filter, search, add) stuck to the screen; scrolling up slides
   the rest back over the clothes. Short pages do not fold. **This home / All homes moved
   into the filter panel** ("Homes"); choosing All homes counts on the filter button and
-  shows as "13 items · All homes" under the title.
+  shows as a small "All homes" line under the top row.
 - **Phones have no top bar and no side menu.** Saiff did not like the side menu and
   chose a More tab like the Fits app's. Laptops keep their side menu.
 - **Bottom bar: Wardrobe / Outfits / Plan / More**, no centre button (adding an item is the
