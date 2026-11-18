@@ -695,6 +695,12 @@
       "outfits": "Outfits",
       "plan": "Plan",
       "saveError": "Could not save. Please try again."
+    },
+    "weather": {
+      "feelsLike": "feels like {temp}",
+      "rain": "Rain {percent}%",
+      "humidity": "Humidity {percent}%",
+      "open": "Today's weather: open Plan"
     }
   }
 }

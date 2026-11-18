@@ -695,6 +695,12 @@
       "outfits": "Tenues",
       "plan": "Planifier",
       "saveError": "Échec de l’enregistrement. Veuillez réessayer."
+    },
+    "weather": {
+      "feelsLike": "ressenti {temp}",
+      "rain": "Pluie {percent} %",
+      "humidity": "Humidité {percent} %",
+      "open": "Météo du jour : ouvrir le planning"
     }
   }
 }

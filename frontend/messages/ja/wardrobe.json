@@ -695,6 +695,12 @@
       "outfits": "コーデ",
       "plan": "プラン",
       "saveError": "保存できませんでした。もう一度お試しください。"
+    },
+    "weather": {
+      "feelsLike": "体感 {temp}",
+      "rain": "降水 {percent}%",
+      "humidity": "湿度 {percent}%",
+      "open": "今日の天気：プランを開く"
     }
   }
 }

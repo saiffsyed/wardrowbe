@@ -21,8 +21,7 @@ export const HOMES_SETTINGS_HREF = '/dashboard/settings#homes';
 
 // Says which home the person is in and lets them say they have moved. With no homes yet it is
 // the way in to setting them up.
-// compact: the version in the top bar, without the pin and arrow, so it fits between the name
-// and the buttons on a phone.
+// compact: the smaller version in the top bar, between the name and the buttons.
 export function HomePill({ homes, compact = false }: { homes: Home[]; compact?: boolean }) {
   const t = useTranslations('wardrobe.closet.homes');
   const setCurrent = useSetCurrentHome();
@@ -56,10 +55,11 @@ export function HomePill({ homes, compact = false }: { homes: Home[]; compact?: 
           disabled={setCurrent.isPending}
           aria-label={current ? t('youAreIn', { home: current.name }) : t('noHome')}
         >
-          {!compact && <MapPin className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />}
+          <MapPin className={`shrink-0 text-primary ${compact ? 'h-4 w-4' : 'h-5 w-5'}`} aria-hidden="true" />
           <span className="truncate">{current ? current.name : t('noHome')}</span>
-          {current && <HomeWeather />}
-          {!compact && <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />}
+          {/* In the top bar the weather has its own bar underneath instead. */}
+          {current && !compact && <HomeWeather />}
+          <ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-[14rem]">

@@ -695,6 +695,12 @@
       "outfits": "Outfits",
       "plan": "Planen",
       "saveError": "Speichern fehlgeschlagen. Bitte versuche es erneut."
+    },
+    "weather": {
+      "feelsLike": "gefühlt {temp}",
+      "rain": "Regen {percent} %",
+      "humidity": "Luftfeuchte {percent} %",
+      "open": "Wetter heute: Planen öffnen"
     }
   }
 }

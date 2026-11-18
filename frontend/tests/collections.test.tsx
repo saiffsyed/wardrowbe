@@ -10,6 +10,7 @@ let holding: Summary[] = []
 const add = vi.fn()
 const create = vi.fn()
 
+vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams('tab=collections'),
 }))

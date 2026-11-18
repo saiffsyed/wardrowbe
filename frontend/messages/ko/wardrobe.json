@@ -695,6 +695,12 @@
       "outfits": "코디",
       "plan": "플랜",
       "saveError": "저장하지 못했어요. 다시 시도해 주세요."
+    },
+    "weather": {
+      "feelsLike": "체감 {temp}",
+      "rain": "비 {percent}%",
+      "humidity": "습도 {percent}%",
+      "open": "오늘 날씨: 플랜 열기"
     }
   }
 }

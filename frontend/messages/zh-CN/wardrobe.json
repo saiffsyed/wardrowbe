@@ -695,6 +695,12 @@
       "outfits": "穿搭",
       "plan": "计划",
       "saveError": "保存失败，请重试。"
+    },
+    "weather": {
+      "feelsLike": "体感 {temp}",
+      "rain": "降雨 {percent}%",
+      "humidity": "湿度 {percent}%",
+      "open": "今日天气：打开计划"
     }
   }
 }

@@ -695,6 +695,12 @@
       "outfits": "Outfit",
       "plan": "Pianifica",
       "saveError": "Salvataggio non riuscito. Riprova."
+    },
+    "weather": {
+      "feelsLike": "percepita {temp}",
+      "rain": "Pioggia {percent}%",
+      "humidity": "Umidità {percent}%",
+      "open": "Meteo di oggi: apri Pianifica"
     }
   }
 }

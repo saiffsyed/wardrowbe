@@ -114,14 +114,18 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Wardrobe screen follows the mock-up** (built): one row with the home pill and round
   filter / search / add buttons; the Clothes / Lookbook / Collections switch;
   category chips; sort and views; search opens from its button.
-- **Top row like the Fits app** (preview): logo and app name on the left, the home with
-  its weather in the middle ("Chennai | ☀ 31°", tap to switch home), round buttons on the
+- **Top row like the Fits app** (preview): logo and app name on the left, the home in the
+  middle ("📍 Chennai ▾", tap to switch home), round buttons on the
   right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
   wardrobe tabs. The logo is a stand-in hanger and the name reads "Name" until Saiff picks
   one (four letters at most); both live in `frontend/lib/app-name.ts` and
   `components/wardrobe/app-top-bar.tsx`. **No "Wardrobe" title and no counts** on the
   three tabs (Saiff: the name is in the top row and "Wardrobe" on the bottom bar); the
   title is kept only for screen readers.
+- **Weather bar** (preview; Saiff asked for it where the title was): under the top row,
+  "☀ 31° Sunny · feels like 35° / Rain 10% · Humidity 70%". It folds away with the tabs
+  while scrolling and opens Plan (later the "Today" card). On all three wardrobe tabs.
+  `components/wardrobe/weather-bar.tsx`.
 - **The top folds away while scrolling** (preview; Saiff chose this from three ideas,
   https://claude.ai/artifact/Vqxrv43ywELFBSKPfGkKTJ): on a phone, scrolling down leaves only
   the top row (home, weather, filter, search, add) stuck to the screen; scrolling up slides
@@ -211,9 +215,8 @@ Built and tested (backend + frontend, on branch `stage-1`):
 - Indian women's wear types: kurti, anarkali, half-saree, sharara, saree blouse,
   petticoat, churidar, palazzo, patiala, stole, juttis, kolhapuris, jhumkas, maang tikka,
   nose ring, anklets, toe rings, waist belt, mangalsutra, hair jewellery, clutch, potli.
-- **Weather in the home button** (preview): the wardrobe's home button shows the current
-  home's temperature and a sky icon ("Chennai · 31°C ☀"). The full weather card stays on
-  Plan and becomes part of the Stage 3 "Today" card.
+- **Weather** (preview): a weather bar under the wardrobe's top row (see Look). The full
+  weather card stays on Plan and becomes part of the Stage 3 "Today" card.
 - **"App starts in"** (preview): More → Display offers Wardrobe (default), Lookbook,
   Outfits or Plan; kept with the account. The installed app and a fresh sign-in open
   `/dashboard/start`, which goes on to the chosen screen.

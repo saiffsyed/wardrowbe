@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useHomes } from '@/lib/hooks/use-homes';
 import { AppTopBar } from './app-top-bar';
+import { WeatherBar } from './weather-bar';
 
 export const WARDROBE_TABS = ['clothes', 'lookbook', 'collections'] as const;
 export type WardrobeTab = (typeof WARDROBE_TABS)[number];
@@ -58,6 +59,7 @@ export function WardrobeTabHeading({
     <div className="space-y-3">
       <AppTopBar homes={homes ?? []}>{action}</AppTopBar>
       <h1 className="sr-only">{t('closet.header.title')}</h1>
+      <WeatherBar />
       <WardrobeTabs value={tab} />
     </div>
   );

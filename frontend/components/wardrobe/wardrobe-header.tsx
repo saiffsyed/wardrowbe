@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { type HomeScope } from '@/components/wardrobe/home-bar';
 import { AppTopBar } from '@/components/wardrobe/app-top-bar';
+import { WeatherBar } from '@/components/wardrobe/weather-bar';
 import { useFoldOnScroll } from '@/lib/hooks/use-fold-on-scroll';
 import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
 import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
@@ -181,6 +182,7 @@ export function WardrobeHeader({
       {/* No visible title or item count: the app's name is in the top row and "Wardrobe" on
           the bottom bar (Saiff asked for both to go). The heading stays for screen readers.
           "All homes" still shows while it is on, since that choice lives in the filter panel. */}
+      <WeatherBar />
       {showingAllHomes && (
         <p className="text-sm font-medium text-muted-foreground">{t('closet.homes.everywhere')}</p>
       )}

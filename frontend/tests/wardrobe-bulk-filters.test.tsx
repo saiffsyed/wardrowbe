@@ -6,6 +6,7 @@ import WardrobePage from '@/app/dashboard/wardrobe/page'
 import { api } from '@/lib/api'
 import { useItems } from '@/lib/hooks/use-items'
 
+vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn(), back: vi.fn() }),
   usePathname: () => '/dashboard/wardrobe',

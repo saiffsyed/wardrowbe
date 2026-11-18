@@ -82,7 +82,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   so upstream's migration tests still pass; add any new fork column on an upstream table
   there. `user_preferences.start_screen` is one ("App starts in", `lib/start-screen.ts`,
   `components/wardrobe/start-screen-settings.tsx`, route `app/dashboard/start`).
-- Weather in the wardrobe's home button: `components/wardrobe/home-weather.tsx`.
+- Weather bar under the wardrobe's top row: `components/wardrobe/weather-bar.tsx` (sky
+  icons in `home-weather.tsx`).
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

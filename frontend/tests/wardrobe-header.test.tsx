@@ -5,6 +5,7 @@ import type { Home } from '@/lib/types'
 import type { CategoryGroup } from '@/lib/wardrobe-categories'
 
 vi.mock('@/components/wardrobe/home-weather', () => ({ HomeWeather: () => null }))
+vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
   useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
     node.name ?? node.key ?? node.id,

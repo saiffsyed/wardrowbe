@@ -695,6 +695,12 @@
       "outfits": "穿搭",
       "plan": "計畫",
       "saveError": "儲存失敗，請再試一次。"
+    },
+    "weather": {
+      "feelsLike": "體感 {temp}",
+      "rain": "降雨 {percent}%",
+      "humidity": "濕度 {percent}%",
+      "open": "今日天氣：開啟計畫"
     }
   }
 }
