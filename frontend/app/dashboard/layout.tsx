@@ -69,7 +69,7 @@ export default function DashboardLayout({
               <BackToMore />
             </div>
           )}
-          <main className="px-4 pb-24 pt-4 sm:px-6 lg:px-8 lg:py-6 overflow-x-hidden">
+          <main className="px-4 pb-24 pt-4 sm:px-6 lg:px-8 lg:py-6 overflow-x-clip">
             <AiRouteGuard>{children}</AiRouteGuard>
           </main>
         </div>

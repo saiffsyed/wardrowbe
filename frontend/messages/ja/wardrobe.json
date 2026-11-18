@@ -362,7 +362,8 @@
       "moveSelected": "選択したアイテムを住まいに移動",
       "moveShort": "移動",
       "moveTo": "{home}に移動",
-      "moved": "{count}点を{home}に移動しました"
+      "moved": "{count}点を{home}に移動しました",
+      "filterLabel": "家"
     },
     "view": {
       "label": "表示",

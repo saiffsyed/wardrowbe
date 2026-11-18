@@ -362,7 +362,8 @@
       "moveSelected": "将所选单品移到某个住所",
       "moveShort": "移动",
       "moveTo": "移到{home}",
-      "moved": "已将 {count} 件单品移到{home}"
+      "moved": "已将 {count} 件单品移到{home}",
+      "filterLabel": "家"
     },
     "view": {
       "label": "视图",

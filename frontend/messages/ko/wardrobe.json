@@ -362,7 +362,8 @@
       "moveSelected": "선택한 아이템을 집으로 옮기기",
       "moveShort": "옮기기",
       "moveTo": "{home}(으)로 옮기기",
-      "moved": "아이템 {count}개를 {home}(으)로 옮겼습니다"
+      "moved": "아이템 {count}개를 {home}(으)로 옮겼습니다",
+      "filterLabel": "집"
     },
     "view": {
       "label": "보기",

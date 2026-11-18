@@ -362,7 +362,8 @@
       "moveSelected": "Move selected items to a home",
       "moveShort": "Move",
       "moveTo": "Move to {home}",
-      "moved": "{count, plural, one {# item} other {# items}} moved to {home}"
+      "moved": "{count, plural, one {# item} other {# items}} moved to {home}",
+      "filterLabel": "Homes"
     },
     "view": {
       "label": "View",

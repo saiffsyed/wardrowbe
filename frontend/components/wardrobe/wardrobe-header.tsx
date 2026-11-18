@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Plus, Search, SlidersHorizontal, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
-import { HomePill, HomeScopeToggle, type HomeScope } from '@/components/wardrobe/home-bar';
+import { HomePill, type HomeScope } from '@/components/wardrobe/home-bar';
+import { useFoldOnScroll } from '@/lib/hooks/use-fold-on-scroll';
 import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
 import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
 import type { Home } from '@/lib/types';
@@ -29,6 +30,8 @@ interface WardrobeHeaderProps {
   total: number;
   // What the app is doing with the photos (analysing, queued, failed), when there is something.
   status?: ReactNode;
+  // Sort, views and the filter panel: they fold away with the rest while scrolling.
+  toolbar?: React.ReactNode;
 }
 
 const CHIP_ROW =
@@ -73,7 +76,6 @@ const ROUND_QUIET = `${ROUND} border bg-card text-foreground hover:bg-accent hov
 export function WardrobeHeader({
   homes,
   scope,
-  onScopeChange,
   groups,
   category,
   onCategoryChange,
@@ -85,6 +87,7 @@ export function WardrobeHeader({
   onAdd,
   total,
   status,
+  toolbar,
 }: WardrobeHeaderProps) {
   const t = useTranslations('wardrobe');
   const tc = useTranslations('wardrobe.closet.categories');
@@ -92,6 +95,20 @@ export function WardrobeHeader({
   const [searchOpen, setSearchOpen] = useState(false);
   const showSearch = searchOpen || !!search;
   const filtersOn = filtersOpen || filterCount > 0;
+  // Scrolling down folds everything below the top row away; scrolling up brings it back.
+  // Never while the filter panel or the search box is open, which the person is using.
+  const scrolledAway = useFoldOnScroll();
+  const topRowRef = useRef<HTMLDivElement>(null);
+  const [topRowHeight, setTopRowHeight] = useState(76);
+  useEffect(() => {
+    const row = topRowRef.current;
+    if (!row || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => setTopRowHeight(row.offsetHeight));
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, []);
+  const folded = scrolledAway && !filtersOpen && !showSearch;
+  const showingAllHomes = scope === 'all' && homes.some((home) => home.is_current);
   const categoryLabel = useCategoryLabel();
   const openGroup = category === 'all' ? undefined : groupOfCategory(groups, category);
   // What is chosen stays on show even if its last item has just gone.
@@ -101,7 +118,15 @@ export function WardrobeHeader({
   );
 
   return (
-    <div className="space-y-3">
+    // Stays at the top of the screen on a phone, so the home, filter, search and add buttons
+    // are always in reach; a laptop has room enough without.
+    // On a phone the two parts stick to the page rather than to this box ("contents"), so they
+    // stay in view however far down the clothes go.
+    <div className="contents lg:block lg:space-y-3">
+      <div
+        ref={topRowRef}
+        className="sticky top-0 z-30 -mx-4 -mt-4 bg-background px-4 pb-3 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0"
+      >
       <div className="flex items-center justify-between gap-2">
         <HomePill homes={homes} />
         <div className="flex shrink-0 items-center gap-2">
@@ -140,13 +165,26 @@ export function WardrobeHeader({
           </button>
         </div>
       </div>
+      </div>
 
-      <div className="flex items-end justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
-          <p className="text-sm text-muted-foreground">{t('closet.header.count', { count: total })}</p>
-        </div>
-        <HomeScopeToggle homes={homes} scope={scope} onScopeChange={onScopeChange} />
+      {/* Slides up behind the top row while scrolling down, instead of shrinking, so the
+          clothes underneath never jump. */}
+      <div
+        className={`${filtersOpen ? 'relative' : 'sticky'} z-20 -mx-4 bg-background px-4 pb-3 transition-[transform,opacity] duration-200 motion-reduce:transition-none sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0 lg:opacity-100 lg:translate-y-0 ${
+          folded ? 'pointer-events-none -translate-y-full opacity-0 lg:pointer-events-auto' : ''
+        }`}
+        style={{ top: topRowHeight }}
+        aria-hidden={folded || undefined}
+        // Folded controls must not be reachable by keyboard either.
+        {...(folded ? ({ inert: '' } as Record<string, string>) : {})}
+      >
+      <div className="space-y-3">
+      <div className="min-w-0">
+        <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
+        <p className="text-sm text-muted-foreground">
+          {t('closet.header.count', { count: total })}
+          {showingAllHomes && ` · ${t('closet.homes.everywhere')}`}
+        </p>
       </div>
 
       <WardrobeTabs value="clothes" />
@@ -215,6 +253,10 @@ export function WardrobeHeader({
           ))}
         </div>
       )}
+
+      {toolbar}
+      </div>
+      </div>
     </div>
   );
 }

@@ -110,3 +110,19 @@ export function HomeScopeToggle({
     </div>
   );
 }
+
+// This home / All homes, as the first choice in the wardrobe's filter panel.
+export function HomesFilter(props: {
+  homes: Home[];
+  scope: HomeScope;
+  onScopeChange: (scope: HomeScope) => void;
+}) {
+  const t = useTranslations('wardrobe.closet.homes');
+  if (!props.homes.some((home) => home.is_current)) return null;
+  return (
+    <div className="flex w-full items-center justify-between gap-3">
+      <span className="text-sm font-medium">{t('filterLabel')}</span>
+      <HomeScopeToggle {...props} />
+    </div>
+  );
+}

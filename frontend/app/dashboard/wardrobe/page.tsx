@@ -57,6 +57,7 @@ import {
 } from '@/components/wardrobe/wardrobe-views';
 import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
 import { useWardrobeTab } from '@/components/wardrobe/wardrobe-tabs';
+import { HomesFilter } from '@/components/wardrobe/home-bar';
 import { LookbookTab } from '@/components/wardrobe/lookbook-tab';
 import { CollectionsTab } from '@/components/wardrobe/collections-tab';
 
@@ -491,6 +492,8 @@ export default function WardrobePage() {
     needsWash !== undefined,
     favoriteFilter !== undefined,
     typeFilter !== 'all',
+    // Showing every home is set in the filter panel, so it counts on the filter button.
+    homeScope === 'all' && !!homes?.some((home) => home.is_current),
   ].filter(Boolean).length + activeFacetCount(facetSelection);
 
   // Fetch items with automatic polling (faster when items are processing)
@@ -821,57 +824,7 @@ export default function WardrobePage() {
         onToggleFilters={() => setShowFilters((v) => !v)}
         onAdd={() => setAddDialogOpen(true)}
         total={total}
-        status={
-          (queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
-            <div className="flex flex-wrap items-center gap-2">
-              {analyzingCount > 0 && (
-                <Badge variant="secondary" className="gap-1 text-xs">
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                  {queueSummary.batchTotal > 0
-                    ? t('ai.analyzingProgress', {
-                        count: analyzingCount,
-                        percent: queueSummary.percentComplete,
-                      })
-                    : t('ai.analyzingCount', { count: analyzingCount })}
-                </Badge>
-              )}
-              {queuedCount > 0 && (
-                <Badge variant="secondary" className="gap-1 text-xs">
-                  {t('ai.queuedCount', { count: queuedCount })}
-                </Badge>
-              )}
-              {aiUiEnabled && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-6 px-2 text-xs"
-                  onClick={() => setQueuePanelOpen(true)}
-                >
-                  {t('ai.queue.open')}
-                </Button>
-              )}
-              {(queuedCount > 0 || analyzingCount > 0) && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-6 px-2 text-xs"
-                  disabled={bulkCancelAnalysis.isPending}
-                  onClick={handleCancelAllAnalysis}
-                >
-                  {t('ai.cancelAll')}
-                </Button>
-              )}
-              {errorCount > 0 && (
-                <Badge variant="destructive" className="gap-1 text-xs">
-                  <AlertCircle className="h-3 w-3" />
-                  {t('ai.failedCount', { count: errorCount })}
-                </Badge>
-              )}
-            </div>
-          )
-        }
-      />
-
+        toolbar={
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-2">
             <Select
@@ -901,6 +854,10 @@ export default function WardrobePage() {
         {/* Expandable filter row */}
         {showFilters && (
           <div className="flex flex-wrap gap-2 items-center p-3 rounded-lg border bg-muted/30">
+            <HomesFilter homes={homes ?? []} scope={homeScope} onScopeChange={(scope) => {
+              setHomeScope(scope);
+              setPage(1);
+            }} />
             <Select
               value={typeFilter}
               onValueChange={(value) => {
@@ -985,6 +942,7 @@ export default function WardrobePage() {
                   setNeedsWash(undefined);
                   setFavoriteFilter(undefined);
                   clearFacets();
+                  setHomeScope('here');
                   setPage(1);
                 }}
               >
@@ -995,6 +953,58 @@ export default function WardrobePage() {
           </div>
         )}
       </div>
+        }
+        status={
+          (queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
+            <div className="flex flex-wrap items-center gap-2">
+              {analyzingCount > 0 && (
+                <Badge variant="secondary" className="gap-1 text-xs">
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                  {queueSummary.batchTotal > 0
+                    ? t('ai.analyzingProgress', {
+                        count: analyzingCount,
+                        percent: queueSummary.percentComplete,
+                      })
+                    : t('ai.analyzingCount', { count: analyzingCount })}
+                </Badge>
+              )}
+              {queuedCount > 0 && (
+                <Badge variant="secondary" className="gap-1 text-xs">
+                  {t('ai.queuedCount', { count: queuedCount })}
+                </Badge>
+              )}
+              {aiUiEnabled && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-xs"
+                  onClick={() => setQueuePanelOpen(true)}
+                >
+                  {t('ai.queue.open')}
+                </Button>
+              )}
+              {(queuedCount > 0 || analyzingCount > 0) && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-xs"
+                  disabled={bulkCancelAnalysis.isPending}
+                  onClick={handleCancelAllAnalysis}
+                >
+                  {t('ai.cancelAll')}
+                </Button>
+              )}
+              {errorCount > 0 && (
+                <Badge variant="destructive" className="gap-1 text-xs">
+                  <AlertCircle className="h-3 w-3" />
+                  {t('ai.failedCount', { count: errorCount })}
+                </Badge>
+              )}
+            </div>
+          )
+        }
+      />
+
 
       {error ? (
         <div className="text-center py-8">

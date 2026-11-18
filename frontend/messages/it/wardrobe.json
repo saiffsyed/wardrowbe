@@ -362,7 +362,8 @@
       "moveSelected": "Sposta i capi selezionati in una casa",
       "moveShort": "Sposta",
       "moveTo": "Sposta in {home}",
-      "moved": "{count, plural, one {# capo spostato} other {# capi spostati}} in {home}"
+      "moved": "{count, plural, one {# capo spostato} other {# capi spostati}} in {home}",
+      "filterLabel": "Case"
     },
     "view": {
       "label": "Vista",

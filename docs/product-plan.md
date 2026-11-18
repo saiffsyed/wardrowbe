@@ -111,9 +111,15 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   `frontend/app/layout.tsx`). The app follows the phone's light / dark setting.
 - **Display setting lives in Settings** (Same as phone / Light / Dark). Saiff did not want
   the light / dark button in the top bar, so it was removed from there.
-- **Wardrobe screen follows the mock-up** (built): one row with the menu button, the home
-  pill, and round filter / search / add buttons; the title with the This home / All homes
-  switch; category chips; search opens from its button.
+- **Wardrobe screen follows the mock-up** (built): one row with the home pill and round
+  filter / search / add buttons; the title; the Clothes / Lookbook / Collections switch;
+  category chips; sort and views; search opens from its button.
+- **The top folds away while scrolling** (preview; Saiff chose this from three ideas,
+  https://claude.ai/artifact/Vqxrv43ywELFBSKPfGkKTJ): on a phone, scrolling down leaves only
+  the top row (home, weather, filter, search, add) stuck to the screen; scrolling up slides
+  the rest back over the clothes. Short pages do not fold. **This home / All homes moved
+  into the filter panel** ("Homes"); choosing All homes counts on the filter button and
+  shows as "13 items · All homes" under the title.
 - **Phones have no top bar and no side menu.** Saiff did not like the side menu and
   chose a More tab like the Fits app's. Laptops keep their side menu.
 - **Bottom bar: Wardrobe / Outfits / Plan / More**, no centre button (adding an item is the

@@ -362,7 +362,8 @@
       "moveSelected": "Déplacer les articles sélectionnés vers un domicile",
       "moveShort": "Déplacer",
       "moveTo": "Déplacer vers {home}",
-      "moved": "{count, plural, one {# article déplacé} other {# articles déplacés}} vers {home}"
+      "moved": "{count, plural, one {# article déplacé} other {# articles déplacés}} vers {home}",
+      "filterLabel": "Logements"
     },
     "view": {
       "label": "Affichage",

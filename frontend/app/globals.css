@@ -56,7 +56,9 @@
   }
   html, body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    /* clip, not hidden: hidden would make the body its own scroll box, and then nothing on a
+       page (such as the wardrobe's top row) could stay stuck to the top while scrolling. */
+    overflow-x: clip;
     max-width: 100vw;
   }
 }

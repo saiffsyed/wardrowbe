@@ -85,16 +85,15 @@ describe('WardrobeHeader', () => {
     expect(screen.queryByRole('button', { name: 'allOf' })).toBeNull()
   })
 
-  it('reports the category, home scope and add taps', () => {
+  it('reports the category and add taps, leaving the home scope to the filter panel', () => {
     const { props } = setup()
 
     fireEvent.click(screen.getByRole('button', { name: 'shoes' }))
-    fireEvent.click(screen.getByRole('button', { name: 'everywhere' }))
     fireEvent.click(screen.getByRole('button', { name: 'actions.addItem' }))
 
     expect(props.onCategoryChange).toHaveBeenCalledWith('shoes')
-    expect(props.onScopeChange).toHaveBeenCalledWith('all')
     expect(props.onAdd).toHaveBeenCalled()
+    expect(screen.queryByRole('button', { name: 'everywhere' })).toBeNull()
   })
 
   it('keeps search tucked away until asked for, and clears it on close', () => {
@@ -127,5 +126,21 @@ describe('WardrobeHeader', () => {
 
     expect(screen.getByRole('link', { name: 'setUp' }).getAttribute('href')).toBe('/dashboard/settings#homes')
     expect(screen.queryByRole('button', { name: 'everywhere' })).toBeNull()
+  })
+})
+
+describe('HomesFilter', () => {
+  it('switches between this home and all homes', async () => {
+    const { HomesFilter } = await import('@/components/wardrobe/home-bar')
+    const onScopeChange = vi.fn()
+    render(
+      <HomesFilter
+        homes={[{ id: 'h1', name: 'Chennai', city: 'Chennai', is_current: true } as never]}
+        scope="here"
+        onScopeChange={onScopeChange}
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'everywhere' }))
+    expect(onScopeChange).toHaveBeenCalledWith('all')
   })
 })

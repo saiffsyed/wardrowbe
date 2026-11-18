@@ -362,7 +362,8 @@
       "moveSelected": "Ausgewählte Teile in ein Zuhause verschieben",
       "moveShort": "Verschieben",
       "moveTo": "Nach {home} verschieben",
-      "moved": "{count, plural, one {# Teil} other {# Teile}} nach {home} verschoben"
+      "moved": "{count, plural, one {# Teil} other {# Teile}} nach {home} verschoben",
+      "filterLabel": "Zuhause"
     },
     "view": {
       "label": "Ansicht",
