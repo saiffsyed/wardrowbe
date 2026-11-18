@@ -27,7 +27,8 @@ interface WardrobeHeaderProps {
   filtersOpen: boolean;
   onToggleFilters: () => void;
   onAdd: () => void;
-  total: number;
+  // Kept for callers; the header no longer shows an item count.
+  total?: number;
   // What the app is doing with the photos (analysing, queued, failed), when there is something.
   status?: ReactNode;
   // Sort, views and the filter panel: they fold away with the rest while scrolling.
@@ -85,7 +86,6 @@ export function WardrobeHeader({
   filtersOpen,
   onToggleFilters,
   onAdd,
-  total,
   status,
   toolbar,
 }: WardrobeHeaderProps) {
@@ -181,10 +181,11 @@ export function WardrobeHeader({
       <div className="space-y-3">
       <div className="min-w-0">
         <h1 className="text-[28px] font-bold leading-tight tracking-tight">{t('closet.header.title')}</h1>
-        <p className="text-sm text-muted-foreground">
-          {t('closet.header.count', { count: total })}
-          {showingAllHomes && ` · ${t('closet.homes.everywhere')}`}
-        </p>
+        {/* No item count (Saiff asked for it to go). "All homes" still shows while it is on,
+            since that choice now lives out of sight in the filter panel. */}
+        {showingAllHomes && (
+          <p className="text-sm text-muted-foreground">{t('closet.homes.everywhere')}</p>
+        )}
       </div>
 
       <WardrobeTabs value="clothes" />
