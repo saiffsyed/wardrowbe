@@ -26,6 +26,7 @@ import {
 } from '@/lib/hooks/use-homes';
 import { useMaterialLabel, useOccasionLabel } from '@/lib/hooks/use-translated-constants';
 import type { Item, MaterialShare } from '@/lib/types';
+import { LaundryBadge, useLaundryOf } from './laundry';
 
 const NO_HOME = '__none__';
 // The currencies offered for a price, the homes' first. Anything else can be added here.
@@ -199,6 +200,17 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{children}</h3>;
 }
 
+// The Status tile: the laundry badge when the item is waiting for a wash or away being cleaned.
+function LaundryTile({ label, item, ready }: { label: string; item: Item; ready: string }) {
+  const state = useLaundryOf(item);
+  return (
+    <div className={`${CARD} flex min-h-[3.75rem] flex-col justify-center gap-0.5 px-3`}>
+      <span className="text-xs text-muted-foreground">{label}</span>
+      {state ? <span><LaundryBadge state={state} /></span> : <span className="truncate text-[15px] font-semibold">{ready}</span>}
+    </div>
+  );
+}
+
 function Tile({ label, value }: { label: string; value: string }) {
   return (
     <div className={`${CARD} flex min-h-[3.75rem] flex-col justify-center gap-0.5 px-3`}>
@@ -303,7 +315,7 @@ export function ClosetDetails({ item }: { item: Item }) {
       <div className="space-y-4 border-t pt-3">
         <div className="grid grid-cols-2 gap-2.5">
           {home && <Tile label={t('home')} value={home.name} />}
-          <Tile label={t('status')} value={item.needs_wash ? t('statusNeedsWash') : t('statusReady')} />
+          <LaundryTile label={t('status')} item={item} ready={t('statusReady')} />
         </div>
 
         {!!tags.occasions?.length && (

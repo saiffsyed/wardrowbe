@@ -7,6 +7,11 @@ import type { Item } from '@/lib/types'
 const mutate = vi.fn()
 let labelPhotos: { id: string; image_url: string; thumbnail_url: string }[] = []
 
+vi.mock('@/lib/hooks/use-laundry', () => ({
+  useLaundry: () => ({ data: undefined }),
+  useLaundryStates: () => ({ data: new Map() }),
+  useMoveLaundry: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-homes', () => ({
   useHomes: () => ({
     data: [
@@ -111,7 +116,7 @@ describe('ClosetDetails', () => {
     )
 
     expect(screen.getByText('Tailor-made')).toBeTruthy()
-    expect(screen.getByText('statusNeedsWash')).toBeTruthy()
+    expect(screen.getByText('badge.need')).toBeTruthy()
     const care = screen.getByRole('list', { name: 'care' })
     expect(Array.from(care.children).map((li) => li.textContent)).toEqual([
       'Dry clean only',

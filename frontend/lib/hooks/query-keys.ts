@@ -30,6 +30,9 @@ export const queryKeys = {
   outfitLayouts: (ids: string) => ['outfit-layouts', ids] as const,
   everyOutfitLayout: ['outfit-layouts'] as const,
   dressingRoom: ['dressing-room'] as const,
+  laundry: (homeId: string) => ['laundry', homeId] as const,
+  everyLaundry: ['laundry'] as const,
+  laundryStates: ['laundry-states'] as const,
   weatherDays: (days: number) => ['weather-days', days] as const,
   everyWeatherDays: ['weather-days'] as const,
   collections: {

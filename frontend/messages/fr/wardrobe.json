@@ -615,6 +615,10 @@
         },
         "dressingRoom": {
           "title": "Cabine d’essayage"
+        },
+        "laundry": {
+          "title": "Linge",
+          "hint": "Lavage et pressing"
         }
       }
     },
@@ -920,6 +924,50 @@
           "darkGrey": "Gris foncé"
         }
       }
+    },
+    "laundry": {
+      "title": "Linge",
+      "tabs": {
+        "to_wash": "À laver",
+        "wash": "Au lavage",
+        "dry": "Pressing"
+      },
+      "hints": {
+        "to_wash": "Porté assez de fois pour être lavé. Cochez ce qui va en machine aujourd’hui.",
+        "wash": "En machine ou en train de sécher. Cochez ce qui est propre et rangé.",
+        "dry": "Au pressing. Cochez ce qui est revenu."
+      },
+      "empty": {
+        "to_wash": "Rien à laver.",
+        "wash": "Rien au lavage.",
+        "dry": "Rien au pressing."
+      },
+      "selected": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+      "tapToSelect": "Touchez pour sélectionner",
+      "selectAll": "Tout sélectionner",
+      "clear": "Effacer",
+      "actions": {
+        "wash": "Lavage en cours",
+        "dry": "Pressing",
+        "back": "De retour dans l’armoire"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# au lavage} other {# au lavage}}",
+        "dry": "{count, plural, one {# au pressing} other {# au pressing}}",
+        "back": "{count, plural, one {# de retour · compté comme lavé} other {# de retour · comptés comme lavés}}"
+      },
+      "moveError": "Impossible de déplacer les vêtements. Veuillez réessayer.",
+      "badge": {
+        "need": "À laver",
+        "wash": "Au lavage",
+        "dry": "Pressing"
+      },
+      "menu": {
+        "wash": "Mettre au lavage",
+        "dry": "Envoyer au pressing",
+        "back": "De retour dans l’armoire"
+      },
+      "count": "{count, plural, one {# au linge} other {# au linge}}"
     }
   }
 }

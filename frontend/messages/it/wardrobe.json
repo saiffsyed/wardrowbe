@@ -615,6 +615,10 @@
         },
         "dressingRoom": {
           "title": "Camerino"
+        },
+        "laundry": {
+          "title": "Bucato",
+          "hint": "Lavatrice e lavanderia"
         }
       }
     },
@@ -920,6 +924,50 @@
           "darkGrey": "Grigio scuro"
         }
       }
+    },
+    "laundry": {
+      "title": "Bucato",
+      "tabs": {
+        "to_wash": "Da lavare",
+        "wash": "In lavatrice",
+        "dry": "Lavanderia"
+      },
+      "hints": {
+        "to_wash": "Indossati abbastanza da lavare. Spunta cosa va in lavatrice oggi.",
+        "wash": "In lavatrice o ad asciugare. Spunta cosa è pulito e di nuovo nell’armadio.",
+        "dry": "In lavanderia. Spunta cosa è tornato."
+      },
+      "empty": {
+        "to_wash": "Niente da lavare.",
+        "wash": "Niente in lavatrice.",
+        "dry": "Niente in lavanderia."
+      },
+      "selected": "{count, plural, one {# selezionato} other {# selezionati}}",
+      "tapToSelect": "Tocca per selezionare",
+      "selectAll": "Seleziona tutto",
+      "clear": "Deseleziona",
+      "actions": {
+        "wash": "Lavo ora",
+        "dry": "Lavanderia",
+        "back": "Di nuovo nell’armadio"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# in lavatrice} other {# in lavatrice}}",
+        "dry": "{count, plural, one {# in lavanderia} other {# in lavanderia}}",
+        "back": "{count, plural, one {# tornato · contato come lavato} other {# tornati · contati come lavati}}"
+      },
+      "moveError": "Impossibile spostare i capi. Riprova.",
+      "badge": {
+        "need": "Da lavare",
+        "wash": "In lavatrice",
+        "dry": "Lavanderia"
+      },
+      "menu": {
+        "wash": "Metti in lavatrice",
+        "dry": "Porta in lavanderia",
+        "back": "Di nuovo nell’armadio"
+      },
+      "count": "{count, plural, one {# nel bucato} other {# nel bucato}}"
     }
   }
 }

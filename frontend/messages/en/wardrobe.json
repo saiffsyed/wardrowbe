@@ -615,6 +615,10 @@
         },
         "dressingRoom": {
           "title": "Dressing room"
+        },
+        "laundry": {
+          "title": "Laundry",
+          "hint": "Wash and dry cleaning"
         }
       }
     },
@@ -920,6 +924,50 @@
           "darkGrey": "Dark grey"
         }
       }
+    },
+    "laundry": {
+      "title": "Laundry",
+      "tabs": {
+        "to_wash": "To wash",
+        "wash": "In the wash",
+        "dry": "Dry cleaner"
+      },
+      "hints": {
+        "to_wash": "Worn enough times to wash. Tick what goes in the machine today.",
+        "wash": "In the machine or drying. Tick what is clean and back in the cupboard.",
+        "dry": "With the dry cleaner. Tick what has come back."
+      },
+      "empty": {
+        "to_wash": "Nothing to wash.",
+        "wash": "Nothing in the wash.",
+        "dry": "Nothing at the dry cleaner."
+      },
+      "selected": "{count, plural, one {# selected} other {# selected}}",
+      "tapToSelect": "Tap to select",
+      "selectAll": "Select all",
+      "clear": "Clear",
+      "actions": {
+        "wash": "Washing now",
+        "dry": "Dry cleaner",
+        "back": "Back in the wardrobe"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# in the wash} other {# in the wash}}",
+        "dry": "{count, plural, one {# at the dry cleaner} other {# at the dry cleaner}}",
+        "back": "{count, plural, one {# back · counted as washed} other {# back · counted as washed}}"
+      },
+      "moveError": "Could not move the clothes. Please try again.",
+      "badge": {
+        "need": "Needs wash",
+        "wash": "In the wash",
+        "dry": "Dry cleaner"
+      },
+      "menu": {
+        "wash": "Put in the wash",
+        "dry": "Send to the dry cleaner",
+        "back": "Back in the wardrobe"
+      },
+      "count": "{count, plural, one {# in the laundry} other {# in the laundry}}"
     }
   }
 }

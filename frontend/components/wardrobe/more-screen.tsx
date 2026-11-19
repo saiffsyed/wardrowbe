@@ -17,11 +17,13 @@ import {
   Thermometer,
   UserRound,
   Users,
+  WashingMachine,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/lib/hooks/use-auth';
 import { MORE_HREF } from '@/lib/more-routes';
+import { LaundryCount } from './laundry';
 
 interface Entry {
   key: string;
@@ -34,6 +36,7 @@ const FEATURES: Entry[] = [
   { key: 'insights', href: '/dashboard/analytics', icon: BarChart3 },
   { key: 'history', href: '/dashboard/history', icon: History },
   { key: 'family', href: '/dashboard/family', icon: Users },
+  { key: 'laundry', href: `${MORE_HREF}/laundry`, icon: WashingMachine },
 ];
 
 // Shown as a list: things set once and rarely changed.
@@ -95,8 +98,9 @@ export function MoreScreen() {
             <li key={key}>
               <Link
                 href={href}
-                className="flex h-full min-h-[7.5rem] flex-col gap-3 rounded-2xl border bg-card p-4 transition-colors hover:bg-accent/50"
+                className="relative flex h-full min-h-[7.5rem] flex-col gap-3 rounded-2xl border bg-card p-4 transition-colors hover:bg-accent/50"
               >
+                {key === 'laundry' && <LaundryCount />}
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-accent-foreground">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>

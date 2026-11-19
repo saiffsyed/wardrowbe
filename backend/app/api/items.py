@@ -7,7 +7,7 @@ from uuid import UUID
 from arq import create_pool
 from arq.jobs import Job
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
-from sqlalchemy import case, func, select, update
+from sqlalchemy import case, delete, func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -24,6 +24,7 @@ from app.models.item import (
     TaggedBy,
     TaggingStatus,
 )
+from app.models.laundry import ItemLaundry
 from app.models.outfit import Outfit, OutfitItem
 from app.models.user import User
 from app.schemas.item import (
@@ -1533,6 +1534,12 @@ async def log_item_wash(
         washed_at=washed_at,
         method=request.method,
         notes=request.notes,
+    )
+    # Our fork: a washed item is back in the wardrobe, no longer in the laundry.
+    await db.execute(
+        delete(ItemLaundry)
+        .where(ItemLaundry.item_id == item.id)
+        .execution_options(synchronize_session=False)
     )
 
     await db.refresh(item)

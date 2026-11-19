@@ -615,6 +615,10 @@
         },
         "dressingRoom": {
           "title": "Umkleide"
+        },
+        "laundry": {
+          "title": "Wäsche",
+          "hint": "Waschen und Reinigung"
         }
       }
     },
@@ -920,6 +924,50 @@
           "darkGrey": "Dunkelgrau"
         }
       }
+    },
+    "laundry": {
+      "title": "Wäsche",
+      "tabs": {
+        "to_wash": "Zu waschen",
+        "wash": "In der Wäsche",
+        "dry": "Reinigung"
+      },
+      "hints": {
+        "to_wash": "Oft genug getragen. Hake an, was heute in die Maschine kommt.",
+        "wash": "In der Maschine oder am Trocknen. Hake an, was sauber zurück im Schrank ist.",
+        "dry": "In der Reinigung. Hake an, was zurück ist."
+      },
+      "empty": {
+        "to_wash": "Nichts zu waschen.",
+        "wash": "Nichts in der Wäsche.",
+        "dry": "Nichts in der Reinigung."
+      },
+      "selected": "{count, plural, one {# ausgewählt} other {# ausgewählt}}",
+      "tapToSelect": "Zum Auswählen tippen",
+      "selectAll": "Alle auswählen",
+      "clear": "Leeren",
+      "actions": {
+        "wash": "Jetzt waschen",
+        "dry": "Reinigung",
+        "back": "Zurück in den Schrank"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# in der Wäsche} other {# in der Wäsche}}",
+        "dry": "{count, plural, one {# in der Reinigung} other {# in der Reinigung}}",
+        "back": "{count, plural, one {# zurück · als gewaschen gezählt} other {# zurück · als gewaschen gezählt}}"
+      },
+      "moveError": "Die Kleidung konnte nicht verschoben werden. Bitte versuche es erneut.",
+      "badge": {
+        "need": "Waschen",
+        "wash": "In der Wäsche",
+        "dry": "Reinigung"
+      },
+      "menu": {
+        "wash": "In die Wäsche",
+        "dry": "In die Reinigung geben",
+        "back": "Zurück in den Schrank"
+      },
+      "count": "{count, plural, one {# in der Wäsche} other {# in der Wäsche}}"
     }
   }
 }

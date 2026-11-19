@@ -615,6 +615,10 @@
         },
         "dressingRoom": {
           "title": "試衣間"
+        },
+        "laundry": {
+          "title": "洗衣",
+          "hint": "水洗和乾洗"
         }
       }
     },
@@ -920,6 +924,50 @@
           "darkGrey": "深灰"
         }
       }
+    },
+    "laundry": {
+      "title": "洗衣",
+      "tabs": {
+        "to_wash": "待洗",
+        "wash": "清洗中",
+        "dry": "乾洗店"
+      },
+      "hints": {
+        "to_wash": "穿到該洗的衣服。勾選今天要放進洗衣機的。",
+        "wash": "在洗或在晾。勾選已洗好、放回衣櫃的。",
+        "dry": "送去乾洗的。勾選已經取回的。"
+      },
+      "empty": {
+        "to_wash": "沒有待洗的衣服。",
+        "wash": "沒有正在洗的衣服。",
+        "dry": "沒有在乾洗店的衣服。"
+      },
+      "selected": "已選 {count} 件",
+      "tapToSelect": "點按選擇",
+      "selectAll": "全選",
+      "clear": "清除",
+      "actions": {
+        "wash": "現在洗",
+        "dry": "送乾洗",
+        "back": "放回衣櫃"
+      },
+      "moved": {
+        "wash": "{count} 件在洗",
+        "dry": "{count} 件在乾洗店",
+        "back": "{count} 件已放回 · 記為已洗"
+      },
+      "moveError": "無法移動衣服，請再試一次。",
+      "badge": {
+        "need": "待洗",
+        "wash": "清洗中",
+        "dry": "乾洗"
+      },
+      "menu": {
+        "wash": "放去洗",
+        "dry": "送去乾洗",
+        "back": "放回衣櫃"
+      },
+      "count": "洗衣 {count} 件"
     }
   }
 }

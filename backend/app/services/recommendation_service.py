@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.models.item import ClothingItem, ItemStatus
+from app.models.laundry import away_item_ids
 from app.models.learning import ItemPairScore, UserLearningProfile
 from app.models.outfit import (
     FamilyOutfitRating,
@@ -229,6 +230,9 @@ class RecommendationService:
             return []
 
         items = [i for i in items if not i.needs_wash]
+        # Our fork: clothes away in the wash or at the dry cleaner are not offered either.
+        away = await away_item_ids(self.db, user.id)
+        items = [i for i in items if i.id not in away]
         items = [i for i in items if i.type and i.type != "unknown"]
 
         if exclude_items:

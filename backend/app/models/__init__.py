@@ -5,6 +5,7 @@ from app.models.home import Home
 from app.models.identity import UserIdentity
 from app.models.item import ClothingItem, ItemHistory, ItemImage, WashHistory
 from app.models.label_photo import ItemLabelPhoto
+from app.models.laundry import ItemLaundry
 from app.models.learning import (
     ItemPairScore,
     OutfitPerformance,
@@ -26,6 +27,7 @@ __all__ = [
     "CollectionEntry",
     "OutfitLayout",
     "DressingRoomSettings",
+    "ItemLaundry",
     "Stay",
     "Family",
     "FamilyInvite",

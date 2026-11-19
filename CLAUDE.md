@@ -72,7 +72,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `e1b7a3c5d9f6_add_wardrobe_custom_kinds` off that, and `f2c8b4d6e0a7_add_collections`
   off that, and `a3d9f5b1c7e8_add_start_screen` off that, and `b4e0a6c2d8f9_add_stays` off
   that, and `c5f1b7d3e9a0_add_outfit_layouts` off that, and
-  `d6a2c8e4f0b1_add_dressing_room_settings` off that. After merging
+  `d6a2c8e4f0b1_add_dressing_room_settings` off that, and `e7b3d9f5a1c2_add_item_laundry` off
+  that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
   (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
@@ -105,6 +106,12 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   backend `backend/app/api/dressing_room.py`, `backend/app/models/dressing_room.py`; frontend
   `lib/hooks/use-dressing-room.ts`, `components/wardrobe/dressing-room-settings.tsx`, route
   `app/dashboard/more/dressing-room`.
+- Laundry: clothes away in the wash or at the dry cleaner are rows in `item_laundry`
+  (`backend/app/models/laundry.py`, with `away_item_ids` used by the recommendation service;
+  API `backend/app/api/laundry.py`: `GET /laundry`, `/laundry/states`, `POST /laundry/move`).
+  "Needs washing" stays upstream's `needs_wash`. Frontend `lib/hooks/use-laundry.ts`,
+  `components/wardrobe/laundry.tsx` (badge, ⋯ menu entries, More count),
+  `laundry-screen.tsx`, route `app/dashboard/more/laundry`.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

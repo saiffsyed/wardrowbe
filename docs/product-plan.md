@@ -105,6 +105,16 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
   home that are not waiting for a wash. Pieces are sized by kind. Next goes to the same Save
   screen (the look keeps the automatic layout). **More → Dressing room**: women's or men's
   figure, background and figure colour, each person their own.
+- **Laundry** (built, preview; mock-up https://claude.ai/artifact/SKEE6VBYQreWi2uuppGPNF):
+  a Laundry tile on the More screen with a count opens three tabs, **To wash** (upstream's
+  automatic "needs washing" after a set number of wears), **In the wash** and **Dry cleaner**,
+  for the clothes of the current home. Tick clothes (or Select all) and tap Washing now / Dry
+  cleaner, later Back in the wardrobe, which also records a wash (method "dry_clean" from
+  the dry cleaner). Clothes that are away stay in the wardrobe, faded, with a badge; the
+  item's Status tile shows it and its ⋯ menu has Put in the wash / Send to the dry cleaner /
+  Back in the wardrobe. The Dressing room, Shuffle and outfit suggestions leave them out;
+  the item's own "Mark washed" also brings it back. No tailor / repair status (Saiff
+  decided against it). Reminders are left for Stage 3.
 - Manual builder including shoes and jewellery. Three modes:
   1. **Collage** (default): free arranging on a board, saved with the look (see Lookbook)
   2. **Dressing room**: mannequin outline, swipe to swap, lock, shuffle ("this feature is

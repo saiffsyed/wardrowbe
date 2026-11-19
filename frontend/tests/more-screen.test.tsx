@@ -3,12 +3,18 @@ import { describe, expect, it, vi } from 'vitest'
 import { MoreScreen } from '@/components/wardrobe/more-screen'
 import { isReachedFromMore } from '@/lib/more-routes'
 
+vi.mock('@/lib/hooks/use-laundry', () => ({
+  useLaundry: () => ({ data: undefined }),
+  useLaundryStates: () => ({ data: new Map() }),
+  useMoveLaundry: () => ({ mutate: vi.fn(), isPending: false }),
+}))
+vi.mock('@/lib/hooks/use-homes', () => ({ useHomes: () => ({ data: [] }) }))
 vi.mock('@/lib/hooks/use-auth', () => ({
   useAuth: () => ({ user: { display_name: 'Saiff', email: 'saiff@example.com' } }),
 }))
 
 describe('MoreScreen', () => {
-  it('shows who is signed in, three features and the settings rows', () => {
+  it('shows who is signed in, four features and the settings rows', () => {
     render(<MoreScreen />)
 
     expect(screen.getByText('Saiff')).toBeTruthy()
@@ -18,6 +24,7 @@ describe('MoreScreen', () => {
       '/dashboard/analytics',
       '/dashboard/history',
       '/dashboard/family',
+      '/dashboard/more/laundry',
       '/dashboard/more/homes',
       '/dashboard/more/categories',
       '/dashboard/more/display',

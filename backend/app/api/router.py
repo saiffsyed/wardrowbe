@@ -12,6 +12,7 @@ from app.api.homes import router as homes_router
 from app.api.images import router as images_router
 from app.api.items import router as items_router
 from app.api.label_scan import router as label_scan_router
+from app.api.laundry import router as laundry_router
 from app.api.learning import router as learning_router
 from app.api.notifications import router as notifications_router
 from app.api.outfit_layouts import router as outfit_layouts_router
@@ -51,4 +52,5 @@ api_router.include_router(learning_router)
 api_router.include_router(stays_router)
 api_router.include_router(outfit_layouts_router)
 api_router.include_router(dressing_room_router)
+api_router.include_router(laundry_router)
 api_router.include_router(weather_days_router)

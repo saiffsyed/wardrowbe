@@ -25,6 +25,7 @@ import {
 import { DEFAULT_ROOM, useDressingRoomSettings } from '@/lib/hooks/use-dressing-room';
 import { useHomes } from '@/lib/hooks/use-homes';
 import { useItems } from '@/lib/hooks/use-items';
+import { useLaundryStates } from '@/lib/hooks/use-laundry';
 import { useWeatherDays } from '@/lib/hooks/use-stays';
 import { useOccasionLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
 import type { Item } from '@/lib/types';
@@ -114,19 +115,23 @@ export function DressingRoom({
   const homeId = homes?.find((home) => home.is_current)?.id;
   const { data: list, isLoading } = useItems({ home_id: homeId, is_archived: false }, 1, 100);
   const { data: weather } = useWeatherDays(7);
+  const { data: away } = useLaundryStates();
   const forecastDay = weather?.days.find((entry) => entry.date === day);
   const warmth = warmthOf(forecastDay?.forecast);
 
   // The clothes of this home that are not waiting for a wash, plus whatever the look started with.
   const items = useMemo(() => {
     const startIds = new Set(start.map((piece) => piece.id));
-    const loaded = (list?.items ?? []).filter((item) => !item.needs_wash || startIds.has(item.id)).map(fromItem);
+    // Clothes away in the wash or at the dry cleaner are left out too.
+    const loaded = (list?.items ?? [])
+      .filter((item) => startIds.has(item.id) || (!item.needs_wash && !away?.has(item.id)))
+      .map(fromItem);
     const have = new Set(loaded.map((item) => item.id));
     const extra = start
       .filter((piece) => !have.has(piece.id))
       .map((piece): DressItem => ({ id: piece.id, type: piece.type, image: piece.image, thumb: piece.thumb, occasions: [], season: [] }));
     return [...loaded, ...extra].filter((item) => spotOf(item.type));
-  }, [list, start]);
+  }, [list, start, away]);
 
   const [outfit, setOutfit] = useState<Outfit>(() => dressWith(start));
   const [locked, setLocked] = useState<Set<Spot>>(new Set());

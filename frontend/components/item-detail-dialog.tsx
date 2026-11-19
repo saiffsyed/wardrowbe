@@ -104,6 +104,7 @@ import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
 import { ClosetDetails } from '@/components/wardrobe/closet-details';
 import { AddToCollectionDialog } from '@/components/wardrobe/add-to-collection';
+import { LaundryMenuItems } from '@/components/wardrobe/laundry';
 import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
 import { formatDate } from '@/lib/utils';
 
@@ -448,6 +449,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                     <FolderPlus className="mr-2 h-4 w-4" />
                     {tw('closet.collections.addTitle')}
                   </DropdownMenuItem>
+                  <LaundryMenuItems item={item} />
                   {aiUiEnabled && (
                     <>
                       <DropdownMenuItem title={t('titles.suggestOutfit')}
