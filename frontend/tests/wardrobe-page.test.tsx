@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import WardrobePage from '@/app/dashboard/wardrobe/page'
 
+vi.mock('@/components/wardrobe/stay-home-prompt', () => ({ StayHomePrompt: () => null }))
 vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),

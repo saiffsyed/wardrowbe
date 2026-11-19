@@ -700,7 +700,60 @@
       "feelsLike": "體感 {temp}",
       "rain": "降雨 {percent}%",
       "humidity": "濕度 {percent}%",
-      "open": "今日天氣：開啟計畫"
+      "open": "今日天氣：開啟計畫",
+      "inCity": "在{city}"
+    },
+    "stays": {
+      "title": "你會在哪裡？",
+      "hint": "選擇你的一個住處或輸入城市，再選日期。其餘日子仍依目前住處。",
+      "yourHomes": "你的住處",
+      "otherCity": "其他城市",
+      "cityPlaceholder": "例如：班加羅爾",
+      "to": "到",
+      "save": "儲存行程",
+      "saved": "已儲存：{city}",
+      "cityNotFound": "找不到名為「{city}」的城市，請檢查拼寫。",
+      "saveError": "儲存失敗，請再試一次。",
+      "rowTitle": "我會在哪裡",
+      "add": "我會在別處",
+      "addFrom": "從{day}起新增行程",
+      "noCity": "住處",
+      "remove": "刪除在{city}的行程",
+      "removed": "已刪除在{city}的行程",
+      "legend": "灰色：目前住處。彩色：你新增的行程。點某一天即可新增。",
+      "prompt": "你今天在{home}。要顯示放在那裡的衣服嗎？",
+      "promptYes": "是，切換",
+      "promptNo": "暫不",
+      "from": "從"
+    },
+    "weatherScreen": {
+      "back": "衣櫥",
+      "unavailable": "暫時無法載入天氣，請稍後再試。",
+      "title": "天氣",
+      "today": "今天",
+      "range": "今天最低到最高",
+      "rain": "降雨",
+      "humidity": "濕度",
+      "uv": "紫外線",
+      "plannedToday": "今天的計畫",
+      "planToday": "計畫今天的穿搭",
+      "nextDays": "未來 7 天",
+      "noForecast": "暫無預報",
+      "plannedFor": "{day}的計畫",
+      "planOutfit": "計畫穿搭",
+      "planned": "已計畫{day}的穿搭",
+      "planError": "無法計畫穿搭，請再試一次。",
+      "addStay": "新增行程",
+      "hints": {
+        "storm": "雷雨：選速乾布料，別穿真絲",
+        "rain": "可能下雨：避開麂皮和真絲，穿包頭鞋",
+        "hotHumid": "悶熱：輕薄棉或亞麻",
+        "hot": "炎熱：輕薄寬鬆的布料",
+        "coolEvening": "晚上偏涼：帶條紗巾或薄外套",
+        "cold": "寒冷：保暖疊穿加大衣",
+        "cool": "偏涼：毛衣或薄外套",
+        "mild": "溫和：大多數衣服都合適"
+      }
     }
   }
 }

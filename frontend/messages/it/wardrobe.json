@@ -700,7 +700,60 @@
       "feelsLike": "percepita {temp}",
       "rain": "Pioggia {percent}%",
       "humidity": "Umidità {percent}%",
-      "open": "Meteo di oggi: apri Pianifica"
+      "open": "Meteo di oggi: apri Pianifica",
+      "inCity": "a {city}"
+    },
+    "stays": {
+      "title": "Dove sarai?",
+      "hint": "Scegli una delle tue case o scrivi una città, poi i giorni. Gli altri giorni restano alla casa attuale.",
+      "yourHomes": "Le tue case",
+      "otherCity": "Altra città",
+      "cityPlaceholder": "es. Bangalore",
+      "to": "Al",
+      "save": "Salva soggiorno",
+      "saved": "Salvato: {city}",
+      "cityNotFound": "Nessuna città chiamata «{city}». Controlla come è scritta.",
+      "saveError": "Salvataggio non riuscito. Riprova.",
+      "rowTitle": "Dove sarò",
+      "add": "Sarò altrove",
+      "addFrom": "Aggiungi un soggiorno dal {day}",
+      "noCity": "Casa",
+      "remove": "Rimuovi il soggiorno a {city}",
+      "removed": "Soggiorno a {city} rimosso",
+      "legend": "Grigio: la casa attuale. Colorato: un soggiorno aggiunto. Tocca un giorno per aggiungerne uno.",
+      "prompt": "Oggi sei a {home}. Mostrare i vestiti che hai lì?",
+      "promptYes": "Sì, cambia",
+      "promptNo": "Non ora",
+      "from": "Dal"
+    },
+    "weatherScreen": {
+      "back": "Guardaroba",
+      "unavailable": "Il meteo non è disponibile al momento. Riprova più tardi.",
+      "title": "Meteo",
+      "today": "Oggi",
+      "range": "Oggi, minima e massima",
+      "rain": "Pioggia",
+      "humidity": "Umidità",
+      "uv": "UV",
+      "plannedToday": "Previsto per oggi",
+      "planToday": "Pianifica l’outfit di oggi",
+      "nextDays": "Prossimi 7 giorni",
+      "noForecast": "Previsioni non ancora disponibili",
+      "plannedFor": "Previsto per {day}",
+      "planOutfit": "Pianifica outfit",
+      "planned": "Outfit pianificato per {day}",
+      "planError": "Impossibile pianificare un outfit. Riprova.",
+      "addStay": "Aggiungi soggiorno",
+      "hints": {
+        "storm": "Temporali: tessuti ad asciugatura rapida, niente seta",
+        "rain": "Pioggia probabile: niente scamosciato o seta, scarpe chiuse",
+        "hotHumid": "Caldo umido: cotone leggero o lino",
+        "hot": "Caldo: tessuti leggeri e larghi",
+        "coolEvening": "Sera fresca: porta un dupatta o una giacca leggera",
+        "cold": "Freddo: strati caldi e cappotto",
+        "cool": "Fresco: un maglione o una giacca leggera",
+        "mild": "Mite: va bene quasi tutto"
+      }
     }
   }
 }

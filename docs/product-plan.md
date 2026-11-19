@@ -87,22 +87,24 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
 - Google Calendar sync and couple coordination.
 - Week strip, day and month planner. Describe an occasion in your own words.
 
-- **Weather screen** (agreed, mock-up https://claude.ai/artifact/6hmbyaHbJpYufKwwjrUgYC,
-  not built yet): opens from the weather bar. Today (temperature, feels like, "while
+- **Weather screen** (built, preview; mock-up https://claude.ai/artifact/6hmbyaHbJpYufKwwjrUgYC): opens from the weather bar. Today (temperature, feels like, "while
   you're out" range, rain, humidity, UV, a clothes hint, today's planned look); the next
   7 days, each with high / low, rain, humidity, a clothes hint worked out by fixed rules
   (no AI cost) and "Plan outfit" (suggests a look for that day's weather and saves it to
   that day, with a chance to swap first) or the planned look's tile. Later (Stage 3):
   heads-ups such as rain against a planned outfit, laundry before rainy days, the weather
   at another home before a trip.
-- **Stays: "Where I'll be"** (agreed, not built yet): added in **Plan** (Saiff's choice), on
+- **Stays: "Where I'll be"** (built, preview): added in **Plan** (Saiff's choice), on
   a stays row under the week. A stay is a city and from / to dates; your homes are
   offered first, any other city by search. Days without a stay use the current home's
   city. The weather screen, the weather bar and outfit suggestions use each day's city
   (those days marked "📍 Bangalore"). A stay at one of your homes does not switch the
   wardrobe by itself; that morning a one-tap question asks "You're in Europe today. Show
   the clothes kept there?". Stays beyond the 16-day forecast show "Forecast from …".
-  Plan itself is rebuilt in Stage 3; only the stays row is added to it now.
+  Plan itself is rebuilt in Stage 3; only the stays row is added to it now (tap a day or
+  "I'll be elsewhere"; ✕ on a stay removes it). The weather screen also has "Add a stay".
+  Not done yet: the "while you're out" hour range (today shows low → high instead), and
+  swapping a planned outfit before it is saved (it is saved, then opens like any outfit).
 
 ### Everyday features (all accepted)
 Today card, quick swap, laundry / repair status, week strip, occasion sets, trip packing,
@@ -141,7 +143,7 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   title is kept only for screen readers.
 - **Weather bar** (preview; Saiff asked for it where the title was): under the top row,
   "☀ 31° Sunny · feels like 35° / Rain 10% · Humidity 70%". It folds away with the tabs
-  while scrolling and opens Plan (later the "Today" card). On all three wardrobe tabs.
+  while scrolling and opens the weather screen. On a day away it shows the stay's city. On all three wardrobe tabs.
   `components/wardrobe/weather-bar.tsx`.
 - **The top folds away while scrolling** (preview; Saiff chose this from three ideas,
   https://claude.ai/artifact/Vqxrv43ywELFBSKPfGkKTJ): on a phone, scrolling down leaves only

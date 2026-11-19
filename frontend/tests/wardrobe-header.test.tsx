@@ -4,6 +4,7 @@ import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header'
 import type { Home } from '@/lib/types'
 import type { CategoryGroup } from '@/lib/wardrobe-categories'
 
+vi.mock('@/components/wardrobe/stay-home-prompt', () => ({ StayHomePrompt: () => null }))
 vi.mock('@/components/wardrobe/home-weather', () => ({ HomeWeather: () => null }))
 vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({

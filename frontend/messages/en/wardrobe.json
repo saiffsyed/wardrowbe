@@ -700,7 +700,60 @@
       "feelsLike": "feels like {temp}",
       "rain": "Rain {percent}%",
       "humidity": "Humidity {percent}%",
-      "open": "Today's weather: open Plan"
+      "open": "Today's weather: open Plan",
+      "inCity": "in {city}"
+    },
+    "stays": {
+      "title": "Where will you be?",
+      "hint": "Pick one of your homes or type a city, then the days. Days you leave out stay with your current home.",
+      "yourHomes": "Your homes",
+      "otherCity": "Another city",
+      "cityPlaceholder": "e.g. Bangalore",
+      "to": "To",
+      "save": "Save stay",
+      "saved": "Saved: {city}",
+      "cityNotFound": "Could not find a city called \"{city}\". Check the spelling.",
+      "saveError": "Could not save. Please try again.",
+      "rowTitle": "Where I'll be",
+      "add": "I'll be elsewhere",
+      "addFrom": "Add a stay from {day}",
+      "noCity": "Home",
+      "remove": "Remove the stay in {city}",
+      "removed": "Removed the stay in {city}",
+      "legend": "Grey: your current home. Coloured: a stay you added. Tap a day to add one.",
+      "prompt": "You're in {home} today. Show the clothes kept there?",
+      "promptYes": "Yes, switch",
+      "promptNo": "Not now",
+      "from": "From"
+    },
+    "weatherScreen": {
+      "back": "Wardrobe",
+      "unavailable": "The weather can't be loaded right now. Please try again later.",
+      "title": "Weather",
+      "today": "Today",
+      "range": "Today, low to high",
+      "rain": "Rain",
+      "humidity": "Humidity",
+      "uv": "UV",
+      "plannedToday": "Planned for today",
+      "planToday": "Plan today's outfit",
+      "nextDays": "Next 7 days",
+      "noForecast": "Forecast not available yet",
+      "plannedFor": "Planned for {day}",
+      "planOutfit": "Plan outfit",
+      "planned": "Outfit planned for {day}",
+      "planError": "Could not plan an outfit. Please try again.",
+      "addStay": "Add a stay",
+      "hints": {
+        "storm": "Storms: quick-dry fabrics, no silk",
+        "rain": "Rain likely: skip suede and silk, closed shoes",
+        "hotHumid": "Hot and humid: light cotton or linen",
+        "hot": "Hot: light, loose fabrics",
+        "coolEvening": "Cool evening: take a dupatta or light jacket",
+        "cold": "Cold: warm layers and a coat",
+        "cool": "Cool: a sweater or light jacket",
+        "mild": "Mild: most clothes will do"
+      }
     }
   }
 }

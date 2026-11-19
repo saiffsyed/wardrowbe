@@ -700,7 +700,60 @@
       "feelsLike": "ressenti {temp}",
       "rain": "Pluie {percent} %",
       "humidity": "Humidité {percent} %",
-      "open": "Météo du jour : ouvrir le planning"
+      "open": "Météo du jour : ouvrir le planning",
+      "inCity": "à {city}"
+    },
+    "stays": {
+      "title": "Où serez-vous ?",
+      "hint": "Choisissez un de vos domiciles ou saisissez une ville, puis les jours. Les autres jours restent à votre domicile actuel.",
+      "yourHomes": "Vos domiciles",
+      "otherCity": "Autre ville",
+      "cityPlaceholder": "ex. Bangalore",
+      "to": "Au",
+      "save": "Enregistrer le séjour",
+      "saved": "Enregistré : {city}",
+      "cityNotFound": "Aucune ville nommée « {city} ». Vérifiez l’orthographe.",
+      "saveError": "Échec de l’enregistrement. Veuillez réessayer.",
+      "rowTitle": "Où je serai",
+      "add": "Je serai ailleurs",
+      "addFrom": "Ajouter un séjour à partir du {day}",
+      "noCity": "Domicile",
+      "remove": "Supprimer le séjour à {city}",
+      "removed": "Séjour à {city} supprimé",
+      "legend": "Gris : votre domicile actuel. En couleur : un séjour ajouté. Touchez un jour pour en ajouter un.",
+      "prompt": "Vous êtes à {home} aujourd’hui. Afficher les vêtements qui y sont ?",
+      "promptYes": "Oui, changer",
+      "promptNo": "Pas maintenant",
+      "from": "Du"
+    },
+    "weatherScreen": {
+      "back": "Garde-robe",
+      "unavailable": "La météo ne peut pas être chargée pour le moment. Réessayez plus tard.",
+      "title": "Météo",
+      "today": "Aujourd’hui",
+      "range": "Aujourd’hui, min à max",
+      "rain": "Pluie",
+      "humidity": "Humidité",
+      "uv": "UV",
+      "plannedToday": "Prévu pour aujourd’hui",
+      "planToday": "Prévoir la tenue du jour",
+      "nextDays": "7 prochains jours",
+      "noForecast": "Prévisions pas encore disponibles",
+      "plannedFor": "Prévu pour {day}",
+      "planOutfit": "Prévoir une tenue",
+      "planned": "Tenue prévue pour {day}",
+      "planError": "Impossible de prévoir une tenue. Veuillez réessayer.",
+      "addStay": "Ajouter un séjour",
+      "hints": {
+        "storm": "Orages : tissus à séchage rapide, pas de soie",
+        "rain": "Pluie probable : évitez daim et soie, chaussures fermées",
+        "hotHumid": "Chaud et humide : coton léger ou lin",
+        "hot": "Chaud : tissus légers et amples",
+        "coolEvening": "Soirée fraîche : prenez un dupatta ou une veste légère",
+        "cold": "Froid : couches chaudes et manteau",
+        "cool": "Frais : un pull ou une veste légère",
+        "mild": "Doux : presque tout convient"
+      }
     }
   }
 }

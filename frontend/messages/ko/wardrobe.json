@@ -700,7 +700,60 @@
       "feelsLike": "체감 {temp}",
       "rain": "비 {percent}%",
       "humidity": "습도 {percent}%",
-      "open": "오늘 날씨: 플랜 열기"
+      "open": "오늘 날씨: 플랜 열기",
+      "inCity": "{city}에서"
+    },
+    "stays": {
+      "title": "어디에 있을 예정인가요?",
+      "hint": "집을 고르거나 도시 이름을 입력한 뒤 날짜를 고르세요. 나머지 날은 지금 집 기준이에요.",
+      "yourHomes": "내 집",
+      "otherCity": "다른 도시",
+      "cityPlaceholder": "예: 벵갈루루",
+      "to": "끝",
+      "save": "체류 저장",
+      "saved": "저장했어요: {city}",
+      "cityNotFound": "\"{city}\" 도시를 찾지 못했어요. 철자를 확인해 주세요.",
+      "saveError": "저장하지 못했어요. 다시 시도해 주세요.",
+      "rowTitle": "내가 있을 곳",
+      "add": "다른 곳에 있어요",
+      "addFrom": "{day}부터 체류 추가",
+      "noCity": "집",
+      "remove": "{city} 체류 삭제",
+      "removed": "{city} 체류를 삭제했어요",
+      "legend": "회색: 지금 집. 색칠: 추가한 체류. 날짜를 눌러 추가하세요.",
+      "prompt": "오늘은 {home}에 있어요. 거기 있는 옷을 보여 줄까요?",
+      "promptYes": "네, 바꿀게요",
+      "promptNo": "나중에",
+      "from": "시작"
+    },
+    "weatherScreen": {
+      "back": "옷장",
+      "unavailable": "지금은 날씨를 불러올 수 없어요. 잠시 후 다시 시도해 주세요.",
+      "title": "날씨",
+      "today": "오늘",
+      "range": "오늘 최저~최고",
+      "rain": "비",
+      "humidity": "습도",
+      "uv": "자외선",
+      "plannedToday": "오늘 계획",
+      "planToday": "오늘 코디 정하기",
+      "nextDays": "앞으로 7일",
+      "noForecast": "아직 예보가 없어요",
+      "plannedFor": "{day} 계획",
+      "planOutfit": "코디 정하기",
+      "planned": "{day} 코디를 정했어요",
+      "planError": "코디를 정하지 못했어요. 다시 시도해 주세요.",
+      "addStay": "체류 추가",
+      "hints": {
+        "storm": "뇌우: 빨리 마르는 소재, 실크는 피하세요",
+        "rain": "비 올 가능성 높음: 스웨이드와 실크는 피하고 막힌 신발을",
+        "hotHumid": "덥고 습함: 얇은 면이나 린넨",
+        "hot": "더움: 가볍고 헐렁한 소재",
+        "coolEvening": "저녁은 선선: 두파타나 얇은 겉옷을 챙기세요",
+        "cold": "추움: 따뜻한 겹옷과 코트",
+        "cool": "선선함: 스웨터나 얇은 겉옷",
+        "mild": "온화함: 대부분의 옷이 괜찮아요"
+      }
     }
   }
 }

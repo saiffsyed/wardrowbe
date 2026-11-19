@@ -700,7 +700,60 @@
       "feelsLike": "体感 {temp}",
       "rain": "降水 {percent}%",
       "humidity": "湿度 {percent}%",
-      "open": "今日の天気：プランを開く"
+      "open": "今日の天気：プランを開く",
+      "inCity": "{city}にて"
+    },
+    "stays": {
+      "title": "どこにいますか？",
+      "hint": "拠点を選ぶか都市名を入力し、日付を選んでください。それ以外の日は今の拠点のままです。",
+      "yourHomes": "あなたの拠点",
+      "otherCity": "ほかの都市",
+      "cityPlaceholder": "例：バンガロール",
+      "to": "終了",
+      "save": "滞在を保存",
+      "saved": "保存しました：{city}",
+      "cityNotFound": "「{city}」という都市が見つかりません。つづりを確認してください。",
+      "saveError": "保存できませんでした。もう一度お試しください。",
+      "rowTitle": "滞在先",
+      "add": "別の場所にいる",
+      "addFrom": "{day}からの滞在を追加",
+      "noCity": "拠点",
+      "remove": "{city}の滞在を削除",
+      "removed": "{city}の滞在を削除しました",
+      "legend": "グレー：今の拠点。色付き：追加した滞在。日付をタップして追加できます。",
+      "prompt": "今日は{home}にいます。そこにある服を表示しますか？",
+      "promptYes": "切り替える",
+      "promptNo": "今はしない",
+      "from": "開始"
+    },
+    "weatherScreen": {
+      "back": "ワードローブ",
+      "unavailable": "天気を読み込めません。しばらくしてからお試しください。",
+      "title": "天気",
+      "today": "今日",
+      "range": "今日の最低〜最高",
+      "rain": "降水",
+      "humidity": "湿度",
+      "uv": "紫外線",
+      "plannedToday": "今日の予定",
+      "planToday": "今日のコーデを決める",
+      "nextDays": "この先7日間",
+      "noForecast": "まだ予報がありません",
+      "plannedFor": "{day}の予定",
+      "planOutfit": "コーデを決める",
+      "planned": "{day}のコーデを決めました",
+      "planError": "コーデを決められませんでした。もう一度お試しください。",
+      "addStay": "滞在を追加",
+      "hints": {
+        "storm": "雷雨：速乾素材を。シルクは避けて",
+        "rain": "雨の可能性大：スエードとシルクは避け、つま先の閉じた靴を",
+        "hotHumid": "蒸し暑い：薄手のコットンかリネン",
+        "hot": "暑い：軽くゆったりした素材",
+        "coolEvening": "夜は涼しい：ドゥパッタか薄手の上着を",
+        "cold": "寒い：暖かい重ね着とコート",
+        "cool": "涼しい：セーターか薄手の上着",
+        "mild": "過ごしやすい：たいていの服でOK"
+      }
     }
   }
 }

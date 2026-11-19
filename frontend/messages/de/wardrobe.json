@@ -700,7 +700,60 @@
       "feelsLike": "gefühlt {temp}",
       "rain": "Regen {percent} %",
       "humidity": "Luftfeuchte {percent} %",
-      "open": "Wetter heute: Planen öffnen"
+      "open": "Wetter heute: Planen öffnen",
+      "inCity": "in {city}"
+    },
+    "stays": {
+      "title": "Wo wirst du sein?",
+      "hint": "Wähle einen deiner Wohnorte oder gib eine Stadt ein, dann die Tage. Andere Tage gelten für deinen aktuellen Wohnort.",
+      "yourHomes": "Deine Wohnorte",
+      "otherCity": "Andere Stadt",
+      "cityPlaceholder": "z. B. Bangalore",
+      "to": "Bis",
+      "save": "Aufenthalt speichern",
+      "saved": "Gespeichert: {city}",
+      "cityNotFound": "Keine Stadt namens „{city}“ gefunden. Prüfe die Schreibweise.",
+      "saveError": "Speichern fehlgeschlagen. Bitte versuche es erneut.",
+      "rowTitle": "Wo ich sein werde",
+      "add": "Ich bin woanders",
+      "addFrom": "Aufenthalt ab {day} hinzufügen",
+      "noCity": "Zuhause",
+      "remove": "Aufenthalt in {city} entfernen",
+      "removed": "Aufenthalt in {city} entfernt",
+      "legend": "Grau: dein aktueller Wohnort. Farbig: ein Aufenthalt. Tippe auf einen Tag, um einen hinzuzufügen.",
+      "prompt": "Du bist heute in {home}. Die Kleidung dort anzeigen?",
+      "promptYes": "Ja, wechseln",
+      "promptNo": "Nicht jetzt",
+      "from": "Von"
+    },
+    "weatherScreen": {
+      "back": "Kleiderschrank",
+      "unavailable": "Das Wetter kann gerade nicht geladen werden. Bitte versuche es später erneut.",
+      "title": "Wetter",
+      "today": "Heute",
+      "range": "Heute, Tief bis Hoch",
+      "rain": "Regen",
+      "humidity": "Luftfeuchte",
+      "uv": "UV",
+      "plannedToday": "Für heute geplant",
+      "planToday": "Outfit für heute planen",
+      "nextDays": "Nächste 7 Tage",
+      "noForecast": "Noch keine Vorhersage",
+      "plannedFor": "Geplant für {day}",
+      "planOutfit": "Outfit planen",
+      "planned": "Outfit für {day} geplant",
+      "planError": "Outfit konnte nicht geplant werden. Bitte versuche es erneut.",
+      "addStay": "Aufenthalt hinzufügen",
+      "hints": {
+        "storm": "Gewitter: schnell trocknende Stoffe, keine Seide",
+        "rain": "Regen wahrscheinlich: kein Wildleder, keine Seide, geschlossene Schuhe",
+        "hotHumid": "Heiß und schwül: leichte Baumwolle oder Leinen",
+        "hot": "Heiß: leichte, lockere Stoffe",
+        "coolEvening": "Kühler Abend: Dupatta oder leichte Jacke mitnehmen",
+        "cold": "Kalt: warme Schichten und Mantel",
+        "cool": "Kühl: Pullover oder leichte Jacke",
+        "mild": "Mild: fast alles passt"
+      }
     }
   }
 }

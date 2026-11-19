@@ -26,6 +26,9 @@ export const queryKeys = {
   preferences: ['preferences'] as const,
   family: ['family'] as const,
   homes: ['homes'] as const,
+  stays: ['stays'] as const,
+  weatherDays: (days: number) => ['weather-days', days] as const,
+  everyWeatherDays: ['weather-days'] as const,
   collections: {
     all: ['collections'] as const,
     list: (itemId: string | undefined, outfitId: string | undefined) =>
