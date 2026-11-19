@@ -17,6 +17,8 @@ from app.api.outfits import router as outfits_router
 from app.api.pairings import router as pairings_router
 from app.api.preferences import router as preferences_router
 from app.api.split import router as split_router
+from app.api.stays import days_router as weather_days_router
+from app.api.stays import router as stays_router
 from app.api.users import router as users_router
 from app.api.wardrobe_categories import router as wardrobe_categories_router
 from app.api.wardrobe_facets import router as wardrobe_facets_router
@@ -44,3 +46,5 @@ api_router.include_router(pairings_router)
 api_router.include_router(notifications_router, prefix="/notifications", tags=["notifications"])
 api_router.include_router(analytics_router)
 api_router.include_router(learning_router)
+api_router.include_router(stays_router)
+api_router.include_router(weather_days_router)

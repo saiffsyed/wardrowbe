@@ -1,4 +1,5 @@
 from app.models.collection import Collection, CollectionEntry
+from app.models.stay import Stay
 from app.models.family import Family, FamilyInvite
 from app.models.home import Home
 from app.models.identity import UserIdentity
@@ -21,6 +22,7 @@ from app.models.wardrobe_kind import WardrobeCustomKind
 __all__ = [
     "Collection",
     "CollectionEntry",
+    "Stay",
     "Family",
     "FamilyInvite",
     "Home",
