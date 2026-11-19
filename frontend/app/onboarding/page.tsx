@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { OnboardingHomesStep } from '@/components/wardrobe/onboarding-homes-step';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -50,7 +51,7 @@ function StepIndicator({ currentStep }: { currentStep: number }) {
   const STEPS = [
     { id: 'welcome', title: t('steps.welcome'), icon: Shirt },
     { id: 'family', title: t('steps.family'), icon: Users },
-    { id: 'location', title: t('steps.location'), icon: MapPin },
+    { id: 'homes', title: t('steps.homes'), icon: MapPin },
     { id: 'preferences', title: t('steps.style'), icon: Palette },
     { id: 'upload', title: t('steps.firstItem'), icon: Camera },
   ];
@@ -834,10 +835,7 @@ export default function OnboardingPage() {
           {currentStep === 0 && <WelcomeStep onNext={nextStep} />}
           {currentStep === 1 && <FamilyStep onNext={nextStep} onSkip={nextStep} />}
           {currentStep === 2 && (
-            <LocationStep
-              onNext={nextStep}
-              onSkip={nextStep}
-            />
+            <OnboardingHomesStep onNext={nextStep} onSkip={nextStep} />
           )}
           {currentStep === 3 && <PreferencesStep onNext={nextStep} onSkip={nextStep} />}
           {currentStep === 4 && <UploadStep onNext={nextStep} onSkip={nextStep} />}

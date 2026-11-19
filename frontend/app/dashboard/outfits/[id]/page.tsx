@@ -24,6 +24,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { SourceBadge } from '@/components/shared/source-badge';
 import { LineageCard } from '@/components/shared/lineage-card';
 import { CloneToLookbookDialog } from '@/components/shared/clone-to-lookbook-dialog';
+import { AddToCollectionButton, ArrangeLookButton } from '@/components/wardrobe/add-to-collection';
 import { useDeleteOutfit, useOutfit, useOutfits } from '@/lib/hooks/use-outfits';
 import { useWearToday } from '@/lib/hooks/use-studio';
 import { useUserToday } from '@/lib/hooks/use-user';
@@ -206,6 +207,8 @@ export default function OutfitDetailPage() {
             {t('detail.saveToLookbook')}
           </Button>
         )}
+        <ArrangeLookButton outfitId={outfit.id} />
+        <AddToCollectionButton holder={{ outfitId: outfit.id }} />
         {!isWorn && (
           <Button variant="outline" asChild>
             <Link href={`/dashboard/outfits/new?edit=${outfit.id}`}>

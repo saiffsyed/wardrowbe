@@ -1,5 +1,7 @@
 'use client';
 
+import type * as React from 'react';
+
 import { X, Trash2, RefreshCw, Loader2, CheckSquare, Square, MinusSquare, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, RotateCcw, RotateCw, Eraser } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,6 +42,8 @@ interface BulkActionToolbarProps {
   isRemovingBackground?: boolean;
   variant?: BulkDeleteVariant;
   pagination?: BulkToolbarPagination;
+  // More actions for the selection, shown before the rest (fork addition: Move to home).
+  extraActions?: React.ReactNode;
 }
 
 export interface BulkToolbarPagination {
@@ -65,6 +69,7 @@ export function BulkActionToolbar({
   isRemovingBackground = false,
   variant = 'items',
   pagination,
+  extraActions,
 }: BulkActionToolbarProps) {
   const t = useTranslations('common');
   const tWardrobe = useTranslations('wardrobe');
@@ -156,6 +161,7 @@ export function BulkActionToolbar({
             <X className="h-4 w-4" />
           </Button>
           <div className="h-4 w-px bg-border shrink-0" />
+          {extraActions}
           {onReanalyze && (
             <Button
               variant="outline"

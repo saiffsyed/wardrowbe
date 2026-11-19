@@ -11,6 +11,7 @@ from pillow_heif import register_heif_opener
 
 from app.config import get_settings
 from app.services import background_removal
+from app.utils import cutouts
 
 settings = get_settings()
 
@@ -203,6 +204,8 @@ class ImageService:
                 full_path = self.storage_path / path
                 if full_path.exists():
                     full_path.unlink()
+        if paths.get("image_path"):
+            cutouts.delete_cutouts(self.storage_path, paths["image_path"])
 
     def validate_image(self, image_data: bytes, content_type: str) -> bool:
         """Validate image data and content type."""
@@ -307,6 +310,7 @@ class ImageService:
         final = background.convert("RGB")
 
         paths = self._save_all_sizes(final, image_path)
+        cutouts.write_cutouts(self.storage_path, image_path, result)
         paths["original_backup_path"] = backup_path
         return paths
 
@@ -317,6 +321,7 @@ class ImageService:
 
         image = Image.open(backup_full).convert("RGB")
         paths = self._save_all_sizes(image, image_path)
+        cutouts.delete_cutouts(self.storage_path, image_path)
         backup_full.unlink()
         return paths
 
@@ -342,4 +347,5 @@ class ImageService:
 
         rotated = image.rotate(angle, expand=True)
 
+        cutouts.rotate_cutouts(self.storage_path, image_path, angle)
         return self._save_all_sizes(rotated, image_path)

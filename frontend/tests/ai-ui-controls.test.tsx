@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { openMoreActions } from './open-more-actions'
 import OutfitsPage from '@/app/dashboard/outfits/page'
 import { AddItemDialog } from '@/components/add-item-dialog'
 import { ItemDetailDialog } from '@/components/item-detail-dialog'
@@ -60,12 +61,13 @@ describe.each([true, false])('AI controls with ai_ui_enabled=%s', (aiUiEnabled) 
 
   it('item detail dialog suggest, pairings and re-analyze buttons follow the switch', () => {
     renderWithAiUi(<ItemDetailDialog item={item} open onOpenChange={() => {}} />, aiUiEnabled)
+    expect(screen.getByRole('button', { name: 'actions.logWear' })).toBeInTheDocument()
+    openMoreActions()
 
     expectShown(screen.queryByTitle('titles.suggestOutfit'))
     expectShown(screen.queryByTitle('titles.findMatchingOutfits'))
     expectShown(screen.queryByTitle('titles.reanalyzeWithAI'))
     expectShown(screen.queryByTitle('titles.reanalyzeAndReplace'))
-    expect(screen.getByRole('button', { name: 'actions.logWear' })).toBeInTheDocument()
   })
 
   it('add item type field mentions AI detection only when the switch is on', () => {

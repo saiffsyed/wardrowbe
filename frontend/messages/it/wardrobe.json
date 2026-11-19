@@ -256,7 +256,9 @@
       "wearsSinceWash": "Utilizzi dal lavaggio: {current}/{max}",
       "wornCount": "{count, plural, one {Indossato # volta} other {Indossato # volte}}"
     },
-    "washInterval": "Intervallo lavaggio"
+    "washInterval": "Intervallo lavaggio",
+    "closetEdit": "Modifica",
+    "moreActions": "Altre azioni"
   },
   "lightbox": {
     "openInWardrobe": "Apri nel guardaroba"
@@ -272,7 +274,9 @@
     "nameZA": "Nome Z–A",
     "newestFirst": "Più recenti prima",
     "oldestFirst": "Più vecchi prima",
-    "recentlyWorn": "Indossati di recente"
+    "recentlyWorn": "Indossati di recente",
+    "brandAZ": "Marca A–Z",
+    "priceHighLow": "Prezzo decrescente"
   },
   "splitPhoto": {
     "addBox": "Aggiungi un riquadro",
@@ -324,5 +328,646 @@
     "daysAgo": "Indossato {days}g fa",
     "today": "Indossato oggi",
     "yesterday": "Indossato ieri"
+  },
+  "closet": {
+    "homes": {
+      "here": "Questa casa",
+      "everywhere": "Tutte le case",
+      "scopeLabel": "Quali capi mostrare",
+      "youAreIn": "Sei a {home}",
+      "noHome": "Scegli dove ti trovi",
+      "setUp": "Imposta le tue case",
+      "setUpHint": "Indica all'app dove tieni i vestiti, così mostra quelli a portata di mano.",
+      "manage": "Gestisci le case",
+      "title": "Case",
+      "description": "I luoghi in cui tieni i vestiti. I nuovi capi vanno nella casa in cui ti trovi e il meteo segue la sua città.",
+      "name": "Nome",
+      "namePlaceholder": "es. Casa di Chennai",
+      "city": "Città",
+      "cityPlaceholder": "es. Chennai",
+      "add": "Aggiungi casa",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "editHome": "Modifica {home}",
+      "deleteHome": "Eliminare {home}?",
+      "deleteConfirm": "I suoi capi restano nel guardaroba, senza una casa.",
+      "current": "Sei qui",
+      "setCurrent": "Sono qui",
+      "itemCount": "{count, plural, one {# capo} other {# capi}}",
+      "errors": {
+        "saveFailed": "Impossibile salvare la casa",
+        "moveFailed": "Impossibile spostare i capi"
+      },
+      "moveSelected": "Sposta i capi selezionati in una casa",
+      "moveShort": "Sposta",
+      "moveTo": "Sposta in {home}",
+      "moved": "{count, plural, one {# capo spostato} other {# capi spostati}} in {home}",
+      "filterLabel": "Case"
+    },
+    "view": {
+      "label": "Vista",
+      "cutouts": "Solo foto",
+      "tiles": "Foto con dettagli",
+      "list": "Elenco con dettagli",
+      "select": "Seleziona {item}",
+      "processing": "In elaborazione",
+      "needsAttention": "Richiede attenzione",
+      "needsWash": "Da lavare"
+    },
+    "filters": {
+      "occasion": "Occasione",
+      "brand": "Marca",
+      "material": "Materiale",
+      "season": "Stagione",
+      "any": "{filter}: tutti",
+      "option": "{label} ({count})",
+      "toggle": "Filtri",
+      "color": "Colore",
+      "worn": "Indossato",
+      "inOutfits": "Outfit",
+      "wornOptions": {
+        "never": "Mai indossato",
+        "not_recently": "Non indossato da 3 mesi"
+      },
+      "inOutfitsOptions": {
+        "true": "In un outfit",
+        "false": "In nessun outfit"
+      }
+    },
+    "list": {
+      "size": "Taglia {size}",
+      "worn": "{count, plural, =0 {Mai indossato} one {Indossato una volta} other {Indossato # volte}}"
+    },
+    "details": {
+      "title": "Dettagli",
+      "edit": "Modifica dettagli",
+      "add": "Aggiungi dettagli",
+      "scanLabel": "Scansiona etichetta",
+      "empty": "Aggiungi taglia, materiale e dove lo hai comprato.",
+      "home": "Si trova a",
+      "none": "Non impostato",
+      "brand": "Marca",
+      "size": "Taglia",
+      "sizeSystem": "Sistema di taglie",
+      "sizeSystemPlaceholder": "es. EU, UK, IN",
+      "fitNote": "Nota sulla vestibilità",
+      "fitNotePlaceholder": "es. veste piccolo",
+      "boughtIn": "Comprato a",
+      "boughtInPlaceholder": "Città o paese in cui lo hai comprato",
+      "care": "Cura",
+      "carePlaceholder": "es. Solo lavaggio a secco",
+      "materials": "Materiale",
+      "compositionSummary": "Composizione: {summary}",
+      "materialName": "Materiale {number}",
+      "materialPercent": "Percentuale del materiale {number}",
+      "removeMaterial": "Rimuovi materiale {number}",
+      "addMaterial": "Aggiungi materiale",
+      "tooMuch": "Le percentuali superano il 100.",
+      "occasions": "Occasioni",
+      "occasionPlaceholder": "es. matrimonio",
+      "addOccasion": "Aggiungi",
+      "removeOccasion": "Rimuovi {occasion}",
+      "save": "Salva dettagli",
+      "cancel": "Annulla",
+      "saved": "Dettagli salvati",
+      "saveFailed": "Impossibile salvare i dettagli",
+      "status": "Stato",
+      "statusReady": "Pronto da indossare",
+      "statusNeedsWash": "Da lavare",
+      "boughtOn": "Acquistato il",
+      "price": "Prezzo",
+      "currency": "Valuta"
+    },
+    "labelScan": {
+      "title": "Scansiona l'etichetta",
+      "pickHint": "Fotografa l'etichetta di manutenzione. Aggiungi l'altro lato o il cartellino se le informazioni sono divise.",
+      "reviewHint": "Controlla ciò che è stato letto. Nulla viene salvato finché non confermi.",
+      "unreadTitle": "Non è stato possibile leggere l'etichetta",
+      "photos": "Foto dell'etichetta",
+      "photoNumber": "Foto etichetta {number}",
+      "removePhoto": "Rimuovi la foto etichetta {number}",
+      "addPhoto": "Aggiungi una foto dell'etichetta",
+      "addAnother": "Aggiungi un'altra foto",
+      "tip": "Stendi bene l'etichetta, con buona luce, e inquadrala da vicino. Fino a 3 foto.",
+      "cancel": "Annulla",
+      "read": "Leggi etichetta",
+      "reading": "Lettura dell'etichetta…",
+      "unread": {
+        "nothing_read": "In queste foto non si distingue alcun dettaglio. Riprova più da vicino e con più luce.",
+        "ai_disabled": "La lettura delle etichette è disattivata su questo server.",
+        "ai_unreachable": "Il servizio di IA non è raggiungibile. Riprova tra un momento."
+      },
+      "photosKept": "Le foto restano salvate con questo capo, così puoi ricontrollarle in seguito.",
+      "close": "Chiudi",
+      "confirm": "Conferma",
+      "saved": "Dettagli dell'etichetta salvati",
+      "saveFailed": "Impossibile salvare i dettagli",
+      "scanFailed": "Impossibile scansionare l'etichetta",
+      "alreadySaved": "{field} · già salvato",
+      "fromLabelValue": "{field} dall'etichetta",
+      "take": "Salva {field}",
+      "differs": "{field} · l'etichetta riporta altro",
+      "keepSaved": "Mantieni il valore salvato",
+      "useLabel": "Usa l'etichetta",
+      "openPhoto": "Apri la foto etichetta {number}",
+      "deletePhoto": "Elimina foto",
+      "removeFailed": "Impossibile eliminare la foto",
+      "optionalStep": "Foto dell'etichetta (facoltativo)",
+      "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te."
+    },
+    "display": {
+      "title": "Aspetto",
+      "description": "Scegli l'aspetto dell'app.",
+      "system": "Come il telefono",
+      "light": "Chiaro",
+      "dark": "Scuro"
+    },
+    "header": {
+      "title": "Guardaroba",
+      "count": "{count, plural, one {# capo} other {# capi}}",
+      "search": "Cerca nel guardaroba",
+      "closeSearch": "Chiudi la ricerca"
+    },
+    "categories": {
+      "label": "Categoria",
+      "all": "Tutti",
+      "allOf": "Tutto: {group}",
+      "indian": "Abiti indiani",
+      "western": "Abiti occidentali",
+      "shoes": "Scarpe",
+      "jewellery": "Gioielli",
+      "accessories": "Accessori",
+      "sarees": "Sari",
+      "kurtas-suits": "Kurta e completi",
+      "lehengas": "Lehenga",
+      "dupattas": "Dupatta e stole",
+      "indian-bottoms": "Pantaloni",
+      "tops": "Parti sopra",
+      "bottoms": "Parti sotto",
+      "dresses": "Abiti e completi",
+      "outerwear": "Giacche e cappotti",
+      "indian-shoes": "Indiane",
+      "flats-sandals": "Basse e sandali",
+      "heels": "Tacchi",
+      "sneakers": "Sneakers",
+      "boots": "Stivali",
+      "formal-shoes": "Scarpe eleganti",
+      "socks": "Calze",
+      "necklaces": "Collane",
+      "earrings": "Orecchini",
+      "bangles": "Bracciali e bangle",
+      "rings": "Anelli",
+      "hair-head": "Capelli e testa",
+      "anklets": "Cavigliere e anelli da piede",
+      "waist-belts": "Cinture gioiello",
+      "watches": "Orologi",
+      "bags": "Borse",
+      "belts": "Cinture",
+      "scarves": "Sciarpe",
+      "hats": "Cappelli",
+      "ties": "Cravatte e gemelli",
+      "other-accessories": "Altro"
+    },
+    "categorySettings": {
+      "title": "Categorie",
+      "description": "I gruppi in cui è ordinato il tuo guardaroba. Rinominali, aggiungine di tuoi e scegli quali tipi di capo contengono.",
+      "addGroup": "Aggiungi un gruppo",
+      "addSubgroup": "Aggiungi a {group}",
+      "newSubgroup": "Nuova categoria",
+      "editTitle": "Modifica categoria",
+      "editNamed": "Modifica {name}",
+      "groupHint": "Un gruppo principale, come Abiti indiani. I capi stanno nelle sue sottocategorie.",
+      "subgroupHint": "Spunta i tipi di capo che vanno qui. Ogni tipo sta in una sola categoria.",
+      "name": "Nome",
+      "namePlaceholder": "es. Sari di seta",
+      "types": "Tipi di capo",
+      "noTypes": "Ancora nessun tipo di capo",
+      "inOther": "in {category}",
+      "unplaced": "In nessuna categoria: {types}. Compaiono solo sotto Tutti.",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "deleteConfirm": "Tocca di nuovo per eliminare",
+      "reset": "Torna alle categorie standard",
+      "resetConfirm": "Tocca di nuovo per ripristinare",
+      "resetDone": "Categorie standard ripristinate",
+      "saved": "Categorie salvate",
+      "saveFailed": "Impossibile salvare le categorie",
+      "kindsTitle": "I tuoi tipi di capo",
+      "kindsHint": "Possiedi qualcosa che non è nell'elenco? Aggiungilo qui. Comparirà quando aggiungi o modifichi un capo.",
+      "kindOf": "un tipo di {type}",
+      "deleteKind": "Elimina {name}",
+      "addKind": "Aggiungi un tipo di capo",
+      "kindAdded": "Tipo di capo aggiunto",
+      "kindSheetHint": "Dagli il nome che usi e indica a cosa somiglia di più.",
+      "kindNamePlaceholder": "es. Pattu pavadai",
+      "kindBase": "È un tipo di",
+      "kindBasePlaceholder": "Scegli il più simile",
+      "kindBaseHint": "Serve per gli outfit e i lavaggi. Resta nella stessa categoria finché non lo sposti."
+    },
+    "more": {
+      "title": "Altro",
+      "back": "Altro",
+      "features": "Funzioni",
+      "settings": "Impostazioni",
+      "language": "Lingua",
+      "accountHint": "Chi ha effettuato l'accesso e la lingua dell'app.",
+      "items": {
+        "insights": {
+          "title": "Statistiche",
+          "hint": "Numeri e tendenze"
+        },
+        "history": {
+          "title": "Cronologia",
+          "hint": "Cosa hai indossato"
+        },
+        "family": {
+          "title": "Famiglia",
+          "hint": "Chi condivide l'app"
+        },
+        "homes": {
+          "title": "Case"
+        },
+        "categories": {
+          "title": "Categorie"
+        },
+        "display": {
+          "title": "Aspetto"
+        },
+        "notifications": {
+          "title": "Notifiche"
+        },
+        "account": {
+          "title": "Account"
+        },
+        "style": {
+          "title": "Il mio stile"
+        },
+        "body": {
+          "title": "Corpo e vestibilità"
+        },
+        "weather": {
+          "title": "Comfort meteo"
+        },
+        "suggestions": {
+          "title": "Suggerimenti"
+        },
+        "dressingRoom": {
+          "title": "Camerino"
+        },
+        "laundry": {
+          "title": "Bucato",
+          "hint": "Lavatrice e lavanderia"
+        }
+      }
+    },
+    "onboarding": {
+      "title": "Dove tieni i tuoi vestiti?",
+      "description": "Aggiungi ogni luogo, come Chennai o l'Europa, con la sua città. L'app mostra cosa c'è nella casa in cui ti trovi e il meteo segue quella città.",
+      "addOneFirst": "Aggiungi una casa per continuare",
+      "continue": "Continua con {count, plural, one {# casa} other {# case}}",
+      "skip": "Salta per ora"
+    },
+    "groupBy": {
+      "label": "Raggruppa",
+      "none": "Nessun raggruppamento",
+      "by": "Raggruppa per {what}",
+      "type": "tipo",
+      "color": "colore",
+      "home": "casa",
+      "brand": "marca",
+      "noColor": "Nessun colore",
+      "noHome": "Nessuna casa",
+      "noBrand": "Nessuna marca"
+    },
+    "tabs": {
+      "label": "Sezioni del guardaroba",
+      "clothes": "Vestiti",
+      "lookbook": "Lookbook",
+      "collections": "Collezioni"
+    },
+    "lookbook": {
+      "count": "{count, plural, one {# look} other {# look}}",
+      "new": "Nuovo",
+      "loadError": "Impossibile caricare i tuoi look.",
+      "emptyTitle": "Nessun look salvato",
+      "emptyHint": "Crea un outfit, oppure aprine uno indossato e tocca «Salva nel lookbook».",
+      "loadMore": "Mostra altro"
+    },
+    "collections": {
+      "count": "{count, plural, one {# collezione} other {# collezioni}}",
+      "new": "Nuova",
+      "created": "«{name}» creata",
+      "saveError": "Salvataggio non riuscito. Riprova.",
+      "loadError": "Impossibile caricare le tue collezioni.",
+      "emptyTitle": "Nessuna collezione",
+      "emptyHint": "Raggruppa vestiti e outfit, come «Stagione dei matrimoni» o «Settimana in ufficio». Aggiungi da qualsiasi capo o outfit.",
+      "entryCount": "{count, plural, one {# elemento} other {# elementi}}",
+      "newTitle": "Nuova collezione",
+      "create": "Crea",
+      "nameLabel": "Nome della collezione",
+      "namePlaceholder": "es. Stagione dei matrimoni",
+      "addTitle": "Aggiungi a collezione",
+      "addHint": "Tocca una collezione per aggiungerlo.",
+      "newPlaceholder": "Nome della nuova collezione",
+      "addedTo": "Aggiunto a «{name}»",
+      "alreadyIn": "Già in «{name}»",
+      "inThis": "Già in questa collezione",
+      "back": "Collezioni",
+      "notFound": "Collezione non trovata.",
+      "removed": "«{name}» tolto",
+      "done": "Fine",
+      "edit": "Modifica",
+      "more": "Altre azioni",
+      "rename": "Rinomina",
+      "delete": "Elimina",
+      "emptyCollection": "Ancora niente qui",
+      "emptyCollectionHint": "Apri un capo o un outfit, tocca ⋯ o «Aggiungi a collezione» e scegli questa.",
+      "clothesHeading": "{count, plural, one {Vestiti · #} other {Vestiti · #}}",
+      "outfitsHeading": "{count, plural, one {Outfit · #} other {Outfit · #}}",
+      "remove": "Togli «{name}»",
+      "renameTitle": "Rinomina collezione",
+      "save": "Salva",
+      "deleteTitle": "Eliminare «{name}»?",
+      "deleteHint": "La collezione viene eliminata. Vestiti e outfit restano nel tuo guardaroba.",
+      "cancel": "Annulla",
+      "deleted": "«{name}» eliminata"
+    },
+    "photoTip": {
+      "short": "Consiglio: stendilo alla luce del giorno, tutto il capo nella foto.",
+      "more": "Altri consigli",
+      "less": "Meno consigli",
+      "flat": "Stendi il capo o appendilo davanti a una parete neutra.",
+      "light": "Usa la luce del giorno ed evita ombre forti.",
+      "whole": "Tutto il capo nella foto, un capo per foto.",
+      "special": "Sari: piegalo in modo che si vedano bordo e pallu. Gioielli: su una superficie neutra."
+    },
+    "startScreen": {
+      "title": "L’app si apre su",
+      "description": "La schermata iniziale dell’app, su ogni tuo dispositivo.",
+      "wardrobe": "Guardaroba",
+      "lookbook": "Lookbook",
+      "outfits": "Outfit",
+      "plan": "Pianifica",
+      "saveError": "Salvataggio non riuscito. Riprova."
+    },
+    "weather": {
+      "feelsLike": "percepita {temp}",
+      "rain": "Pioggia {percent}%",
+      "humidity": "Umidità {percent}%",
+      "open": "Meteo di oggi: apri Pianifica",
+      "inCity": "a {city}"
+    },
+    "stays": {
+      "title": "Dove sarai?",
+      "hint": "Scegli una delle tue case o scrivi una città, poi i giorni. Gli altri giorni restano alla casa attuale.",
+      "yourHomes": "Le tue case",
+      "otherCity": "Altra città",
+      "cityPlaceholder": "es. Bangalore",
+      "to": "Al",
+      "save": "Salva soggiorno",
+      "saved": "Salvato: {city}",
+      "cityNotFound": "Nessuna città chiamata «{city}». Controlla come è scritta.",
+      "saveError": "Salvataggio non riuscito. Riprova.",
+      "rowTitle": "Dove sarò",
+      "add": "Sarò altrove",
+      "addFrom": "Aggiungi un soggiorno dal {day}",
+      "noCity": "Casa",
+      "remove": "Rimuovi il soggiorno a {city}",
+      "removed": "Soggiorno a {city} rimosso",
+      "legend": "Grigio: la casa attuale. Colorato: un soggiorno aggiunto. Tocca un giorno per aggiungerne uno.",
+      "prompt": "Oggi sei a {home}. Mostrare i vestiti che hai lì?",
+      "promptYes": "Sì, cambia",
+      "promptNo": "Non ora",
+      "from": "Dal"
+    },
+    "weatherScreen": {
+      "back": "Guardaroba",
+      "unavailable": "Il meteo non è disponibile al momento. Riprova più tardi.",
+      "title": "Meteo",
+      "today": "Oggi",
+      "range": "Oggi, minima e massima",
+      "rain": "Pioggia",
+      "humidity": "Umidità",
+      "uv": "UV",
+      "plannedToday": "Previsto per oggi",
+      "planToday": "Pianifica l’outfit di oggi",
+      "nextDays": "Prossimi 7 giorni",
+      "noForecast": "Previsioni non ancora disponibili",
+      "plannedFor": "Previsto per {day}",
+      "planOutfit": "Pianifica outfit",
+      "planned": "Outfit pianificato per {day}",
+      "planError": "Impossibile pianificare un outfit. Riprova.",
+      "addStay": "Aggiungi soggiorno",
+      "hints": {
+        "storm": "Temporali: tessuti ad asciugatura rapida, niente seta",
+        "rain": "Pioggia probabile: niente scamosciato o seta, scarpe chiuse",
+        "hotHumid": "Caldo umido: cotone leggero o lino",
+        "hot": "Caldo: tessuti leggeri e larghi",
+        "coolEvening": "Sera fresca: porta un dupatta o una giacca leggera",
+        "cold": "Freddo: strati caldi e cappotto",
+        "cool": "Fresco: un maglione o una giacca leggera",
+        "mild": "Mite: va bene quasi tutto"
+      }
+    },
+    "planner": {
+      "title": "Agenda",
+      "today": "Oggi",
+      "day": "Giorno",
+      "month": "Mese",
+      "tomorrow": "Domani",
+      "previousWeek": "Settimana precedente",
+      "nextWeek": "Settimana successiva",
+      "rain": "pioggia {percent}%",
+      "addOutfit": "Aggiungi outfit",
+      "beIn": "Sarai a {city}",
+      "noPlace": "Nessun luogo impostato",
+      "change": "Cambia",
+      "forecastLater": "Il meteo di questo giorno compare circa due settimane prima.",
+      "previousMonth": "Mese precedente",
+      "nextMonth": "Mese successivo",
+      "monthLegend": "Icone piccole: il meteo, fin dove arrivano le previsioni. Linea viola: un giorno altrove. Tocca un giorno per aprirlo.",
+      "wind": "Vento km/h",
+      "sheetHint": "Il meteo di questo giorno e cosa indossare",
+      "low": "minima {temp}",
+      "suggestForWeather": "Suggerisci un outfit per questo meteo",
+      "removeStay": "Rimuovi il soggiorno a {city}",
+      "changePlace": "Questo giorno sarò altrove",
+      "nextDays": "Vedi i prossimi 7 giorni",
+      "back": "Indietro",
+      "pickTitle": "Scegli dal tuo lookbook",
+      "addTitle": "Aggiungi un outfit per {day}",
+      "addHint": "Scegli come aggiungere un outfit a questo giorno",
+      "suggestHint": "Scelto per il meteo del giorno",
+      "fromLookbook": "Dal lookbook",
+      "fromLookbookHint": "Uno dei tuoi look salvati",
+      "makeNew": "Creane uno nuovo",
+      "makeNewHint": "Apre il creatore di outfit",
+      "noLooks": "Nessun look salvato.",
+      "added": "Outfit aggiunto per {day}",
+      "addError": "Impossibile aggiungere l’outfit. Riprova."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "Il mio stile",
+        "hint": "I colori che ami e quelli da evitare, e gli stili che preferisci."
+      },
+      "body": {
+        "title": "Corpo e vestibilità",
+        "hint": "Le tue misure, per suggerimenti più adatti."
+      },
+      "weather": {
+        "title": "Comfort meteo",
+        "hint": "°C o °F, quanto senti caldo o freddo, e gli strati."
+      },
+      "suggestions": {
+        "title": "Suggerimenti",
+        "hint": "Come vengono scelti gli outfit per te."
+      }
+    },
+    "maker": {
+      "title": "Nuovo look",
+      "suggestions": "Suggerimenti",
+      "fromLookbook": "Dal lookbook",
+      "fromLookbookHint": "Parti da un look salvato",
+      "noLooks": "Nessun look salvato.",
+      "noClothes": "Ancora nessun capo qui.",
+      "selected": "{count, plural, one {# selezionato} other {# selezionati}}",
+      "unpick": "Togli",
+      "collage": "Collage",
+      "next": "Avanti",
+      "backToPick": "Torna alla scelta",
+      "boardHint": "Trascina per spostare · pizzica per ridimensionare · tocca per Davanti, Dietro o Rimuovi",
+      "background": "Sfondo",
+      "addClothes": "Aggiungi capi",
+      "addClothesHint": "Spunta i capi da mettere sulla tavola",
+      "switchMode": "Cambia modalità",
+      "done": "Fatto",
+      "backToBoard": "Torna alla tavola",
+      "saveTitle": "Salva look",
+      "name": "Nome",
+      "namePlaceholder": "es. Giornata kurti turchese",
+      "occasion": "Occasione",
+      "planDay": "Giorno",
+      "saveAndPlan": "Salva e pianifica",
+      "saveChanges": "Salva modifiche",
+      "saveToLookbook": "Salva nel lookbook",
+      "saveToLookbookInstead": "Salva invece nel lookbook",
+      "planForDay": "Salva e pianifica per un giorno…",
+      "saveAsNew": "Salva come nuovo look",
+      "saved": "Salvato nel tuo lookbook",
+      "plannedFor": "Pianificato per {day}",
+      "saveError": "Impossibile salvare il look. Riprova.",
+      "piece": "Capo sulla tavola",
+      "front": "Davanti",
+      "back": "Dietro",
+      "remove": "Rimuovi",
+      "arrange": "Disponi",
+      "backgrounds": {
+        "ffffff": "Bianco",
+        "f6f1e7": "Crema",
+        "e9ecea": "Grigio chiaro",
+        "111316": "Nero"
+      },
+      "backToRoom": "Torna al camerino"
+    },
+    "dressing": {
+      "piece": "{kind} sulla figura",
+      "empty": "Tocca Capi per vestire la figura.",
+      "back": "Indietro",
+      "next": "Avanti",
+      "done": "Fatto",
+      "lock": "Blocca questo capo",
+      "unlock": "Sblocca questo capo",
+      "shuffleOne": "Un altro",
+      "remove": "Togli",
+      "shuffledFor": "Mescolato per {temp}°",
+      "shuffled": "Mescolato",
+      "undo": "Annulla",
+      "clothes": "Capi",
+      "occasion": "Occasione",
+      "shuffle": "Mescola",
+      "switchMode": "Cambia modalità",
+      "closeSheet": "Chiudi",
+      "occasionTitle": "Vestiti per un’occasione",
+      "any": "Tutti",
+      "occasionHint": "Sceglie i capi adatti in ogni posto libero.",
+      "noneHere": "Niente di questo tipo in questa casa.",
+      "unlockFirst": "Sbloccalo per cambiarlo",
+      "groups": {
+        "jewellery": "Gioielli",
+        "tops": "Top",
+        "layers": "Giacche",
+        "bottoms": "Pantaloni e gonne",
+        "shoes": "Scarpe",
+        "accessories": "Accessori"
+      },
+      "settings": {
+        "title": "Camerino",
+        "description": "La figura e i colori del tuo camerino. Solo tu vedi la tua scelta.",
+        "figure": "Figura",
+        "women": "Donna",
+        "men": "Uomo",
+        "background": "Sfondo",
+        "figureColour": "Colore della figura",
+        "saveError": "Impossibile salvare. Riprova.",
+        "colours": {
+          "sameAsApp": "Come l’app",
+          "white": "Bianco",
+          "cream": "Crema",
+          "lightGrey": "Grigio chiaro",
+          "sage": "Salvia",
+          "black": "Nero",
+          "beige": "Beige",
+          "brown": "Marrone",
+          "darkGrey": "Grigio scuro"
+        }
+      }
+    },
+    "laundry": {
+      "title": "Bucato",
+      "tabs": {
+        "to_wash": "Da lavare",
+        "wash": "In lavatrice",
+        "dry": "Lavanderia"
+      },
+      "hints": {
+        "to_wash": "Indossati abbastanza da lavare. Spunta cosa va in lavatrice oggi.",
+        "wash": "In lavatrice o ad asciugare. Spunta cosa è pulito e di nuovo nell’armadio.",
+        "dry": "In lavanderia. Spunta cosa è tornato."
+      },
+      "empty": {
+        "to_wash": "Niente da lavare.",
+        "wash": "Niente in lavatrice.",
+        "dry": "Niente in lavanderia."
+      },
+      "selected": "{count, plural, one {# selezionato} other {# selezionati}}",
+      "tapToSelect": "Tocca per selezionare",
+      "selectAll": "Seleziona tutto",
+      "clear": "Deseleziona",
+      "actions": {
+        "wash": "Lavo ora",
+        "dry": "Lavanderia",
+        "back": "Di nuovo nell’armadio"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# in lavatrice} other {# in lavatrice}}",
+        "dry": "{count, plural, one {# in lavanderia} other {# in lavanderia}}",
+        "back": "{count, plural, one {# tornato · contato come lavato} other {# tornati · contati come lavati}}"
+      },
+      "moveError": "Impossibile spostare i capi. Riprova.",
+      "badge": {
+        "need": "Da lavare",
+        "wash": "In lavatrice",
+        "dry": "Lavanderia"
+      },
+      "menu": {
+        "wash": "Metti in lavatrice",
+        "dry": "Porta in lavanderia",
+        "back": "Di nuovo nell’armadio"
+      },
+      "count": "{count, plural, one {# nel bucato} other {# nel bucato}}"
+    }
   }
 }

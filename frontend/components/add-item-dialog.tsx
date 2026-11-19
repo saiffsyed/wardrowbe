@@ -39,7 +39,12 @@ import { useCreateItem, useBulkCreateItems, BulkUploadResponse } from '@/lib/hoo
 import { useClothingTypes, useClothingColors } from '@/lib/hooks/use-translated-constants';
 import { ACCEPTED_IMAGE_TYPES } from '@/lib/image-types';
 import { useTranslations } from 'next-intl';
+import { PhotoTip } from '@/components/wardrobe/photo-tip';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
+import { LabelPhotoPicker } from '@/components/wardrobe/label-photo-picker';
+import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
+import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
+import type { Item } from '@/lib/types';
 
 interface AddItemDialogProps {
   open: boolean;
@@ -59,6 +64,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   const clothingTypes = useClothingTypes();
   const clothingColors = useClothingColors();
   const aiUiEnabled = useAiUiEnabled();
+  const { kinds: customKinds, resolve: resolveKind } = useCustomKinds();
   // Single upload state
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -67,6 +73,9 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   const [brand, setBrand] = useState('');
   const [primaryColor, setPrimaryColor] = useState('');
   const [notes, setNotes] = useState('');
+  // Label photos chosen with the item, read once the item exists.
+  const [labelFiles, setLabelFiles] = useState<File[]>([]);
+  const [labelScan, setLabelScan] = useState<{ item: Item; files: File[] } | null>(null);
 
   // Bulk upload state
   const [bulkFiles, setBulkFiles] = useState<FileWithPreview[]>([]);
@@ -137,14 +146,19 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
     const formData = new FormData();
     formData.append('image', file);
     // Type is optional - AI will detect if not provided
-    if (type) formData.append('type', type);
+    // One of the person's own kinds is sent as the built-in type it is a kind of, with its name
+    // as the subtype.
+    const chosen = resolveKind(type);
+    if (chosen.type) formData.append('type', chosen.type);
+    if (chosen.subtype) formData.append('subtype', chosen.subtype);
     if (name) formData.append('name', name);
     if (brand) formData.append('brand', brand);
     if (primaryColor) formData.append('primary_color', primaryColor);
     if (notes) formData.append('notes', notes);
 
     try {
-      await createItem.mutateAsync(formData);
+      const created: Item = await createItem.mutateAsync(formData);
+      if (labelFiles.length) setLabelScan({ item: created, files: labelFiles });
       handleClose();
     } catch (error) {
       console.error('Failed to create item:', error);
@@ -209,6 +223,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
     setBrand('');
     setPrimaryColor('');
     setNotes('');
+    setLabelFiles([]);
 
     // Bulk upload cleanup - also clean up from the ref
     bulkFiles.forEach((f) => {
@@ -253,7 +268,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
   return (
     <>
     <Dialog open={open} onOpenChange={handleCloseRequest}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>
@@ -308,6 +323,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                   </Button>
                 </div>
               )}
+              {!preview && <PhotoTip />}
 
               <div className="space-y-3">
                 <div className="space-y-2">
@@ -317,6 +333,11 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                       <SelectValue placeholder={aiUiEnabled ? t('letAiDetect') : t('selectPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
+                      {customKinds.map((kind) => (
+                        <SelectItem key={kind.id} value={CUSTOM_KIND_PREFIX + kind.id}>
+                          {kind.name}
+                        </SelectItem>
+                      ))}
                       {clothingTypes.map((ct) => (
                         <SelectItem key={ct.value} value={ct.value}>
                           {ct.label}
@@ -381,6 +402,8 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                 </div>
               </div>
 
+              {preview && <LabelPhotoPicker files={labelFiles} onChange={setLabelFiles} />}
+
               <div className="flex justify-end gap-2 pt-2">
                 <Button type="button" variant="outline" onClick={handleCloseRequest}>
                   {tc('cancel')}
@@ -422,6 +445,7 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
                       : t('dropzone')}
                   </p>
                 </div>
+                <PhotoTip />
 
                 {bulkFiles.length > 0 && (
                   <div className="space-y-3">
@@ -605,6 +629,15 @@ export function AddItemDialog({ open, onOpenChange }: AddItemDialogProps) {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+
+    {labelScan && (
+      <LabelScanDialog
+        item={labelScan.item}
+        initialFiles={labelScan.files}
+        open
+        onOpenChange={(next) => !next && setLabelScan(null)}
+      />
+    )}
     </>
   );
 }

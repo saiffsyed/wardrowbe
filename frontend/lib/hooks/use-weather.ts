@@ -18,5 +18,8 @@ export function useWeather() {
     enabled: status !== 'loading',
     staleTime: WEATHER_STALE_TIME,
     retry: false, // Don't retry if location not set
+    // A missing location is not an error to shout about: the Plan screen's weather card says
+    // so itself, and a brand-new account has none until its first home is added.
+    meta: { toastsOwnErrors: true },
   });
 }

@@ -49,6 +49,7 @@
   "steps": {
     "family": "Family",
     "firstItem": "First Item",
+    "homes": "Homes",
     "location": "Location",
     "style": "Style",
     "welcome": "Welcome"

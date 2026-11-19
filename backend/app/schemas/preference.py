@@ -67,6 +67,9 @@ class StyleProfile(BaseModel):
     )
 
 
+START_SCREEN_PATTERN = "^(wardrobe|lookbook|outfits|plan)$"
+
+
 class PreferenceBase(BaseModel):
     # Color preferences
     color_favorites: list[str] = Field(default_factory=list, description="Favorite colors")
@@ -124,6 +127,11 @@ class PreferenceBase(BaseModel):
         pattern="^(low|moderate|high)$",
         description="Outfit variety preference",
     )
+    start_screen: str = Field(
+        default="wardrobe",
+        pattern=START_SCREEN_PATTERN,
+        description="The screen the app opens on",
+    )
 
     # AI Settings
     ai_endpoints: list[AIEndpoint] = Field(
@@ -151,6 +159,7 @@ class PreferenceUpdate(BaseModel):
     )
     prefer_underused_items: bool | None = None
     variety_level: str | None = Field(default=None, pattern="^(low|moderate|high)$")
+    start_screen: str | None = Field(default=None, pattern=START_SCREEN_PATTERN)
     ai_endpoints: list[AIEndpoint] | None = None
 
 

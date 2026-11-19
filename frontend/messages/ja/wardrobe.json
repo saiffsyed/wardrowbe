@@ -256,7 +256,9 @@
       "wearsSinceWash": "洗濯後の着用：{current}/{max}",
       "wornCount": "{count, plural, one {# 回着用} other {# 回着用}}"
     },
-    "washInterval": "洗濯間隔"
+    "washInterval": "洗濯間隔",
+    "closetEdit": "編集",
+    "moreActions": "その他の操作"
   },
   "lightbox": {
     "openInWardrobe": "ワードローブで開く"
@@ -272,7 +274,9 @@
     "nameZA": "名前 Z–A",
     "newestFirst": "新しい順",
     "oldestFirst": "古い順",
-    "recentlyWorn": "最近着用"
+    "recentlyWorn": "最近着用",
+    "brandAZ": "ブランド順",
+    "priceHighLow": "価格の高い順"
   },
   "splitPhoto": {
     "addBox": "枠を追加",
@@ -324,5 +328,646 @@
     "daysAgo": "{days}日前に着用",
     "today": "今日着用",
     "yesterday": "昨日着用"
+  },
+  "closet": {
+    "homes": {
+      "here": "この家",
+      "everywhere": "すべての家",
+      "scopeLabel": "表示する服",
+      "youAreIn": "現在地：{home}",
+      "noHome": "現在地を選択",
+      "setUp": "家を設定",
+      "setUpHint": "服の保管場所を登録すると、手元にある服だけを表示できます。",
+      "manage": "家を管理",
+      "title": "家",
+      "description": "服を保管している場所です。新しいアイテムは現在いる家に追加され、天気はその都市に合わせます。",
+      "name": "名前",
+      "namePlaceholder": "例：チェンナイの家",
+      "city": "都市",
+      "cityPlaceholder": "例：チェンナイ",
+      "add": "家を追加",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "editHome": "{home}を編集",
+      "deleteHome": "{home}を削除しますか？",
+      "deleteConfirm": "アイテムは家の指定なしでワードローブに残ります。",
+      "current": "現在地",
+      "setCurrent": "ここにいます",
+      "itemCount": "{count, plural, other {#点}}",
+      "errors": {
+        "saveFailed": "家を保存できませんでした",
+        "moveFailed": "アイテムを移動できませんでした"
+      },
+      "moveSelected": "選択したアイテムを住まいに移動",
+      "moveShort": "移動",
+      "moveTo": "{home}に移動",
+      "moved": "{count}点を{home}に移動しました",
+      "filterLabel": "家"
+    },
+    "view": {
+      "label": "表示",
+      "cutouts": "写真のみ",
+      "tiles": "写真と詳細",
+      "list": "詳細リスト",
+      "select": "{item}を選択",
+      "processing": "処理中",
+      "needsAttention": "確認が必要",
+      "needsWash": "洗濯が必要"
+    },
+    "filters": {
+      "occasion": "シーン",
+      "brand": "ブランド",
+      "material": "素材",
+      "season": "季節",
+      "any": "{filter}：すべて",
+      "option": "{label}（{count}）",
+      "toggle": "フィルター",
+      "color": "色",
+      "worn": "着用",
+      "inOutfits": "コーディネート",
+      "wornOptions": {
+        "never": "未着用",
+        "not_recently": "3か月着ていない"
+      },
+      "inOutfitsOptions": {
+        "true": "コーディネートあり",
+        "false": "コーディネートなし"
+      }
+    },
+    "list": {
+      "size": "サイズ {size}",
+      "worn": "{count, plural, =0 {未着用} other {#回着用}}"
+    },
+    "details": {
+      "title": "詳細",
+      "edit": "詳細を編集",
+      "add": "詳細を追加",
+      "scanLabel": "ラベルをスキャン",
+      "empty": "サイズ、素材、購入場所を追加しましょう。",
+      "home": "保管場所",
+      "none": "未設定",
+      "brand": "ブランド",
+      "size": "サイズ",
+      "sizeSystem": "サイズ規格",
+      "sizeSystemPlaceholder": "例：EU、UK、IN",
+      "fitNote": "フィット感メモ",
+      "fitNotePlaceholder": "例：小さめ",
+      "boughtIn": "購入場所",
+      "boughtInPlaceholder": "購入した都市または国",
+      "care": "お手入れ",
+      "carePlaceholder": "例：ドライクリーニングのみ",
+      "materials": "素材",
+      "compositionSummary": "素材：{summary}",
+      "materialName": "素材{number}",
+      "materialPercent": "素材{number}の割合",
+      "removeMaterial": "素材{number}を削除",
+      "addMaterial": "素材を追加",
+      "tooMuch": "割合の合計が100を超えています。",
+      "occasions": "シーン",
+      "occasionPlaceholder": "例：結婚式",
+      "addOccasion": "追加",
+      "removeOccasion": "{occasion}を削除",
+      "save": "詳細を保存",
+      "cancel": "キャンセル",
+      "saved": "詳細を保存しました",
+      "saveFailed": "詳細を保存できませんでした",
+      "status": "状態",
+      "statusReady": "着用できます",
+      "statusNeedsWash": "洗濯が必要",
+      "boughtOn": "購入日",
+      "price": "価格",
+      "currency": "通貨"
+    },
+    "labelScan": {
+      "title": "ラベルをスキャン",
+      "pickHint": "洗濯表示ラベルを撮影してください。情報が分かれている場合は、裏面や下げ札も追加できます。",
+      "reviewHint": "読み取った内容を確認してください。確定するまで何も保存されません。",
+      "unreadTitle": "ラベルを読み取れませんでした",
+      "photos": "ラベルの写真",
+      "photoNumber": "ラベルの写真 {number}",
+      "removePhoto": "ラベルの写真 {number} を削除",
+      "addPhoto": "ラベルの写真を追加",
+      "addAnother": "写真をもう1枚追加",
+      "tip": "ラベルを平らにして、明るい場所で画面いっぱいに写してください。最大3枚まで。",
+      "cancel": "キャンセル",
+      "read": "ラベルを読み取る",
+      "reading": "ラベルを読み取り中…",
+      "unread": {
+        "nothing_read": "これらの写真からは情報を読み取れませんでした。もっと近くで、明るい場所で撮り直してください。",
+        "ai_disabled": "このサーバーではラベルの読み取りがオフになっています。",
+        "ai_unreachable": "AIサービスに接続できませんでした。しばらくしてからもう一度お試しください。"
+      },
+      "photosKept": "写真はこのアイテムと一緒に保存されるので、あとで確認できます。",
+      "close": "閉じる",
+      "confirm": "確定",
+      "saved": "ラベルの情報を保存しました",
+      "saveFailed": "詳細を保存できませんでした",
+      "scanFailed": "ラベルをスキャンできませんでした",
+      "alreadySaved": "{field} · 保存済み",
+      "fromLabelValue": "ラベルの{field}",
+      "take": "{field}を保存",
+      "differs": "{field} · ラベルの内容が異なります",
+      "keepSaved": "保存済みの内容を残す",
+      "useLabel": "ラベルの内容を使う",
+      "openPhoto": "ラベルの写真 {number} を開く",
+      "deletePhoto": "写真を削除",
+      "removeFailed": "写真を削除できませんでした",
+      "optionalStep": "ラベルの写真（任意）",
+      "optionalHint": "洗濯表示ラベルの写真を追加すると、サイズ・素材・お手入れ方法が自動で読み取られます。"
+    },
+    "display": {
+      "title": "表示",
+      "description": "アプリの見た目を選びます。",
+      "system": "端末に合わせる",
+      "light": "ライト",
+      "dark": "ダーク"
+    },
+    "header": {
+      "title": "ワードローブ",
+      "count": "{count}点",
+      "search": "ワードローブを検索",
+      "closeSearch": "検索を閉じる"
+    },
+    "categories": {
+      "label": "カテゴリー",
+      "all": "すべて",
+      "allOf": "{group}すべて",
+      "indian": "インドの衣装",
+      "western": "洋服",
+      "shoes": "シューズ",
+      "jewellery": "ジュエリー",
+      "accessories": "小物",
+      "sarees": "サリー",
+      "kurtas-suits": "クルタ・スーツ",
+      "lehengas": "レヘンガ",
+      "dupattas": "ドゥパッタ・ストール",
+      "indian-bottoms": "ボトムス",
+      "tops": "トップス",
+      "bottoms": "ボトムス",
+      "dresses": "ワンピース・スーツ",
+      "outerwear": "アウター",
+      "indian-shoes": "インドの履物",
+      "flats-sandals": "フラット・サンダル",
+      "heels": "ヒール",
+      "sneakers": "スニーカー",
+      "boots": "ブーツ",
+      "formal-shoes": "フォーマルシューズ",
+      "socks": "靴下",
+      "necklaces": "ネックレス",
+      "earrings": "イヤリング",
+      "bangles": "バングル・ブレスレット",
+      "rings": "リング",
+      "hair-head": "ヘア・頭飾り",
+      "anklets": "アンクレット・トゥリング",
+      "waist-belts": "ウエストベルト",
+      "watches": "腕時計",
+      "bags": "バッグ",
+      "belts": "ベルト",
+      "scarves": "スカーフ",
+      "hats": "帽子",
+      "ties": "ネクタイ・カフス",
+      "other-accessories": "その他"
+    },
+    "categorySettings": {
+      "title": "カテゴリー",
+      "description": "ワードローブを分けるグループです。名前の変更、追加、それぞれに入れるアイテムの種類を選べます。",
+      "addGroup": "グループを追加",
+      "addSubgroup": "{group}に追加",
+      "newSubgroup": "新しいカテゴリー",
+      "editTitle": "カテゴリーを編集",
+      "editNamed": "{name}を編集",
+      "groupHint": "「インドの衣装」のような大きなグループです。アイテムはその中の小さなカテゴリーに入ります。",
+      "subgroupHint": "ここに入れるアイテムの種類にチェックを入れてください。種類ごとに入るカテゴリーは1つです。",
+      "name": "名前",
+      "namePlaceholder": "例:シルクサリー",
+      "types": "アイテムの種類",
+      "noTypes": "まだ種類がありません",
+      "inOther": "{category}に所属",
+      "unplaced": "どのカテゴリーにも入っていない種類:{types}。「すべて」にのみ表示されます。",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "deleteConfirm": "もう一度タップで削除",
+      "reset": "標準のカテゴリーに戻す",
+      "resetConfirm": "もう一度タップでリセット",
+      "resetDone": "標準のカテゴリーに戻しました",
+      "saved": "カテゴリーを保存しました",
+      "saveFailed": "カテゴリーを保存できませんでした",
+      "kindsTitle": "自分で追加したアイテムの種類",
+      "kindsHint": "リストにないものをお持ちですか？ここで追加すると、アイテムの追加や編集のときに選べます。",
+      "kindOf": "{type}の一種",
+      "deleteKind": "{name}を削除",
+      "addKind": "アイテムの種類を追加",
+      "kindAdded": "アイテムの種類を追加しました",
+      "kindSheetHint": "普段使っている名前を付けて、いちばん近い種類を選んでください。",
+      "kindNamePlaceholder": "例：パットゥ・パヴァダイ",
+      "kindBase": "次の種類の一種",
+      "kindBasePlaceholder": "いちばん近いものを選択",
+      "kindBaseHint": "コーディネートと洗濯に使われます。移動するまで同じカテゴリーに入ります。"
+    },
+    "more": {
+      "title": "その他",
+      "back": "その他",
+      "features": "機能",
+      "settings": "設定",
+      "language": "言語",
+      "accountHint": "ログイン中のアカウントとアプリの言語。",
+      "items": {
+        "insights": {
+          "title": "インサイト",
+          "hint": "ワードローブの統計と傾向"
+        },
+        "history": {
+          "title": "履歴",
+          "hint": "着たもの"
+        },
+        "family": {
+          "title": "ファミリー",
+          "hint": "アプリを共有している人"
+        },
+        "homes": {
+          "title": "住まい"
+        },
+        "categories": {
+          "title": "カテゴリー"
+        },
+        "display": {
+          "title": "表示"
+        },
+        "notifications": {
+          "title": "通知"
+        },
+        "account": {
+          "title": "アカウント"
+        },
+        "style": {
+          "title": "わたしのスタイル"
+        },
+        "body": {
+          "title": "体型とサイズ"
+        },
+        "weather": {
+          "title": "天気と快適さ"
+        },
+        "suggestions": {
+          "title": "提案"
+        },
+        "dressingRoom": {
+          "title": "ドレッシングルーム"
+        },
+        "laundry": {
+          "title": "洗濯",
+          "hint": "洗濯とクリーニング"
+        }
+      }
+    },
+    "onboarding": {
+      "title": "服はどこに置いていますか？",
+      "description": "チェンナイやヨーロッパなど、それぞれの場所を都市と一緒に追加してください。今いる住まいの服が表示され、天気はその都市に合わせます。",
+      "addOneFirst": "続けるには住まいを追加してください",
+      "continue": "{count}か所の住まいで続ける",
+      "skip": "今はスキップ"
+    },
+    "groupBy": {
+      "label": "グループ化",
+      "none": "グループ化しない",
+      "by": "{what}でグループ化",
+      "type": "種類",
+      "color": "色",
+      "home": "住まい",
+      "brand": "ブランド",
+      "noColor": "色なし",
+      "noHome": "住まいなし",
+      "noBrand": "ブランドなし"
+    },
+    "tabs": {
+      "label": "ワードローブのセクション",
+      "clothes": "服",
+      "lookbook": "ルックブック",
+      "collections": "コレクション"
+    },
+    "lookbook": {
+      "count": "{count}件のルック",
+      "new": "新規",
+      "loadError": "ルックを読み込めませんでした。",
+      "emptyTitle": "保存したルックはまだありません",
+      "emptyHint": "コーデを作るか、着たコーデを開いて「ルックブックに保存」をタップしてください。",
+      "loadMore": "さらに表示"
+    },
+    "collections": {
+      "count": "{count}件のコレクション",
+      "new": "新規",
+      "created": "「{name}」を作成しました",
+      "saveError": "保存できませんでした。もう一度お試しください。",
+      "loadError": "コレクションを読み込めませんでした。",
+      "emptyTitle": "コレクションはまだありません",
+      "emptyHint": "「結婚式シーズン」「仕事の1週間」のように服やコーデをまとめられます。アイテムやコーデの画面から追加できます。",
+      "entryCount": "{count}件",
+      "newTitle": "新しいコレクション",
+      "create": "作成",
+      "nameLabel": "コレクション名",
+      "namePlaceholder": "例：結婚式シーズン",
+      "addTitle": "コレクションに追加",
+      "addHint": "追加するコレクションをタップしてください。",
+      "newPlaceholder": "新しいコレクション名",
+      "addedTo": "「{name}」に追加しました",
+      "alreadyIn": "すでに「{name}」に入っています",
+      "inThis": "このコレクションに入っています",
+      "back": "コレクション",
+      "notFound": "このコレクションは見つかりませんでした。",
+      "removed": "「{name}」を外しました",
+      "done": "完了",
+      "edit": "編集",
+      "more": "その他の操作",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "emptyCollection": "まだ何もありません",
+      "emptyCollectionHint": "アイテムやコーデを開き、⋯ または「コレクションに追加」からこのコレクションを選んでください。",
+      "clothesHeading": "服 · {count}",
+      "outfitsHeading": "コーデ · {count}",
+      "remove": "「{name}」を外す",
+      "renameTitle": "コレクション名を変更",
+      "save": "保存",
+      "deleteTitle": "「{name}」を削除しますか？",
+      "deleteHint": "コレクションは削除されますが、中の服やコーデはワードローブに残ります。",
+      "cancel": "キャンセル",
+      "deleted": "「{name}」を削除しました"
+    },
+    "photoTip": {
+      "short": "ヒント：自然光で平らに置き、アイテム全体を写しましょう。",
+      "more": "ほかのヒント",
+      "less": "閉じる",
+      "flat": "平らに置くか、無地の壁の前に掛けてください。",
+      "light": "自然光を使い、濃い影を避けてください。",
+      "whole": "アイテム全体を写し、1枚に1点にしてください。",
+      "special": "サリーは縁とパルーが見えるようにたたみ、アクセサリーは無地の面に置いてください。"
+    },
+    "startScreen": {
+      "title": "起動時の画面",
+      "description": "アプリを開いたときに表示する画面です。どの端末でも同じになります。",
+      "wardrobe": "ワードローブ",
+      "lookbook": "ルックブック",
+      "outfits": "コーデ",
+      "plan": "プラン",
+      "saveError": "保存できませんでした。もう一度お試しください。"
+    },
+    "weather": {
+      "feelsLike": "体感 {temp}",
+      "rain": "降水 {percent}%",
+      "humidity": "湿度 {percent}%",
+      "open": "今日の天気：プランを開く",
+      "inCity": "{city}にて"
+    },
+    "stays": {
+      "title": "どこにいますか？",
+      "hint": "拠点を選ぶか都市名を入力し、日付を選んでください。それ以外の日は今の拠点のままです。",
+      "yourHomes": "あなたの拠点",
+      "otherCity": "ほかの都市",
+      "cityPlaceholder": "例：バンガロール",
+      "to": "終了",
+      "save": "滞在を保存",
+      "saved": "保存しました：{city}",
+      "cityNotFound": "「{city}」という都市が見つかりません。つづりを確認してください。",
+      "saveError": "保存できませんでした。もう一度お試しください。",
+      "rowTitle": "滞在先",
+      "add": "別の場所にいる",
+      "addFrom": "{day}からの滞在を追加",
+      "noCity": "拠点",
+      "remove": "{city}の滞在を削除",
+      "removed": "{city}の滞在を削除しました",
+      "legend": "グレー：今の拠点。色付き：追加した滞在。日付をタップして追加できます。",
+      "prompt": "今日は{home}にいます。そこにある服を表示しますか？",
+      "promptYes": "切り替える",
+      "promptNo": "今はしない",
+      "from": "開始"
+    },
+    "weatherScreen": {
+      "back": "ワードローブ",
+      "unavailable": "天気を読み込めません。しばらくしてからお試しください。",
+      "title": "天気",
+      "today": "今日",
+      "range": "今日の最低〜最高",
+      "rain": "降水",
+      "humidity": "湿度",
+      "uv": "紫外線",
+      "plannedToday": "今日の予定",
+      "planToday": "今日のコーデを決める",
+      "nextDays": "この先7日間",
+      "noForecast": "まだ予報がありません",
+      "plannedFor": "{day}の予定",
+      "planOutfit": "コーデを決める",
+      "planned": "{day}のコーデを決めました",
+      "planError": "コーデを決められませんでした。もう一度お試しください。",
+      "addStay": "滞在を追加",
+      "hints": {
+        "storm": "雷雨：速乾素材を。シルクは避けて",
+        "rain": "雨の可能性大：スエードとシルクは避け、つま先の閉じた靴を",
+        "hotHumid": "蒸し暑い：薄手のコットンかリネン",
+        "hot": "暑い：軽くゆったりした素材",
+        "coolEvening": "夜は涼しい：ドゥパッタか薄手の上着を",
+        "cold": "寒い：暖かい重ね着とコート",
+        "cool": "涼しい：セーターか薄手の上着",
+        "mild": "過ごしやすい：たいていの服でOK"
+      }
+    },
+    "planner": {
+      "title": "プランナー",
+      "today": "今日",
+      "day": "日",
+      "month": "月",
+      "tomorrow": "明日",
+      "previousWeek": "前の週",
+      "nextWeek": "次の週",
+      "rain": "降水 {percent}%",
+      "addOutfit": "コーデを追加",
+      "beIn": "{city}にいる予定",
+      "noPlace": "場所が未設定",
+      "change": "変更",
+      "forecastLater": "この日の天気は約2週間前から表示されます。",
+      "previousMonth": "前の月",
+      "nextMonth": "次の月",
+      "monthLegend": "小さなアイコン：予報が届く範囲の天気。紫の線：別の場所にいる日。日付をタップすると開きます。",
+      "wind": "風 km/h",
+      "sheetHint": "この日の天気と服装のヒント",
+      "low": "最低 {temp}",
+      "suggestForWeather": "この天気に合うコーデを提案",
+      "removeStay": "{city}の滞在を削除",
+      "changePlace": "この日は別の場所にいる",
+      "nextDays": "この先7日間を見る",
+      "back": "戻る",
+      "pickTitle": "ルックブックから選ぶ",
+      "addTitle": "{day}のコーデを追加",
+      "addHint": "この日にコーデを追加する方法を選んでください",
+      "suggestHint": "その日の天気に合わせて選びます",
+      "fromLookbook": "ルックブックから",
+      "fromLookbookHint": "保存したルックから",
+      "makeNew": "新しく作る",
+      "makeNewHint": "コーデ作成を開きます",
+      "noLooks": "保存したルックはまだありません。",
+      "added": "{day}のコーデを追加しました",
+      "addError": "コーデを追加できませんでした。もう一度お試しください。"
+    },
+    "settingsSections": {
+      "style": {
+        "title": "わたしのスタイル",
+        "hint": "好きな色・避けたい色と、好みのスタイル。"
+      },
+      "body": {
+        "title": "体型とサイズ",
+        "hint": "サイズを入れると提案が体に合いやすくなります。"
+      },
+      "weather": {
+        "title": "天気と快適さ",
+        "hint": "°C か °F、暑さ寒さの感じ方、重ね着。"
+      },
+      "suggestions": {
+        "title": "提案",
+        "hint": "コーデの提案の選び方。"
+      }
+    },
+    "maker": {
+      "title": "新しいルック",
+      "suggestions": "提案",
+      "fromLookbook": "ルックブックから",
+      "fromLookbookHint": "保存したルックから始める",
+      "noLooks": "保存したルックはまだありません。",
+      "noClothes": "ここにはまだ服がありません。",
+      "selected": "{count}点選択",
+      "unpick": "外す",
+      "collage": "コラージュ",
+      "next": "次へ",
+      "backToPick": "選択に戻る",
+      "boardHint": "ドラッグで移動・2本指で拡大縮小・タップで前へ／後ろへ／削除",
+      "background": "背景",
+      "addClothes": "服を追加",
+      "addClothesHint": "ボードに置く服にチェック",
+      "switchMode": "モード切替",
+      "done": "完了",
+      "backToBoard": "ボードに戻る",
+      "saveTitle": "ルックを保存",
+      "name": "名前",
+      "namePlaceholder": "例：ティールのクルティの日",
+      "occasion": "シーン",
+      "planDay": "日付",
+      "saveAndPlan": "保存して予定に入れる",
+      "saveChanges": "変更を保存",
+      "saveToLookbook": "ルックブックに保存",
+      "saveToLookbookInstead": "ルックブックに保存する",
+      "planForDay": "保存して日付を決める…",
+      "saveAsNew": "新しいルックとして保存",
+      "saved": "ルックブックに保存しました",
+      "plannedFor": "{day}に予定しました",
+      "saveError": "ルックを保存できませんでした。もう一度お試しください。",
+      "piece": "ボード上のアイテム",
+      "front": "前へ",
+      "back": "後ろへ",
+      "remove": "削除",
+      "arrange": "並べる",
+      "backgrounds": {
+        "ffffff": "白",
+        "f6f1e7": "クリーム",
+        "e9ecea": "ライトグレー",
+        "111316": "黒"
+      },
+      "backToRoom": "ドレッシングルームに戻る"
+    },
+    "dressing": {
+      "piece": "フィギュアの{kind}",
+      "empty": "「服」をタップしてフィギュアに着せましょう。",
+      "back": "戻る",
+      "next": "次へ",
+      "done": "完了",
+      "lock": "このアイテムを固定",
+      "unlock": "固定を解除",
+      "shuffleOne": "別のものに",
+      "remove": "外す",
+      "shuffledFor": "{temp}°に合わせてシャッフル",
+      "shuffled": "シャッフルしました",
+      "undo": "元に戻す",
+      "clothes": "服",
+      "occasion": "シーン",
+      "shuffle": "シャッフル",
+      "switchMode": "モード切替",
+      "closeSheet": "閉じる",
+      "occasionTitle": "シーンに合わせる",
+      "any": "すべて",
+      "occasionHint": "固定していない場所の服をシーンに合わせて選びます。",
+      "noneHere": "この家にはこの種類の服がありません。",
+      "unlockFirst": "変えるには固定を解除してください",
+      "groups": {
+        "jewellery": "ジュエリー",
+        "tops": "トップス",
+        "layers": "アウター",
+        "bottoms": "ボトムス",
+        "shoes": "シューズ",
+        "accessories": "小物"
+      },
+      "settings": {
+        "title": "ドレッシングルーム",
+        "description": "ドレッシングルームのフィギュアと色。選択はあなただけに表示されます。",
+        "figure": "フィギュア",
+        "women": "レディース",
+        "men": "メンズ",
+        "background": "背景",
+        "figureColour": "フィギュアの色",
+        "saveError": "保存できませんでした。もう一度お試しください。",
+        "colours": {
+          "sameAsApp": "アプリと同じ",
+          "white": "白",
+          "cream": "クリーム",
+          "lightGrey": "ライトグレー",
+          "sage": "セージ",
+          "black": "黒",
+          "beige": "ベージュ",
+          "brown": "ブラウン",
+          "darkGrey": "ダークグレー"
+        }
+      }
+    },
+    "laundry": {
+      "title": "洗濯",
+      "tabs": {
+        "to_wash": "洗う物",
+        "wash": "洗濯中",
+        "dry": "クリーニング"
+      },
+      "hints": {
+        "to_wash": "洗うまで着た服です。今日洗濯機に入れる物にチェック。",
+        "wash": "洗濯中または乾燥中。きれいになってしまった物にチェック。",
+        "dry": "クリーニングに出しています。戻ってきた物にチェック。"
+      },
+      "empty": {
+        "to_wash": "洗う物はありません。",
+        "wash": "洗濯中の物はありません。",
+        "dry": "クリーニング中の物はありません。"
+      },
+      "selected": "{count}点選択",
+      "tapToSelect": "タップして選択",
+      "selectAll": "すべて選択",
+      "clear": "解除",
+      "actions": {
+        "wash": "今から洗う",
+        "dry": "クリーニングへ",
+        "back": "クローゼットに戻す"
+      },
+      "moved": {
+        "wash": "{count}点を洗濯中に",
+        "dry": "{count}点をクリーニングに",
+        "back": "{count}点を戻しました・洗濯済みに記録"
+      },
+      "moveError": "服を移動できませんでした。もう一度お試しください。",
+      "badge": {
+        "need": "要洗濯",
+        "wash": "洗濯中",
+        "dry": "クリーニング"
+      },
+      "menu": {
+        "wash": "洗濯に入れる",
+        "dry": "クリーニングに出す",
+        "back": "クローゼットに戻す"
+      },
+      "count": "洗濯物{count}点"
+    }
   }
 }

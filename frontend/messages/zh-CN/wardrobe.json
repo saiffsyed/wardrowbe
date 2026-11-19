@@ -256,7 +256,9 @@
       "wearsSinceWash": "清洗后穿着次数：{current}/{max}",
       "wornCount": "{count, plural, one {已穿着 # 次} other {已穿着 # 次}}"
     },
-    "washInterval": "清洗间隔"
+    "washInterval": "清洗间隔",
+    "closetEdit": "编辑",
+    "moreActions": "更多操作"
   },
   "lightbox": {
     "openInWardrobe": "在衣橱中打开"
@@ -272,7 +274,9 @@
     "nameZA": "名称 Z–A",
     "newestFirst": "最新在前",
     "oldestFirst": "最早在前",
-    "recentlyWorn": "最近穿过"
+    "recentlyWorn": "最近穿过",
+    "brandAZ": "品牌 A–Z",
+    "priceHighLow": "价格从高到低"
   },
   "splitPhoto": {
     "addBox": "添加框",
@@ -324,5 +328,646 @@
     "daysAgo": "{days}天前穿过",
     "today": "今天穿过",
     "yesterday": "昨天穿过"
+  },
+  "closet": {
+    "homes": {
+      "here": "这个家",
+      "everywhere": "所有的家",
+      "scopeLabel": "显示哪些衣物",
+      "youAreIn": "你在{home}",
+      "noHome": "选择你所在的位置",
+      "setUp": "设置你的家",
+      "setUpHint": "告诉应用衣物放在哪里，它就只显示你手边的衣物。",
+      "manage": "管理家",
+      "title": "家",
+      "description": "你存放衣物的地方。新衣物会放入你所在的家，天气跟随它所在的城市。",
+      "name": "名称",
+      "namePlaceholder": "例如：金奈的家",
+      "city": "城市",
+      "cityPlaceholder": "例如：金奈",
+      "add": "添加家",
+      "save": "保存",
+      "cancel": "取消",
+      "delete": "删除",
+      "editHome": "编辑{home}",
+      "deleteHome": "删除{home}？",
+      "deleteConfirm": "其中的衣物会保留在衣橱里，但不再属于任何家。",
+      "current": "你在这里",
+      "setCurrent": "我在这里",
+      "itemCount": "{count, plural, other {# 件}}",
+      "errors": {
+        "saveFailed": "无法保存这个家",
+        "moveFailed": "无法移动单品"
+      },
+      "moveSelected": "将所选单品移到某个住所",
+      "moveShort": "移动",
+      "moveTo": "移到{home}",
+      "moved": "已将 {count} 件单品移到{home}",
+      "filterLabel": "家"
+    },
+    "view": {
+      "label": "视图",
+      "cutouts": "仅照片",
+      "tiles": "照片和详情",
+      "list": "详情列表",
+      "select": "选择{item}",
+      "processing": "处理中",
+      "needsAttention": "需要留意",
+      "needsWash": "需要清洗"
+    },
+    "filters": {
+      "occasion": "场合",
+      "brand": "品牌",
+      "material": "材质",
+      "season": "季节",
+      "any": "{filter}：全部",
+      "option": "{label}（{count}）",
+      "toggle": "筛选",
+      "color": "颜色",
+      "worn": "穿着",
+      "inOutfits": "搭配",
+      "wornOptions": {
+        "never": "从未穿过",
+        "not_recently": "3个月未穿"
+      },
+      "inOutfitsOptions": {
+        "true": "在搭配中",
+        "false": "不在任何搭配中"
+      }
+    },
+    "list": {
+      "size": "尺码 {size}",
+      "worn": "{count, plural, =0 {尚未穿过} other {穿过 # 次}}"
+    },
+    "details": {
+      "title": "详情",
+      "edit": "编辑详情",
+      "add": "添加详情",
+      "scanLabel": "扫描标签",
+      "empty": "添加尺码、材质和购买地点。",
+      "home": "存放于",
+      "none": "未设置",
+      "brand": "品牌",
+      "size": "尺码",
+      "sizeSystem": "尺码体系",
+      "sizeSystemPlaceholder": "例如：EU、UK、IN",
+      "fitNote": "合身备注",
+      "fitNotePlaceholder": "例如：偏小",
+      "boughtIn": "购买地点",
+      "boughtInPlaceholder": "购买时所在的城市或国家",
+      "care": "护理",
+      "carePlaceholder": "例如：仅限干洗",
+      "materials": "材质",
+      "compositionSummary": "成分：{summary}",
+      "materialName": "材质 {number}",
+      "materialPercent": "材质 {number} 的百分比",
+      "removeMaterial": "移除材质 {number}",
+      "addMaterial": "添加材质",
+      "tooMuch": "百分比总和超过了 100。",
+      "occasions": "场合",
+      "occasionPlaceholder": "例如：婚礼",
+      "addOccasion": "添加",
+      "removeOccasion": "移除{occasion}",
+      "save": "保存详情",
+      "cancel": "取消",
+      "saved": "详情已保存",
+      "saveFailed": "无法保存详情",
+      "status": "状态",
+      "statusReady": "可以穿",
+      "statusNeedsWash": "需要清洗",
+      "boughtOn": "购买日期",
+      "price": "价格",
+      "currency": "币种"
+    },
+    "labelScan": {
+      "title": "扫描标签",
+      "pickHint": "拍一张洗涤标签的照片。如果信息分散在多处，可以再添加背面或吊牌。",
+      "reviewHint": "请核对读取的内容。确认之前不会保存任何内容。",
+      "unreadTitle": "无法读取标签",
+      "photos": "标签照片",
+      "photoNumber": "标签照片 {number}",
+      "removePhoto": "移除标签照片 {number}",
+      "addPhoto": "添加标签照片",
+      "addAnother": "再添加一张照片",
+      "tip": "把标签铺平，在光线充足处拍摄并让标签占满画面。最多 3 张。",
+      "cancel": "取消",
+      "read": "读取标签",
+      "reading": "正在读取标签…",
+      "unread": {
+        "nothing_read": "这些照片中未能辨认出任何信息。请靠近一些并在更亮的地方重试。",
+        "ai_disabled": "此服务器已关闭标签读取功能。",
+        "ai_unreachable": "无法连接 AI 服务。请稍后重试。"
+      },
+      "photosKept": "照片会与这件单品一起保存，方便以后查看。",
+      "close": "关闭",
+      "confirm": "确认",
+      "saved": "已保存标签上的信息",
+      "saveFailed": "无法保存详情",
+      "scanFailed": "无法扫描标签",
+      "alreadySaved": "{field} · 已保存",
+      "fromLabelValue": "标签上的{field}",
+      "take": "保存{field}",
+      "differs": "{field} · 标签上的内容不同",
+      "keepSaved": "保留已保存的内容",
+      "useLabel": "使用标签上的内容",
+      "openPhoto": "打开标签照片 {number}",
+      "deletePhoto": "删除照片",
+      "removeFailed": "无法删除照片",
+      "optionalStep": "标签照片（可选）",
+      "optionalHint": "添加洗涤标签的照片，尺码、材质和护理方式会自动读取。"
+    },
+    "display": {
+      "title": "显示",
+      "description": "选择应用的外观。",
+      "system": "跟随手机",
+      "light": "浅色",
+      "dark": "深色"
+    },
+    "header": {
+      "title": "衣橱",
+      "count": "{count} 件",
+      "search": "搜索衣橱",
+      "closeSearch": "关闭搜索"
+    },
+    "categories": {
+      "label": "类别",
+      "all": "全部",
+      "allOf": "全部{group}",
+      "indian": "印度服饰",
+      "western": "西式服装",
+      "shoes": "鞋履",
+      "jewellery": "首饰",
+      "accessories": "配饰",
+      "sarees": "纱丽",
+      "kurtas-suits": "库尔塔与套装",
+      "lehengas": "莱恒加",
+      "dupattas": "杜帕塔与披肩",
+      "indian-bottoms": "下装",
+      "tops": "上装",
+      "bottoms": "下装",
+      "dresses": "连衣裙与西装",
+      "outerwear": "外套",
+      "indian-shoes": "印度鞋",
+      "flats-sandals": "平底鞋与凉鞋",
+      "heels": "高跟鞋",
+      "sneakers": "运动鞋",
+      "boots": "靴子",
+      "formal-shoes": "正装鞋",
+      "socks": "袜子",
+      "necklaces": "项链",
+      "earrings": "耳环",
+      "bangles": "手镯与手链",
+      "rings": "戒指",
+      "hair-head": "发饰与头饰",
+      "anklets": "脚链与趾环",
+      "waist-belts": "腰链",
+      "watches": "手表",
+      "bags": "包",
+      "belts": "腰带",
+      "scarves": "围巾",
+      "hats": "帽子",
+      "ties": "领带与袖扣",
+      "other-accessories": "其他"
+    },
+    "categorySettings": {
+      "title": "类别",
+      "description": "衣橱的分组方式。可以重命名、添加自己的分组，并选择每个分组包含哪些单品种类。",
+      "addGroup": "添加分组",
+      "addSubgroup": "添加到{group}",
+      "newSubgroup": "新类别",
+      "editTitle": "编辑类别",
+      "editNamed": "编辑{name}",
+      "groupHint": "一个主分组，例如“印度服饰”。单品放在它下面的小类别里。",
+      "subgroupHint": "勾选属于这里的单品种类。每个种类只属于一个类别。",
+      "name": "名称",
+      "namePlaceholder": "例如：丝绸纱丽",
+      "types": "单品种类",
+      "noTypes": "还没有单品种类",
+      "inOther": "在{category}中",
+      "unplaced": "未归入任何类别：{types}。它们只显示在“全部”下。",
+      "save": "保存",
+      "cancel": "取消",
+      "delete": "删除",
+      "deleteConfirm": "再点一次以删除",
+      "reset": "恢复标准类别",
+      "resetConfirm": "再点一次以重置",
+      "resetDone": "已恢复标准类别",
+      "saved": "类别已保存",
+      "saveFailed": "无法保存类别",
+      "kindsTitle": "我自己的单品种类",
+      "kindsHint": "有清单里没有的东西吗？在这里添加，之后添加或编辑单品时就能选择。",
+      "kindOf": "{type}的一种",
+      "deleteKind": "删除{name}",
+      "addKind": "添加单品种类",
+      "kindAdded": "已添加单品种类",
+      "kindSheetHint": "填写你平时的叫法，并选择最接近的种类。",
+      "kindNamePlaceholder": "例如：帕图帕瓦代",
+      "kindBase": "它属于",
+      "kindBasePlaceholder": "选择最接近的",
+      "kindBaseHint": "用于搭配和洗涤。在你移动之前，它位于同一类别中。"
+    },
+    "more": {
+      "title": "更多",
+      "back": "更多",
+      "features": "功能",
+      "settings": "设置",
+      "language": "语言",
+      "accountHint": "当前登录的账户和应用语言。",
+      "items": {
+        "insights": {
+          "title": "洞察",
+          "hint": "衣橱统计与趋势"
+        },
+        "history": {
+          "title": "历史",
+          "hint": "穿过的衣服"
+        },
+        "family": {
+          "title": "家人",
+          "hint": "共享应用的人"
+        },
+        "homes": {
+          "title": "住所"
+        },
+        "categories": {
+          "title": "类别"
+        },
+        "display": {
+          "title": "显示"
+        },
+        "notifications": {
+          "title": "通知"
+        },
+        "account": {
+          "title": "账户"
+        },
+        "style": {
+          "title": "我的风格"
+        },
+        "body": {
+          "title": "身材与合身"
+        },
+        "weather": {
+          "title": "天气与舒适"
+        },
+        "suggestions": {
+          "title": "推荐"
+        },
+        "dressingRoom": {
+          "title": "试衣间"
+        },
+        "laundry": {
+          "title": "洗衣",
+          "hint": "水洗和干洗"
+        }
+      }
+    },
+    "onboarding": {
+      "title": "你的衣服放在哪里？",
+      "description": "添加每个地方，例如金奈或欧洲，并填写所在城市。应用会显示你当前所在住所的衣服，天气也会跟随该城市。",
+      "addOneFirst": "添加一个住所以继续",
+      "continue": "使用 {count} 个住所继续",
+      "skip": "暂时跳过"
+    },
+    "groupBy": {
+      "label": "分组",
+      "none": "不分组",
+      "by": "按{what}分组",
+      "type": "种类",
+      "color": "颜色",
+      "home": "住所",
+      "brand": "品牌",
+      "noColor": "无颜色",
+      "noHome": "无住所",
+      "noBrand": "无品牌"
+    },
+    "tabs": {
+      "label": "衣橱分区",
+      "clothes": "衣服",
+      "lookbook": "造型册",
+      "collections": "合集"
+    },
+    "lookbook": {
+      "count": "{count} 套造型",
+      "new": "新建",
+      "loadError": "无法加载你的造型。",
+      "emptyTitle": "还没有保存的造型",
+      "emptyHint": "搭配一套穿搭，或打开穿过的一套，点“保存到造型册”。",
+      "loadMore": "显示更多"
+    },
+    "collections": {
+      "count": "{count} 个合集",
+      "new": "新建",
+      "created": "已创建“{name}”",
+      "saveError": "保存失败，请重试。",
+      "loadError": "无法加载你的合集。",
+      "emptyTitle": "还没有合集",
+      "emptyHint": "把衣服和穿搭归在一起，比如“婚礼季”或“上班一周”。可在任何单品或穿搭页面添加。",
+      "entryCount": "{count} 件",
+      "newTitle": "新建合集",
+      "create": "创建",
+      "nameLabel": "合集名称",
+      "namePlaceholder": "例如：婚礼季",
+      "addTitle": "添加到合集",
+      "addHint": "点一个合集即可添加。",
+      "newPlaceholder": "新合集名称",
+      "addedTo": "已添加到“{name}”",
+      "alreadyIn": "已在“{name}”中",
+      "inThis": "已在此合集中",
+      "back": "合集",
+      "notFound": "找不到这个合集。",
+      "removed": "已移出“{name}”",
+      "done": "完成",
+      "edit": "编辑",
+      "more": "更多操作",
+      "rename": "重命名",
+      "delete": "删除",
+      "emptyCollection": "这里还没有内容",
+      "emptyCollectionHint": "打开一件单品或一套穿搭，点 ⋯ 或“添加到合集”，选择这个合集。",
+      "clothesHeading": "衣服 · {count}",
+      "outfitsHeading": "穿搭 · {count}",
+      "remove": "移出“{name}”",
+      "renameTitle": "重命名合集",
+      "save": "保存",
+      "deleteTitle": "删除“{name}”？",
+      "deleteHint": "只删除合集，里面的衣服和穿搭仍留在衣橱中。",
+      "cancel": "取消",
+      "deleted": "已删除“{name}”"
+    },
+    "photoTip": {
+      "short": "提示：在自然光下平放，拍下整件单品。",
+      "more": "更多提示",
+      "less": "收起",
+      "flat": "把单品平放，或挂在素色墙前。",
+      "light": "使用自然光，避免浓重阴影。",
+      "whole": "拍下整件单品，每张照片一件。",
+      "special": "纱丽：折叠时露出边饰和披肩端。首饰：放在素色平面上。"
+    },
+    "startScreen": {
+      "title": "应用启动时打开",
+      "description": "打开应用时显示的页面，在你的所有设备上都一样。",
+      "wardrobe": "衣橱",
+      "lookbook": "造型册",
+      "outfits": "穿搭",
+      "plan": "计划",
+      "saveError": "保存失败，请重试。"
+    },
+    "weather": {
+      "feelsLike": "体感 {temp}",
+      "rain": "降雨 {percent}%",
+      "humidity": "湿度 {percent}%",
+      "open": "今日天气：打开计划",
+      "inCity": "在{city}"
+    },
+    "stays": {
+      "title": "你会在哪里？",
+      "hint": "选择你的一个住处或输入城市，再选日期。其余日子仍按当前住处。",
+      "yourHomes": "你的住处",
+      "otherCity": "其他城市",
+      "cityPlaceholder": "例如：班加罗尔",
+      "to": "到",
+      "save": "保存行程",
+      "saved": "已保存：{city}",
+      "cityNotFound": "找不到名为“{city}”的城市，请检查拼写。",
+      "saveError": "保存失败，请重试。",
+      "rowTitle": "我会在哪里",
+      "add": "我会在别处",
+      "addFrom": "从{day}起添加行程",
+      "noCity": "住处",
+      "remove": "删除在{city}的行程",
+      "removed": "已删除在{city}的行程",
+      "legend": "灰色：当前住处。彩色：你添加的行程。点某一天即可添加。",
+      "prompt": "你今天在{home}。要显示放在那里的衣服吗？",
+      "promptYes": "是，切换",
+      "promptNo": "暂不",
+      "from": "从"
+    },
+    "weatherScreen": {
+      "back": "衣橱",
+      "unavailable": "暂时无法加载天气，请稍后再试。",
+      "title": "天气",
+      "today": "今天",
+      "range": "今天最低到最高",
+      "rain": "降雨",
+      "humidity": "湿度",
+      "uv": "紫外线",
+      "plannedToday": "今天的计划",
+      "planToday": "计划今天的穿搭",
+      "nextDays": "未来 7 天",
+      "noForecast": "暂无预报",
+      "plannedFor": "{day}的计划",
+      "planOutfit": "计划穿搭",
+      "planned": "已计划{day}的穿搭",
+      "planError": "无法计划穿搭，请重试。",
+      "addStay": "添加行程",
+      "hints": {
+        "storm": "雷雨：选速干面料，别穿真丝",
+        "rain": "可能下雨：避开麂皮和真丝，穿包头鞋",
+        "hotHumid": "闷热：轻薄棉或亚麻",
+        "hot": "炎热：轻薄宽松的面料",
+        "coolEvening": "晚上偏凉：带条纱巾或薄外套",
+        "cold": "寒冷：保暖叠穿加大衣",
+        "cool": "偏凉：毛衣或薄外套",
+        "mild": "温和：大多数衣服都合适"
+      }
+    },
+    "planner": {
+      "title": "计划",
+      "today": "今天",
+      "day": "日",
+      "month": "月",
+      "tomorrow": "明天",
+      "previousWeek": "上一周",
+      "nextWeek": "下一周",
+      "rain": "降雨 {percent}%",
+      "addOutfit": "添加穿搭",
+      "beIn": "你会在{city}",
+      "noPlace": "未设置地点",
+      "change": "更改",
+      "forecastLater": "这一天的天气大约提前两周显示。",
+      "previousMonth": "上个月",
+      "nextMonth": "下个月",
+      "monthLegend": "小图标：预报范围内的天气。紫线：在外地的日子。点某一天即可打开。",
+      "wind": "风速 km/h",
+      "sheetHint": "这一天的天气和穿衣建议",
+      "low": "最低 {temp}",
+      "suggestForWeather": "按这个天气推荐穿搭",
+      "removeStay": "删除在{city}的行程",
+      "changePlace": "这一天我会在别处",
+      "nextDays": "查看未来 7 天",
+      "back": "返回",
+      "pickTitle": "从造型册中选择",
+      "addTitle": "为{day}添加穿搭",
+      "addHint": "选择如何为这一天添加穿搭",
+      "suggestHint": "按当天天气挑选",
+      "fromLookbook": "从造型册选",
+      "fromLookbookHint": "你保存的造型之一",
+      "makeNew": "新建一套",
+      "makeNewHint": "打开穿搭编辑",
+      "noLooks": "还没有保存的造型。",
+      "added": "已为{day}添加穿搭",
+      "addError": "无法添加穿搭，请重试。"
+    },
+    "settingsSections": {
+      "style": {
+        "title": "我的风格",
+        "hint": "喜欢和想避开的颜色，以及你喜欢的风格。"
+      },
+      "body": {
+        "title": "身材与合身",
+        "hint": "填写尺寸，推荐会更合身。"
+      },
+      "weather": {
+        "title": "天气与舒适",
+        "hint": "°C 或 °F、你怕热还是怕冷、叠穿偏好。"
+      },
+      "suggestions": {
+        "title": "推荐",
+        "hint": "如何为你挑选穿搭推荐。"
+      }
+    },
+    "maker": {
+      "title": "新造型",
+      "suggestions": "推荐",
+      "fromLookbook": "从造型册",
+      "fromLookbookHint": "从你保存的造型开始",
+      "noLooks": "还没有保存的造型。",
+      "noClothes": "这里还没有衣服。",
+      "selected": "已选 {count} 件",
+      "unpick": "移除",
+      "collage": "拼贴",
+      "next": "下一步",
+      "backToPick": "返回挑选",
+      "boardHint": "拖动移动 · 双指缩放 · 点按可置前、置后或移除",
+      "background": "背景",
+      "addClothes": "添加衣服",
+      "addClothesHint": "勾选要放到画板上的衣服",
+      "switchMode": "切换模式",
+      "done": "完成",
+      "backToBoard": "返回画板",
+      "saveTitle": "保存造型",
+      "name": "名称",
+      "namePlaceholder": "例如：青绿库尔塔日",
+      "occasion": "场合",
+      "planDay": "日期",
+      "saveAndPlan": "保存并计划",
+      "saveChanges": "保存修改",
+      "saveToLookbook": "保存到造型册",
+      "saveToLookbookInstead": "改为保存到造型册",
+      "planForDay": "保存并安排到某一天…",
+      "saveAsNew": "另存为新造型",
+      "saved": "已保存到造型册",
+      "plannedFor": "已安排在{day}",
+      "saveError": "无法保存造型，请重试。",
+      "piece": "画板上的单品",
+      "front": "置前",
+      "back": "置后",
+      "remove": "移除",
+      "arrange": "排列",
+      "backgrounds": {
+        "ffffff": "白色",
+        "f6f1e7": "米色",
+        "e9ecea": "浅灰",
+        "111316": "黑色"
+      },
+      "backToRoom": "返回试衣间"
+    },
+    "dressing": {
+      "piece": "人台上的{kind}",
+      "empty": "点按「衣服」给人台穿上。",
+      "back": "返回",
+      "next": "下一步",
+      "done": "完成",
+      "lock": "锁定这件",
+      "unlock": "解除锁定",
+      "shuffleOne": "换一件",
+      "remove": "脱下",
+      "shuffledFor": "已按 {temp}° 随机搭配",
+      "shuffled": "已随机搭配",
+      "undo": "撤销",
+      "clothes": "衣服",
+      "occasion": "场合",
+      "shuffle": "随机",
+      "switchMode": "切换模式",
+      "closeSheet": "关闭",
+      "occasionTitle": "按场合穿搭",
+      "any": "全部",
+      "occasionHint": "为每个未锁定的位置挑选适合的衣服。",
+      "noneHere": "这个住处没有这类衣服。",
+      "unlockFirst": "先解除锁定才能更换",
+      "groups": {
+        "jewellery": "首饰",
+        "tops": "上装",
+        "layers": "外套",
+        "bottoms": "下装",
+        "shoes": "鞋子",
+        "accessories": "配饰"
+      },
+      "settings": {
+        "title": "试衣间",
+        "description": "试衣间的人台和颜色，只有你能看到你的选择。",
+        "figure": "人台",
+        "women": "女款",
+        "men": "男款",
+        "background": "背景",
+        "figureColour": "人台颜色",
+        "saveError": "无法保存，请重试。",
+        "colours": {
+          "sameAsApp": "跟随应用",
+          "white": "白色",
+          "cream": "米色",
+          "lightGrey": "浅灰",
+          "sage": "鼠尾草绿",
+          "black": "黑色",
+          "beige": "米棕",
+          "brown": "棕色",
+          "darkGrey": "深灰"
+        }
+      }
+    },
+    "laundry": {
+      "title": "洗衣",
+      "tabs": {
+        "to_wash": "待洗",
+        "wash": "洗涤中",
+        "dry": "干洗店"
+      },
+      "hints": {
+        "to_wash": "穿到该洗的衣服。勾选今天要放进洗衣机的。",
+        "wash": "在洗或在晾。勾选已洗好、放回衣柜的。",
+        "dry": "送去干洗的。勾选已经取回的。"
+      },
+      "empty": {
+        "to_wash": "没有待洗的衣服。",
+        "wash": "没有正在洗的衣服。",
+        "dry": "没有在干洗店的衣服。"
+      },
+      "selected": "已选 {count} 件",
+      "tapToSelect": "点按选择",
+      "selectAll": "全选",
+      "clear": "清除",
+      "actions": {
+        "wash": "现在洗",
+        "dry": "送干洗",
+        "back": "放回衣柜"
+      },
+      "moved": {
+        "wash": "{count} 件在洗",
+        "dry": "{count} 件在干洗店",
+        "back": "{count} 件已放回 · 记为已洗"
+      },
+      "moveError": "无法移动衣服，请重试。",
+      "badge": {
+        "need": "待洗",
+        "wash": "洗涤中",
+        "dry": "干洗"
+      },
+      "menu": {
+        "wash": "放去洗",
+        "dry": "送去干洗",
+        "back": "放回衣柜"
+      },
+      "count": "洗衣 {count} 件"
+    }
   }
 }

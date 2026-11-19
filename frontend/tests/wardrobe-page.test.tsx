@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import WardrobePage from '@/app/dashboard/wardrobe/page'
 
+vi.mock('@/components/wardrobe/stay-home-prompt', () => ({ StayHomePrompt: () => null }))
+vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
   useSearchParams: () => new URLSearchParams(),
@@ -29,11 +31,22 @@ vi.mock('@/lib/hooks/use-items', async (importOriginal) => {
 })
 
 vi.mock('@/lib/hooks/use-user', () => ({ useUserTimezone: () => 'UTC' }))
+vi.mock('@/lib/hooks/use-homes', () => ({
+  useHomes: () => ({ data: [] }),
+  useWardrobeFacets: () => ({ data: undefined }),
+  useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
+}))
+vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
+  useWardrobeCategories: () => ({ data: { customised: false, groups: [], unplaced_types: [] }, refetch: vi.fn() }),
+  useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
+    node.name ?? node.key ?? node.id,
+}))
 vi.mock('@/lib/hooks/use-features', () => ({ useAiUiEnabled: () => true }))
 
 vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useClothingTypes: () => [],
   useClothingColors: () => [],
+  useColorLabel: () => (value: string) => value,
   useSubtypeLabel: () => (value: string) => value,
   useTypeLabel: () => (value: string) => value,
 }))
@@ -43,10 +56,12 @@ vi.mock('@/components/analysis-queue-panel', () => ({ AnalysisQueuePanel: () => 
 vi.mock('@/components/item-detail-dialog', () => ({ ItemDetailDialog: () => null }))
 vi.mock('@/components/bulk-action-toolbar', () => ({ BulkActionToolbar: () => null }))
 
-describe('WardrobePage add buttons', () => {
-  it('names both the phone and desktop add buttons', () => {
+describe('WardrobePage header', () => {
+  it('names its round buttons, which show only an icon', () => {
     render(<WardrobePage />)
 
-    expect(screen.getAllByRole('button', { name: 'actions.addItem' })).toHaveLength(2)
+    expect(screen.getByRole('button', { name: 'actions.addItem' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'closet.header.search' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'closet.filters.toggle' })).toBeTruthy()
   })
 })

@@ -25,6 +25,31 @@ export const queryKeys = {
   weather: ['weather'] as const,
   preferences: ['preferences'] as const,
   family: ['family'] as const,
+  homes: ['homes'] as const,
+  stays: ['stays'] as const,
+  outfitLayouts: (ids: string) => ['outfit-layouts', ids] as const,
+  everyOutfitLayout: ['outfit-layouts'] as const,
+  dressingRoom: ['dressing-room'] as const,
+  laundry: (homeId: string) => ['laundry', homeId] as const,
+  everyLaundry: ['laundry'] as const,
+  laundryStates: ['laundry-states'] as const,
+  weatherDays: (days: number) => ['weather-days', days] as const,
+  everyWeatherDays: ['weather-days'] as const,
+  collections: {
+    all: ['collections'] as const,
+    list: (itemId: string | undefined, outfitId: string | undefined) =>
+      ['collections', itemId ?? '', outfitId ?? ''] as const,
+  },
+  collection: (collectionId: string) => ['collection', collectionId] as const,
+  everyCollection: ['collection'] as const,
+  wardrobeCategories: {
+    all: ['wardrobe-categories'] as const,
+    home: (homeId: string | undefined) => ['wardrobe-categories', homeId ?? 'all'] as const,
+  },
+  wardrobeFacets: {
+    all: ['wardrobe-facets'] as const,
+    home: (homeId: string | undefined) => ['wardrobe-facets', homeId ?? 'all'] as const,
+  },
 
   items: {
     all: ITEMS,
@@ -38,6 +63,7 @@ export const queryKeys = {
   taggingProgress: ['tagging-progress'] as const,
   washHistory: (itemId: string) => ['wash-history', itemId] as const,
   garmentDetection: (itemId: string) => ['garment-detection', itemId] as const,
+  labelPhotos: (itemId: string) => ['label-photos', itemId] as const,
   wearStats: {
     all: WEAR_STATS,
     item: (itemId: string) => [...WEAR_STATS, itemId] as const,

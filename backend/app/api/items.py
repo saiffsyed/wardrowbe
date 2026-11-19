@@ -1,13 +1,13 @@
 import asyncio
 import logging
 from datetime import UTC, datetime
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from arq import create_pool
 from arq.jobs import Job
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
-from sqlalchemy import case, func, select, update
+from sqlalchemy import case, delete, func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -24,6 +24,7 @@ from app.models.item import (
     TaggedBy,
     TaggingStatus,
 )
+from app.models.laundry import ItemLaundry
 from app.models.outfit import Outfit, OutfitItem
 from app.models.user import User
 from app.schemas.item import (
@@ -59,7 +60,8 @@ from app.schemas.item import (
     WashHistoryResponse,
 )
 from app.services.image_service import ImageService
-from app.services.item_service import ItemService, TagVocabularyError
+from app.services.item_service import ItemService, TagVocabularyError, UnknownHomeError
+from app.services.label_photos import delete_label_photo_files_of_item
 from app.utils.auth import get_current_user
 from app.utils.signed_urls import sign_optional
 from app.utils.timezone import get_user_today
@@ -147,6 +149,15 @@ async def list_items(
     needs_wash: bool | None = None,
     is_archived: bool = False,
     search: str | None = None,
+    home_id: UUID | None = None,
+    occasion: str | None = None,
+    brand: str | None = None,
+    material: str | None = None,
+    season: str | None = None,
+    category: str | None = None,
+    worn: Literal["never", "not_recently"] | None = None,
+    in_outfits: bool | None = None,
+    color: str | None = None,
     sort_by: str | None = None,
     sort_order: str = "desc",
 ) -> ItemListResponse:
@@ -162,6 +173,15 @@ async def list_items(
         needs_wash=needs_wash,
         is_archived=is_archived,
         search=search,
+        home_id=home_id,
+        occasion=occasion,
+        brand=brand,
+        material=material,
+        season=season,
+        category=category,
+        worn=worn,
+        in_outfits=in_outfits,
+        color=color,
         sort_by=sort_by,
         sort_order=sort_order,
     )
@@ -557,6 +577,7 @@ async def bulk_delete_items(
                     "original_backup_path": item.original_image_path,
                 }
             )
+            await delete_label_photo_files_of_item(db, item.id)
 
             await item_service.delete(item)
             deleted += 1
@@ -1298,6 +1319,8 @@ async def update_item(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={"message": str(e), "error_code": "INVALID_TAG_VALUE"},
         ) from e
+    except UnknownHomeError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
     return ItemResponse.model_validate(item)
 
 
@@ -1325,6 +1348,7 @@ async def delete_item(
             "original_backup_path": item.original_image_path,
         }
     )
+    await delete_label_photo_files_of_item(db, item.id)
 
     await item_service.delete(item)
 
@@ -1510,6 +1534,12 @@ async def log_item_wash(
         washed_at=washed_at,
         method=request.method,
         notes=request.notes,
+    )
+    # Our fork: a washed item is back in the wardrobe, no longer in the laundry.
+    await db.execute(
+        delete(ItemLaundry)
+        .where(ItemLaundry.item_id == item.id)
+        .execution_options(synchronize_session=False)
     )
 
     await db.refresh(item)

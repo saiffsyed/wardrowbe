@@ -32,11 +32,34 @@ import { useItems, useItem, useItemTypes, useReanalyzeItem, useCancelAnalysis, u
 import { useUserTimezone } from '@/lib/hooks/use-user';
 import { colorSwatch, normalizeColor } from '@/lib/colors';
 import { Item } from '@/lib/types';
-import { useClothingTypes, useClothingColors, useSubtypeLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
+import { useClothingTypes, useClothingColors, useColorLabel, useSubtypeLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
 import { toast } from 'sonner';
 import { formatWornAgo, getWornAgoColorClass } from '@/lib/utils';
 import { DEFAULT_PAGE_SIZE } from '@/lib/pagination';
 import { useTranslations } from 'next-intl';
+import { type HomeScope } from '@/components/wardrobe/home-bar';
+import { WardrobeHeader } from '@/components/wardrobe/wardrobe-header';
+import { GROUP_BY, GroupBySelect, GroupedItems, isGroupBy, type GroupBy } from '@/components/wardrobe/group-by';
+import { MoveToHomeButton } from '@/components/wardrobe/move-to-home';
+import { useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
+import {
+  FacetFilters,
+  FACET_KEYS,
+  activeFacetCount,
+  type FacetKey,
+  type FacetSelection,
+} from '@/components/wardrobe/facet-filters';
+import {
+  CutoutTile,
+  ItemListRow,
+  ViewModeToggle,
+  useWardrobeViewMode,
+} from '@/components/wardrobe/wardrobe-views';
+import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
+import { useWardrobeTab } from '@/components/wardrobe/wardrobe-tabs';
+import { HomesFilter } from '@/components/wardrobe/home-bar';
+import { LookbookTab } from '@/components/wardrobe/lookbook-tab';
+import { CollectionsTab } from '@/components/wardrobe/collections-tab';
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
@@ -49,11 +72,13 @@ const SORT_OPTIONS = [
   { value: 'wear_count', order: 'asc' as const },
   { value: 'name', order: 'asc' as const },
   { value: 'name', order: 'desc' as const },
+  { value: 'brand', order: 'asc' as const },
+  { value: 'purchase_price', order: 'desc' as const },
 ] as const;
 
 const SORT_LABEL_KEYS = [
   'newestFirst', 'oldestFirst', 'recentlyWorn', 'leastRecentlyWorn',
-  'mostWorn', 'leastWorn', 'nameAZ', 'nameZA',
+  'mostWorn', 'leastWorn', 'nameAZ', 'nameZA', 'brandAZ', 'priceHighLow',
 ] as const;
 
 function ItemCard({
@@ -105,7 +130,7 @@ function ItemCard({
       }`}
       onClick={onClick}
     >
-      <div className="relative aspect-square bg-muted">
+      <div className="photo-ground relative aspect-square">
         {item.thumbnail_url ? (
           <Image
             src={item.thumbnail_url}
@@ -324,7 +349,10 @@ function EmptyWardrobe({ onAddClick }: { onAddClick: () => void }) {
 }
 
 export default function WardrobePage() {
+  const typeLabel = useTypeLabel();
+  const colorLabel = useColorLabel();
   const searchParams = useSearchParams();
+  const tab = useWardrobeTab();
   const router = useRouter();
   const userTimezone = useUserTimezone();
   const t = useTranslations('wardrobe');
@@ -351,6 +379,31 @@ export default function WardrobePage() {
     searchParams.get('favorite') === 'true' ? true : undefined
   );
   const [showFilters, setShowFilters] = useState(false);
+  const [category, setCategory] = useState<string>(() => searchParams.get('category') || 'all');
+  const [groupBy, setGroupBy] = useState<GroupBy>(() => {
+    const param = searchParams.get('group');
+    return isGroupBy(param) ? param : 'none';
+  });
+  const [homeScope, setHomeScope] = useState<HomeScope>(() =>
+    searchParams.get('homes') === 'all' ? 'all' : 'here'
+  );
+  const [facetSelection, setFacetSelection] = useState<FacetSelection>(() =>
+    Object.fromEntries(
+      FACET_KEYS.map((key) => [key, searchParams.get(key) || undefined])
+    ) as FacetSelection
+  );
+  const [viewMode, setViewMode] = useWardrobeViewMode();
+  const { data: homes } = useHomes();
+  const currentHome = homes?.find((home) => home.is_current);
+  // "This home" only narrows the wardrobe once the person has said which home they are in.
+  const scopedHomeId = homeScope === 'here' ? currentHome?.id : undefined;
+  const { data: facets } = useWardrobeFacets(scopedHomeId);
+  const { data: categories, refetch: refetchCategories } = useWardrobeCategories(scopedHomeId);
+  const handleFacetChange = (key: FacetKey, value: string | undefined) => {
+    setFacetSelection((previous) => ({ ...previous, [key]: value }));
+    setPage(1);
+  };
+  const clearFacets = () => setFacetSelection({});
   const [page, setPage] = useState(() => {
     const raw = Number(searchParams.get('page'));
     return Number.isInteger(raw) && raw > 0 ? raw : 1;
@@ -397,6 +450,13 @@ export default function WardrobePage() {
     if (sortIndex !== 0) params.set('sort', String(sortIndex)); else params.delete('sort');
     if (needsWash) params.set('needsWash', 'true'); else params.delete('needsWash');
     if (favoriteFilter) params.set('favorite', 'true'); else params.delete('favorite');
+    if (category !== 'all') params.set('category', category); else params.delete('category');
+    if (groupBy !== 'none') params.set('group', groupBy); else params.delete('group');
+    if (homeScope === 'all') params.set('homes', 'all'); else params.delete('homes');
+    for (const key of FACET_KEYS) {
+      const value = facetSelection[key];
+      if (value) params.set(key, value); else params.delete(key);
+    }
     if (page !== 1) params.set('page', String(page)); else params.delete('page');
     if (pageSize !== DEFAULT_PAGE_SIZE) params.set('pageSize', String(pageSize)); else params.delete('pageSize');
 
@@ -404,9 +464,13 @@ export default function WardrobePage() {
     if (next !== searchParams.toString()) {
       router.replace(next ? `/dashboard/wardrobe?${next}` : '/dashboard/wardrobe', { scroll: false });
     }
-  }, [search, typeFilter, sortIndex, needsWash, favoriteFilter, page, pageSize, searchParams, router]);
+  }, [search, typeFilter, category, groupBy, sortIndex, needsWash, favoriteFilter, homeScope, facetSelection, page, pageSize, searchParams, router]);
 
   const sortOption = SORT_OPTIONS[sortIndex];
+
+  // In "select all matching" mode everything is selected except what was unticked.
+  const isItemSelected = (id: string) =>
+    selection.mode === 'all' ? !selection.excludedIds.has(id) : selection.selectedIds.has(id);
 
   const listFilters: BulkItemFilters = {
     search: search || undefined,
@@ -414,14 +478,23 @@ export default function WardrobePage() {
     needs_wash: needsWash,
     favorite: favoriteFilter,
     is_archived: false,
+    home_id: scopedHomeId,
+    category: category !== 'all' ? category : undefined,
+    ...facetSelection,
   };
-  const filters = { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
+  // Grouping sorts by what is grouped on, so each group's items arrive together.
+  const groupSort = GROUP_BY[groupBy];
+  const filters = groupSort
+    ? { ...listFilters, sort_by: groupSort, sort_order: 'asc' as const }
+    : { ...listFilters, sort_by: sortOption.value, sort_order: sortOption.order };
 
   const activeFilterCount = [
     needsWash !== undefined,
     favoriteFilter !== undefined,
     typeFilter !== 'all',
-  ].filter(Boolean).length;
+    // Showing every home is set in the filter panel, so it counts on the filter button.
+    homeScope === 'all' && !!homes?.some((home) => home.is_current),
+  ].filter(Boolean).length + activeFacetCount(facetSelection);
 
   // Fetch items with automatic polling (faster when items are processing)
   const { data, isLoading, error } = useItems(filters, page, pageSize);
@@ -439,6 +512,13 @@ export default function WardrobePage() {
 
   const items = data?.items || [];
   const total = data?.total || 0;
+
+  // The chips count items by type. Adding, deleting or (once the AI has looked) re-typing an
+  // item changes those counts without anything telling the chips, so they follow the list.
+  const typesOnPage = items.map((item) => item.type).join(',');
+  useEffect(() => {
+    refetchCategories();
+  }, [total, typesOnPage, refetchCategories]);
 
   // Get selected item: try from list first, then fetch individually (for deep-link from outfit pages)
   const listItem = detailItemId ? items.find((i) => i.id === detailItemId) || null : null;
@@ -465,7 +545,7 @@ export default function WardrobePage() {
   // Clear selection when filters change (but not page - allow cross-page selection)
   useEffect(() => {
     setSelection({ mode: 'none', selectedIds: new Set(), excludedIds: new Set() });
-  }, [search, typeFilter, needsWash, favoriteFilter, sortIndex]);
+  }, [search, typeFilter, category, needsWash, favoriteFilter, sortIndex]);
 
   const handleRetry = (itemId: string) => {
     reanalyze.mutate(itemId, {
@@ -652,102 +732,111 @@ export default function WardrobePage() {
     setPage(newPage);
   };
 
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="min-w-0">
-          <div className="flex items-center justify-between sm:justify-start gap-3">
-            <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-            <Button
-              onClick={() => setAddDialogOpen(true)}
-              className="sm:hidden"
-              size="sm"
-              aria-label={t('actions.addItem')}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            {t('itemCount', { count: total })}
-          </p>
-          {(queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
-            <div className="flex items-center gap-2 mt-2">
-              {analyzingCount > 0 && (
-                <Badge variant="secondary" className="gap-1 text-xs">
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                  {queueSummary.batchTotal > 0
-                    ? t('ai.analyzingProgress', {
-                        count: analyzingCount,
-                        percent: queueSummary.percentComplete,
-                      })
-                    : t('ai.analyzingCount', { count: analyzingCount })}
-                </Badge>
-              )}
-              {queuedCount > 0 && (
-                <Badge variant="secondary" className="gap-1 text-xs">
-                  {t('ai.queuedCount', { count: queuedCount })}
-                </Badge>
-              )}
-              {aiUiEnabled && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-6 px-2 text-xs"
-                  onClick={() => setQueuePanelOpen(true)}
-                >
-                  {t('ai.queue.open')}
-                </Button>
-              )}
-              {(queuedCount > 0 || analyzingCount > 0) && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-6 px-2 text-xs"
-                  disabled={bulkCancelAnalysis.isPending}
-                  onClick={handleCancelAllAnalysis}
-                >
-                  {t('ai.cancelAll')}
-                </Button>
-              )}
-              {errorCount > 0 && (
-                <Badge variant="destructive" className="gap-1 text-xs">
-                  <AlertCircle className="h-3 w-3" />
-                  {t('ai.failedCount', { count: errorCount })}
-                </Badge>
-              )}
-            </div>
-          )}
-        </div>
-        <Button onClick={() => setAddDialogOpen(true)} className="hidden sm:flex">
-          <Plus className="mr-2 h-4 w-4" />
-          {t('actions.addItem')}
-        </Button>
-      </div>
+  const groupLabel = (key: string) => {
+    if (groupBy === 'type') return typeLabel(key);
+    if (groupBy === 'color') return key ? colorLabel(key) : t('closet.groupBy.noColor');
+    if (groupBy === 'home') return homes?.find((home) => home.id === key)?.name ?? t('closet.groupBy.noHome');
+    if (groupBy === 'brand') {
+      // Grouped case-insensitively; shown the way the first item spells it.
+      const spelled = items.find((item) => item.brand?.trim().toLowerCase() === key)?.brand?.trim();
+      return spelled || t('closet.groupBy.noBrand');
+    }
+    return '';
+  };
 
-      <div className="space-y-3">
-        {/* Main row: search + sort + filter toggle */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={t('search')}
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              className="pl-9"
+  // The wardrobe's grid or list for a run of items: all of them, or one group's.
+  const renderItems = (list: Item[]) =>
+    viewMode === 'cutouts' ? (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3">
+          {list.map((item) => (
+            <CutoutTile
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
             />
-          </div>
-          <div className="flex gap-2">
+          ))}
+        </div>
+      ) : viewMode === 'list' ? (
+        <ul>
+          {list.map((item) => (
+            <ItemListRow
+              key={item.id}
+              item={item}
+              selected={isItemSelected(item.id)}
+              onSelect={handleSelect}
+              onClick={() => setDetailItemId(item.id)}
+              errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+              home={scopedHomeId ? undefined : homes?.find((home) => home.id === item.home_id)}
+            />
+          ))}
+        </ul>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {list.map((item) => {
+            const isSelected = isItemSelected(item.id);
+            return (
+              <ItemCard
+                key={item.id}
+                item={item}
+                selected={isSelected}
+                onSelect={handleSelect}
+                onRetry={aiUiEnabled ? handleRetry : undefined}
+                onRetryBackgroundRemoval={handleRetryBackgroundRemoval}
+                onCancelAnalysis={handleCancelAnalysis}
+                onClick={() => setDetailItemId(item.id)}
+                onDismissError={handleDismissError}
+                errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
+                userTimezone={userTimezone}
+              />
+            );
+          })}
+        </div>
+      );
+
+  if (tab === 'lookbook') return <LookbookTab />;
+  if (tab === 'collections') return <CollectionsTab />;
+
+  return (
+    <div className="space-y-4">
+      <WardrobeHeader
+        homes={homes ?? []}
+        scope={homeScope}
+        onScopeChange={(scope) => {
+          setHomeScope(scope);
+          setPage(1);
+        }}
+        groups={categories?.groups ?? []}
+        category={category}
+        onCategoryChange={(value) => {
+          setCategory(value);
+          setPage(1);
+        }}
+        search={search}
+        onSearchChange={(value) => {
+          setSearch(value);
+          setPage(1);
+        }}
+        filterCount={activeFilterCount}
+        filtersOpen={showFilters}
+        onToggleFilters={() => setShowFilters((v) => !v)}
+        onAdd={() => setAddDialogOpen(true)}
+        total={total}
+        toolbar={
+      <div className="space-y-3">
+        <div className="flex items-center justify-between gap-2">
             <Select
+              // Grouping decides the order while it is on.
+              disabled={groupBy !== 'none'}
               value={String(sortIndex)}
               onValueChange={(v) => {
                 setSortIndex(Number(v));
                 setPage(1);
               }}
             >
-              <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectTrigger className="h-11 w-auto min-w-[10.5rem] gap-1 rounded-full bg-card">
                 <ArrowUpDown className="h-3.5 w-3.5 mr-1.5 shrink-0" />
                 <SelectValue />
               </SelectTrigger>
@@ -759,25 +848,16 @@ export default function WardrobePage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button
-              variant={showFilters || activeFilterCount > 0 ? 'default' : 'outline'}
-              size="icon"
-              className="shrink-0 relative"
-              onClick={() => setShowFilters((v) => !v)}
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              {activeFilterCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </Button>
-          </div>
+          <ViewModeToggle mode={viewMode} onChange={setViewMode} />
         </div>
 
         {/* Expandable filter row */}
         {showFilters && (
           <div className="flex flex-wrap gap-2 items-center p-3 rounded-lg border bg-muted/30">
+            <HomesFilter homes={homes ?? []} scope={homeScope} onScopeChange={(scope) => {
+              setHomeScope(scope);
+              setPage(1);
+            }} />
             <Select
               value={typeFilter}
               onValueChange={(value) => {
@@ -797,6 +877,15 @@ export default function WardrobePage() {
                 ))}
               </SelectContent>
             </Select>
+
+            <GroupBySelect
+              value={groupBy}
+              onChange={(value) => {
+                setGroupBy(value);
+                setPage(1);
+              }}
+            />
+            <FacetFilters facets={facets} selection={facetSelection} onChange={handleFacetChange} />
 
             <Select
               value={String(pageSize)}
@@ -852,6 +941,8 @@ export default function WardrobePage() {
                   setTypeFilter('all');
                   setNeedsWash(undefined);
                   setFavoriteFilter(undefined);
+                  clearFacets();
+                  setHomeScope('here');
                   setPage(1);
                 }}
               >
@@ -862,6 +953,58 @@ export default function WardrobePage() {
           </div>
         )}
       </div>
+        }
+        status={
+          (queuedCount > 0 || analyzingCount > 0 || errorCount > 0) && (
+            <div className="flex flex-wrap items-center gap-2">
+              {analyzingCount > 0 && (
+                <Badge variant="secondary" className="gap-1 text-xs">
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                  {queueSummary.batchTotal > 0
+                    ? t('ai.analyzingProgress', {
+                        count: analyzingCount,
+                        percent: queueSummary.percentComplete,
+                      })
+                    : t('ai.analyzingCount', { count: analyzingCount })}
+                </Badge>
+              )}
+              {queuedCount > 0 && (
+                <Badge variant="secondary" className="gap-1 text-xs">
+                  {t('ai.queuedCount', { count: queuedCount })}
+                </Badge>
+              )}
+              {aiUiEnabled && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-xs"
+                  onClick={() => setQueuePanelOpen(true)}
+                >
+                  {t('ai.queue.open')}
+                </Button>
+              )}
+              {(queuedCount > 0 || analyzingCount > 0) && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-xs"
+                  disabled={bulkCancelAnalysis.isPending}
+                  onClick={handleCancelAllAnalysis}
+                >
+                  {t('ai.cancelAll')}
+                </Button>
+              )}
+              {errorCount > 0 && (
+                <Badge variant="destructive" className="gap-1 text-xs">
+                  <AlertCircle className="h-3 w-3" />
+                  {t('ai.failedCount', { count: errorCount })}
+                </Badge>
+              )}
+            </div>
+          )
+        }
+      />
+
 
       {error ? (
         <div className="text-center py-8">
@@ -883,7 +1026,7 @@ export default function WardrobePage() {
           ))}
         </div>
       ) : items.length === 0 ? (
-        search || typeFilter !== 'all' || needsWash !== undefined || favoriteFilter !== undefined ? (
+        search || typeFilter !== 'all' || category !== 'all' || needsWash !== undefined || favoriteFilter !== undefined || activeFacetCount(facetSelection) > 0 || scopedHomeId ? (
           <div className="text-center py-8">
             <p className="text-muted-foreground">
               {t('errors.noItemsFound')}
@@ -896,6 +1039,8 @@ export default function WardrobePage() {
                 setTypeFilter('all');
                 setNeedsWash(undefined);
                 setFavoriteFilter(undefined);
+                clearFacets();
+                setHomeScope('all');
                 setPage(1);
               }}
             >
@@ -906,29 +1051,9 @@ export default function WardrobePage() {
           <EmptyWardrobe onAddClick={() => setAddDialogOpen(true)} />
         )
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pb-20">
-          {items.map((item) => {
-            // Determine if item is selected based on selection mode
-            const isSelected = selection.mode === 'all'
-              ? !selection.excludedIds.has(item.id)
-              : selection.selectedIds.has(item.id);
-            return (
-              <ItemCard
-                key={item.id}
-                item={item}
-                selected={isSelected}
-                onSelect={handleSelect}
-                onRetry={aiUiEnabled ? handleRetry : undefined}
-                onRetryBackgroundRemoval={handleRetryBackgroundRemoval}
-                onCancelAnalysis={handleCancelAnalysis}
-                onClick={() => setDetailItemId(item.id)}
-                onDismissError={handleDismissError}
-                errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
-                userTimezone={userTimezone}
-              />
-            );
-          })}
-        </div>
+        <GroupedItems items={items} groupBy={groupBy} label={groupLabel} render={(list) => (
+          <div className={groupBy === 'none' ? 'pb-20' : ''}>{renderItems(list)}</div>
+        )} />
       )}
 
       <BulkActionToolbar
@@ -948,6 +1073,7 @@ export default function WardrobePage() {
         isRemovingBackground={bulkRemoveBackground.isPending}
         variant="items"
         pagination={{ page, pageSize, onPageChange: handlePageChange }}
+        extraActions={<MoveToHomeButton getSelection={getBulkParams} onDone={handleClearSelection} />}
       />
 
       <AddItemDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />

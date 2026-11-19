@@ -256,7 +256,9 @@
       "wearsSinceWash": "Ports depuis le lavage : {current}/{max}",
       "wornCount": "{count, plural, one {Porté # fois} other {Porté # fois}}"
     },
-    "washInterval": "Intervalle de lavage"
+    "washInterval": "Intervalle de lavage",
+    "closetEdit": "Modifier",
+    "moreActions": "Autres actions"
   },
   "lightbox": {
     "openInWardrobe": "Ouvrir dans la garde-robe"
@@ -272,7 +274,9 @@
     "nameZA": "Nom Z–A",
     "newestFirst": "Plus récents d'abord",
     "oldestFirst": "Plus anciens d'abord",
-    "recentlyWorn": "Récemment portés"
+    "recentlyWorn": "Récemment portés",
+    "brandAZ": "Marque A–Z",
+    "priceHighLow": "Prix décroissant"
   },
   "splitPhoto": {
     "addBox": "Ajouter un cadre",
@@ -324,5 +328,646 @@
     "daysAgo": "Porté il y a {days} j",
     "today": "Porté aujourd'hui",
     "yesterday": "Porté hier"
+  },
+  "closet": {
+    "homes": {
+      "here": "Ce logement",
+      "everywhere": "Tous les logements",
+      "scopeLabel": "Quels vêtements afficher",
+      "youAreIn": "Vous êtes à {home}",
+      "noHome": "Choisissez où vous êtes",
+      "setUp": "Configurer vos logements",
+      "setUpHint": "Indiquez à l'application où sont rangés vos vêtements, pour qu'elle montre ceux à portée de main.",
+      "manage": "Gérer les logements",
+      "title": "Logements",
+      "description": "Les lieux où vous rangez vos vêtements. Les nouvelles pièces vont dans le logement où vous êtes, et la météo suit sa ville.",
+      "name": "Nom",
+      "namePlaceholder": "ex. Maison de Chennai",
+      "city": "Ville",
+      "cityPlaceholder": "ex. Chennai",
+      "add": "Ajouter un logement",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "editHome": "Modifier {home}",
+      "deleteHome": "Supprimer {home} ?",
+      "deleteConfirm": "Ses pièces restent dans votre garde-robe, sans logement.",
+      "current": "Vous êtes ici",
+      "setCurrent": "Je suis ici",
+      "itemCount": "{count, plural, one {# pièce} other {# pièces}}",
+      "errors": {
+        "saveFailed": "Impossible d'enregistrer le logement",
+        "moveFailed": "Impossible de déplacer les articles"
+      },
+      "moveSelected": "Déplacer les articles sélectionnés vers un domicile",
+      "moveShort": "Déplacer",
+      "moveTo": "Déplacer vers {home}",
+      "moved": "{count, plural, one {# article déplacé} other {# articles déplacés}} vers {home}",
+      "filterLabel": "Logements"
+    },
+    "view": {
+      "label": "Affichage",
+      "cutouts": "Photos seules",
+      "tiles": "Photos avec détails",
+      "list": "Liste avec détails",
+      "select": "Sélectionner {item}",
+      "processing": "En cours de traitement",
+      "needsAttention": "À vérifier",
+      "needsWash": "À laver"
+    },
+    "filters": {
+      "occasion": "Occasion",
+      "brand": "Marque",
+      "material": "Matière",
+      "season": "Saison",
+      "any": "{filter} : toutes",
+      "option": "{label} ({count})",
+      "toggle": "Filtres",
+      "color": "Couleur",
+      "worn": "Porté",
+      "inOutfits": "Tenues",
+      "wornOptions": {
+        "never": "Jamais porté",
+        "not_recently": "Pas porté depuis 3 mois"
+      },
+      "inOutfitsOptions": {
+        "true": "Dans une tenue",
+        "false": "Dans aucune tenue"
+      }
+    },
+    "list": {
+      "size": "Taille {size}",
+      "worn": "{count, plural, =0 {Jamais porté} one {Porté une fois} other {Porté # fois}}"
+    },
+    "details": {
+      "title": "Détails",
+      "edit": "Modifier les détails",
+      "add": "Ajouter des détails",
+      "scanLabel": "Scanner l'étiquette",
+      "empty": "Ajoutez la taille, la matière et le lieu d'achat.",
+      "home": "Rangé à",
+      "none": "Non défini",
+      "brand": "Marque",
+      "size": "Taille",
+      "sizeSystem": "Système de tailles",
+      "sizeSystemPlaceholder": "ex. EU, UK, IN",
+      "fitNote": "Note sur la coupe",
+      "fitNotePlaceholder": "ex. taille petit",
+      "boughtIn": "Acheté à",
+      "boughtInPlaceholder": "Ville ou pays de l'achat",
+      "care": "Entretien",
+      "carePlaceholder": "ex. Nettoyage à sec uniquement",
+      "materials": "Matière",
+      "compositionSummary": "Composition : {summary}",
+      "materialName": "Matière {number}",
+      "materialPercent": "Pourcentage de la matière {number}",
+      "removeMaterial": "Retirer la matière {number}",
+      "addMaterial": "Ajouter une matière",
+      "tooMuch": "Les pourcentages dépassent 100.",
+      "occasions": "Occasions",
+      "occasionPlaceholder": "ex. mariage",
+      "addOccasion": "Ajouter",
+      "removeOccasion": "Retirer {occasion}",
+      "save": "Enregistrer les détails",
+      "cancel": "Annuler",
+      "saved": "Détails enregistrés",
+      "saveFailed": "Impossible d'enregistrer les détails",
+      "status": "État",
+      "statusReady": "Prêt à porter",
+      "statusNeedsWash": "À laver",
+      "boughtOn": "Acheté le",
+      "price": "Prix",
+      "currency": "Devise"
+    },
+    "labelScan": {
+      "title": "Scanner l'étiquette",
+      "pickHint": "Prenez en photo l'étiquette d'entretien. Ajoutez l'autre face ou l'étiquette volante si les informations sont réparties.",
+      "reviewHint": "Vérifiez ce qui a été lu. Rien n'est enregistré avant votre confirmation.",
+      "unreadTitle": "L'étiquette n'a pas pu être lue",
+      "photos": "Photos de l'étiquette",
+      "photoNumber": "Photo d'étiquette {number}",
+      "removePhoto": "Retirer la photo d'étiquette {number}",
+      "addPhoto": "Ajouter une photo d'étiquette",
+      "addAnother": "Ajouter une autre photo",
+      "tip": "Posez l'étiquette à plat, sous une bonne lumière, et cadrez-la de près. Jusqu'à 3 photos.",
+      "cancel": "Annuler",
+      "read": "Lire l'étiquette",
+      "reading": "Lecture de l'étiquette…",
+      "unread": {
+        "nothing_read": "Aucune information n'a pu être distinguée sur ces photos. Réessayez de plus près et avec plus de lumière.",
+        "ai_disabled": "La lecture des étiquettes est désactivée sur ce serveur.",
+        "ai_unreachable": "Le service d'IA est injoignable. Réessayez dans un instant."
+      },
+      "photosKept": "Les photos sont conservées avec cet article pour que vous puissiez les consulter plus tard.",
+      "close": "Fermer",
+      "confirm": "Confirmer",
+      "saved": "Détails de l'étiquette enregistrés",
+      "saveFailed": "Impossible d'enregistrer les détails",
+      "scanFailed": "Impossible de scanner l'étiquette",
+      "alreadySaved": "{field} · déjà enregistré",
+      "fromLabelValue": "{field} d'après l'étiquette",
+      "take": "Enregistrer {field}",
+      "differs": "{field} · l'étiquette indique autre chose",
+      "keepSaved": "Garder la valeur enregistrée",
+      "useLabel": "Utiliser l'étiquette",
+      "openPhoto": "Ouvrir la photo d'étiquette {number}",
+      "deletePhoto": "Supprimer la photo",
+      "removeFailed": "Impossible de supprimer la photo",
+      "optionalStep": "Photos de l'étiquette (facultatif)",
+      "optionalHint": "Ajoutez une photo de l'étiquette d'entretien : la taille, la matière et l'entretien seront lus pour vous."
+    },
+    "display": {
+      "title": "Affichage",
+      "description": "Choisissez l'apparence de l'application.",
+      "system": "Comme le téléphone",
+      "light": "Clair",
+      "dark": "Sombre"
+    },
+    "header": {
+      "title": "Garde-robe",
+      "count": "{count, plural, one {# article} other {# articles}}",
+      "search": "Rechercher dans la garde-robe",
+      "closeSearch": "Fermer la recherche"
+    },
+    "categories": {
+      "label": "Catégorie",
+      "all": "Tout",
+      "allOf": "Tout : {group}",
+      "indian": "Tenues indiennes",
+      "western": "Tenues occidentales",
+      "shoes": "Chaussures",
+      "jewellery": "Bijoux",
+      "accessories": "Accessoires",
+      "sarees": "Saris",
+      "kurtas-suits": "Kurtas et ensembles",
+      "lehengas": "Lehengas",
+      "dupattas": "Dupattas et étoles",
+      "indian-bottoms": "Bas",
+      "tops": "Hauts",
+      "bottoms": "Bas",
+      "dresses": "Robes et costumes",
+      "outerwear": "Vestes et manteaux",
+      "indian-shoes": "Indiennes",
+      "flats-sandals": "Plates et sandales",
+      "heels": "Talons",
+      "sneakers": "Baskets",
+      "boots": "Bottes",
+      "formal-shoes": "Chaussures habillées",
+      "socks": "Chaussettes",
+      "necklaces": "Colliers",
+      "earrings": "Boucles d'oreilles",
+      "bangles": "Bracelets et joncs",
+      "rings": "Bagues",
+      "hair-head": "Cheveux et tête",
+      "anklets": "Chevilles et orteils",
+      "waist-belts": "Ceintures de taille",
+      "watches": "Montres",
+      "bags": "Sacs",
+      "belts": "Ceintures",
+      "scarves": "Écharpes",
+      "hats": "Chapeaux",
+      "ties": "Cravates et boutons de manchette",
+      "other-accessories": "Autres"
+    },
+    "categorySettings": {
+      "title": "Catégories",
+      "description": "Les groupes qui organisent votre garde-robe. Renommez-les, ajoutez les vôtres et choisissez les types d'articles de chacun.",
+      "addGroup": "Ajouter un groupe",
+      "addSubgroup": "Ajouter à {group}",
+      "newSubgroup": "Nouvelle catégorie",
+      "editTitle": "Modifier la catégorie",
+      "editNamed": "Modifier {name}",
+      "groupHint": "Un groupe principal, comme Tenues indiennes. Ses sous-catégories contiennent les articles.",
+      "subgroupHint": "Cochez les types d'articles qui vont ici. Chaque type n'a qu'une seule catégorie.",
+      "name": "Nom",
+      "namePlaceholder": "p. ex. Saris en soie",
+      "types": "Types d'articles",
+      "noTypes": "Aucun type d'article pour l'instant",
+      "inOther": "dans {category}",
+      "unplaced": "Dans aucune catégorie : {types}. Visibles seulement sous Tout.",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "deleteConfirm": "Touchez encore pour supprimer",
+      "reset": "Revenir aux catégories standard",
+      "resetConfirm": "Touchez encore pour réinitialiser",
+      "resetDone": "Catégories standard rétablies",
+      "saved": "Catégories enregistrées",
+      "saveFailed": "Impossible d'enregistrer les catégories",
+      "kindsTitle": "Vos propres types d'articles",
+      "kindsHint": "Vous possédez quelque chose qui n'est pas dans la liste ? Ajoutez-le ici. Il apparaîtra quand vous ajoutez ou modifiez un article.",
+      "kindOf": "un type de {type}",
+      "deleteKind": "Supprimer {name}",
+      "addKind": "Ajouter un type d'article",
+      "kindAdded": "Type d'article ajouté",
+      "kindSheetHint": "Donnez-lui le nom que vous utilisez et indiquez ce qui s'en rapproche le plus.",
+      "kindNamePlaceholder": "p. ex. Pattu pavadai",
+      "kindBase": "C'est un type de",
+      "kindBasePlaceholder": "Choisir le plus proche",
+      "kindBaseHint": "Sert pour les tenues et le lavage. Il reste dans la même catégorie jusqu'à ce que vous le déplaciez."
+    },
+    "more": {
+      "title": "Plus",
+      "back": "Plus",
+      "features": "Fonctionnalités",
+      "settings": "Réglages",
+      "language": "Langue",
+      "accountHint": "Qui est connecté, et la langue de l'application.",
+      "items": {
+        "insights": {
+          "title": "Statistiques",
+          "hint": "Chiffres et tendances"
+        },
+        "history": {
+          "title": "Historique",
+          "hint": "Ce que vous avez porté"
+        },
+        "family": {
+          "title": "Famille",
+          "hint": "Qui partage l'application"
+        },
+        "homes": {
+          "title": "Domiciles"
+        },
+        "categories": {
+          "title": "Catégories"
+        },
+        "display": {
+          "title": "Affichage"
+        },
+        "notifications": {
+          "title": "Notifications"
+        },
+        "account": {
+          "title": "Compte"
+        },
+        "style": {
+          "title": "Mon style"
+        },
+        "body": {
+          "title": "Morphologie"
+        },
+        "weather": {
+          "title": "Confort météo"
+        },
+        "suggestions": {
+          "title": "Suggestions"
+        },
+        "dressingRoom": {
+          "title": "Cabine d’essayage"
+        },
+        "laundry": {
+          "title": "Linge",
+          "hint": "Lavage et pressing"
+        }
+      }
+    },
+    "onboarding": {
+      "title": "Où rangez-vous vos vêtements ?",
+      "description": "Ajoutez chaque lieu, comme Chennai ou l'Europe, avec sa ville. L'application montre ce qui se trouve dans le domicile où vous êtes, et la météo suit cette ville.",
+      "addOneFirst": "Ajoutez un domicile pour continuer",
+      "continue": "Continuer avec {count, plural, one {# domicile} other {# domiciles}}",
+      "skip": "Passer pour l'instant"
+    },
+    "groupBy": {
+      "label": "Regrouper",
+      "none": "Sans regroupement",
+      "by": "Regrouper par {what}",
+      "type": "type",
+      "color": "couleur",
+      "home": "domicile",
+      "brand": "marque",
+      "noColor": "Sans couleur",
+      "noHome": "Sans domicile",
+      "noBrand": "Sans marque"
+    },
+    "tabs": {
+      "label": "Sections de la garde-robe",
+      "clothes": "Vêtements",
+      "lookbook": "Lookbook",
+      "collections": "Collections"
+    },
+    "lookbook": {
+      "count": "{count, plural, one {# look} other {# looks}}",
+      "new": "Nouveau",
+      "loadError": "Impossible de charger vos looks.",
+      "emptyTitle": "Aucun look enregistré",
+      "emptyHint": "Créez une tenue, ou ouvrez-en une portée et touchez « Enregistrer dans le lookbook ».",
+      "loadMore": "Afficher plus"
+    },
+    "collections": {
+      "count": "{count, plural, one {# collection} other {# collections}}",
+      "new": "Nouvelle",
+      "created": "« {name} » créée",
+      "saveError": "Échec de l’enregistrement. Veuillez réessayer.",
+      "loadError": "Impossible de charger vos collections.",
+      "emptyTitle": "Aucune collection",
+      "emptyHint": "Regroupez vêtements et tenues, comme « Saison des mariages » ou « Semaine au bureau ». Ajoutez-y depuis n’importe quel article ou tenue.",
+      "entryCount": "{count, plural, one {# élément} other {# éléments}}",
+      "newTitle": "Nouvelle collection",
+      "create": "Créer",
+      "nameLabel": "Nom de la collection",
+      "namePlaceholder": "ex. Saison des mariages",
+      "addTitle": "Ajouter à une collection",
+      "addHint": "Touchez une collection pour l’y ajouter.",
+      "newPlaceholder": "Nom de la nouvelle collection",
+      "addedTo": "Ajouté à « {name} »",
+      "alreadyIn": "Déjà dans « {name} »",
+      "inThis": "Déjà dans cette collection",
+      "back": "Collections",
+      "notFound": "Cette collection est introuvable.",
+      "removed": "« {name} » retiré",
+      "done": "Terminé",
+      "edit": "Modifier",
+      "more": "Autres actions",
+      "rename": "Renommer",
+      "delete": "Supprimer",
+      "emptyCollection": "Rien pour l’instant",
+      "emptyCollectionHint": "Ouvrez un article ou une tenue, touchez ⋯ ou « Ajouter à une collection » et choisissez celle-ci.",
+      "clothesHeading": "{count, plural, one {Vêtements · #} other {Vêtements · #}}",
+      "outfitsHeading": "{count, plural, one {Tenues · #} other {Tenues · #}}",
+      "remove": "Retirer « {name} »",
+      "renameTitle": "Renommer la collection",
+      "save": "Enregistrer",
+      "deleteTitle": "Supprimer « {name} » ?",
+      "deleteHint": "La collection disparaît. Ses vêtements et tenues restent dans votre garde-robe.",
+      "cancel": "Annuler",
+      "deleted": "« {name} » supprimée"
+    },
+    "photoTip": {
+      "short": "Astuce : à plat, à la lumière du jour, l’article entier dans la photo.",
+      "more": "Plus d’astuces",
+      "less": "Moins d’astuces",
+      "flat": "Posez l’article à plat ou suspendez-le devant un mur uni.",
+      "light": "Utilisez la lumière du jour et évitez les ombres marquées.",
+      "whole": "L’article entier dans la photo, un article par photo.",
+      "special": "Sari : pliez-le pour montrer la bordure et le pallu. Bijoux : sur une surface unie."
+    },
+    "startScreen": {
+      "title": "L’app s’ouvre sur",
+      "description": "L’écran affiché à l’ouverture, sur tous vos appareils.",
+      "wardrobe": "Garde-robe",
+      "lookbook": "Lookbook",
+      "outfits": "Tenues",
+      "plan": "Planifier",
+      "saveError": "Échec de l’enregistrement. Veuillez réessayer."
+    },
+    "weather": {
+      "feelsLike": "ressenti {temp}",
+      "rain": "Pluie {percent} %",
+      "humidity": "Humidité {percent} %",
+      "open": "Météo du jour : ouvrir le planning",
+      "inCity": "à {city}"
+    },
+    "stays": {
+      "title": "Où serez-vous ?",
+      "hint": "Choisissez un de vos domiciles ou saisissez une ville, puis les jours. Les autres jours restent à votre domicile actuel.",
+      "yourHomes": "Vos domiciles",
+      "otherCity": "Autre ville",
+      "cityPlaceholder": "ex. Bangalore",
+      "to": "Au",
+      "save": "Enregistrer le séjour",
+      "saved": "Enregistré : {city}",
+      "cityNotFound": "Aucune ville nommée « {city} ». Vérifiez l’orthographe.",
+      "saveError": "Échec de l’enregistrement. Veuillez réessayer.",
+      "rowTitle": "Où je serai",
+      "add": "Je serai ailleurs",
+      "addFrom": "Ajouter un séjour à partir du {day}",
+      "noCity": "Domicile",
+      "remove": "Supprimer le séjour à {city}",
+      "removed": "Séjour à {city} supprimé",
+      "legend": "Gris : votre domicile actuel. En couleur : un séjour ajouté. Touchez un jour pour en ajouter un.",
+      "prompt": "Vous êtes à {home} aujourd’hui. Afficher les vêtements qui y sont ?",
+      "promptYes": "Oui, changer",
+      "promptNo": "Pas maintenant",
+      "from": "Du"
+    },
+    "weatherScreen": {
+      "back": "Garde-robe",
+      "unavailable": "La météo ne peut pas être chargée pour le moment. Réessayez plus tard.",
+      "title": "Météo",
+      "today": "Aujourd’hui",
+      "range": "Aujourd’hui, min à max",
+      "rain": "Pluie",
+      "humidity": "Humidité",
+      "uv": "UV",
+      "plannedToday": "Prévu pour aujourd’hui",
+      "planToday": "Prévoir la tenue du jour",
+      "nextDays": "7 prochains jours",
+      "noForecast": "Prévisions pas encore disponibles",
+      "plannedFor": "Prévu pour {day}",
+      "planOutfit": "Prévoir une tenue",
+      "planned": "Tenue prévue pour {day}",
+      "planError": "Impossible de prévoir une tenue. Veuillez réessayer.",
+      "addStay": "Ajouter un séjour",
+      "hints": {
+        "storm": "Orages : tissus à séchage rapide, pas de soie",
+        "rain": "Pluie probable : évitez daim et soie, chaussures fermées",
+        "hotHumid": "Chaud et humide : coton léger ou lin",
+        "hot": "Chaud : tissus légers et amples",
+        "coolEvening": "Soirée fraîche : prenez un dupatta ou une veste légère",
+        "cold": "Froid : couches chaudes et manteau",
+        "cool": "Frais : un pull ou une veste légère",
+        "mild": "Doux : presque tout convient"
+      }
+    },
+    "planner": {
+      "title": "Planning",
+      "today": "Aujourd’hui",
+      "day": "Jour",
+      "month": "Mois",
+      "tomorrow": "Demain",
+      "previousWeek": "Semaine précédente",
+      "nextWeek": "Semaine suivante",
+      "rain": "pluie {percent} %",
+      "addOutfit": "Ajouter une tenue",
+      "beIn": "Vous serez à {city}",
+      "noPlace": "Aucun lieu défini",
+      "change": "Changer",
+      "forecastLater": "La météo de ce jour apparaît environ deux semaines avant.",
+      "previousMonth": "Mois précédent",
+      "nextMonth": "Mois suivant",
+      "monthLegend": "Petites icônes : la météo, aussi loin que vont les prévisions. Ligne violette : un jour ailleurs. Touchez un jour pour l’ouvrir.",
+      "wind": "Vent km/h",
+      "sheetHint": "La météo de ce jour et quoi en faire",
+      "low": "min {temp}",
+      "suggestForWeather": "Suggérer une tenue pour cette météo",
+      "removeStay": "Supprimer le séjour à {city}",
+      "changePlace": "Je serai ailleurs ce jour-là",
+      "nextDays": "Voir les 7 prochains jours",
+      "back": "Retour",
+      "pickTitle": "Choisir dans votre lookbook",
+      "addTitle": "Ajouter une tenue pour {day}",
+      "addHint": "Choisissez comment ajouter une tenue à ce jour",
+      "suggestHint": "Choisie selon la météo du jour",
+      "fromLookbook": "Depuis le lookbook",
+      "fromLookbookHint": "Un de vos looks enregistrés",
+      "makeNew": "En créer une",
+      "makeNewHint": "Ouvre le créateur de tenues",
+      "noLooks": "Aucun look enregistré.",
+      "added": "Tenue ajoutée pour {day}",
+      "addError": "Impossible d’ajouter la tenue. Veuillez réessayer."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "Mon style",
+        "hint": "Les couleurs que vous aimez ou évitez, et vos styles préférés."
+      },
+      "body": {
+        "title": "Morphologie",
+        "hint": "Vos mesures, pour des suggestions mieux ajustées."
+      },
+      "weather": {
+        "title": "Confort météo",
+        "hint": "°C ou °F, votre ressenti du chaud et du froid, et les couches."
+      },
+      "suggestions": {
+        "title": "Suggestions",
+        "hint": "Comment les tenues vous sont proposées."
+      }
+    },
+    "maker": {
+      "title": "Nouveau look",
+      "suggestions": "Suggestions",
+      "fromLookbook": "Depuis le lookbook",
+      "fromLookbookHint": "Partir d’un de vos looks enregistrés",
+      "noLooks": "Aucun look enregistré.",
+      "noClothes": "Pas encore de vêtements ici.",
+      "selected": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+      "unpick": "Retirer",
+      "collage": "Collage",
+      "next": "Suivant",
+      "backToPick": "Retour au choix",
+      "boardHint": "Glissez pour déplacer · pincez pour redimensionner · touchez pour Devant, Derrière ou Retirer",
+      "background": "Fond",
+      "addClothes": "Ajouter des vêtements",
+      "addClothesHint": "Cochez les vêtements à mettre sur le tableau",
+      "switchMode": "Changer de mode",
+      "done": "Terminé",
+      "backToBoard": "Retour au tableau",
+      "saveTitle": "Enregistrer le look",
+      "name": "Nom",
+      "namePlaceholder": "ex. Journée kurti turquoise",
+      "occasion": "Occasion",
+      "planDay": "Jour",
+      "saveAndPlan": "Enregistrer et planifier",
+      "saveChanges": "Enregistrer les modifications",
+      "saveToLookbook": "Enregistrer dans le lookbook",
+      "saveToLookbookInstead": "Plutôt l’enregistrer dans le lookbook",
+      "planForDay": "Enregistrer et prévoir pour un jour…",
+      "saveAsNew": "Enregistrer comme nouveau look",
+      "saved": "Enregistré dans votre lookbook",
+      "plannedFor": "Prévu pour {day}",
+      "saveError": "Impossible d’enregistrer le look. Veuillez réessayer.",
+      "piece": "Pièce sur le tableau",
+      "front": "Devant",
+      "back": "Derrière",
+      "remove": "Retirer",
+      "arrange": "Disposer",
+      "backgrounds": {
+        "ffffff": "Blanc",
+        "f6f1e7": "Crème",
+        "e9ecea": "Gris clair",
+        "111316": "Noir"
+      },
+      "backToRoom": "Retour à la cabine"
+    },
+    "dressing": {
+      "piece": "{kind} sur la silhouette",
+      "empty": "Touchez Vêtements pour habiller la silhouette.",
+      "back": "Retour",
+      "next": "Suivant",
+      "done": "Terminé",
+      "lock": "Garder cette pièce",
+      "unlock": "Libérer cette pièce",
+      "shuffleOne": "Une autre",
+      "remove": "Retirer",
+      "shuffledFor": "Mélangé pour {temp}°",
+      "shuffled": "Mélangé",
+      "undo": "Annuler",
+      "clothes": "Vêtements",
+      "occasion": "Occasion",
+      "shuffle": "Mélanger",
+      "switchMode": "Changer de mode",
+      "closeSheet": "Fermer",
+      "occasionTitle": "S’habiller pour une occasion",
+      "any": "Tout",
+      "occasionHint": "Choisit des vêtements pour elle à chaque place libre.",
+      "noneHere": "Rien de ce genre dans ce logement.",
+      "unlockFirst": "Libérez-la pour la changer",
+      "groups": {
+        "jewellery": "Bijoux",
+        "tops": "Hauts",
+        "layers": "Vestes",
+        "bottoms": "Bas",
+        "shoes": "Chaussures",
+        "accessories": "Accessoires"
+      },
+      "settings": {
+        "title": "Cabine d’essayage",
+        "description": "La silhouette et les couleurs de votre cabine. Vous seul voyez votre choix.",
+        "figure": "Silhouette",
+        "women": "Femme",
+        "men": "Homme",
+        "background": "Fond",
+        "figureColour": "Couleur de la silhouette",
+        "saveError": "Enregistrement impossible. Veuillez réessayer.",
+        "colours": {
+          "sameAsApp": "Comme l’app",
+          "white": "Blanc",
+          "cream": "Crème",
+          "lightGrey": "Gris clair",
+          "sage": "Sauge",
+          "black": "Noir",
+          "beige": "Beige",
+          "brown": "Marron",
+          "darkGrey": "Gris foncé"
+        }
+      }
+    },
+    "laundry": {
+      "title": "Linge",
+      "tabs": {
+        "to_wash": "À laver",
+        "wash": "Au lavage",
+        "dry": "Pressing"
+      },
+      "hints": {
+        "to_wash": "Porté assez de fois pour être lavé. Cochez ce qui va en machine aujourd’hui.",
+        "wash": "En machine ou en train de sécher. Cochez ce qui est propre et rangé.",
+        "dry": "Au pressing. Cochez ce qui est revenu."
+      },
+      "empty": {
+        "to_wash": "Rien à laver.",
+        "wash": "Rien au lavage.",
+        "dry": "Rien au pressing."
+      },
+      "selected": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+      "tapToSelect": "Touchez pour sélectionner",
+      "selectAll": "Tout sélectionner",
+      "clear": "Effacer",
+      "actions": {
+        "wash": "Lavage en cours",
+        "dry": "Pressing",
+        "back": "De retour dans l’armoire"
+      },
+      "moved": {
+        "wash": "{count, plural, one {# au lavage} other {# au lavage}}",
+        "dry": "{count, plural, one {# au pressing} other {# au pressing}}",
+        "back": "{count, plural, one {# de retour · compté comme lavé} other {# de retour · comptés comme lavés}}"
+      },
+      "moveError": "Impossible de déplacer les vêtements. Veuillez réessayer.",
+      "badge": {
+        "need": "À laver",
+        "wash": "Au lavage",
+        "dry": "Pressing"
+      },
+      "menu": {
+        "wash": "Mettre au lavage",
+        "dry": "Envoyer au pressing",
+        "back": "De retour dans l’armoire"
+      },
+      "count": "{count, plural, one {# au linge} other {# au linge}}"
+    }
   }
 }

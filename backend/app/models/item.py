@@ -60,6 +60,11 @@ class ClothingItem(Base):
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
 
+    # Which of the user's homes the item is kept in; NULL until the user has set up homes.
+    home_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("homes.id", ondelete="SET NULL"), index=True
+    )
+
     # Image paths
     image_path: Mapped[str] = mapped_column(String(500), nullable=False)
     thumbnail_path: Mapped[str | None] = mapped_column(String(500))

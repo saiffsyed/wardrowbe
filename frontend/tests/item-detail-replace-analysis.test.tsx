@@ -5,6 +5,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { NextIntlClientProvider } from 'next-intl'
 import type { ReactNode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { openMoreActions } from './open-more-actions'
 import { ItemDetailDialog } from '@/components/item-detail-dialog'
 import { api } from '@/lib/api'
 import { queryKeys } from '@/lib/hooks/query-keys'
@@ -56,7 +57,10 @@ function renderDialog(overrides: Partial<Item> = {}) {
   })
 }
 
-const replaceButton = () => screen.getByTitle(itemDetail.titles.reanalyzeAndReplace)
+const replaceButton = () => {
+  openMoreActions(itemDetail.moreActions)
+  return screen.getByTitle(itemDetail.titles.reanalyzeAndReplace)
+}
 
 describe('re-analyse and replace', () => {
   beforeEach(() => {
@@ -96,6 +100,7 @@ describe('re-analyse and replace', () => {
 
   it('leaves the ordinary re-analyse button as it was', async () => {
     renderDialog()
+    openMoreActions(itemDetail.moreActions)
     fireEvent.click(screen.getByTitle(itemDetail.titles.reanalyzeWithAI))
 
     await waitFor(() => expect(api.post).toHaveBeenCalledTimes(1))
@@ -122,6 +127,7 @@ describe('re-analyse and replace', () => {
 
   it('is disabled while the item is being analysed', () => {
     renderDialog({ status: 'processing' } as Partial<Item>)
-    expect(replaceButton()).toBeDisabled()
+    // A menu entry is switched off with aria-disabled rather than the disabled attribute.
+    expect(replaceButton()).toHaveAttribute('aria-disabled', 'true')
   })
 })
