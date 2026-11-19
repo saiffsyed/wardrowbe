@@ -21,6 +21,7 @@ describe('MoreScreen', () => {
       '/dashboard/more/homes',
       '/dashboard/more/categories',
       '/dashboard/more/display',
+      '/dashboard/more/dressing-room',
       '/dashboard/settings?section=style',
       '/dashboard/settings?section=body',
       '/dashboard/settings?section=weather',

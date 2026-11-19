@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "Suggestions"
+        },
+        "dressingRoom": {
+          "title": "Dressing room"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "Take it out",
       "collage": "Collage",
       "next": "Next",
-      "dressingRoomLater": "The dressing room comes next, after this mode.",
       "backToPick": "Back to picking",
       "boardHint": "Drag to move · pinch to resize · tap for Front, Back or Remove",
       "background": "Background",
@@ -863,6 +865,60 @@
         "f6f1e7": "Cream",
         "e9ecea": "Light grey",
         "111316": "Black"
+      },
+      "backToRoom": "Back to the dressing room"
+    },
+    "dressing": {
+      "piece": "{kind} on the figure",
+      "empty": "Tap Clothes to dress the figure.",
+      "back": "Back",
+      "next": "Next",
+      "done": "Done",
+      "lock": "Lock this piece",
+      "unlock": "Unlock this piece",
+      "shuffleOne": "Another one",
+      "remove": "Take it off",
+      "shuffledFor": "Shuffled for {temp}°",
+      "shuffled": "Shuffled",
+      "undo": "Undo",
+      "clothes": "Clothes",
+      "occasion": "Occasion",
+      "shuffle": "Shuffle",
+      "switchMode": "Switch mode",
+      "closeSheet": "Close",
+      "occasionTitle": "Dress for an occasion",
+      "any": "All",
+      "occasionHint": "Picks clothes for it in every unlocked place.",
+      "noneHere": "Nothing of this kind in this home.",
+      "unlockFirst": "Unlock it to change it",
+      "groups": {
+        "jewellery": "Jewellery",
+        "tops": "Tops",
+        "layers": "Layers",
+        "bottoms": "Bottoms",
+        "shoes": "Shoes",
+        "accessories": "Accessories"
+      },
+      "settings": {
+        "title": "Dressing room",
+        "description": "The figure and colours of your dressing room. Only you see your choice.",
+        "figure": "Figure",
+        "women": "Women’s",
+        "men": "Men’s",
+        "background": "Background",
+        "figureColour": "Figure colour",
+        "saveError": "Could not save. Please try again.",
+        "colours": {
+          "sameAsApp": "Same as app",
+          "white": "White",
+          "cream": "Cream",
+          "lightGrey": "Light grey",
+          "sage": "Sage",
+          "black": "Black",
+          "beige": "Beige",
+          "brown": "Brown",
+          "darkGrey": "Dark grey"
+        }
       }
     }
   }

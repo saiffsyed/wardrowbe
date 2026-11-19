@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "Suggestions"
+        },
+        "dressingRoom": {
+          "title": "Cabine d’essayage"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "Retirer",
       "collage": "Collage",
       "next": "Suivant",
-      "dressingRoomLater": "La cabine d’essayage arrive ensuite, après ce mode.",
       "backToPick": "Retour au choix",
       "boardHint": "Glissez pour déplacer · pincez pour redimensionner · touchez pour Devant, Derrière ou Retirer",
       "background": "Fond",
@@ -863,6 +865,60 @@
         "f6f1e7": "Crème",
         "e9ecea": "Gris clair",
         "111316": "Noir"
+      },
+      "backToRoom": "Retour à la cabine"
+    },
+    "dressing": {
+      "piece": "{kind} sur la silhouette",
+      "empty": "Touchez Vêtements pour habiller la silhouette.",
+      "back": "Retour",
+      "next": "Suivant",
+      "done": "Terminé",
+      "lock": "Garder cette pièce",
+      "unlock": "Libérer cette pièce",
+      "shuffleOne": "Une autre",
+      "remove": "Retirer",
+      "shuffledFor": "Mélangé pour {temp}°",
+      "shuffled": "Mélangé",
+      "undo": "Annuler",
+      "clothes": "Vêtements",
+      "occasion": "Occasion",
+      "shuffle": "Mélanger",
+      "switchMode": "Changer de mode",
+      "closeSheet": "Fermer",
+      "occasionTitle": "S’habiller pour une occasion",
+      "any": "Tout",
+      "occasionHint": "Choisit des vêtements pour elle à chaque place libre.",
+      "noneHere": "Rien de ce genre dans ce logement.",
+      "unlockFirst": "Libérez-la pour la changer",
+      "groups": {
+        "jewellery": "Bijoux",
+        "tops": "Hauts",
+        "layers": "Vestes",
+        "bottoms": "Bas",
+        "shoes": "Chaussures",
+        "accessories": "Accessoires"
+      },
+      "settings": {
+        "title": "Cabine d’essayage",
+        "description": "La silhouette et les couleurs de votre cabine. Vous seul voyez votre choix.",
+        "figure": "Silhouette",
+        "women": "Femme",
+        "men": "Homme",
+        "background": "Fond",
+        "figureColour": "Couleur de la silhouette",
+        "saveError": "Enregistrement impossible. Veuillez réessayer.",
+        "colours": {
+          "sameAsApp": "Comme l’app",
+          "white": "Blanc",
+          "cream": "Crème",
+          "lightGrey": "Gris clair",
+          "sage": "Sauge",
+          "black": "Noir",
+          "beige": "Beige",
+          "brown": "Marron",
+          "darkGrey": "Gris foncé"
+        }
       }
     }
   }

@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "Vorschläge"
+        },
+        "dressingRoom": {
+          "title": "Umkleide"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "Herausnehmen",
       "collage": "Collage",
       "next": "Weiter",
-      "dressingRoomLater": "Die Umkleide kommt als Nächstes, nach diesem Modus.",
       "backToPick": "Zurück zur Auswahl",
       "boardHint": "Ziehen zum Verschieben · zwei Finger zum Vergrößern · Tippen für Vorne, Hinten oder Entfernen",
       "background": "Hintergrund",
@@ -863,6 +865,60 @@
         "f6f1e7": "Creme",
         "e9ecea": "Hellgrau",
         "111316": "Schwarz"
+      },
+      "backToRoom": "Zurück zur Umkleide"
+    },
+    "dressing": {
+      "piece": "{kind} an der Figur",
+      "empty": "Tippe auf Kleidung, um die Figur anzuziehen.",
+      "back": "Zurück",
+      "next": "Weiter",
+      "done": "Fertig",
+      "lock": "Dieses Teil festhalten",
+      "unlock": "Dieses Teil freigeben",
+      "shuffleOne": "Ein anderes",
+      "remove": "Ausziehen",
+      "shuffledFor": "Gemischt für {temp}°",
+      "shuffled": "Gemischt",
+      "undo": "Rückgängig",
+      "clothes": "Kleidung",
+      "occasion": "Anlass",
+      "shuffle": "Mischen",
+      "switchMode": "Modus wechseln",
+      "closeSheet": "Schließen",
+      "occasionTitle": "Für einen Anlass anziehen",
+      "any": "Alle",
+      "occasionHint": "Wählt in jedem freien Platz Kleidung dafür aus.",
+      "noneHere": "Nichts dieser Art in diesem Zuhause.",
+      "unlockFirst": "Zum Ändern erst freigeben",
+      "groups": {
+        "jewellery": "Schmuck",
+        "tops": "Oberteile",
+        "layers": "Jacken",
+        "bottoms": "Unterteile",
+        "shoes": "Schuhe",
+        "accessories": "Accessoires"
+      },
+      "settings": {
+        "title": "Umkleide",
+        "description": "Figur und Farben deiner Umkleide. Nur du siehst deine Wahl.",
+        "figure": "Figur",
+        "women": "Damen",
+        "men": "Herren",
+        "background": "Hintergrund",
+        "figureColour": "Farbe der Figur",
+        "saveError": "Konnte nicht gespeichert werden. Bitte versuche es erneut.",
+        "colours": {
+          "sameAsApp": "Wie die App",
+          "white": "Weiß",
+          "cream": "Creme",
+          "lightGrey": "Hellgrau",
+          "sage": "Salbei",
+          "black": "Schwarz",
+          "beige": "Beige",
+          "brown": "Braun",
+          "darkGrey": "Dunkelgrau"
+        }
       }
     }
   }

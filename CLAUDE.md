@@ -71,7 +71,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `d0a6f2b4c8e5_add_wardrobe_category_trees` off that, and
   `e1b7a3c5d9f6_add_wardrobe_custom_kinds` off that, and `f2c8b4d6e0a7_add_collections`
   off that, and `a3d9f5b1c7e8_add_start_screen` off that, and `b4e0a6c2d8f9_add_stays` off
-  that, and `c5f1b7d3e9a0_add_outfit_layouts` off that. After merging
+  that, and `c5f1b7d3e9a0_add_outfit_layouts` off that, and
+  `d6a2c8e4f0b1_add_dressing_room_settings` off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
   (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
@@ -98,6 +99,12 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend
   `backend/app/api/outfit_layouts.py`, `backend/app/models/outfit_layout.py`; frontend
   `lib/hooks/use-outfit-layouts.ts`, shown by `LookTile`'s `arranged` prop.
+- Dressing room (step `dress` of the outfit maker): `components/wardrobe/dressing-room.tsx`,
+  the figure `dressing-figure.tsx`, places, sizes and Shuffle's rules in `lib/dressing-room.ts`
+  (tested in `tests/dressing-room.test.ts`). Settings (figure, background, figure colour):
+  backend `backend/app/api/dressing_room.py`, `backend/app/models/dressing_room.py`; frontend
+  `lib/hooks/use-dressing-room.ts`, `components/wardrobe/dressing-room-settings.tsx`, route
+  `app/dashboard/more/dressing-room`.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

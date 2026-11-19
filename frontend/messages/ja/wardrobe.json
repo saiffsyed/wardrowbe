@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "提案"
+        },
+        "dressingRoom": {
+          "title": "ドレッシングルーム"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "外す",
       "collage": "コラージュ",
       "next": "次へ",
-      "dressingRoomLater": "ドレッシングルームはこのモードの次に追加されます。",
       "backToPick": "選択に戻る",
       "boardHint": "ドラッグで移動・2本指で拡大縮小・タップで前へ／後ろへ／削除",
       "background": "背景",
@@ -863,6 +865,60 @@
         "f6f1e7": "クリーム",
         "e9ecea": "ライトグレー",
         "111316": "黒"
+      },
+      "backToRoom": "ドレッシングルームに戻る"
+    },
+    "dressing": {
+      "piece": "フィギュアの{kind}",
+      "empty": "「服」をタップしてフィギュアに着せましょう。",
+      "back": "戻る",
+      "next": "次へ",
+      "done": "完了",
+      "lock": "このアイテムを固定",
+      "unlock": "固定を解除",
+      "shuffleOne": "別のものに",
+      "remove": "外す",
+      "shuffledFor": "{temp}°に合わせてシャッフル",
+      "shuffled": "シャッフルしました",
+      "undo": "元に戻す",
+      "clothes": "服",
+      "occasion": "シーン",
+      "shuffle": "シャッフル",
+      "switchMode": "モード切替",
+      "closeSheet": "閉じる",
+      "occasionTitle": "シーンに合わせる",
+      "any": "すべて",
+      "occasionHint": "固定していない場所の服をシーンに合わせて選びます。",
+      "noneHere": "この家にはこの種類の服がありません。",
+      "unlockFirst": "変えるには固定を解除してください",
+      "groups": {
+        "jewellery": "ジュエリー",
+        "tops": "トップス",
+        "layers": "アウター",
+        "bottoms": "ボトムス",
+        "shoes": "シューズ",
+        "accessories": "小物"
+      },
+      "settings": {
+        "title": "ドレッシングルーム",
+        "description": "ドレッシングルームのフィギュアと色。選択はあなただけに表示されます。",
+        "figure": "フィギュア",
+        "women": "レディース",
+        "men": "メンズ",
+        "background": "背景",
+        "figureColour": "フィギュアの色",
+        "saveError": "保存できませんでした。もう一度お試しください。",
+        "colours": {
+          "sameAsApp": "アプリと同じ",
+          "white": "白",
+          "cream": "クリーム",
+          "lightGrey": "ライトグレー",
+          "sage": "セージ",
+          "black": "黒",
+          "beige": "ベージュ",
+          "brown": "ブラウン",
+          "darkGrey": "ダークグレー"
+        }
       }
     }
   }

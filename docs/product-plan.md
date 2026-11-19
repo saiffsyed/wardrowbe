@@ -91,6 +91,20 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     and Planner show it exactly so, with the chosen background filling the tile. An
     outfit's own screen has **Arrange**, which reopens it on the board; saving then updates
     the same look, with "Save as a new look" beside it.
+- **Dressing room** (built, preview; mock-up https://claude.ai/artifact/RJEX49EG7zsqTqqKSZhdL8,
+  calm like the Fits app): reached from the maker's Collage ⇅ switch or Switch mode on the
+  board. Only the outfit shows on a plain figure until a piece is tapped; then the pieces
+  beside it peek in from the edges to swipe through, ✓ / 🔒 / shuffle this / remove appear on
+  the side and a sheet of that place's clothes (chips by kind) opens at the bottom. Places:
+  head jewellery, necklace, top (a saree, lehenga or dress also covers the bottom), a jacket
+  or coat over the top (no shawls), bottom, shoes, and dupatta, bangles and bag each in their
+  own place. Bottom buttons: Clothes (add anything, by group), Occasion, Shuffle (with Undo
+  for 5 seconds), Switch mode. Shuffle keeps locked places, follows the occasion, leaves out
+  warm clothes on a hot day (28° and up) and adds a warm layer on a cold one (14° and below),
+  and prefers clothes not worn for longest; fixed rules, no AI. Only clothes in the current
+  home that are not waiting for a wash. Pieces are sized by kind. Next goes to the same Save
+  screen (the look keeps the automatic layout). **More → Dressing room**: women's or men's
+  figure, background and figure colour, each person their own.
 - Manual builder including shoes and jewellery. Three modes:
   1. **Collage** (default): free arranging on a board, saved with the look (see Lookbook)
   2. **Dressing room**: mannequin outline, swipe to swap, lock, shuffle ("this feature is

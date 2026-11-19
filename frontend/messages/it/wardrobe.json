@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "Suggerimenti"
+        },
+        "dressingRoom": {
+          "title": "Camerino"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "Togli",
       "collage": "Collage",
       "next": "Avanti",
-      "dressingRoomLater": "Il camerino arriva dopo questa modalità.",
       "backToPick": "Torna alla scelta",
       "boardHint": "Trascina per spostare · pizzica per ridimensionare · tocca per Davanti, Dietro o Rimuovi",
       "background": "Sfondo",
@@ -863,6 +865,60 @@
         "f6f1e7": "Crema",
         "e9ecea": "Grigio chiaro",
         "111316": "Nero"
+      },
+      "backToRoom": "Torna al camerino"
+    },
+    "dressing": {
+      "piece": "{kind} sulla figura",
+      "empty": "Tocca Capi per vestire la figura.",
+      "back": "Indietro",
+      "next": "Avanti",
+      "done": "Fatto",
+      "lock": "Blocca questo capo",
+      "unlock": "Sblocca questo capo",
+      "shuffleOne": "Un altro",
+      "remove": "Togli",
+      "shuffledFor": "Mescolato per {temp}°",
+      "shuffled": "Mescolato",
+      "undo": "Annulla",
+      "clothes": "Capi",
+      "occasion": "Occasione",
+      "shuffle": "Mescola",
+      "switchMode": "Cambia modalità",
+      "closeSheet": "Chiudi",
+      "occasionTitle": "Vestiti per un’occasione",
+      "any": "Tutti",
+      "occasionHint": "Sceglie i capi adatti in ogni posto libero.",
+      "noneHere": "Niente di questo tipo in questa casa.",
+      "unlockFirst": "Sbloccalo per cambiarlo",
+      "groups": {
+        "jewellery": "Gioielli",
+        "tops": "Top",
+        "layers": "Giacche",
+        "bottoms": "Pantaloni e gonne",
+        "shoes": "Scarpe",
+        "accessories": "Accessori"
+      },
+      "settings": {
+        "title": "Camerino",
+        "description": "La figura e i colori del tuo camerino. Solo tu vedi la tua scelta.",
+        "figure": "Figura",
+        "women": "Donna",
+        "men": "Uomo",
+        "background": "Sfondo",
+        "figureColour": "Colore della figura",
+        "saveError": "Impossibile salvare. Riprova.",
+        "colours": {
+          "sameAsApp": "Come l’app",
+          "white": "Bianco",
+          "cream": "Crema",
+          "lightGrey": "Grigio chiaro",
+          "sage": "Salvia",
+          "black": "Nero",
+          "beige": "Beige",
+          "brown": "Marrone",
+          "darkGrey": "Grigio scuro"
+        }
       }
     }
   }

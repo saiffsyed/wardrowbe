@@ -612,6 +612,9 @@
         },
         "suggestions": {
           "title": "제안"
+        },
+        "dressingRoom": {
+          "title": "드레싱 룸"
         }
       }
     },
@@ -830,7 +833,6 @@
       "unpick": "빼기",
       "collage": "콜라주",
       "next": "다음",
-      "dressingRoomLater": "드레싱 룸은 이 모드 다음에 나와요.",
       "backToPick": "선택으로 돌아가기",
       "boardHint": "끌어서 이동 · 두 손가락으로 크기 조절 · 눌러서 앞으로, 뒤로, 삭제",
       "background": "배경",
@@ -863,6 +865,60 @@
         "f6f1e7": "크림",
         "e9ecea": "밝은 회색",
         "111316": "검정"
+      },
+      "backToRoom": "드레싱 룸으로 돌아가기"
+    },
+    "dressing": {
+      "piece": "피규어의 {kind}",
+      "empty": "옷을 눌러 피규어에 입혀 보세요.",
+      "back": "뒤로",
+      "next": "다음",
+      "done": "완료",
+      "lock": "이 아이템 고정",
+      "unlock": "고정 해제",
+      "shuffleOne": "다른 것으로",
+      "remove": "벗기기",
+      "shuffledFor": "{temp}°에 맞춰 섞었어요",
+      "shuffled": "섞었어요",
+      "undo": "되돌리기",
+      "clothes": "옷",
+      "occasion": "상황",
+      "shuffle": "섞기",
+      "switchMode": "모드 전환",
+      "closeSheet": "닫기",
+      "occasionTitle": "상황에 맞춰 입기",
+      "any": "전체",
+      "occasionHint": "고정하지 않은 자리마다 상황에 맞는 옷을 골라요.",
+      "noneHere": "이 집에는 이런 옷이 없어요.",
+      "unlockFirst": "바꾸려면 고정을 해제하세요",
+      "groups": {
+        "jewellery": "주얼리",
+        "tops": "상의",
+        "layers": "아우터",
+        "bottoms": "하의",
+        "shoes": "신발",
+        "accessories": "액세서리"
+      },
+      "settings": {
+        "title": "드레싱 룸",
+        "description": "드레싱 룸의 피규어와 색상이에요. 선택은 나에게만 보여요.",
+        "figure": "피규어",
+        "women": "여성",
+        "men": "남성",
+        "background": "배경",
+        "figureColour": "피규어 색상",
+        "saveError": "저장하지 못했어요. 다시 시도해 주세요.",
+        "colours": {
+          "sameAsApp": "앱과 같게",
+          "white": "흰색",
+          "cream": "크림",
+          "lightGrey": "밝은 회색",
+          "sage": "세이지",
+          "black": "검정",
+          "beige": "베이지",
+          "brown": "갈색",
+          "darkGrey": "어두운 회색"
+        }
       }
     }
   }

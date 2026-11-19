@@ -22,6 +22,7 @@ import { useUserToday } from '@/lib/hooks/use-user';
 import { useCategoryLabel, useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
 import { piecesOf } from './add-outfit-sheet';
+import { DressingRoom, type RoomPiece } from './dressing-room';
 import { LookTile } from './look-tile';
 import { BoardView, EditableBoard, type PieceImages } from './outfit-board';
 import { SHEET_CLASS } from './weather-sheet';
@@ -37,7 +38,7 @@ interface Picked {
 const OCCASIONS = ['casual', 'work', 'formal', 'party', 'wedding', 'date'] as const;
 const PAGE = 100;
 
-type Step = 'pick' | 'arrange' | 'save';
+type Step = 'pick' | 'arrange' | 'dress' | 'save';
 
 function pickedFromItem(item: { id: string; type: string; thumbnail_url?: string | null; medium_url?: string | null; image_url?: string | null }): Picked {
   return {
@@ -185,6 +186,10 @@ export function OutfitMaker() {
   const [occasion, setOccasion] = useState<string>('casual');
   const [day, setDay] = useState<string>(planDay ?? addDays(today, 1));
   const [planning, setPlanning] = useState(!!planDay);
+  // The dressing room's pieces to start from, and whether the look being saved came from it
+  // (then it keeps the automatic layout instead of a board arrangement).
+  const [roomStart, setRoomStart] = useState<RoomPiece[]>([]);
+  const [fromRoom, setFromRoom] = useState(false);
 
   // Opening a saved look to change it: its pieces, arrangement, name and occasion.
   const { data: editing } = useOutfit(editId ?? undefined);
@@ -223,6 +228,7 @@ export function OutfitMaker() {
     setPieces((current) =>
       current ? addPieces(current.filter((piece) => picked.has(piece.item_id)), items) : autoBoard(items)
     );
+    setFromRoom(false);
     setStep('arrange');
   };
   const startFromLook = (look: Outfit) => {
@@ -234,7 +240,17 @@ export function OutfitMaker() {
     setLookbookOpen(false);
     setStep('arrange');
   };
-  const dressingRoomLater = () => toast(t('dressingRoomLater'));
+  const openRoom = (items: Picked[]) => {
+    setRoomStart(items);
+    setSelected(null);
+    setStep('dress');
+  };
+  const fromDressingRoom = (items: RoomPiece[], next: 'arrange' | 'save') => {
+    setPicked(new Map(items.map((item) => [item.id, item])));
+    setPieces(autoBoard(items));
+    setFromRoom(next === 'save');
+    setStep(next);
+  };
 
   const finish = async (asNew: boolean) => {
     if (!pieces?.length) return;
@@ -252,7 +268,11 @@ export function OutfitMaker() {
         });
         outfitId = outfit.id;
       }
-      await saveLayout.mutateAsync({ outfitId, background, pieces });
+      // A look dressed in the dressing room keeps the automatic layout, unless it replaces one
+      // arranged by hand before (whose pieces would no longer match).
+      if (!fromRoom || (editId && !asNew && editLayouts?.get(editId))) {
+        await saveLayout.mutateAsync({ outfitId, background: fromRoom ? DEFAULT_BACKGROUND : background, pieces });
+      }
       toast.success(planning ? t('plannedFor', { day: `${weekdayShort(day, locale)} ${dayAndMonth(day, locale)}` }) : t('saved'));
       router.push(planning ? `/dashboard/plan?day=${day}` : '/dashboard/wardrobe?tab=lookbook');
     } catch (error) {
@@ -304,7 +324,7 @@ export function OutfitMaker() {
               </div>
             )}
             <div className="flex items-center justify-between">
-              <button type="button" onClick={dressingRoomLater} className="inline-flex h-10 items-center gap-1.5 rounded-full bg-muted px-4 text-sm font-bold">
+              <button type="button" onClick={() => openRoom(pickedList)} className="inline-flex h-10 items-center gap-1.5 rounded-full bg-muted px-4 text-sm font-bold">
                 {t('collage')}
                 <ChevronsUpDown className="h-4 w-4" aria-hidden="true" />
               </button>
@@ -342,6 +362,7 @@ export function OutfitMaker() {
             disabled={!pieces?.length}
             onClick={() => {
               setSelected(null);
+              setFromRoom(false);
               setStep('save');
             }}
             className="inline-flex h-10 items-center gap-1.5 rounded-full bg-foreground px-5 text-sm font-bold text-background disabled:opacity-40"
@@ -393,7 +414,11 @@ export function OutfitMaker() {
           {[
             { icon: Plus, label: t('addClothes'), onClick: () => setAdding(true) },
             { icon: Droplet, label: t('background'), onClick: () => setSwatches((v) => !v) },
-            { icon: Repeat, label: t('switchMode'), onClick: dressingRoomLater },
+            {
+              icon: Repeat,
+              label: t('switchMode'),
+              onClick: () => openRoom((pieces ?? []).map((piece) => picked.get(piece.item_id)).filter((item): item is Picked => !!item)),
+            },
           ].map(({ icon: Icon, label, onClick }) => (
             <button key={label} type="button" onClick={onClick} className="flex h-16 flex-col items-center justify-center gap-1 rounded-2xl bg-muted text-xs font-bold hover:bg-accent">
               <Icon className="h-5 w-5" aria-hidden="true" />
@@ -434,13 +459,28 @@ export function OutfitMaker() {
     );
   }
 
+  if (step === 'dress') {
+    return (
+      <DressingRoom
+        start={roomStart}
+        day={planDay ?? today}
+        onBack={() => setStep('pick')}
+        onNext={(items, dressedFor) => {
+          if (dressedFor) setOccasion(dressedFor);
+          fromDressingRoom(items, 'save');
+        }}
+        onBoard={(items) => fromDressingRoom(items, 'arrange')}
+      />
+    );
+  }
+
   return (
     <div className="mx-auto flex max-w-md flex-col gap-4">
       <div className="flex items-center gap-2">
         <button
           type="button"
-          aria-label={t('backToBoard')}
-          onClick={() => setStep('arrange')}
+          aria-label={fromRoom ? t('backToRoom') : t('backToBoard')}
+          onClick={() => (fromRoom ? openRoom(pickedList) : setStep('arrange'))}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-muted hover:bg-accent"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
@@ -448,7 +488,11 @@ export function OutfitMaker() {
         <h1 className="text-xl font-extrabold">{t('saveTitle')}</h1>
       </div>
       <div className="mx-auto w-1/2 overflow-hidden rounded-2xl border">
-        <BoardView background={background} pieces={pieces ?? []} images={images} />
+        {fromRoom ? (
+          <LookTile pieces={pickedList.map((item) => ({ id: item.id, type: item.type, url: item.thumb ?? item.image ?? '' }))} />
+        ) : (
+          <BoardView background={background} pieces={pieces ?? []} images={images} />
+        )}
       </div>
       <div className="space-y-2">
         <label htmlFor="look-name" className="text-sm font-semibold">{t('name')}</label>
