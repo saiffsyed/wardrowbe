@@ -818,6 +818,52 @@
         "title": "推荐",
         "hint": "如何为你挑选穿搭推荐。"
       }
+    },
+    "maker": {
+      "title": "新造型",
+      "suggestions": "推荐",
+      "fromLookbook": "从造型册",
+      "fromLookbookHint": "从你保存的造型开始",
+      "noLooks": "还没有保存的造型。",
+      "noClothes": "这里还没有衣服。",
+      "selected": "已选 {count} 件",
+      "unpick": "移除",
+      "collage": "拼贴",
+      "next": "下一步",
+      "dressingRoomLater": "试衣间会在这个模式之后推出。",
+      "backToPick": "返回挑选",
+      "boardHint": "拖动移动 · 双指缩放 · 点按可置前、置后或移除",
+      "background": "背景",
+      "addClothes": "添加衣服",
+      "addClothesHint": "勾选要放到画板上的衣服",
+      "switchMode": "切换模式",
+      "done": "完成",
+      "backToBoard": "返回画板",
+      "saveTitle": "保存造型",
+      "name": "名称",
+      "namePlaceholder": "例如：青绿库尔塔日",
+      "occasion": "场合",
+      "planDay": "日期",
+      "saveAndPlan": "保存并计划",
+      "saveChanges": "保存修改",
+      "saveToLookbook": "保存到造型册",
+      "saveToLookbookInstead": "改为保存到造型册",
+      "planForDay": "保存并安排到某一天…",
+      "saveAsNew": "另存为新造型",
+      "saved": "已保存到造型册",
+      "plannedFor": "已安排在{day}",
+      "saveError": "无法保存造型，请重试。",
+      "piece": "画板上的单品",
+      "front": "置前",
+      "back": "置后",
+      "remove": "移除",
+      "arrange": "排列",
+      "backgrounds": {
+        "ffffff": "白色",
+        "f6f1e7": "米色",
+        "e9ecea": "浅灰",
+        "111316": "黑色"
+      }
     }
   }
 }

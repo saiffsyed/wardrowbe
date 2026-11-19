@@ -818,6 +818,52 @@
         "title": "제안",
         "hint": "코디 제안을 고르는 방식."
       }
+    },
+    "maker": {
+      "title": "새 룩",
+      "suggestions": "제안",
+      "fromLookbook": "룩북에서",
+      "fromLookbookHint": "저장한 룩에서 시작",
+      "noLooks": "저장한 룩이 아직 없어요.",
+      "noClothes": "아직 옷이 없어요.",
+      "selected": "{count}개 선택",
+      "unpick": "빼기",
+      "collage": "콜라주",
+      "next": "다음",
+      "dressingRoomLater": "드레싱 룸은 이 모드 다음에 나와요.",
+      "backToPick": "선택으로 돌아가기",
+      "boardHint": "끌어서 이동 · 두 손가락으로 크기 조절 · 눌러서 앞으로, 뒤로, 삭제",
+      "background": "배경",
+      "addClothes": "옷 추가",
+      "addClothesHint": "보드에 올릴 옷을 체크하세요",
+      "switchMode": "모드 전환",
+      "done": "완료",
+      "backToBoard": "보드로 돌아가기",
+      "saveTitle": "룩 저장",
+      "name": "이름",
+      "namePlaceholder": "예: 청록색 쿠르티 데이",
+      "occasion": "상황",
+      "planDay": "날짜",
+      "saveAndPlan": "저장하고 계획",
+      "saveChanges": "변경 저장",
+      "saveToLookbook": "룩북에 저장",
+      "saveToLookbookInstead": "대신 룩북에 저장",
+      "planForDay": "저장하고 날짜 정하기…",
+      "saveAsNew": "새 룩으로 저장",
+      "saved": "룩북에 저장했어요",
+      "plannedFor": "{day}로 계획했어요",
+      "saveError": "룩을 저장하지 못했어요. 다시 시도해 주세요.",
+      "piece": "보드 위 아이템",
+      "front": "앞으로",
+      "back": "뒤로",
+      "remove": "삭제",
+      "arrange": "배치",
+      "backgrounds": {
+        "ffffff": "흰색",
+        "f6f1e7": "크림",
+        "e9ecea": "밝은 회색",
+        "111316": "검정"
+      }
     }
   }
 }

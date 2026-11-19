@@ -818,6 +818,52 @@
         "title": "Suggestions",
         "hint": "How outfit suggestions are picked for you."
       }
+    },
+    "maker": {
+      "title": "New look",
+      "suggestions": "Suggestions",
+      "fromLookbook": "From Lookbook",
+      "fromLookbookHint": "Start from one of your saved looks",
+      "noLooks": "No saved looks yet.",
+      "noClothes": "No clothes here yet.",
+      "selected": "{count, plural, one {# selected} other {# selected}}",
+      "unpick": "Take it out",
+      "collage": "Collage",
+      "next": "Next",
+      "dressingRoomLater": "The dressing room comes next, after this mode.",
+      "backToPick": "Back to picking",
+      "boardHint": "Drag to move · pinch to resize · tap for Front, Back or Remove",
+      "background": "Background",
+      "addClothes": "Add clothes",
+      "addClothesHint": "Tick the clothes to put on the board",
+      "switchMode": "Switch mode",
+      "done": "Done",
+      "backToBoard": "Back to the board",
+      "saveTitle": "Save look",
+      "name": "Name",
+      "namePlaceholder": "e.g. Teal kurti day",
+      "occasion": "Occasion",
+      "planDay": "Day",
+      "saveAndPlan": "Save and plan",
+      "saveChanges": "Save changes",
+      "saveToLookbook": "Save to Lookbook",
+      "saveToLookbookInstead": "Save to Lookbook instead",
+      "planForDay": "Save and plan for a day…",
+      "saveAsNew": "Save as a new look",
+      "saved": "Saved to your Lookbook",
+      "plannedFor": "Planned for {day}",
+      "saveError": "Could not save the look. Please try again.",
+      "piece": "Piece on the board",
+      "front": "Front",
+      "back": "Back",
+      "remove": "Remove",
+      "arrange": "Arrange",
+      "backgrounds": {
+        "ffffff": "White",
+        "f6f1e7": "Cream",
+        "e9ecea": "Light grey",
+        "111316": "Black"
+      }
     }
   }
 }

@@ -17,7 +17,8 @@ import { formatDateKey } from '@/lib/utils';
 import { AddOutfitSheet, piecesOf } from './add-outfit-sheet';
 import { AddStayDialog } from './add-stay-dialog';
 import { weatherIcon } from './home-weather';
-import { LookTile } from './look-tile';
+import { LookTile, type Arranged } from './look-tile';
+import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
 import { WeatherSheet } from './weather-sheet';
 
 // The forecast reaches 16 days ahead, today included.
@@ -179,6 +180,7 @@ function DayView({
   const week = weekOf(selected);
   const { data: outfits } = useOutfits({ date_from: week[0], date_to: week[6] }, 1, 50);
   const look = lookFor(outfits?.outfits, selected);
+  const { data: layouts } = useOutfitLayouts((outfits?.outfits ?? []).map((outfit) => outfit.id));
   const day = weatherByDay.get(selected);
   const stay = stayOn(stays, selected);
   const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
@@ -258,7 +260,7 @@ function DayView({
       >
         {look ? (
           <Link href={`/dashboard/outfits/${look.id}`} className="block w-48">
-            <LookTile pieces={piecesOf(look)} />
+            <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} />
             <p className="mt-2 truncate text-center font-semibold">{outfitTitle(look)}</p>
           </Link>
         ) : (
@@ -308,6 +310,7 @@ function MonthView({
   const year = shown.getFullYear();
   const month = shown.getMonth() + 1;
   const { data } = useCalendarOutfits(year, month);
+  const { data: layouts } = useOutfitLayouts((data?.outfits ?? []).map((outfit) => outfit.id));
   const first = new Date(year, month - 1, 1);
   const daysInMonth = new Date(year, month, 0).getDate();
   const lead = first.getDay();
@@ -376,7 +379,7 @@ function MonthView({
                   look ? 'border bg-card p-0.5' : 'bg-muted/60 text-muted-foreground'
                 } ${away ? 'shadow-[inset_0_-3px_0_theme(colors.violet.500)]' : ''}`}
               >
-                {look ? <MiniLook outfit={look} /> : <Plus className="h-4 w-4" aria-hidden="true" />}
+                {look ? <MiniLook outfit={look} arranged={layouts?.get(look.id)} /> : <Plus className="h-4 w-4" aria-hidden="true" />}
               </span>
             </button>
           );
@@ -392,11 +395,11 @@ function MonthView({
   );
 }
 
-function MiniLook({ outfit }: { outfit: Outfit }) {
+function MiniLook({ outfit, arranged }: { outfit: Outfit; arranged?: Arranged }) {
   // The small tile drops the border and padding of the full one; it is already framed.
   return (
     <span className="block w-full [&>div]:rounded-md [&>div]:border-0 [&>div]:p-0.5">
-      <LookTile pieces={piecesOf(outfit)} />
+      <LookTile pieces={piecesOf(outfit)} arranged={arranged} />
     </span>
   );
 }

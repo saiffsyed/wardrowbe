@@ -10,6 +10,8 @@ import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { useOccasionLabel } from '@/lib/hooks/use-translated-constants';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
 import { LookCard } from './look-tile';
+import { piecesOf } from './add-outfit-sheet';
+import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
 import { WardrobeTabHeading } from './wardrobe-tabs';
 
 // Saved looks: outfits kept to wear again, not tied to a day (upstream's "lookbook" outfits).
@@ -19,13 +21,14 @@ export function LookbookTab() {
   const occasionLabel = useOccasionLabel();
   const query = useInfiniteOutfits({ is_lookbook: true }, GRID_PAGE_SIZE);
   const outfits = query.data?.pages.flatMap((page) => page.outfits) ?? [];
+  const { data: layouts } = useOutfitLayouts(outfits.map((outfit) => outfit.id));
 
   return (
     <div className="space-y-4">
       <WardrobeTabHeading
         tab="lookbook"
         action={
-          <Link href="/dashboard/outfits/new" aria-label={t('new')} title={t('new')} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
+          <Link href="/dashboard/outfits/make" aria-label={t('new')} title={t('new')} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
             <Plus className="h-5 w-5" aria-hidden="true" />
           </Link>
         }
@@ -53,12 +56,8 @@ export function LookbookTab() {
                 href={`/dashboard/outfits/${outfit.id}`}
                 name={outfitTitle(outfit)}
                 occasion={occasionLabel(outfit.occasion)}
-                pieces={[...outfit.items]
-                  .sort((a, b) => a.position - b.position)
-                  .flatMap((item) => {
-                    const url = item.thumbnail_url ?? item.image_url;
-                    return url ? [{ type: item.type, url }] : [];
-                  })}
+                pieces={piecesOf(outfit)}
+                arranged={layouts?.get(outfit.id)}
               />
             ))}
           </div>

@@ -818,6 +818,52 @@
         "title": "Vorschläge",
         "hint": "Wie Outfit-Vorschläge für dich ausgewählt werden."
       }
+    },
+    "maker": {
+      "title": "Neuer Look",
+      "suggestions": "Vorschläge",
+      "fromLookbook": "Aus dem Lookbook",
+      "fromLookbookHint": "Mit einem gespeicherten Look beginnen",
+      "noLooks": "Noch keine gespeicherten Looks.",
+      "noClothes": "Hier gibt es noch keine Kleidung.",
+      "selected": "{count, plural, one {# ausgewählt} other {# ausgewählt}}",
+      "unpick": "Herausnehmen",
+      "collage": "Collage",
+      "next": "Weiter",
+      "dressingRoomLater": "Die Umkleide kommt als Nächstes, nach diesem Modus.",
+      "backToPick": "Zurück zur Auswahl",
+      "boardHint": "Ziehen zum Verschieben · zwei Finger zum Vergrößern · Tippen für Vorne, Hinten oder Entfernen",
+      "background": "Hintergrund",
+      "addClothes": "Kleidung hinzufügen",
+      "addClothesHint": "Hake die Kleidung für das Board an",
+      "switchMode": "Modus wechseln",
+      "done": "Fertig",
+      "backToBoard": "Zurück zum Board",
+      "saveTitle": "Look speichern",
+      "name": "Name",
+      "namePlaceholder": "z. B. Türkiser Kurti-Tag",
+      "occasion": "Anlass",
+      "planDay": "Tag",
+      "saveAndPlan": "Speichern und planen",
+      "saveChanges": "Änderungen speichern",
+      "saveToLookbook": "Im Lookbook speichern",
+      "saveToLookbookInstead": "Stattdessen im Lookbook speichern",
+      "planForDay": "Speichern und für einen Tag planen …",
+      "saveAsNew": "Als neuen Look speichern",
+      "saved": "Im Lookbook gespeichert",
+      "plannedFor": "Geplant für {day}",
+      "saveError": "Look konnte nicht gespeichert werden. Bitte versuche es erneut.",
+      "piece": "Teil auf dem Board",
+      "front": "Vorne",
+      "back": "Hinten",
+      "remove": "Entfernen",
+      "arrange": "Anordnen",
+      "backgrounds": {
+        "ffffff": "Weiß",
+        "f6f1e7": "Creme",
+        "e9ecea": "Hellgrau",
+        "111316": "Schwarz"
+      }
     }
   }
 }

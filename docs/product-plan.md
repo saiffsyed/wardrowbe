@@ -75,6 +75,22 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
 - Traditional wear and jewellery are first-class item types.
 
 ### Outfits
+- **Outfit maker, Collage** (built, preview; Saiff chose the Fits flow, mock-up
+  https://claude.ai/artifact/3ZjKuDL5gcs28nqxLL3CBB): the Outfits tab opens
+  `/dashboard/outfits/make`.
+  - **Step 1, pick**: Suggestions and From Lookbook tiles, the category chips of the current
+    home, a grid of clothes with a tick each, and at the bottom "N selected" with the small
+    pieces (✕ to take out), a Collage switch (Dressing room comes next) and Next.
+  - **Step 2, arrange** on a plain white board: pieces start in the automatic layout; drag
+    to move, pinch with two fingers (or the mouse wheel) to resize, tap for Front / Back /
+    Remove. Bottom: Add clothes (the picker as a sheet), Background (white, cream, light
+    grey, black), Switch mode. No stickers.
+  - **Step 3, save**: name, occasion, then Save to Lookbook, or Save and plan for a day
+    (also reached from the Planner's "Make a new one", which brings the day).
+  - The arrangement is saved with the look (`outfit_layouts`); the Lookbook, Collections
+    and Planner show it exactly so, with the chosen background filling the tile. An
+    outfit's own screen has **Arrange**, which reopens it on the board; saving then updates
+    the same look, with "Save as a new look" beside it.
 - Manual builder including shoes and jewellery. Three modes:
   1. **Collage** (default): free arranging on a board, saved with the look (see Lookbook)
   2. **Dressing room**: mannequin outline, swipe to swap, lock, shuffle ("this feature is

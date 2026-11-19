@@ -35,6 +35,7 @@ import {
 } from '@/lib/hooks/use-collections';
 import { useOccasionLabel, useTypeLabel } from '@/lib/hooks/use-translated-constants';
 import { LookCard } from './look-tile';
+import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
 import { CollectionNameDialog } from './collection-name-dialog';
 import { tabHref } from './wardrobe-tabs';
 
@@ -57,6 +58,9 @@ export function CollectionScreen({ collectionId }: { collectionId: string }) {
   const occasionLabel = useOccasionLabel();
   const router = useRouter();
   const { data: collection, isLoading, isError } = useCollection(collectionId);
+  const { data: layouts } = useOutfitLayouts(
+    (collection?.entries ?? []).flatMap((entry) => (entry.outfit ? [entry.outfit.id] : []))
+  );
   const rename = useRenameCollection();
   const remove = useDeleteCollection();
   const removeEntry = useRemoveFromCollection();
@@ -204,7 +208,8 @@ export function CollectionScreen({ collectionId }: { collectionId: string }) {
                     href={`/dashboard/outfits/${outfit.id}`}
                     name={name}
                     occasion={occasionLabel(outfit.occasion)}
-                    pieces={(outfit.pieces ?? []).map((p) => ({ type: p.type, url: p.thumbnail_url }))}
+                    pieces={(outfit.pieces ?? []).map((p) => ({ id: p.item_id, type: p.type, url: p.thumbnail_url }))}
+                    arranged={layouts?.get(outfit.id)}
                   />
                 </li>
               );

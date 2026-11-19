@@ -818,6 +818,52 @@
         "title": "Suggerimenti",
         "hint": "Come vengono scelti gli outfit per te."
       }
+    },
+    "maker": {
+      "title": "Nuovo look",
+      "suggestions": "Suggerimenti",
+      "fromLookbook": "Dal lookbook",
+      "fromLookbookHint": "Parti da un look salvato",
+      "noLooks": "Nessun look salvato.",
+      "noClothes": "Ancora nessun capo qui.",
+      "selected": "{count, plural, one {# selezionato} other {# selezionati}}",
+      "unpick": "Togli",
+      "collage": "Collage",
+      "next": "Avanti",
+      "dressingRoomLater": "Il camerino arriva dopo questa modalità.",
+      "backToPick": "Torna alla scelta",
+      "boardHint": "Trascina per spostare · pizzica per ridimensionare · tocca per Davanti, Dietro o Rimuovi",
+      "background": "Sfondo",
+      "addClothes": "Aggiungi capi",
+      "addClothesHint": "Spunta i capi da mettere sulla tavola",
+      "switchMode": "Cambia modalità",
+      "done": "Fatto",
+      "backToBoard": "Torna alla tavola",
+      "saveTitle": "Salva look",
+      "name": "Nome",
+      "namePlaceholder": "es. Giornata kurti turchese",
+      "occasion": "Occasione",
+      "planDay": "Giorno",
+      "saveAndPlan": "Salva e pianifica",
+      "saveChanges": "Salva modifiche",
+      "saveToLookbook": "Salva nel lookbook",
+      "saveToLookbookInstead": "Salva invece nel lookbook",
+      "planForDay": "Salva e pianifica per un giorno…",
+      "saveAsNew": "Salva come nuovo look",
+      "saved": "Salvato nel tuo lookbook",
+      "plannedFor": "Pianificato per {day}",
+      "saveError": "Impossibile salvare il look. Riprova.",
+      "piece": "Capo sulla tavola",
+      "front": "Davanti",
+      "back": "Dietro",
+      "remove": "Rimuovi",
+      "arrange": "Disponi",
+      "backgrounds": {
+        "ffffff": "Bianco",
+        "f6f1e7": "Crema",
+        "e9ecea": "Grigio chiaro",
+        "111316": "Nero"
+      }
     }
   }
 }

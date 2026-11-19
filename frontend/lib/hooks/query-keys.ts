@@ -27,6 +27,8 @@ export const queryKeys = {
   family: ['family'] as const,
   homes: ['homes'] as const,
   stays: ['stays'] as const,
+  outfitLayouts: (ids: string) => ['outfit-layouts', ids] as const,
+  everyOutfitLayout: ['outfit-layouts'] as const,
   weatherDays: (days: number) => ['weather-days', days] as const,
   everyWeatherDays: ['weather-days'] as const,
   collections: {

@@ -818,6 +818,52 @@
         "title": "提案",
         "hint": "コーデの提案の選び方。"
       }
+    },
+    "maker": {
+      "title": "新しいルック",
+      "suggestions": "提案",
+      "fromLookbook": "ルックブックから",
+      "fromLookbookHint": "保存したルックから始める",
+      "noLooks": "保存したルックはまだありません。",
+      "noClothes": "ここにはまだ服がありません。",
+      "selected": "{count}点選択",
+      "unpick": "外す",
+      "collage": "コラージュ",
+      "next": "次へ",
+      "dressingRoomLater": "ドレッシングルームはこのモードの次に追加されます。",
+      "backToPick": "選択に戻る",
+      "boardHint": "ドラッグで移動・2本指で拡大縮小・タップで前へ／後ろへ／削除",
+      "background": "背景",
+      "addClothes": "服を追加",
+      "addClothesHint": "ボードに置く服にチェック",
+      "switchMode": "モード切替",
+      "done": "完了",
+      "backToBoard": "ボードに戻る",
+      "saveTitle": "ルックを保存",
+      "name": "名前",
+      "namePlaceholder": "例：ティールのクルティの日",
+      "occasion": "シーン",
+      "planDay": "日付",
+      "saveAndPlan": "保存して予定に入れる",
+      "saveChanges": "変更を保存",
+      "saveToLookbook": "ルックブックに保存",
+      "saveToLookbookInstead": "ルックブックに保存する",
+      "planForDay": "保存して日付を決める…",
+      "saveAsNew": "新しいルックとして保存",
+      "saved": "ルックブックに保存しました",
+      "plannedFor": "{day}に予定しました",
+      "saveError": "ルックを保存できませんでした。もう一度お試しください。",
+      "piece": "ボード上のアイテム",
+      "front": "前へ",
+      "back": "後ろへ",
+      "remove": "削除",
+      "arrange": "並べる",
+      "backgrounds": {
+        "ffffff": "白",
+        "f6f1e7": "クリーム",
+        "e9ecea": "ライトグレー",
+        "111316": "黒"
+      }
     }
   }
 }

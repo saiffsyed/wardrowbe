@@ -64,6 +64,7 @@ class EntryItem(BaseModel):
 
 
 class OutfitPiece(BaseModel):
+    item_id: UUID
     type: str
     thumbnail_url: str
 
@@ -114,6 +115,7 @@ async def _outfit_pieces(db: DbSession, outfit_ids: list[UUID]) -> dict[UUID, li
         await db.execute(
             select(
                 OutfitItem.outfit_id,
+                ClothingItem.id,
                 ClothingItem.type,
                 ClothingItem.thumbnail_path,
                 ClothingItem.image_path,
@@ -124,10 +126,12 @@ async def _outfit_pieces(db: DbSession, outfit_ids: list[UUID]) -> dict[UUID, li
         )
     ).all()
     pieces: dict[UUID, list[OutfitPiece]] = {}
-    for outfit_id, item_type, thumbnail_path, image_path in rows:
+    for outfit_id, item_id, item_type, thumbnail_path, image_path in rows:
         url = sign_optional(thumbnail_path, fallback=image_path)
         if url:
-            pieces.setdefault(outfit_id, []).append(OutfitPiece(type=item_type, thumbnail_url=url))
+            pieces.setdefault(outfit_id, []).append(
+                OutfitPiece(item_id=item_id, type=item_type, thumbnail_url=url)
+            )
     return pieces
 
 

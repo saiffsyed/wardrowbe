@@ -37,6 +37,8 @@ export function lookZone(type: string): LookZone {
 const LONG_TOPS = new Set(['kurta', 'kurti', 'sherwani']);
 
 export interface LookPiece {
+  // The item, so a saved arrangement can find its picture.
+  id?: string;
   type: string;
   url: string;
 }

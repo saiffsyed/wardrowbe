@@ -71,7 +71,7 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `d0a6f2b4c8e5_add_wardrobe_category_trees` off that, and
   `e1b7a3c5d9f6_add_wardrobe_custom_kinds` off that, and `f2c8b4d6e0a7_add_collections`
   off that, and `a3d9f5b1c7e8_add_start_screen` off that, and `b4e0a6c2d8f9_add_stays` off
-  that. After merging
+  that, and `c5f1b7d3e9a0_add_outfit_layouts` off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
   (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
@@ -93,6 +93,11 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Planner (the Plan tab, route `app/dashboard/plan`): `components/wardrobe/planner-screen.tsx`
   (Day and Month, URL `?view=month&day=YYYY-MM-DD`), `add-outfit-sheet.tsx`. The bottom
   bar and "App starts in" point Plan there; upstream's `/dashboard` page is left as it was.
+- Outfit maker (the Outfits tab, route `app/dashboard/outfits/make`, `?date=` to plan a day,
+  `?edit=` to rearrange a look): `components/wardrobe/outfit-maker.tsx`, the board in
+  `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend
+  `backend/app/api/outfit_layouts.py`, `backend/app/models/outfit_layout.py`; frontend
+  `lib/hooks/use-outfit-layouts.ts`, shown by `LookTile`'s `arranged` prop.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

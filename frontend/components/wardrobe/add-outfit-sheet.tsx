@@ -20,7 +20,7 @@ export function piecesOf(outfit: Outfit) {
     .sort((a, b) => a.position - b.position)
     .flatMap((item) => {
       const url = item.thumbnail_url ?? item.image_url;
-      return url ? [{ type: item.type, url }] : [];
+      return url ? [{ id: item.id, type: item.type, url }] : [];
     });
 }
 
@@ -104,7 +104,7 @@ export function AddOutfitSheet({
                 <span className="text-xs text-muted-foreground">{t('fromLookbookHint')}</span>
               </span>
             </button>
-            <Link href="/dashboard/outfits/new" className={CHOICE}>
+            <Link href={`/dashboard/outfits/make?date=${day}`} className={CHOICE}>
               <Shirt className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
               <span>
                 <b className="block">{t('makeNew')}</b>

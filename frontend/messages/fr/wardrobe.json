@@ -818,6 +818,52 @@
         "title": "Suggestions",
         "hint": "Comment les tenues vous sont proposées."
       }
+    },
+    "maker": {
+      "title": "Nouveau look",
+      "suggestions": "Suggestions",
+      "fromLookbook": "Depuis le lookbook",
+      "fromLookbookHint": "Partir d’un de vos looks enregistrés",
+      "noLooks": "Aucun look enregistré.",
+      "noClothes": "Pas encore de vêtements ici.",
+      "selected": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+      "unpick": "Retirer",
+      "collage": "Collage",
+      "next": "Suivant",
+      "dressingRoomLater": "La cabine d’essayage arrive ensuite, après ce mode.",
+      "backToPick": "Retour au choix",
+      "boardHint": "Glissez pour déplacer · pincez pour redimensionner · touchez pour Devant, Derrière ou Retirer",
+      "background": "Fond",
+      "addClothes": "Ajouter des vêtements",
+      "addClothesHint": "Cochez les vêtements à mettre sur le tableau",
+      "switchMode": "Changer de mode",
+      "done": "Terminé",
+      "backToBoard": "Retour au tableau",
+      "saveTitle": "Enregistrer le look",
+      "name": "Nom",
+      "namePlaceholder": "ex. Journée kurti turquoise",
+      "occasion": "Occasion",
+      "planDay": "Jour",
+      "saveAndPlan": "Enregistrer et planifier",
+      "saveChanges": "Enregistrer les modifications",
+      "saveToLookbook": "Enregistrer dans le lookbook",
+      "saveToLookbookInstead": "Plutôt l’enregistrer dans le lookbook",
+      "planForDay": "Enregistrer et prévoir pour un jour…",
+      "saveAsNew": "Enregistrer comme nouveau look",
+      "saved": "Enregistré dans votre lookbook",
+      "plannedFor": "Prévu pour {day}",
+      "saveError": "Impossible d’enregistrer le look. Veuillez réessayer.",
+      "piece": "Pièce sur le tableau",
+      "front": "Devant",
+      "back": "Derrière",
+      "remove": "Retirer",
+      "arrange": "Disposer",
+      "backgrounds": {
+        "ffffff": "Blanc",
+        "f6f1e7": "Crème",
+        "e9ecea": "Gris clair",
+        "111316": "Noir"
+      }
     }
   }
 }

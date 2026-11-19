@@ -3,6 +3,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { layoutLook, type LookPiece } from '@/lib/look-layout';
+import { DEFAULT_BACKGROUND, type BoardPiece } from '@/lib/board-layout';
+import { BoardView } from './outfit-board';
+
+export interface Arranged {
+  background: string;
+  pieces: BoardPiece[];
+}
 
 // How much of the tile's height each band takes when it has pieces.
 const BAND_WEIGHT = { head: 1.8, top: 4, bottom: 4, full: 8, feet: 2.2 } as const;
@@ -61,7 +68,20 @@ function LayeredBody({ top, bottom }: { top: LookPiece[]; bottom: LookPiece[] })
 
 // A saved look laid out on one tall tile: head jewellery, top, bottom and shoes from top to
 // bottom, with dupatta, bag and bangles in a narrow column beside them.
-export function LookTile({ pieces }: { pieces: LookPiece[] }) {
+export function LookTile({ pieces, arranged }: { pieces: LookPiece[]; arranged?: Arranged }) {
+  if (arranged) {
+    // Arranged by hand on the board: shown exactly as saved.
+    const images = Object.fromEntries(pieces.filter((piece) => piece.id).map((piece) => [piece.id!, piece.url]));
+    const plain = arranged.background === DEFAULT_BACKGROUND;
+    return (
+      <div
+        className={`flex aspect-[3/5] items-center overflow-hidden rounded-2xl border ${plain ? 'photo-ground' : ''}`}
+        style={plain ? undefined : { background: arranged.background }}
+      >
+        <BoardView background={arranged.background} pieces={arranged.pieces} images={images} />
+      </div>
+    );
+  }
   const layout = layoutLook(pieces);
   // With a long top, the top and the bottoms share one band, drawn over each other.
   const bands = BANDS.filter(
@@ -101,18 +121,20 @@ export function LookCard({
   name,
   occasion,
   pieces,
+  arranged,
 }: {
   href: string;
   name: string;
   occasion: string;
   pieces: LookPiece[];
+  arranged?: Arranged;
 }) {
   return (
     <Link
       href={href}
       className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <LookTile pieces={pieces} />
+      <LookTile pieces={pieces} arranged={arranged} />
       <p className="mt-2 line-clamp-2 px-0.5 text-[15px] font-semibold leading-snug">{name}</p>
       <p className="px-0.5 text-sm text-muted-foreground">{occasion}</p>
     </Link>

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, FolderPlus, Loader2 } from 'lucide-react';
+import Link from 'next/link';
+import { Check, FolderPlus, LayoutTemplate, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -161,5 +162,18 @@ export function AddToCollectionButton({ holder }: { holder: Holder }) {
         }}
       />
     </>
+  );
+}
+
+// Opens a saved look on the outfit board to rearrange or change it.
+export function ArrangeLookButton({ outfitId }: { outfitId: string }) {
+  const t = useTranslations('wardrobe.closet.maker');
+  return (
+    <Button variant="outline" asChild>
+      <Link href={`/dashboard/outfits/make?edit=${outfitId}`}>
+        <LayoutTemplate className="mr-2 h-4 w-4" aria-hidden="true" />
+        {t('arrange')}
+      </Link>
+    </Button>
   );
 }

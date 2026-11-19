@@ -33,6 +33,7 @@ vi.mock('@/lib/hooks/use-stays', () => ({
 vi.mock('@/lib/hooks/use-studio', () => ({ useCreateStudioOutfit: () => ({ mutate: vi.fn(), isPending: false }) }))
 vi.mock('@/lib/hooks/use-homes', () => ({ useHomes: () => ({ data: [] }) }))
 vi.mock('@/lib/hooks/use-weather', () => ({ useWeather: () => ({ data: undefined }) }))
+vi.mock('@/lib/hooks/use-outfit-layouts', () => ({ useOutfitLayouts: () => ({ data: undefined }) }))
 
 describe('PlannerScreen', () => {
   it("shows today's planned look with the day's weather line and place", () => {

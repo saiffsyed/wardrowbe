@@ -8,7 +8,7 @@ export type StartScreen = (typeof START_SCREENS)[number];
 const HREF: Record<StartScreen, string> = {
   wardrobe: '/dashboard/wardrobe',
   lookbook: '/dashboard/wardrobe?tab=lookbook',
-  outfits: '/dashboard/outfits',
+  outfits: '/dashboard/outfits/make',
   plan: '/dashboard/plan',
 };
 
