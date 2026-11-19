@@ -85,6 +85,7 @@ class DayForecast(BaseModel):
     precipitation_chance: int
     humidity: int | None
     uv_index: float | None
+    wind_speed: float | None = None
     condition: str
 
 
@@ -345,6 +346,7 @@ async def weather_days(
                     precipitation_chance=int(forecast.precipitation_chance or 0),
                     humidity=forecast.humidity,
                     uv_index=forecast.uv_index,
+                    wind_speed=forecast.wind_speed,
                     condition=forecast.condition,
                 )
                 if forecast

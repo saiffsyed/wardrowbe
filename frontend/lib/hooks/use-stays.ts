@@ -28,6 +28,7 @@ export interface DayForecast {
   precipitation_chance: number;
   humidity: number | null;
   uv_index: number | null;
+  wind_speed?: number | null;
   condition: string;
 }
 

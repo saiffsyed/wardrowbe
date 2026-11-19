@@ -79,7 +79,7 @@ describe('the phone bottom bar', () => {
     renderNav(() => <MobileNav />)
 
     await waitFor(() =>
-      expect(hrefs()).toEqual(['/dashboard/wardrobe', '/dashboard/outfits', '/dashboard', '/dashboard/more'])
+      expect(hrefs()).toEqual(['/dashboard/wardrobe', '/dashboard/outfits', '/dashboard/plan', '/dashboard/more'])
     )
   })
 })

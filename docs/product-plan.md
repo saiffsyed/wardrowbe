@@ -106,6 +106,27 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
   Not done yet: the "while you're out" hour range (today shows low → high instead), and
   swapping a planned outfit before it is saved (it is saved, then opens like any outfit).
 
+- **Planner** (built, preview; Saiff loves the Fits planner, mock-up
+  https://claude.ai/artifact/Q6eBjbMncAw1NGrBWEddPz): the Plan tab is now
+  `/dashboard/plan`, titled Planner, with a Today button and Day / Month tabs.
+  - **Day**: week strip (Sunday first, ‹ › for other weeks) with a tiny weather icon under
+    each date the forecast reaches, a dot on days with an outfit and a purple line on
+    days away; one weather line for the chosen day ("☀ 33° Sunny · 26–33° · rain 10% ›");
+    a card with "N outfit suggestions are waiting" on today when there are any; the day's
+    look in a big card (swipe for the next or previous day) or **+ Add outfit**, which
+    offers Suggest for the weather / Pick from Lookbook / Make a new one; under it
+    "You'll be in Chennai · Change".
+  - **Month**: the whole month like Fits, each day a look thumbnail or +, weather icons
+    as far as the forecast reaches, a purple line under days of a stay; tap a day to open
+    it in Day.
+  - **Tapping the weather** (the line, or the wardrobe's weather bar) opens a sheet:
+    temperature, low to high, rain, humidity, UV, wind, the clothes hint, "Suggest an
+    outfit for this weather", "I'll be somewhere else this day" (or "Remove the stay"),
+    and "See the next 7 days" (the weather screen).
+  - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
+    longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on
+    Insights under More.
+
 ### Everyday features (all accepted)
 Today card, quick swap, laundry / repair status, week strip, occasion sets, trip packing,
 sizes by brand, "do I already own this?", wishlist, storage location, care instructions,
@@ -154,8 +175,7 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Phones have no top bar and no side menu.** Saiff did not like the side menu and
   chose a More tab like the Fits app's. Laptops keep their side menu.
 - **Bottom bar: Wardrobe / Outfits / Plan / More**, no centre button (adding an item is the
-  green + on the wardrobe screen). Plan opens the old Dashboard screen until the Plan area
-  is built; it also holds the "suggest an outfit" button.
+  green + on the wardrobe screen). Plan opens the Planner.
 - **More screen**: name and email at the top (opens Account), tiles for Insights, History
   and Family, and a settings list whose rows each open a screen: Homes, Categories,
   Display, Style & weather preferences (the original settings page), Notifications,

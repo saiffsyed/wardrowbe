@@ -19,7 +19,7 @@ export function MobileNav() {
   const navigation = [
     { name: t('wardrobe'), href: '/dashboard/wardrobe', icon: Shirt },
     { name: t('outfits'), href: '/dashboard/outfits', icon: Layers },
-    { name: t('plan'), href: '/dashboard', icon: CalendarDays },
+    { name: t('plan'), href: '/dashboard/plan', icon: CalendarDays },
     { name: t('more'), href: MORE_HREF, icon: LayoutGrid },
   ].filter((item) => aiUiEnabled || !isAiRoute(item.href));
 

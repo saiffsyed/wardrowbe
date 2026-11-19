@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { StaysRow } from '@/components/wardrobe/stays-row'
 import { StayHomePrompt } from '@/components/wardrobe/stay-home-prompt'
 
 const day = (date: string, city: string, away = false, extra = {}) => ({
@@ -25,15 +24,6 @@ vi.mock('@/lib/hooks/use-homes', () => ({
   ] }),
   useSetCurrentHome: () => ({ mutate: setCurrent, isPending: false }),
 }))
-
-describe('StaysRow', () => {
-  it('joins neighbouring days in one place into one bar', () => {
-    render(<StaysRow />)
-    expect(screen.getAllByText('Chennai')).toHaveLength(2)
-    expect(screen.getAllByText('Bangalore')).toHaveLength(1)
-    expect(screen.getByRole('button', { name: 'remove' })).toBeTruthy()
-  })
-})
 
 describe('StayHomePrompt', () => {
   it('offers the clothes of the home you are staying at, and switches only when asked', () => {

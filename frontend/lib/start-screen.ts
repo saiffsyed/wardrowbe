@@ -9,7 +9,7 @@ const HREF: Record<StartScreen, string> = {
   wardrobe: '/dashboard/wardrobe',
   lookbook: '/dashboard/wardrobe?tab=lookbook',
   outfits: '/dashboard/outfits',
-  plan: '/dashboard',
+  plan: '/dashboard/plan',
 };
 
 export function startHref(screen: string | undefined | null): string {

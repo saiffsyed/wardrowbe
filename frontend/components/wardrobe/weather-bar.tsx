@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useWeather } from '@/lib/hooks/use-weather';
@@ -9,9 +9,10 @@ import { usePreferences } from '@/lib/hooks/use-preferences';
 import { useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
 import { displayValue } from '@/lib/temperature';
 import { weatherIcon } from './home-weather';
+import { WeatherSheet } from './weather-sheet';
 
 // Today's weather where you are, as a bar under the top row of the wardrobe. Opens the weather
-// screen. On a day away (a stay), it shows that city's forecast instead of home's current
+// sheet for today. On a day away (a stay), it shows that city's forecast instead of home's current
 // reading. Shows nothing until there is something to show.
 export function WeatherBar() {
   const t = useTranslations('wardrobe.closet.weather');
@@ -20,6 +21,7 @@ export function WeatherBar() {
   const { data: prefs } = usePreferences();
   const conditionLabel = useWeatherConditionLabel();
   const today = days?.days[0];
+  const [open, setOpen] = useState(false);
   const awayForecast = today?.away ? today.forecast : null;
   const weather = awayForecast
     ? {
@@ -39,10 +41,12 @@ export function WeatherBar() {
   const Icon = weatherIcon(weather.condition, weather.is_day);
 
   return (
-    <Link
-      href="/dashboard/weather"
+    <>
+    <button
+      type="button"
+      onClick={() => setOpen(true)}
       aria-label={t('open')}
-      className="flex items-center gap-3 rounded-2xl border bg-card px-3.5 py-2.5 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="flex w-full items-center gap-3 text-left rounded-2xl border bg-card px-3.5 py-2.5 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <Icon className="h-7 w-7 shrink-0 text-primary" aria-hidden="true" />
       <span className="text-2xl font-bold tabular-nums">{degrees(weather.temperature)}</span>
@@ -63,6 +67,8 @@ export function WeatherBar() {
         </span>
       </span>
       <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-    </Link>
+    </button>
+    <WeatherSheet day={today} isToday canPlan open={open} onOpenChange={setOpen} />
+    </>
   );
 }

@@ -88,8 +88,11 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Stays and day-by-day weather: backend `backend/app/api/stays.py` (`/stays`,
   `GET /weather/days`, `POST /weather/days/{day}/outfit`), `backend/app/models/stay.py`;
   frontend `components/wardrobe/weather-screen.tsx` (route `app/dashboard/weather`),
-  `stays-row.tsx` (on Plan), `add-stay-dialog.tsx`, `stay-home-prompt.tsx`,
+  `weather-sheet.tsx`, `add-stay-dialog.tsx`, `stay-home-prompt.tsx`,
   `lib/hooks/use-stays.ts`, clothes hints `lib/weather-hints.ts`.
+- Planner (the Plan tab, route `app/dashboard/plan`): `components/wardrobe/planner-screen.tsx`
+  (Day and Month, URL `?view=month&day=YYYY-MM-DD`), `add-outfit-sheet.tsx`. The bottom
+  bar and "App starts in" point Plan there; upstream's `/dashboard` page is left as it was.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

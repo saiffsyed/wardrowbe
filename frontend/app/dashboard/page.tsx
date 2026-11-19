@@ -43,7 +43,6 @@ import { formatShortDate } from '@/lib/utils';
 import { findNextSchedule } from '@/lib/schedules';
 import { useUserTimezone } from '@/lib/hooks/use-user';
 import { useAiUiEnabled } from '@/lib/hooks/use-features';
-import { StaysRow } from '@/components/wardrobe/stays-row';
 
 function WeatherCard() {
   const { data: weather, isLoading, isError } = useWeather();
@@ -631,9 +630,6 @@ export default function DashboardPage() {
           {t('subtitle')}
         </p>
       </div>
-
-      {/* Where you'll be over the coming week (our fork). */}
-      <StaysRow />
 
       {/* Top row - Weather + Pending + Next Scheduled */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
