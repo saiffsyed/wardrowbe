@@ -595,14 +595,23 @@
         "display": {
           "title": "Aspetto"
         },
-        "preferences": {
-          "title": "Preferenze di stile e meteo"
-        },
         "notifications": {
           "title": "Notifiche"
         },
         "account": {
           "title": "Account"
+        },
+        "style": {
+          "title": "Il mio stile"
+        },
+        "body": {
+          "title": "Corpo e vestibilità"
+        },
+        "weather": {
+          "title": "Comfort meteo"
+        },
+        "suggestions": {
+          "title": "Suggerimenti"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "Nessun look salvato.",
       "added": "Outfit aggiunto per {day}",
       "addError": "Impossibile aggiungere l’outfit. Riprova."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "Il mio stile",
+        "hint": "I colori che ami e quelli da evitare, e gli stili che preferisci."
+      },
+      "body": {
+        "title": "Corpo e vestibilità",
+        "hint": "Le tue misure, per suggerimenti più adatti."
+      },
+      "weather": {
+        "title": "Comfort meteo",
+        "hint": "°C o °F, quanto senti caldo o freddo, e gli strati."
+      },
+      "suggestions": {
+        "title": "Suggerimenti",
+        "hint": "Come vengono scelti gli outfit per te."
+      }
     }
   }
 }

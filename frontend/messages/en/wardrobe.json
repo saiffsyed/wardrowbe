@@ -595,14 +595,23 @@
         "display": {
           "title": "Display"
         },
-        "preferences": {
-          "title": "Style & weather preferences"
-        },
         "notifications": {
           "title": "Notifications"
         },
         "account": {
           "title": "Account"
+        },
+        "style": {
+          "title": "My style"
+        },
+        "body": {
+          "title": "Body & fit"
+        },
+        "weather": {
+          "title": "Weather comfort"
+        },
+        "suggestions": {
+          "title": "Suggestions"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "No saved looks yet.",
       "added": "Outfit added for {day}",
       "addError": "Could not add the outfit. Please try again."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "My style",
+        "hint": "Colours you love and avoid, and the styles you like."
+      },
+      "body": {
+        "title": "Body & fit",
+        "hint": "Your measurements, so suggestions fit better."
+      },
+      "weather": {
+        "title": "Weather comfort",
+        "hint": "°C or °F, how warm or cold you feel, and layering."
+      },
+      "suggestions": {
+        "title": "Suggestions",
+        "hint": "How outfit suggestions are picked for you."
+      }
     }
   }
 }

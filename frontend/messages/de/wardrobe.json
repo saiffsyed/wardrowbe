@@ -595,14 +595,23 @@
         "display": {
           "title": "Darstellung"
         },
-        "preferences": {
-          "title": "Stil- und Wettereinstellungen"
-        },
         "notifications": {
           "title": "Benachrichtigungen"
         },
         "account": {
           "title": "Konto"
+        },
+        "style": {
+          "title": "Mein Stil"
+        },
+        "body": {
+          "title": "Körper & Passform"
+        },
+        "weather": {
+          "title": "Wetter-Komfort"
+        },
+        "suggestions": {
+          "title": "Vorschläge"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "Noch keine gespeicherten Looks.",
       "added": "Outfit für {day} hinzugefügt",
       "addError": "Outfit konnte nicht hinzugefügt werden. Bitte versuche es erneut."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "Mein Stil",
+        "hint": "Farben, die du magst und meidest, und deine Lieblingsstile."
+      },
+      "body": {
+        "title": "Körper & Passform",
+        "hint": "Deine Maße, damit Vorschläge besser passen."
+      },
+      "weather": {
+        "title": "Wetter-Komfort",
+        "hint": "°C oder °F, wie warm oder kalt dir ist, und Schichten."
+      },
+      "suggestions": {
+        "title": "Vorschläge",
+        "hint": "Wie Outfit-Vorschläge für dich ausgewählt werden."
+      }
     }
   }
 }

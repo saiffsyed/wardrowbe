@@ -595,14 +595,23 @@
         "display": {
           "title": "表示"
         },
-        "preferences": {
-          "title": "スタイルと天気の設定"
-        },
         "notifications": {
           "title": "通知"
         },
         "account": {
           "title": "アカウント"
+        },
+        "style": {
+          "title": "わたしのスタイル"
+        },
+        "body": {
+          "title": "体型とサイズ"
+        },
+        "weather": {
+          "title": "天気と快適さ"
+        },
+        "suggestions": {
+          "title": "提案"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "保存したルックはまだありません。",
       "added": "{day}のコーデを追加しました",
       "addError": "コーデを追加できませんでした。もう一度お試しください。"
+    },
+    "settingsSections": {
+      "style": {
+        "title": "わたしのスタイル",
+        "hint": "好きな色・避けたい色と、好みのスタイル。"
+      },
+      "body": {
+        "title": "体型とサイズ",
+        "hint": "サイズを入れると提案が体に合いやすくなります。"
+      },
+      "weather": {
+        "title": "天気と快適さ",
+        "hint": "°C か °F、暑さ寒さの感じ方、重ね着。"
+      },
+      "suggestions": {
+        "title": "提案",
+        "hint": "コーデの提案の選び方。"
+      }
     }
   }
 }

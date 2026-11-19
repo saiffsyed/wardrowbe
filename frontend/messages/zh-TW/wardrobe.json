@@ -595,14 +595,23 @@
         "display": {
           "title": "顯示"
         },
-        "preferences": {
-          "title": "風格與天氣偏好"
-        },
         "notifications": {
           "title": "通知"
         },
         "account": {
           "title": "帳戶"
+        },
+        "style": {
+          "title": "我的風格"
+        },
+        "body": {
+          "title": "身材與合身"
+        },
+        "weather": {
+          "title": "天氣與舒適"
+        },
+        "suggestions": {
+          "title": "推薦"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "還沒有儲存的造型。",
       "added": "已為{day}新增穿搭",
       "addError": "無法新增穿搭，請再試一次。"
+    },
+    "settingsSections": {
+      "style": {
+        "title": "我的風格",
+        "hint": "喜歡和想避開的顏色，以及你喜歡的風格。"
+      },
+      "body": {
+        "title": "身材與合身",
+        "hint": "填寫尺寸，推薦會更合身。"
+      },
+      "weather": {
+        "title": "天氣與舒適",
+        "hint": "°C 或 °F、你怕熱還是怕冷、疊穿偏好。"
+      },
+      "suggestions": {
+        "title": "推薦",
+        "hint": "如何為你挑選穿搭推薦。"
+      }
     }
   }
 }

@@ -178,8 +178,12 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
   green + on the wardrobe screen). Plan opens the Planner.
 - **More screen**: name and email at the top (opens Account), tiles for Insights, History
   and Family, and a settings list whose rows each open a screen: Homes, Categories,
-  Display, Style & weather preferences (the original settings page), Notifications,
-  Account (language, sign-out). Screens opened from More have a "‹ More" back button.
+  Display, My style, Body & fit, Weather comfort, Suggestions, Notifications, Account
+  (language, sign-out). The middle four (preview) are the original settings page shown
+  one part at a time (`/dashboard/settings?section=style|body|weather|suggestions`), each
+  with its own Save; its Account and Location parts are left out (Account and Homes
+  replace them) and the AI service setup shows only on the full page on a laptop. The
+  settings page no longer runs wider than a phone screen. Screens opened from More have a "‹ More" back button.
   Pairings, AI Learning and Family Feed are not offered on a phone.
 - **Categories are grouped and each person can edit them** (built and approved). Saiff asked for categories that suit an Indian woman's
   wardrobe, "grouped, but sensible", with editing in Settings like the Fits app's
@@ -268,8 +272,6 @@ Built and tested (backend + frontend, on branch `stage-1`):
 Still to do in Stage 1:
 - Try the label reader on real labels once an AI provider is chosen, and tune its
   instructions if it misreads
-- Split "Style & weather preferences" (the original settings page) into clearer screens
-- Settings page runs ~4 px wider than a phone screen (upstream bug)
 
 ## Open questions for Saiff
 

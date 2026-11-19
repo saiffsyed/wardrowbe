@@ -595,14 +595,23 @@
         "display": {
           "title": "화면"
         },
-        "preferences": {
-          "title": "스타일 및 날씨 설정"
-        },
         "notifications": {
           "title": "알림"
         },
         "account": {
           "title": "계정"
+        },
+        "style": {
+          "title": "내 스타일"
+        },
+        "body": {
+          "title": "체형과 핏"
+        },
+        "weather": {
+          "title": "날씨와 편안함"
+        },
+        "suggestions": {
+          "title": "제안"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "저장한 룩이 아직 없어요.",
       "added": "{day} 코디를 추가했어요",
       "addError": "코디를 추가하지 못했어요. 다시 시도해 주세요."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "내 스타일",
+        "hint": "좋아하는 색과 피하는 색, 좋아하는 스타일."
+      },
+      "body": {
+        "title": "체형과 핏",
+        "hint": "치수를 넣으면 더 잘 맞는 제안을 받아요."
+      },
+      "weather": {
+        "title": "날씨와 편안함",
+        "hint": "°C 또는 °F, 더위와 추위를 타는 정도, 겹쳐 입기."
+      },
+      "suggestions": {
+        "title": "제안",
+        "hint": "코디 제안을 고르는 방식."
+      }
     }
   }
 }

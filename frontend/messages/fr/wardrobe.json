@@ -595,14 +595,23 @@
         "display": {
           "title": "Affichage"
         },
-        "preferences": {
-          "title": "Préférences de style et météo"
-        },
         "notifications": {
           "title": "Notifications"
         },
         "account": {
           "title": "Compte"
+        },
+        "style": {
+          "title": "Mon style"
+        },
+        "body": {
+          "title": "Morphologie"
+        },
+        "weather": {
+          "title": "Confort météo"
+        },
+        "suggestions": {
+          "title": "Suggestions"
         }
       }
     },
@@ -791,6 +800,24 @@
       "noLooks": "Aucun look enregistré.",
       "added": "Tenue ajoutée pour {day}",
       "addError": "Impossible d’ajouter la tenue. Veuillez réessayer."
+    },
+    "settingsSections": {
+      "style": {
+        "title": "Mon style",
+        "hint": "Les couleurs que vous aimez ou évitez, et vos styles préférés."
+      },
+      "body": {
+        "title": "Morphologie",
+        "hint": "Vos mesures, pour des suggestions mieux ajustées."
+      },
+      "weather": {
+        "title": "Confort météo",
+        "hint": "°C ou °F, votre ressenti du chaud et du froid, et les couches."
+      },
+      "suggestions": {
+        "title": "Suggestions",
+        "hint": "Comment les tenues vous sont proposées."
+      }
     }
   }
 }
