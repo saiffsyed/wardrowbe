@@ -1,6 +1,6 @@
 # Product plan and decisions
 
-Last updated: 17 November 2026. All points below were confirmed by Saiff unless marked
+Last updated: 19 November 2026. All points below were confirmed by Saiff unless marked
 "open".
 
 ## What the app is
@@ -86,6 +86,23 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.
 - Google Calendar sync and couple coordination.
 - Week strip, day and month planner. Describe an occasion in your own words.
+
+- **Weather screen** (agreed, mock-up https://claude.ai/artifact/6hmbyaHbJpYufKwwjrUgYC,
+  not built yet): opens from the weather bar. Today (temperature, feels like, "while
+  you're out" range, rain, humidity, UV, a clothes hint, today's planned look); the next
+  7 days, each with high / low, rain, humidity, a clothes hint worked out by fixed rules
+  (no AI cost) and "Plan outfit" (suggests a look for that day's weather and saves it to
+  that day, with a chance to swap first) or the planned look's tile. Later (Stage 3):
+  heads-ups such as rain against a planned outfit, laundry before rainy days, the weather
+  at another home before a trip.
+- **Stays: "Where I'll be"** (agreed, not built yet): added in **Plan** (Saiff's choice), on
+  a stays row under the week. A stay is a city and from / to dates; your homes are
+  offered first, any other city by search. Days without a stay use the current home's
+  city. The weather screen, the weather bar and outfit suggestions use each day's city
+  (those days marked "📍 Bangalore"). A stay at one of your homes does not switch the
+  wardrobe by itself; that morning a one-tap question asks "You're in Europe today. Show
+  the clothes kept there?". Stays beyond the 16-day forecast show "Forecast from …".
+  Plan itself is rebuilt in Stage 3; only the stays row is added to it now.
 
 ### Everyday features (all accepted)
 Today card, quick swap, laundry / repair status, week strip, occasion sets, trip packing,
