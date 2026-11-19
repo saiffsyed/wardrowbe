@@ -764,7 +764,6 @@
       "previousWeek": "上一周",
       "nextWeek": "下一周",
       "rain": "降雨 {percent}%",
-      "pending": "有 {count} 个穿搭建议等你查看",
       "addOutfit": "添加穿搭",
       "beIn": "你会在{city}",
       "noPlace": "未设置地点",

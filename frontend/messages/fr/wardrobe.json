@@ -764,7 +764,6 @@
       "previousWeek": "Semaine précédente",
       "nextWeek": "Semaine suivante",
       "rain": "pluie {percent} %",
-      "pending": "{count, plural, one {# suggestion de tenue vous attend} other {# suggestions de tenue vous attendent}}",
       "addOutfit": "Ajouter une tenue",
       "beIn": "Vous serez à {city}",
       "noPlace": "Aucun lieu défini",

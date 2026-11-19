@@ -112,7 +112,7 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
   - **Day**: week strip (Sunday first, ‹ › for other weeks) with a tiny weather icon under
     each date the forecast reaches, a dot on days with an outfit and a purple line on
     days away; one weather line for the chosen day ("☀ 33° Sunny · 26–33° · rain 10% ›");
-    a card with "N outfit suggestions are waiting" on today when there are any; the day's
+    no "suggestions waiting" card (Saiff did not want it); the day's
     look in a big card (swipe for the next or previous day) or **+ Add outfit**, which
     offers Suggest for the weather / Pick from Lookbook / Make a new one; under it
     "You'll be in Chennai · Change".

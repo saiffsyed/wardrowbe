@@ -18,7 +18,6 @@ const look = { id: 'o1', name: 'Teal kurti day', scheduled_for: '2026-11-19', st
 vi.mock('@/lib/hooks/use-outfits', () => ({
   useOutfits: () => ({ data: { outfits: [look] } }),
   useCalendarOutfits: () => ({ data: { outfits: [look] } }),
-  usePendingOutfits: () => ({ data: { total: 0 } }),
   useInfiniteOutfits: () => ({ data: { pages: [] } }),
 }))
 vi.mock('@/lib/hooks/use-stays', () => ({
@@ -49,7 +48,7 @@ describe('PlannerScreen', () => {
     render(<PlannerScreen />)
     fireEvent.click(screen.getByText('20').closest('button')!)
     expect(replace).toHaveBeenCalled()
-    expect(replace.mock.calls.at(-1)[0]).toContain('day=2026-11-20')
+    expect(replace.mock.calls.at(-1)![0]).toContain('day=2026-11-20')
   })
 
   it('shows the whole month with a look on the days that have one', () => {

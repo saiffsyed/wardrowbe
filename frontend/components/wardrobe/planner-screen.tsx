@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight, MapPin, Plus } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { addDays, dayAndMonth, dayDate, weekdayShort } from '@/lib/day-format';
-import { useCalendarOutfits, useOutfits, usePendingOutfits, type Outfit } from '@/lib/hooks/use-outfits';
+import { useCalendarOutfits, useOutfits, type Outfit } from '@/lib/hooks/use-outfits';
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { usePreferences } from '@/lib/hooks/use-preferences';
 import { useStays, useWeatherDays, type Stay, type WeatherDay } from '@/lib/hooks/use-stays';
@@ -178,7 +178,6 @@ function DayView({
   const { data: prefs } = usePreferences();
   const week = weekOf(selected);
   const { data: outfits } = useOutfits({ date_from: week[0], date_to: week[6] }, 1, 50);
-  const { data: pending } = usePendingOutfits(3);
   const look = lookFor(outfits?.outfits, selected);
   const day = weatherByDay.get(selected);
   const stay = stayOn(stays, selected);
@@ -186,7 +185,6 @@ function DayView({
   const deg = (value: number) => `${displayValue(value, unit)}°`;
   const touchX = useRef<number | null>(null);
   const place = stay?.city ?? day?.city;
-  const pendingCount = pending?.total ?? 0;
 
   const heading =
     selected === today
@@ -244,12 +242,6 @@ function DayView({
           </span>
           <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </button>
-      )}
-
-      {pendingCount > 0 && selected === today && (
-        <Link href="/dashboard/outfits" className="block rounded-2xl border bg-card px-4 py-3 text-sm hover:bg-accent">
-          {t('pending', { count: pendingCount })} <span className="font-semibold text-primary">›</span>
-        </Link>
       )}
 
       <h2 className="text-center font-bold">{heading}</h2>
