@@ -6,23 +6,26 @@ import { toast } from 'sonner';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { getErrorMessage } from '@/lib/api';
 import { useHomes } from '@/lib/hooks/use-homes';
-import { useLaundry, useLaundryStates, useMoveLaundry, type LaundryMove, type LaundryState } from '@/lib/hooks/use-laundry';
+import { useLaundry, useLaundryStates, useMoveLaundry } from '@/lib/hooks/use-laundry';
+import { canMove, laundryOf, type Laundry, type LaundryMove } from '@/lib/laundry';
 import type { Item } from '@/lib/types';
 
-const STYLE: Record<LaundryState | 'need', string> = {
-  need: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
-  wash: 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300',
-  dry: 'bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300',
+type Shown = Exclude<Laundry, 'clean'>;
+const STYLE: Record<Shown, string> = {
+  dirty: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+  washing: 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300',
+  dry_cleaning: 'bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-300',
 };
-const ICON = { need: Droplets, wash: WashingMachine, dry: Shirt };
+const ICON = { dirty: Droplets, washing: WashingMachine, dry_cleaning: Shirt };
+const BADGE_KEY = { dirty: 'need', washing: 'wash', dry_cleaning: 'dry' } as const;
 
-// Where an item is: away being cleaned, waiting for a wash, or (null) clean in the wardrobe.
-export function useLaundryOf(item: Pick<Item, 'id' | 'needs_wash'>): LaundryState | 'need' | null {
+// Where an item is in the laundry (lib/laundry.ts has the states and allowed moves).
+export function useLaundryOf(item: Pick<Item, 'id' | 'needs_wash'>): Laundry {
   const { data } = useLaundryStates();
-  return data?.get(item.id) ?? (item.needs_wash ? 'need' : null);
+  return laundryOf(item.needs_wash, data?.get(item.id));
 }
 
-export function LaundryBadge({ state, small = false }: { state: LaundryState | 'need'; small?: boolean }) {
+export function LaundryBadge({ state, small = false }: { state: Shown; small?: boolean }) {
   const t = useTranslations('wardrobe.closet.laundry');
   const Icon = ICON[state];
   return (
@@ -32,7 +35,7 @@ export function LaundryBadge({ state, small = false }: { state: LaundryState | '
       }`}
     >
       <Icon className={small ? 'h-3 w-3' : 'h-3.5 w-3.5'} aria-hidden="true" />
-      {t(`badge.${state}`)}
+      {t(`badge.${BADGE_KEY[state]}`)}
     </span>
   );
 }
@@ -61,19 +64,19 @@ export function LaundryMenuItems({ item }: { item: Pick<Item, 'id' | 'needs_wash
   const { run, pending } = useMoveWithToast();
   return (
     <>
-      {state !== 'wash' && (
+      {canMove(state, 'wash') && (
         <DropdownMenuItem disabled={pending} onSelect={() => run([item.id], 'wash')}>
           <WashingMachine className="mr-2 h-4 w-4" />
           {t('menu.wash')}
         </DropdownMenuItem>
       )}
-      {state !== 'dry' && (
+      {canMove(state, 'dry') && (
         <DropdownMenuItem disabled={pending} onSelect={() => run([item.id], 'dry')}>
           <Shirt className="mr-2 h-4 w-4" />
           {t('menu.dry')}
         </DropdownMenuItem>
       )}
-      {(state === 'wash' || state === 'dry') && (
+      {canMove(state, 'back') && (
         <DropdownMenuItem disabled={pending} onSelect={() => run([item.id], 'back')}>
           <Check className="mr-2 h-4 w-4" />
           {t('menu.back')}

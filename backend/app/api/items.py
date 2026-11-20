@@ -7,7 +7,7 @@ from uuid import UUID
 from arq import create_pool
 from arq.jobs import Job
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
-from sqlalchemy import case, delete, func, select, update
+from sqlalchemy import case, func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -24,7 +24,6 @@ from app.models.item import (
     TaggedBy,
     TaggingStatus,
 )
-from app.models.laundry import ItemLaundry
 from app.models.outfit import Outfit, OutfitItem
 from app.models.user import User
 from app.schemas.item import (
@@ -62,6 +61,7 @@ from app.schemas.item import (
 from app.services.image_service import ImageService
 from app.services.item_service import ItemService, TagVocabularyError, UnknownHomeError
 from app.services.label_photos import delete_label_photo_files_of_item
+from app.services.laundry_service import Laundry, LaundryService
 from app.utils.auth import get_current_user
 from app.utils.signed_urls import sign_optional
 from app.utils.timezone import get_user_today
@@ -1517,7 +1517,9 @@ async def log_item_wash(
             detail="Item not found",
         )
 
-    if item.wears_since_wash == 0:
+    laundry = LaundryService(db)
+    # Our fork: an item away in the laundry can always be marked washed.
+    if item.wears_since_wash == 0 and (await laundry.state(item)) == Laundry.clean:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Item is already clean (0 wears since last wash)",
@@ -1529,18 +1531,8 @@ async def log_item_wash(
     else:
         washed_at = request.washed_at
 
-    await item_service.log_wash(
-        item=item,
-        washed_at=washed_at,
-        method=request.method,
-        notes=request.notes,
-    )
-    # Our fork: a washed item is back in the wardrobe, no longer in the laundry.
-    await db.execute(
-        delete(ItemLaundry)
-        .where(ItemLaundry.item_id == item.id)
-        .execution_options(synchronize_session=False)
-    )
+    # Our fork: washed means back in the wardrobe, out of the laundry (see laundry_service).
+    await laundry.returned(item, washed_at, request.method, request.notes)
 
     await db.refresh(item)
     return ItemResponse.model_validate(item)

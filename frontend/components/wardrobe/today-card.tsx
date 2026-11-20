@@ -96,6 +96,7 @@ export function TodayActions({
         queryClient.invalidateQueries({ queryKey: queryKeys.outfits.all });
         queryClient.invalidateQueries({ queryKey: queryKeys.items.all });
         queryClient.invalidateQueries({ queryKey: queryKeys.everyLaundry });
+        queryClient.invalidateQueries({ queryKey: queryKeys.laundryStates });
         setPending(false);
       }, UNDO_FOR)
     );

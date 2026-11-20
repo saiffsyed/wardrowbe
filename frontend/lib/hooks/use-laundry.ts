@@ -5,11 +5,13 @@ import { useSession } from 'next-auth/react';
 import { api } from '@/lib/api';
 import { useSetTokenIfAvailable } from '@/lib/hooks/use-session-token';
 import { queryKeys } from '@/lib/hooks/query-keys';
+import type { LaundryMove } from '@/lib/laundry';
 import type { Item } from '@/lib/types';
 
 // Clothes away being cleaned. "Needs washing" is the item's own needs_wash flag.
+// The stored half of the laundry state; lib/laundry.ts turns it into the item's one state.
 export type LaundryState = 'wash' | 'dry';
-export type LaundryMove = LaundryState | 'back';
+export type { LaundryMove };
 
 export interface LaundryLists {
   to_wash: Item[];

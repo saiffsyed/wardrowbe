@@ -111,7 +111,11 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Laundry: clothes away in the wash or at the dry cleaner are rows in `item_laundry`
   (`backend/app/models/laundry.py`, with `away_item_ids` used by the recommendation service;
   API `backend/app/api/laundry.py`: `GET /laundry`, `/laundry/states`, `POST /laundry/move`).
-  "Needs washing" stays upstream's `needs_wash`. Frontend `lib/hooks/use-laundry.ts`,
+  "Needs washing" stays upstream's `needs_wash`. **Every change goes through
+  `backend/app/services/laundry_service.py`**: the four states (clean / dirty / washing /
+  dry_cleaning), the moves each allows, and the hooks upstream calls (archive forgets the row,
+  a wear of a piece marked away records its wash first, "Mark washed" returns it). The app
+  side mirrors the table in `frontend/lib/laundry.ts`. Frontend `lib/hooks/use-laundry.ts`,
   `components/wardrobe/laundry.tsx` (badge, ⋯ menu entries, More count),
   `laundry-screen.tsx`, route `app/dashboard/more/laundry`.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in

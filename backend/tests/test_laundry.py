@@ -110,3 +110,89 @@ class TestMarkWashed:
         response = await client.post(f"/api/v1/items/{worn.id}/wash", json={}, headers=auth_headers)
         assert response.status_code == 200, response.text
         assert (await client.get(f"{URL}/states", headers=auth_headers)).json() == []
+
+
+class TestLaundryStates:
+    def test_one_state_from_the_two_stored_halves(self):
+        from app.services.laundry_service import Laundry, can_move, laundry_of
+
+        assert laundry_of(False, None) == Laundry.clean
+        assert laundry_of(True, None) == Laundry.dirty
+        assert laundry_of(True, "wash") == Laundry.washing
+        assert laundry_of(False, "dry") == Laundry.dry_cleaning
+        assert can_move(Laundry.dirty, "wash") and can_move(Laundry.clean, "dry")
+        assert not can_move(Laundry.dirty, "back") and not can_move(Laundry.washing, "wash")
+
+    @pytest.mark.asyncio
+    async def test_back_for_a_piece_that_never_left_does_nothing(
+        self, client: AsyncClient, auth_headers, db_session: AsyncSession, test_user: User
+    ):
+        worn = await _item(db_session, test_user, "worn", needs_wash=True)
+        back = await client.post(
+            f"{URL}/move", json={"item_ids": [str(worn.id)], "to": "back"}, headers=auth_headers
+        )
+        assert back.json() == {"moved": 0}
+        history = (
+            await db_session.execute(select(WashHistory).where(WashHistory.item_id == worn.id))
+        ).all()
+        assert history == []
+
+    @pytest.mark.asyncio
+    async def test_archiving_takes_a_piece_out_of_the_laundry(
+        self, client: AsyncClient, auth_headers, db_session: AsyncSession, test_user: User
+    ):
+        worn = await _item(db_session, test_user, "worn", needs_wash=True)
+        await client.post(
+            f"{URL}/move", json={"item_ids": [str(worn.id)], "to": "wash"}, headers=auth_headers
+        )
+        db_session.expunge(worn)
+        archived = await client.post(
+            f"/api/v1/items/{worn.id}/archive", json={}, headers=auth_headers
+        )
+        assert archived.status_code == 200, archived.text
+        assert (await client.get(f"{URL}/states", headers=auth_headers)).json() == []
+        assert await away_item_ids(db_session, test_user.id) == set()
+
+    @pytest.mark.asyncio
+    async def test_wearing_a_piece_marked_away_brings_it_back_clean_first(
+        self, db_session: AsyncSession, test_user: User
+    ):
+        from datetime import date
+
+        from app.services.item_service import ItemService
+        from app.services.laundry_service import LaundryService
+
+        piece = await _item(db_session, test_user, "piece", needs_wash=True)
+        await LaundryService(db_session).move(test_user.id, [piece], "dry", date(2026, 11, 20))
+        await ItemService(db_session).record_wears(test_user.id, [piece.id], date(2026, 11, 21))
+        await db_session.refresh(piece)
+        assert await away_item_ids(db_session, test_user.id) == set()
+        assert piece.wears_since_wash == 1 and piece.needs_wash is False
+        methods = (
+            (
+                await db_session.execute(
+                    select(WashHistory.method).where(WashHistory.item_id == piece.id)
+                )
+            )
+            .scalars()
+            .all()
+        )
+        assert methods == ["dry_clean"]
+
+    @pytest.mark.asyncio
+    async def test_a_clean_piece_sent_to_the_wash_can_be_marked_washed(
+        self, client: AsyncClient, auth_headers, db_session: AsyncSession, test_user: User
+    ):
+        clean = await _item(db_session, test_user, "clean")
+        await client.post(
+            f"{URL}/move", json={"item_ids": [str(clean.id)], "to": "wash"}, headers=auth_headers
+        )
+        db_session.expunge(clean)
+        response = await client.post(
+            f"/api/v1/items/{clean.id}/wash", json={}, headers=auth_headers
+        )
+        assert response.status_code == 200, response.text
+        assert (await client.get(f"{URL}/states", headers=auth_headers)).json() == []
+        # Still refused for a piece that is clean and at home.
+        again = await client.post(f"/api/v1/items/{clean.id}/wash", json={}, headers=auth_headers)
+        assert again.status_code == 400

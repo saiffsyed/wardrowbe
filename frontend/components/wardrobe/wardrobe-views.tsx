@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useTypeLabel } from '@/lib/hooks/use-translated-constants';
 import type { Home, Item } from '@/lib/types';
+import { isAway } from '@/lib/laundry';
 import { LaundryBadge, useLaundryOf } from './laundry';
 
 export const VIEW_MODES = ['cutouts', 'tiles', 'list'] as const;
@@ -133,7 +134,7 @@ export function CutoutTile({ item, selected, onSelect, onClick, errorDismissed }
   const t = useTranslations('wardrobe.closet.view');
   const name = item.name || typeLabel(item.type);
   const laundry = useLaundryOf(item);
-  const away = laundry === 'wash' || laundry === 'dry';
+  const away = isAway(laundry);
 
   return (
     <div className={`group relative aspect-square rounded-lg ${selected ? 'ring-2 ring-primary' : ''}`}>
@@ -159,12 +160,12 @@ export function CutoutTile({ item, selected, onSelect, onClick, errorDismissed }
         <StatusOverlay item={item} errorDismissed={errorDismissed} />
       </button>
       <SelectBox item={item} selected={selected} onSelect={onSelect} label={t('select', { item: name })} />
-      {away ? (
+      {laundry === 'washing' || laundry === 'dry_cleaning' ? (
         <span className="pointer-events-none absolute bottom-1 left-1">
           <LaundryBadge state={laundry} small />
         </span>
       ) : (
-        item.needs_wash && (
+        laundry === 'dirty' && (
           <div className="pointer-events-none absolute bottom-1 right-1 rounded-full bg-amber-500 p-1 text-white">
             <Droplets className="h-3 w-3" role="img" aria-label={t('needsWash')} />
           </div>
@@ -224,7 +225,7 @@ export function ItemListRow({
           <span className="w-full truncate text-xs capitalize text-muted-foreground">{facts.join(' · ')}</span>
         )}
         <span className="text-xs text-muted-foreground">
-          {laundry ? <LaundryBadge state={laundry} small /> : t('list.worn', { count: item.wear_count })}
+          {laundry !== 'clean' ? <LaundryBadge state={laundry} small /> : t('list.worn', { count: item.wear_count })}
         </span>
       </button>
       {home && (

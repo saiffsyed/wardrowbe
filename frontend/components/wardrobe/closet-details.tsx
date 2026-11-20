@@ -206,7 +206,7 @@ function LaundryTile({ label, item, ready }: { label: string; item: Item; ready:
   return (
     <div className={`${CARD} flex min-h-[3.75rem] flex-col justify-center gap-0.5 px-3`}>
       <span className="text-xs text-muted-foreground">{label}</span>
-      {state ? <span><LaundryBadge state={state} /></span> : <span className="truncate text-[15px] font-semibold">{ready}</span>}
+      {state !== 'clean' ? <span><LaundryBadge state={state} /></span> : <span className="truncate text-[15px] font-semibold">{ready}</span>}
     </div>
   );
 }

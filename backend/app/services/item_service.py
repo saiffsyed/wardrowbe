@@ -26,6 +26,7 @@ from app.schemas.item import (
     ItemUpdate,
 )
 from app.services.auto_background import remove_background_on_add
+from app.services.laundry_service import LaundryService
 from app.services.wardrobe_category_service import category_filter
 from app.utils.tag_validation import normalize_tag_edits
 from app.utils.wardrobe_categories import CategoryFilter, subtype_as_kind
@@ -622,6 +623,8 @@ class ItemService:
         item.archived_at = datetime.now(UTC)
         item.archive_reason = reason
         item.status = ItemStatus.archived
+        # Our fork: an archived piece leaves the laundry (see laundry_service).
+        await LaundryService(self.db).forget([item.id])
         await self.db.flush()
         # Re-fetch with eager loading to ensure relationships are properly loaded
         result = await self.get_by_id(item.id, item.user_id)
@@ -662,6 +665,8 @@ class ItemService:
         notes: str | None = None,
         outfit_id: UUID | None = None,
     ) -> list[ItemHistory]:
+        # Our fork: a piece worn while marked away came back clean first (see laundry_service).
+        await LaundryService(self.db).worn(user_id, item_ids, worn_at)
         result = await self.db.execute(
             select(ClothingItem).where(
                 ClothingItem.id.in_(item_ids), ClothingItem.user_id == user_id
