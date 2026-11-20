@@ -806,7 +806,9 @@
       "makeNewHint": "Ouvre le créateur de tenues",
       "noLooks": "Aucun look enregistré.",
       "added": "Tenue ajoutée pour {day}",
-      "addError": "Impossible d’ajouter la tenue. Veuillez réessayer."
+      "addError": "Impossible d’ajouter la tenue. Veuillez réessayer.",
+      "backToToday": "Revenir à aujourd’hui",
+      "weatherFor": "Météo pour {day}"
     },
     "settingsSections": {
       "style": {

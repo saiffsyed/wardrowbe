@@ -806,7 +806,9 @@
       "makeNewHint": "Öffnet den Outfit-Ersteller",
       "noLooks": "Noch keine gespeicherten Looks.",
       "added": "Outfit für {day} hinzugefügt",
-      "addError": "Outfit konnte nicht hinzugefügt werden. Bitte versuche es erneut."
+      "addError": "Outfit konnte nicht hinzugefügt werden. Bitte versuche es erneut.",
+      "backToToday": "Zurück zu heute",
+      "weatherFor": "Wetter für {day}"
     },
     "settingsSections": {
       "style": {

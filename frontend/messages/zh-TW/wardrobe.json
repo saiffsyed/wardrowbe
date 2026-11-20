@@ -806,7 +806,9 @@
       "makeNewHint": "開啟穿搭編輯",
       "noLooks": "還沒有儲存的造型。",
       "added": "已為{day}新增穿搭",
-      "addError": "無法新增穿搭，請再試一次。"
+      "addError": "無法新增穿搭，請再試一次。",
+      "backToToday": "回到今天",
+      "weatherFor": "{day}的天氣"
     },
     "settingsSections": {
       "style": {

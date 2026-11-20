@@ -806,7 +806,9 @@
       "makeNewHint": "打开穿搭编辑",
       "noLooks": "还没有保存的造型。",
       "added": "已为{day}添加穿搭",
-      "addError": "无法添加穿搭，请重试。"
+      "addError": "无法添加穿搭，请重试。",
+      "backToToday": "回到今天",
+      "weatherFor": "{day}的天气"
     },
     "settingsSections": {
       "style": {

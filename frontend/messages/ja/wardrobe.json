@@ -806,7 +806,9 @@
       "makeNewHint": "コーデ作成を開きます",
       "noLooks": "保存したルックはまだありません。",
       "added": "{day}のコーデを追加しました",
-      "addError": "コーデを追加できませんでした。もう一度お試しください。"
+      "addError": "コーデを追加できませんでした。もう一度お試しください。",
+      "backToToday": "今日に戻る",
+      "weatherFor": "{day}の天気"
     },
     "settingsSections": {
       "style": {

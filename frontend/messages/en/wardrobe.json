@@ -806,7 +806,9 @@
       "makeNewHint": "Opens the outfit maker",
       "noLooks": "No saved looks yet.",
       "added": "Outfit added for {day}",
-      "addError": "Could not add the outfit. Please try again."
+      "addError": "Could not add the outfit. Please try again.",
+      "backToToday": "Back to today",
+      "weatherFor": "Weather for {day}"
     },
     "settingsSections": {
       "style": {

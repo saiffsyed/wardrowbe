@@ -3,20 +3,20 @@
 import { useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { ChevronLeft, ChevronRight, MapPin, Plus } from 'lucide-react';
+import { CalendarDays, CalendarRange, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { addDays, dayAndMonth, dayDate, weekdayShort } from '@/lib/day-format';
 import { useCalendarOutfits, useOutfits, type Outfit } from '@/lib/hooks/use-outfits';
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { usePreferences } from '@/lib/hooks/use-preferences';
 import { useStays, useWeatherDays, type Stay, type WeatherDay } from '@/lib/hooks/use-stays';
-import { useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
+import { useOccasionLabel } from '@/lib/hooks/use-translated-constants';
 import { useUserToday } from '@/lib/hooks/use-user';
+import { useWeather } from '@/lib/hooks/use-weather';
 import { displayValue } from '@/lib/temperature';
 import { formatDateKey } from '@/lib/utils';
 import { AddOutfitSheet, piecesOf } from './add-outfit-sheet';
-import { TodayCard } from './today-card';
-import { AddStayDialog } from './add-stay-dialog';
+import { LookName, TodayActions, TodayEmpty } from './today-card';
 import { weatherIcon } from './home-weather';
 import { LookTile, type Arranged } from './look-tile';
 import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
@@ -59,7 +59,6 @@ export function PlannerScreen() {
   const selected = searchParams.get('day') || today;
   const [sheetFor, setSheetFor] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
-  const [changingPlace, setChangingPlace] = useState(false);
 
   const go = (next: { view?: View; day?: string }) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -79,35 +78,70 @@ export function PlannerScreen() {
     [weather]
   );
   const { data: stays } = useStays();
+  const { data: prefs } = usePreferences();
   const canPlan = (day: string) => day >= today && day < addDays(today, FORECAST_DAYS);
 
+  const heading = (day: string) =>
+    day === today
+      ? t('today')
+      : day === addDays(today, 1)
+        ? t('tomorrow')
+        : dayDate(day).toLocaleDateString(locale, { weekday: 'long' });
+  const selectedWeather = weatherByDay.get(selected)?.forecast;
+  const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
+  const SkyIcon = selectedWeather ? weatherIcon(selectedWeather.condition) : null;
+  // Today shows the temperature now, as the weather sheet and the wardrobe's weather bar do;
+  // other days their high.
+  const { data: current } = useWeather();
+  const shownTemp =
+    selected === today && current && !weatherByDay.get(today)?.away ? current.temperature : selectedWeather?.temp_max;
+
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold tracking-tight">{t('title')}</h1>
+    <div className="mx-auto max-w-2xl space-y-2">
+      {/* One header line: the day, its weather (tap for details) and the month. */}
+      <div className="flex items-center gap-2">
+        <div className="min-w-0 flex-1">
+          <h1 className="truncate text-2xl font-extrabold leading-tight tracking-tight">
+            {view === 'month' ? t('title') : heading(selected)}
+          </h1>
+          {view === 'day' && (
+            <p className="text-sm text-muted-foreground">
+              {`${weekdayShort(selected, locale)} ${dayAndMonth(selected, locale)}`}
+              {selected !== today && (
+                <>
+                  {' · '}
+                  <button type="button" onClick={() => go({ day: today })} className="font-semibold text-primary hover:underline">
+                    {t('backToToday')}
+                  </button>
+                </>
+              )}
+            </p>
+          )}
+        </div>
+        {view === 'day' && selectedWeather && SkyIcon && (
+          <button
+            type="button"
+            onClick={() => setSheetFor(selected)}
+            aria-label={t('weatherFor', { day: heading(selected) })}
+            className="inline-flex h-9 items-center gap-1.5 rounded-full bg-muted px-3 text-sm font-bold hover:bg-accent"
+          >
+            <SkyIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+            <span className="tabular-nums">{displayValue(shownTemp ?? selectedWeather.temp_max, unit)}°</span>
+          </button>
+        )}
+        {view === 'month' && (
+          <button type="button" onClick={() => go({ day: today })} className="h-9 rounded-full bg-muted px-4 text-sm font-semibold hover:bg-accent">
+            {t('today')}
+          </button>
+        )}
         <button
           type="button"
-          onClick={() => go({ day: today })}
-          className="h-9 rounded-full bg-muted px-4 text-sm font-semibold hover:bg-accent"
+          onClick={() => go({ view: view === 'day' ? 'month' : 'day' })}
+          aria-label={view === 'day' ? t('month') : t('day')}
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-muted hover:bg-accent"
         >
-          {t('today')}
+          {view === 'day' ? <CalendarDays className="h-[18px] w-[18px]" aria-hidden="true" /> : <CalendarRange className="h-[18px] w-[18px]" aria-hidden="true" />}
         </button>
-      </div>
-      <div role="tablist" aria-label={t('title')} className="grid grid-cols-2 border-b text-center font-semibold">
-        {(['day', 'month'] as const).map((value) => (
-          <button
-            key={value}
-            role="tab"
-            type="button"
-            aria-selected={view === value}
-            onClick={() => go({ view: value })}
-            className={`pb-2.5 transition-colors ${
-              view === value ? 'text-foreground shadow-[inset_0_-2px_0_currentColor]' : 'text-muted-foreground'
-            }`}
-          >
-            {t(value)}
-          </button>
-        ))}
       </div>
 
       {view === 'day' ? (
@@ -118,9 +152,7 @@ export function PlannerScreen() {
           weatherByDay={weatherByDay}
           stays={stays}
           canPlan={canPlan}
-          onOpenWeather={setSheetFor}
           onAdd={() => setAdding(true)}
-          onChangePlace={() => setChangingPlace(true)}
         />
       ) : (
         <MonthView
@@ -147,7 +179,6 @@ export function PlannerScreen() {
         open={adding}
         onOpenChange={setAdding}
       />
-      <AddStayDialog open={changingPlace} onOpenChange={setChangingPlace} startDate={selected} />
     </div>
   );
 }
@@ -159,9 +190,7 @@ function DayView({
   weatherByDay,
   stays,
   canPlan,
-  onOpenWeather,
   onAdd,
-  onChangePlace,
 }: {
   today: string;
   selected: string;
@@ -169,36 +198,27 @@ function DayView({
   weatherByDay: Map<string, WeatherDay>;
   stays: Stay[] | undefined;
   canPlan: (day: string) => boolean;
-  onOpenWeather: (day: string) => void;
   onAdd: () => void;
-  onChangePlace: () => void;
 }) {
   const t = useTranslations('wardrobe.closet.planner');
   const locale = useLocale();
   const outfitTitle = useOutfitTitle();
-  const conditionLabel = useWeatherConditionLabel();
+  const occasionLabel = useOccasionLabel();
   const { data: prefs } = usePreferences();
   const week = weekOf(selected);
   const { data: outfits } = useOutfits({ date_from: week[0], date_to: week[6] }, 1, 50);
   const look = lookFor(outfits?.outfits, selected);
   const { data: layouts } = useOutfitLayouts((outfits?.outfits ?? []).map((outfit) => outfit.id));
-  const day = weatherByDay.get(selected);
-  const stay = stayOn(stays, selected);
+  const forecast = weatherByDay.get(selected)?.forecast ?? null;
   const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
   const deg = (value: number) => `${displayValue(value, unit)}°`;
   const touchX = useRef<number | null>(null);
-  const place = stay?.city ?? day?.city;
-
-  const heading =
-    selected === today
-      ? t('today')
-      : selected === addDays(today, 1)
-        ? t('tomorrow')
-        : dayDate(selected).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
+  const isToday = selected === today;
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-1">
+    <div className="flex flex-col gap-2">
+      {/* The week in one slim row: a dot on planned days, a violet line on days away. */}
+      <div className="flex items-center">
         <button type="button" aria-label={t('previousWeek')} onClick={() => onSelect(addDays(selected, -7))} className="rounded-full p-1 text-muted-foreground hover:bg-accent">
           <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         </button>
@@ -207,18 +227,20 @@ function DayView({
             const isSelected = date === selected;
             const has = !!lookFor(outfits?.outfits, date);
             return (
-              <button key={date} type="button" onClick={() => onSelect(date)} aria-pressed={isSelected} className="space-y-0.5 py-1">
-                <span className="block text-[11.5px] text-muted-foreground">{weekdayShort(date, locale)}</span>
+              <button key={date} type="button" onClick={() => onSelect(date)} aria-pressed={isSelected} aria-label={dayDate(date).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' })} className="py-0.5">
+                <span className="block text-[10.5px] text-muted-foreground" aria-hidden="true">
+                  {dayDate(date).toLocaleDateString(locale, { weekday: 'narrow' })}
+                </span>
                 <span
-                  className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full text-[15px] font-semibold ${
+                  aria-hidden="true"
+                  className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
                     isSelected ? 'bg-foreground text-background' : date === today ? 'text-primary' : ''
                   }`}
                 >
                   {dayDate(date).getDate()}
                 </span>
-                <TinyWeather day={weatherByDay.get(date)} />
-                <span className={`mx-auto block h-1.5 w-1.5 rounded-full ${has ? 'bg-foreground' : 'bg-transparent'}`} />
-                {stayOn(stays, date) && <span className="mx-1 block h-0.5 rounded-full bg-violet-500" aria-hidden="true" />}
+                <span className={`mx-auto mt-0.5 block h-1 w-1 rounded-full ${has ? 'bg-foreground/60' : 'bg-transparent'}`} />
+                {stayOn(stays, date) && <span className="mx-1.5 mt-0.5 block h-0.5 rounded-full bg-violet-500" aria-hidden="true" />}
               </button>
             );
           })}
@@ -228,74 +250,46 @@ function DayView({
         </button>
       </div>
 
-      {selected === today ? (
-        <TodayCard
-          today={today}
-          look={look}
-          arranged={look ? layouts?.get(look.id) : undefined}
-          weather={day}
-          deg={deg}
-          onOpenWeather={() => onOpenWeather(selected)}
-        />
-      ) : (
-        <>
-          {day?.forecast && (
-            <button
-              type="button"
-              onClick={() => onOpenWeather(selected)}
-              className="mx-auto flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent"
-            >
-              {(() => {
-                const Icon = weatherIcon(day.forecast.condition);
-                return <Icon className="h-[18px] w-[18px] text-primary" aria-hidden="true" />;
-              })()}
-              <b className="tabular-nums text-foreground">{deg(day.forecast.temp_max)}</b>
-              <span>
-                {conditionLabel(day.forecast.condition)} · {deg(day.forecast.temp_min)}–{deg(day.forecast.temp_max)} ·{' '}
-                {t('rain', { percent: day.forecast.precipitation_chance })}
-              </span>
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          )}
-
-          <h2 className="text-center font-bold">{heading}</h2>
-
-          <div
-            className="relative mx-auto flex min-h-[22rem] max-w-sm items-center justify-center rounded-3xl border bg-card p-4"
-            onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
-            onTouchEnd={(event) => {
-              if (touchX.current === null) return;
-              const dx = event.changedTouches[0].clientX - touchX.current;
-              touchX.current = null;
-              if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
-            }}
+      {/* The look itself gets the rest of the screen; swipe it for the next or previous day. */}
+      <div
+        className={`flex items-center justify-center py-1 ${look ? '' : 'min-h-[max(18rem,calc(100dvh-19rem))]'}`}
+        onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
+        onTouchEnd={(event) => {
+          if (touchX.current === null) return;
+          const dx = event.changedTouches[0].clientX - touchX.current;
+          touchX.current = null;
+          if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
+        }}
+      >
+        {look ? (
+          <Link
+            href={`/dashboard/outfits/${look.id}`}
+            aria-label={outfitTitle(look)}
+            className="block"
+            style={{ width: `min(80vw, 22rem, calc((100dvh - ${isToday ? '21rem' : '17rem'}) * 0.6))` }}
           >
-            {look ? (
-              <Link href={`/dashboard/outfits/${look.id}`} className="block w-48">
-                <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} />
-                <p className="mt-2 truncate text-center font-semibold">{outfitTitle(look)}</p>
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={onAdd}
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-base font-bold text-background hover:opacity-90"
-              >
-                <Plus className="h-5 w-5" aria-hidden="true" />
-                {t('addOutfit')}
-              </button>
-            )}
-          </div>
-        </>
-      )}
-
-      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-        <MapPin className={`h-4 w-4 ${stay ? 'text-violet-600 dark:text-violet-300' : ''}`} aria-hidden="true" />
-        <span>{place ? t('beIn', { city: place }) : t('noPlace')}</span>
-        <button type="button" onClick={onChangePlace} className="font-semibold text-primary hover:underline">
-          {t('change')}
-        </button>
+            <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} bare />
+          </Link>
+        ) : isToday ? (
+          <TodayEmpty today={today} forecast={forecast} deg={deg} />
+        ) : (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-base font-bold text-background hover:opacity-90"
+          >
+            <Plus className="h-5 w-5" aria-hidden="true" />
+            {t('addOutfit')}
+          </button>
+        )}
       </div>
+
+      {look &&
+        (isToday ? (
+          <TodayActions today={today} look={look} forecast={forecast} deg={deg} />
+        ) : (
+          <LookName title={outfitTitle(look)} occasion={occasionLabel(look.occasion)} />
+        ))}
       {!canPlan(selected) && selected > today && (
         <p className="text-center text-xs text-muted-foreground">{t('forecastLater')}</p>
       )}

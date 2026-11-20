@@ -806,7 +806,9 @@
       "makeNewHint": "코디 만들기를 열어요",
       "noLooks": "저장한 룩이 아직 없어요.",
       "added": "{day} 코디를 추가했어요",
-      "addError": "코디를 추가하지 못했어요. 다시 시도해 주세요."
+      "addError": "코디를 추가하지 못했어요. 다시 시도해 주세요.",
+      "backToToday": "오늘로 돌아가기",
+      "weatherFor": "{day} 날씨"
     },
     "settingsSections": {
       "style": {

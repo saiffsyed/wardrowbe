@@ -68,14 +68,16 @@ function LayeredBody({ top, bottom }: { top: LookPiece[]; bottom: LookPiece[] })
 
 // A saved look laid out on one tall tile: head jewellery, top, bottom and shoes from top to
 // bottom, with dupatta, bag and bangles in a narrow column beside them.
-export function LookTile({ pieces, arranged }: { pieces: LookPiece[]; arranged?: Arranged }) {
+// `bare` drops the tile's border, for a look shown large on its own (the Planner's day).
+export function LookTile({ pieces, arranged, bare = false }: { pieces: LookPiece[]; arranged?: Arranged; bare?: boolean }) {
+  const edge = bare ? 'border-0' : 'border';
   if (arranged) {
     // Arranged by hand on the board: shown exactly as saved.
     const images = Object.fromEntries(pieces.filter((piece) => piece.id).map((piece) => [piece.id!, piece.url]));
     const plain = arranged.background === DEFAULT_BACKGROUND;
     return (
       <div
-        className={`flex aspect-[3/5] items-center overflow-hidden rounded-2xl border ${plain ? 'photo-ground' : ''}`}
+        className={`flex aspect-[3/5] items-center overflow-hidden rounded-2xl ${edge} ${plain ? 'photo-ground' : ''}`}
         style={plain ? undefined : { background: arranged.background }}
       >
         <BoardView background={arranged.background} pieces={arranged.pieces} images={images} />
@@ -92,7 +94,7 @@ export function LookTile({ pieces, arranged }: { pieces: LookPiece[]; arranged?:
     .join(' ');
 
   return (
-    <div className="photo-ground flex aspect-[3/5] gap-1 overflow-hidden rounded-2xl border p-3">
+    <div className={`photo-ground flex aspect-[3/5] gap-1 overflow-hidden rounded-2xl p-3 ${edge}`}>
       <div className="grid min-w-0 flex-1" style={{ gridTemplateRows: rows || '1fr' }}>
         {bands.map((band) =>
           layout.layered && band === 'top' ? (

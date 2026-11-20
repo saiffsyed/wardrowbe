@@ -2,13 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Check, ChevronRight, Loader2, Plus, RefreshCw, Sparkles } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { BookOpen, Check, Loader2, Plus, RefreshCw, Sparkles } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { api, getErrorMessage } from '@/lib/api';
-import { dayAndMonth, weekdayShort } from '@/lib/day-format';
 import { warmthOf, type Warmth } from '@/lib/dressing-room';
 import { queryKeys } from '@/lib/hooks/query-keys';
 import { useHomes } from '@/lib/hooks/use-homes';
@@ -16,15 +15,13 @@ import { useItems } from '@/lib/hooks/use-items';
 import { useLaundryStates } from '@/lib/hooks/use-laundry';
 import { useDeleteOutfit, useInfiniteOutfits, type Outfit } from '@/lib/hooks/use-outfits';
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
-import { usePlanDayOutfit, type WeatherDay } from '@/lib/hooks/use-stays';
+import { usePlanDayOutfit, type DayForecast } from '@/lib/hooks/use-stays';
 import { useCreateStudioOutfit } from '@/lib/hooks/use-studio';
 import { useOccasionLabel, useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
 import { lookChoices } from '@/lib/today';
-import { weatherHint } from '@/lib/weather-hints';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
 import { piecesOf } from './add-outfit-sheet';
-import { weatherIcon } from './home-weather';
-import { LookTile, type Arranged } from './look-tile';
+import { LookTile } from './look-tile';
 import { SHEET_CLASS } from './weather-sheet';
 
 const UNDO_FOR = 5000;
@@ -34,44 +31,57 @@ const SWAP_SHOWN = 3;
 // outside the card, so leaving the screen meanwhile still records the wear.
 const pendingWears = new Map<string, ReturnType<typeof setTimeout>>();
 
-// The Planner's Today card: today's weather, today's look with Swap and I wore it, or, with
-// nothing planned, a suggestion for the weather or a look from the Lookbook.
-export function TodayCard({
+// Today in the Planner: the name and occasion of today's look with Swap and I wore it, or,
+// with nothing planned, a suggestion for the weather or a look from the Lookbook.
+function useSuggestToday(today: string) {
+  const t = useTranslations('wardrobe.closet.today');
+  const suggest = usePlanDayOutfit();
+  const remove = useDeleteOutfit();
+  // A fresh suggestion for today's weather; from Swap it takes the place of today's plan.
+  const run = (replacing?: Outfit) =>
+    suggest.mutate(today, {
+      onSuccess: async () => {
+        if (replacing) await remove.mutateAsync(replacing.id).catch(() => undefined);
+        toast.success(replacing ? t('changed') : t('planned'));
+      },
+      onError: (error) => toast.error(getErrorMessage(error, t('suggestError'))),
+    });
+  return { run, pending: suggest.isPending };
+}
+
+function useLookbook() {
+  const looks = useInfiniteOutfits({ is_lookbook: true }, GRID_PAGE_SIZE);
+  return {
+    list: looks.data?.pages.flatMap((page) => page.outfits) ?? [],
+    count: looks.data?.pages[0]?.total ?? 0,
+  };
+}
+
+export function TodayActions({
   today,
   look,
-  arranged,
-  weather,
+  forecast,
   deg,
-  onOpenWeather,
 }: {
   today: string;
-  look: Outfit | undefined;
-  arranged?: Arranged;
-  weather: WeatherDay | undefined;
+  look: Outfit;
+  forecast: DayForecast | null;
   deg: (value: number) => string;
-  onOpenWeather: () => void;
 }) {
   const t = useTranslations('wardrobe.closet.today');
-  const tp = useTranslations('wardrobe.closet.planner');
-  const tHints = useTranslations('wardrobe.closet.weatherScreen.hints');
-  const locale = useLocale();
   const queryClient = useQueryClient();
   const outfitTitle = useOutfitTitle();
   const occasionLabel = useOccasionLabel();
   const conditionLabel = useWeatherConditionLabel();
-  const suggest = usePlanDayOutfit();
-  const remove = useDeleteOutfit();
-  const [sheet, setSheet] = useState<'swap' | 'pick' | null>(null);
-  const [pending, setPending] = useState(() => !!look && pendingWears.has(look.id));
-  const forecast = weather?.forecast ?? null;
-  const looks = useInfiniteOutfits({ is_lookbook: true }, GRID_PAGE_SIZE);
-  const lookbookCount = looks.data?.pages[0]?.total ?? 0;
+  const suggest = useSuggestToday(today);
+  const lookbook = useLookbook();
+  const [swapping, setSwapping] = useState(false);
+  const [pending, setPending] = useState(() => pendingWears.has(look.id));
 
-  useEffect(() => setPending(!!look && pendingWears.has(look.id)), [look]);
+  useEffect(() => setPending(pendingWears.has(look.id)), [look]);
 
-  const worn = !!look?.feedback?.worn_at || pending;
+  const worn = !!look.feedback?.worn_at || pending;
   const wore = () => {
-    if (!look) return;
     const id = look.id;
     setPending(true);
     pendingWears.set(
@@ -91,138 +101,129 @@ export function TodayCard({
     );
   };
   const undo = () => {
-    if (!look) return;
     clearTimeout(pendingWears.get(look.id));
     pendingWears.delete(look.id);
     setPending(false);
   };
-  // A fresh suggestion for today's weather; from Swap it takes the place of today's plan.
-  const suggestNew = (replacing?: Outfit) =>
-    suggest.mutate(today, {
-      onSuccess: async () => {
-        if (replacing) await remove.mutateAsync(replacing.id).catch(() => undefined);
-        toast.success(replacing ? t('changed') : t('planned'));
-      },
-      onError: (error) => toast.error(getErrorMessage(error, t('suggestError'))),
-    });
-
-  const Icon = forecast ? weatherIcon(forecast.condition) : null;
-  const tempText = forecast ? deg(forecast.temp_max) : '';
 
   return (
-    <section aria-labelledby="today-title" className="mx-auto max-w-sm space-y-3 rounded-3xl border bg-card p-3.5">
-      <div className="flex items-baseline justify-between px-0.5">
-        <h2 id="today-title" className="text-lg font-extrabold">{t('title')}</h2>
-        <span className="text-sm text-muted-foreground">{`${weekdayShort(today, locale)} ${dayAndMonth(today, locale)}`}</span>
-      </div>
-
-      {forecast && Icon && (
-        <button
-          type="button"
-          onClick={onOpenWeather}
-          className="flex w-full items-center gap-2 rounded-xl bg-muted/70 px-3 py-2 text-left text-sm text-muted-foreground hover:bg-accent"
-        >
-          <Icon className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-          <span className="min-w-0 flex-1">
-            <span className="block truncate">
-              <b className="tabular-nums text-foreground">{tempText}</b> {conditionLabel(forecast.condition)} ·{' '}
-              {deg(forecast.temp_min)}–{deg(forecast.temp_max)} · {tp('rain', { percent: forecast.precipitation_chance })}
-            </span>
-            <span className="block truncate text-xs font-bold text-primary">{tHints(weatherHint(forecast))}</span>
+    <div className="space-y-2.5">
+      <LookName title={outfitTitle(look)} occasion={occasionLabel(look.occasion)} />
+      {worn ? (
+        <div className="flex h-12 items-center justify-between rounded-full bg-primary/10 px-5 text-sm font-bold text-primary">
+          <span className="flex items-center gap-1.5">
+            <Check className="h-4 w-4" aria-hidden="true" />
+            {t('wornToday')}
           </span>
-          <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-        </button>
-      )}
-
-      {look ? (
-        <>
-          <Link href={`/dashboard/outfits/${look.id}`} className="mx-auto block w-40">
-            <LookTile pieces={piecesOf(look)} arranged={arranged} />
-          </Link>
-          <div className="flex items-center justify-between gap-2 px-0.5">
-            <b className="truncate">{outfitTitle(look)}</b>
-            <span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5 text-xs font-bold">{occasionLabel(look.occasion)}</span>
-          </div>
-          {worn ? (
-            <div className="flex items-center justify-between rounded-2xl bg-primary/10 px-3 py-2.5 text-sm font-bold text-primary">
-              <span className="flex items-center gap-1.5">
-                <Check className="h-4 w-4" aria-hidden="true" />
-                {t('wornToday')}
-              </span>
-              {pending && (
-                <button type="button" onClick={undo} className="font-extrabold">
-                  {t('undo')}
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => setSheet('swap')} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-muted font-extrabold hover:bg-accent">
-                <RefreshCw className="h-4 w-4" aria-hidden="true" />
-                {t('swap')}
-              </button>
-              <button type="button" onClick={wore} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-primary font-extrabold text-primary-foreground hover:opacity-90">
-                <Check className="h-4 w-4" aria-hidden="true" />
-                {t('wore')}
-              </button>
-            </div>
+          {pending && (
+            <button type="button" onClick={undo} className="font-extrabold">
+              {t('undo')}
+            </button>
           )}
-        </>
+        </div>
       ) : (
-        <div className="space-y-2.5 pt-1">
-          <p className="text-center text-sm text-muted-foreground">{t('nothing')}</p>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              disabled={suggest.isPending || !forecast}
-              onClick={() => suggestNew()}
-              className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent disabled:opacity-50"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
-                {suggest.isPending ? (
-                  <Loader2 className="h-5 w-5 animate-spin text-primary" aria-hidden="true" />
-                ) : (
-                  <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
-                )}
-              </span>
-              <b className="text-sm leading-tight">{t('suggest')}</b>
-              {forecast && (
-                <span className="text-xs text-muted-foreground">
-                  {t('suggestFor', { temp: tempText, sky: conditionLabel(forecast.condition) })}
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSheet('pick')}
-              className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
-                <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
-              </span>
-              <b className="text-sm leading-tight">{t('pick')}</b>
-              <span className="text-xs text-muted-foreground">{t('savedLooks', { count: lookbookCount })}</span>
-            </button>
-          </div>
-          <Link href={`/dashboard/outfits/make?date=${today}`} className="mx-auto flex w-fit items-center gap-1 px-3 py-1.5 text-sm font-bold text-primary hover:underline">
-            <Plus className="h-4 w-4" aria-hidden="true" />
-            {t('makeNew')}
-          </Link>
+        <div className="grid grid-cols-2 gap-2">
+          <button type="button" onClick={() => setSwapping(true)} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-muted font-extrabold hover:bg-accent">
+            <RefreshCw className="h-4 w-4" aria-hidden="true" />
+            {t('swap')}
+          </button>
+          <button type="button" onClick={wore} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-primary font-extrabold text-primary-foreground hover:opacity-90">
+            <Check className="h-4 w-4" aria-hidden="true" />
+            {t('wore')}
+          </button>
         </div>
       )}
-
       <SwapSheet
-        mode={sheet}
+        mode={swapping ? 'swap' : null}
         today={today}
         current={look}
         warmth={warmthOf(forecast)}
-        weatherText={forecast ? t('swapFor', { temp: tempText, sky: conditionLabel(forecast.condition) }) : undefined}
-        lookbook={looks.data?.pages.flatMap((page) => page.outfits) ?? []}
-        onSuggest={() => suggestNew(look)}
-        suggesting={suggest.isPending}
-        onClose={() => setSheet(null)}
+        weatherText={forecast ? t('swapFor', { temp: deg(forecast.temp_max), sky: conditionLabel(forecast.condition) }) : undefined}
+        lookbook={lookbook.list}
+        onSuggest={() => suggest.run(look)}
+        suggesting={suggest.pending}
+        onClose={() => setSwapping(false)}
       />
-    </section>
+    </div>
+  );
+}
+
+// The name and occasion under a day's look.
+export function LookName({ title, occasion }: { title: string; occasion: string }) {
+  return (
+    <div className="flex items-center justify-between gap-2 px-1">
+      <b className="truncate text-[17px]">{title}</b>
+      <span className="shrink-0 text-sm text-muted-foreground">{occasion}</span>
+    </div>
+  );
+}
+
+export function TodayEmpty({
+  today,
+  forecast,
+  deg,
+}: {
+  today: string;
+  forecast: DayForecast | null;
+  deg: (value: number) => string;
+}) {
+  const t = useTranslations('wardrobe.closet.today');
+  const conditionLabel = useWeatherConditionLabel();
+  const suggest = useSuggestToday(today);
+  const lookbook = useLookbook();
+  const [picking, setPicking] = useState(false);
+  const tempText = forecast ? deg(forecast.temp_max) : '';
+
+  return (
+    <div className="w-full max-w-sm space-y-2.5">
+      <p className="text-center text-sm text-muted-foreground">{t('nothing')}</p>
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          disabled={suggest.pending || !forecast}
+          onClick={() => suggest.run()}
+          className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent disabled:opacity-50"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
+            {suggest.pending ? (
+              <Loader2 className="h-5 w-5 animate-spin text-primary" aria-hidden="true" />
+            ) : (
+              <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
+            )}
+          </span>
+          <b className="text-sm leading-tight">{t('suggest')}</b>
+          {forecast && (
+            <span className="text-xs text-muted-foreground">{t('suggestFor', { temp: tempText, sky: conditionLabel(forecast.condition) })}</span>
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => setPicking(true)}
+          className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
+            <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
+          </span>
+          <b className="text-sm leading-tight">{t('pick')}</b>
+          <span className="text-xs text-muted-foreground">{t('savedLooks', { count: lookbook.count })}</span>
+        </button>
+      </div>
+      <Link href={`/dashboard/outfits/make?date=${today}`} className="mx-auto flex w-fit items-center gap-1 px-3 py-1.5 text-sm font-bold text-primary hover:underline">
+        <Plus className="h-4 w-4" aria-hidden="true" />
+        {t('makeNew')}
+      </Link>
+      <SwapSheet
+        mode={picking ? 'pick' : null}
+        today={today}
+        current={undefined}
+        warmth={warmthOf(forecast)}
+        weatherText={forecast ? t('swapFor', { temp: tempText, sky: conditionLabel(forecast.condition) }) : undefined}
+        lookbook={lookbook.list}
+        onSuggest={() => suggest.run()}
+        suggesting={suggest.pending}
+        onClose={() => setPicking(false)}
+      />
+    </div>
   );
 }
 

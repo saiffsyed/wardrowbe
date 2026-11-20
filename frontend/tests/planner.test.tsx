@@ -45,12 +45,13 @@ vi.mock('@/lib/hooks/use-weather', () => ({ useWeather: () => ({ data: undefined
 vi.mock('@/lib/hooks/use-outfit-layouts', () => ({ useOutfitLayouts: () => ({ data: undefined }) }))
 
 describe('PlannerScreen', () => {
-  it("shows today's planned look with the day's weather line and place", () => {
+  it("shows today's look large, with the weather as one small button", () => {
     search = ''
     render(<PlannerScreen />)
     expect(screen.getByText('Teal kurti day')).toBeTruthy()
-    expect(screen.getByText(/sunny/)).toBeTruthy()
-    expect(screen.getByText('beIn')).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'today' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'weatherFor' }).textContent).toContain('33°')
+    expect(screen.queryByRole('tablist')).toBeNull()
   })
 
   it('records "I wore it" after a few seconds, unless undone', () => {
