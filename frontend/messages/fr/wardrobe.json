@@ -872,7 +872,8 @@
         "e9ecea": "Gris clair",
         "111316": "Noir"
       },
-      "backToRoom": "Retour à la cabine"
+      "backToRoom": "Retour à la cabine",
+      "wornNote": "Ce look a été porté, il reste donc tel quel. Enregistrez vos changements comme nouveau look."
     },
     "dressing": {
       "piece": "{kind} sur la silhouette",

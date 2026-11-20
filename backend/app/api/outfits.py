@@ -1212,6 +1212,8 @@ class PatchOutfitRequest(BaseModel):
 
     name: Annotated[str | None, Field(max_length=100)] = None
     items: Annotated[list[UUID] | None, Field(min_length=1, max_length=20)] = None
+    # Our fork: the outfit maker lets you change a look's occasion when editing it.
+    occasion: Occasion | None = None
 
 
 async def _run_learning_safely(db: AsyncSession, outfit_id: UUID, user_id: UUID) -> None:
@@ -1391,7 +1393,7 @@ async def patch_outfit_endpoint(
         str(current_user.id), "patch_outfit", max_requests=30, window_seconds=60
     )
 
-    if request.name is None and request.items is None:
+    if request.name is None and request.items is None and request.occasion is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={"error_code": "PATCH_EMPTY", "message": "No fields provided"},
@@ -1427,6 +1429,8 @@ async def patch_outfit_endpoint(
             },
         ) from None
 
+    if request.occasion is not None:
+        updated.occasion = request.occasion
     await db.commit()
 
     full = await service.get_full_outfit(updated.id)

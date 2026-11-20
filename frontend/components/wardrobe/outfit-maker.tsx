@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowRight, BookOpen, Check, ChevronLeft, ChevronsUpDown, Droplet, Loader2, Plus, Repeat, Sparkles, X } from 'lucide-react';
@@ -19,6 +19,7 @@ import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { useCreateStudioOutfit, usePatchOutfit } from '@/lib/hooks/use-studio';
 import { useOccasionLabel } from '@/lib/hooks/use-translated-constants';
 import { useUserToday } from '@/lib/hooks/use-user';
+import { lookPhase } from '@/lib/look-phase';
 import { useCategoryLabel, useWardrobeCategories } from '@/lib/hooks/use-wardrobe-categories';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
 import { piecesOf } from './add-outfit-sheet';
@@ -190,12 +191,25 @@ export function OutfitMaker() {
   // (then it keeps the automatic layout instead of a board arrangement).
   const [roomStart, setRoomStart] = useState<RoomPiece[]>([]);
   const [fromRoom, setFromRoom] = useState(false);
+  // The step the dressing room was opened from, so its back button returns there.
+  const [roomFrom, setRoomFrom] = useState<'pick' | 'arrange' | 'save'>('pick');
 
-  // Opening a saved look to change it: its pieces, arrangement, name and occasion.
+  // What the maker is doing, fixed by the URL and the look being edited:
+  //   new look   ?date= plans it for that day, otherwise it goes to the Lookbook
+  //   edit look  ?edit= changes that look where it is (Lookbook or its day); a worn look
+  //              cannot change, so only "Save as a new look" is offered.
   const { data: editing } = useOutfit(editId ?? undefined);
-  const { data: editLayouts } = useOutfitLayouts(editId ? [editId] : []);
+  const layoutsQuery = useOutfitLayouts(editId ? [editId] : []);
+  const editLayouts = layoutsQuery.data;
+  const editDay = editing?.scheduled_for ?? null;
+  const editWorn = !!editing && lookPhase(editing) === 'worn';
+  const editReady = !editId || (!!editing && layoutsQuery.isFetched);
+
+  // Load the look being edited once; later refetches must not undo the changes made since.
+  const loadedFor = useRef<string | null>(null);
   useEffect(() => {
-    if (!editing) return;
+    if (!editing || !editReady || loadedFor.current === editing.id) return;
+    loadedFor.current = editing.id;
     const items = editing.items.map((item) => pickedFromItem(item));
     setPicked(new Map(items.map((item) => [item.id, item])));
     const saved = editLayouts?.get(editing.id);
@@ -204,7 +218,7 @@ export function OutfitMaker() {
     setName(editing.name ?? '');
     setOccasion(editing.occasion);
     setStep('arrange');
-  }, [editing, editLayouts]);
+  }, [editing, editReady, editLayouts]);
 
   const create = useCreateStudioOutfit();
   const patch = usePatchOutfit();
@@ -235,6 +249,8 @@ export function OutfitMaker() {
     const items = look.items.map((item) => pickedFromItem(item));
     setPicked(new Map(items.map((item) => [item.id, item])));
     setPieces(autoBoard(items));
+    setBackground(DEFAULT_BACKGROUND);
+    setFromRoom(false);
     setName(look.name ?? '');
     setOccasion(look.occasion);
     setLookbookOpen(false);
@@ -243,11 +259,14 @@ export function OutfitMaker() {
   const openRoom = (items: Picked[]) => {
     setRoomStart(items);
     setSelected(null);
+    setRoomFrom(step === 'dress' ? roomFrom : step);
     setStep('dress');
   };
   const fromDressingRoom = (items: RoomPiece[], next: 'arrange' | 'save') => {
+    const ids = new Set(items.map((item) => item.id));
     setPicked(new Map(items.map((item) => [item.id, item])));
-    setPieces(autoBoard(items));
+    // Pieces already arranged keep their place; new ones join the automatic layout.
+    setPieces((current) => (current ? addPieces(current.filter((piece) => ids.has(piece.item_id)), items) : autoBoard(items)));
     setFromRoom(next === 'save');
     setStep(next);
   };
@@ -258,7 +277,7 @@ export function OutfitMaker() {
     try {
       let outfitId = editId && !asNew ? editId : null;
       if (outfitId) {
-        await patch.mutateAsync({ id: outfitId, payload: { name: name.trim() || undefined, items } });
+        await patch.mutateAsync({ id: outfitId, payload: { name: name.trim() || undefined, items, occasion } });
       } else {
         const outfit = await create.mutateAsync({
           items,
@@ -271,10 +290,12 @@ export function OutfitMaker() {
       // A look dressed in the dressing room keeps the automatic layout, unless it replaces one
       // arranged by hand before (whose pieces would no longer match).
       if (!fromRoom || (editId && !asNew && editLayouts?.get(editId))) {
-        await saveLayout.mutateAsync({ outfitId, background: fromRoom ? DEFAULT_BACKGROUND : background, pieces });
+        await saveLayout.mutateAsync({ outfitId, background, pieces });
       }
-      toast.success(planning ? t('plannedFor', { day: `${weekdayShort(day, locale)} ${dayAndMonth(day, locale)}` }) : t('saved'));
-      router.push(planning ? `/dashboard/plan?day=${day}` : '/dashboard/wardrobe?tab=lookbook');
+      // Where the look now lives: its day when planned (an edited planned look keeps its day).
+      const onDay = editId && !asNew ? editDay : planning ? day : null;
+      toast.success(onDay ? t('plannedFor', { day: `${weekdayShort(onDay, locale)} ${dayAndMonth(onDay, locale)}` }) : t('saved'));
+      router.push(onDay ? `/dashboard/plan?day=${onDay}` : '/dashboard/wardrobe?tab=lookbook');
     } catch (error) {
       toast.error(getErrorMessage(error, t('saveError')));
     }
@@ -288,6 +309,7 @@ export function OutfitMaker() {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-extrabold tracking-tight">{t('title')}</h1>
         </div>
+        {!editId && (
         <div className="grid grid-cols-2 gap-2">
           <Link href="/dashboard/suggest" className="flex flex-col items-center gap-1 rounded-2xl bg-muted/70 p-3 text-sm font-semibold hover:bg-accent">
             <Sparkles className="h-6 w-6 text-primary" aria-hidden="true" />
@@ -298,7 +320,12 @@ export function OutfitMaker() {
             {t('fromLookbook')}
           </button>
         </div>
+        )}
+        {!editReady ? (
+          <Loader2 className="mx-auto my-10 h-6 w-6 animate-spin text-muted-foreground" />
+        ) : (
         <ClothesPicker picked={picked} onToggle={toggle} />
+        )}
 
         <div className="fixed inset-x-0 bottom-[4.5rem] z-40 border-t bg-card px-4 pb-3 pt-2.5 lg:bottom-0 lg:left-72">
           <div className="mx-auto max-w-2xl space-y-2">
@@ -463,8 +490,8 @@ export function OutfitMaker() {
     return (
       <DressingRoom
         start={roomStart}
-        day={planDay ?? today}
-        onBack={() => setStep('pick')}
+        day={planning ? day : (editDay ?? planDay ?? today)}
+        onBack={() => setStep(roomFrom)}
         onNext={(items, dressedFor) => {
           if (dressedFor) setOccasion(dressedFor);
           fromDressingRoom(items, 'save');
@@ -514,14 +541,15 @@ export function OutfitMaker() {
           ))}
         </div>
       </div>
-      {planning && (
+      {editWorn && <p className="rounded-xl bg-muted px-3 py-2 text-sm text-muted-foreground">{t('wornNote')}</p>}
+      {planning && !editId && (
         <div className="space-y-2">
           <label htmlFor="look-day" className="text-sm font-semibold">{t('planDay')}</label>
           <Input id="look-day" type="date" value={day} min={today} onChange={(event) => setDay(event.target.value)} />
         </div>
       )}
       <div className="grid gap-2">
-        {planning ? (
+        {editWorn ? null : planning && !editId ? (
           <button type="button" disabled={saving || !day} onClick={() => finish(false)} className="h-12 rounded-full bg-primary font-bold text-primary-foreground disabled:opacity-50">
             {saving && <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden="true" />}
             {t('saveAndPlan')}

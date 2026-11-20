@@ -872,7 +872,8 @@
         "e9ecea": "Hellgrau",
         "111316": "Schwarz"
       },
-      "backToRoom": "Zurück zur Umkleide"
+      "backToRoom": "Zurück zur Umkleide",
+      "wornNote": "Dieser Look wurde getragen und bleibt deshalb, wie er war. Speichere deine Änderungen als neuen Look."
     },
     "dressing": {
       "piece": "{kind} an der Figur",

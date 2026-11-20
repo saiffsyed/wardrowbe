@@ -107,6 +107,9 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend
   `backend/app/api/outfit_layouts.py`, `backend/app/models/outfit_layout.py`; frontend
   `lib/hooks/use-outfit-layouts.ts`, shown by `LookTile`'s `arranged` prop.
+  Its modes are written at the top of `OutfitMaker`: a new look (Lookbook, or a day with
+  `?date=`) or an edit (`?edit=`, loaded once, keeps its day; a worn look only saves as new).
+  Editing can change the occasion (our `occasion` field on upstream's PATCH /outfits/{id}).
 - Dressing room (step `dress` of the outfit maker): `components/wardrobe/dressing-room.tsx`,
   the figure `dressing-figure.tsx`, places, sizes and Shuffle's rules in `lib/dressing-room.ts`
   (tested in `tests/dressing-room.test.ts`). Settings (figure, background, figure colour):

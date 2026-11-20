@@ -872,7 +872,8 @@
         "e9ecea": "Light grey",
         "111316": "Black"
       },
-      "backToRoom": "Back to the dressing room"
+      "backToRoom": "Back to the dressing room",
+      "wornNote": "This look was worn, so it stays as it was. Save your changes as a new look."
     },
     "dressing": {
       "piece": "{kind} on the figure",

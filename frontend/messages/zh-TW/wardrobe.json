@@ -872,7 +872,8 @@
         "e9ecea": "淺灰",
         "111316": "黑色"
       },
-      "backToRoom": "返回試衣間"
+      "backToRoom": "返回試衣間",
+      "wornNote": "這套造型已經穿過，會保持原樣。請把修改另存為新造型。"
     },
     "dressing": {
       "piece": "人台上的{kind}",

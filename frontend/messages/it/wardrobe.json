@@ -872,7 +872,8 @@
         "e9ecea": "Grigio chiaro",
         "111316": "Nero"
       },
-      "backToRoom": "Torna al camerino"
+      "backToRoom": "Torna al camerino",
+      "wornNote": "Questo look è stato indossato, quindi resta com’era. Salva le modifiche come nuovo look."
     },
     "dressing": {
       "piece": "{kind} sulla figura",

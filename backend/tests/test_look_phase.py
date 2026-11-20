@@ -31,3 +31,27 @@ async def test_a_lookbook_look_cannot_be_marked_worn(
         f"/api/v1/outfits/{template.id}/feedback", json={"rating": 4}, headers=auth_headers
     )
     assert rated.status_code == 200, rated.text
+
+
+@pytest.mark.asyncio
+async def test_editing_a_look_can_change_its_occasion(
+    client: AsyncClient, auth_headers, db_session: AsyncSession, test_user: User
+):
+    look = Outfit(
+        user_id=test_user.id,
+        occasion="casual",
+        source=OutfitSource.manual,
+        status=OutfitStatus.pending,
+        scheduled_for=None,
+    )
+    db_session.add(look)
+    await db_session.flush()
+    response = await client.patch(
+        f"/api/v1/outfits/{look.id}", json={"occasion": "wedding"}, headers=auth_headers
+    )
+    assert response.status_code == 200, response.text
+    assert response.json()["occasion"] == "wedding"
+    bad = await client.patch(
+        f"/api/v1/outfits/{look.id}", json={"occasion": "space"}, headers=auth_headers
+    )
+    assert bad.status_code == 422
