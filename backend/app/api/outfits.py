@@ -895,6 +895,17 @@ async def submit_feedback(
             detail={"message": "Outfit not found", "error_code": "OUTFIT_NOT_FOUND"},
         )
 
+    # Our fork: a Lookbook look is worn through a dated copy (wear-today), so the look itself
+    # stays reusable; marking the template worn would lock it.
+    if request.worn and outfit.scheduled_for is None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail={
+                "message": "A Lookbook look is worn through a copy for the day (wear-today)",
+                "error_code": "OUTFIT_IS_TEMPLATE",
+            },
+        )
+
     if outfit.feedback:
         feedback = outfit.feedback
     else:

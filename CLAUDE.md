@@ -98,6 +98,10 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   On today the Day view adds Swap / I wore it, or the empty-day tiles
   (`components/wardrobe/today-card.tsx`; which saved looks Swap offers: `lib/today.ts`;
   the stages of "I wore it" — Undo window, sending, sent — in `lib/today-wear.ts`).
+- A look's stage (template = Lookbook, planned, worn, declined) is named in
+  `frontend/lib/look-phase.ts`, which also picks the look shown for a day (`lookForDay`). The
+  server refuses to mark a Lookbook look worn (409 `OUTFIT_IS_TEMPLATE`, our guard in the
+  feedback endpoint); it is worn through a dated copy (wear-today).
 - Outfit maker (the Outfits tab, route `app/dashboard/outfits/make`, `?date=` to plan a day,
   `?edit=` to rearrange a look): `components/wardrobe/outfit-maker.tsx`, the board in
   `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend

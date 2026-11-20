@@ -15,6 +15,7 @@ import { useUserToday } from '@/lib/hooks/use-user';
 import { useWeather } from '@/lib/hooks/use-weather';
 import { displayValue } from '@/lib/temperature';
 import { formatDateKey } from '@/lib/utils';
+import { lookForDay } from '@/lib/look-phase';
 import { piecesOf } from './add-outfit-sheet';
 import { DayEmpty, LookName, TodayActions } from './today-card';
 import { weatherIcon } from './home-weather';
@@ -30,12 +31,6 @@ type View = 'day' | 'month';
 function weekOf(day: string): string[] {
   const start = addDays(day, -dayDate(day).getDay());
   return Array.from({ length: 7 }, (_, i) => addDays(start, i));
-}
-
-// What to show for a day: a worn or accepted outfit before a pending suggestion.
-function lookFor(outfits: Outfit[] | undefined, day: string): Outfit | undefined {
-  const onDay = (outfits ?? []).filter((outfit) => outfit.scheduled_for === day && outfit.status !== 'rejected');
-  return onDay.find((outfit) => outfit.status !== 'pending') ?? onDay[0];
 }
 
 function stayOn(stays: Stay[] | undefined, day: string): Stay | undefined {
@@ -196,7 +191,7 @@ function DayView({
   const { data: prefs } = usePreferences();
   const week = weekOf(selected);
   const { data: outfits } = useOutfits({ date_from: week[0], date_to: week[6] }, 1, 50);
-  const look = lookFor(outfits?.outfits, selected);
+  const look = lookForDay(outfits?.outfits, selected);
   const { data: layouts } = useOutfitLayouts((outfits?.outfits ?? []).map((outfit) => outfit.id));
   const forecast = weatherByDay.get(selected)?.forecast ?? null;
   const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
@@ -214,7 +209,7 @@ function DayView({
         <div className="grid flex-1 grid-cols-7 text-center">
           {week.map((date) => {
             const isSelected = date === selected;
-            const has = !!lookFor(outfits?.outfits, date);
+            const has = !!lookForDay(outfits?.outfits, date);
             return (
               <button key={date} type="button" onClick={() => onSelect(date)} aria-pressed={isSelected} aria-label={dayDate(date).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' })} className="py-0.5">
                 <span className="block text-[10.5px] text-muted-foreground" aria-hidden="true">
@@ -345,7 +340,7 @@ function MonthView({
           <span key={`lead-${i}`} />
         ))}
         {cells.map((date) => {
-          const look = lookFor(data?.outfits, date);
+          const look = lookForDay(data?.outfits, date);
           const away = !!stayOn(stays, date);
           return (
             <button
