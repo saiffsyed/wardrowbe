@@ -96,7 +96,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   (Day and Month, URL `?view=month&day=YYYY-MM-DD`), `add-outfit-sheet.tsx`. The bottom
   bar and "App starts in" point Plan there; upstream's `/dashboard` page is left as it was.
   On today the Day view adds Swap / I wore it, or the empty-day tiles
-  (`components/wardrobe/today-card.tsx`; which saved looks Swap offers: `lib/today.ts`).
+  (`components/wardrobe/today-card.tsx`; which saved looks Swap offers: `lib/today.ts`;
+  the stages of "I wore it" — Undo window, sending, sent — in `lib/today-wear.ts`).
 - Outfit maker (the Outfits tab, route `app/dashboard/outfits/make`, `?date=` to plan a day,
   `?edit=` to rearrange a look): `components/wardrobe/outfit-maker.tsx`, the board in
   `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend

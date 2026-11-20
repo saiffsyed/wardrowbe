@@ -66,7 +66,9 @@ describe('PlannerScreen', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'wore' }))
     vi.advanceTimersByTime(6000)
-    expect(post).toHaveBeenCalledWith('/outfits/o1/feedback', { worn: true })
+    expect(post).toHaveBeenCalledWith('/outfits/o1/feedback', { worn: true }, { keepalive: true })
+    // It stays worn while the outfit list refreshes.
+    expect(screen.getByText('wornToday')).toBeTruthy()
     vi.useRealTimers()
   })
 

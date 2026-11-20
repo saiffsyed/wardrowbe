@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import { api, getErrorMessage } from '@/lib/api';
+import { getErrorMessage } from '@/lib/api';
 import { warmthOf, type Warmth } from '@/lib/dressing-room';
 import { queryKeys } from '@/lib/hooks/query-keys';
 import { useHomes } from '@/lib/hooks/use-homes';
@@ -19,17 +19,13 @@ import { usePlanDayOutfit, type DayForecast } from '@/lib/hooks/use-stays';
 import { useCreateStudioOutfit } from '@/lib/hooks/use-studio';
 import { useOccasionLabel, useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
 import { lookChoices } from '@/lib/today';
+import { settle, undo, useWearPhase, wore } from '@/lib/today-wear';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
 import { piecesOf } from './add-outfit-sheet';
 import { LookTile } from './look-tile';
 import { SHEET_CLASS } from './weather-sheet';
 
-const UNDO_FOR = 5000;
 const SWAP_SHOWN = 3;
-
-// "I wore it" is sent after a few seconds, so Undo can simply cancel it. The wait lives
-// outside the card, so leaving the screen meanwhile still records the wear.
-const pendingWears = new Map<string, ReturnType<typeof setTimeout>>();
 
 // Today in the Planner: the name and occasion of today's look with Swap and I wore it, or,
 // with nothing planned, a suggestion for the weather or a look from the Lookbook.
@@ -41,7 +37,15 @@ function useSuggestToday(today: string) {
   const run = (replacing?: Outfit) =>
     suggest.mutate(today, {
       onSuccess: async () => {
-        if (replacing) await remove.mutateAsync(replacing.id).catch(() => undefined);
+        if (replacing) {
+          try {
+            await remove.mutateAsync(replacing.id);
+          } catch (error) {
+            // The new look is planned but the old one is still there too; say so.
+            toast.error(getErrorMessage(error, t('swapError')));
+            return;
+          }
+        }
         toast.success(replacing ? t('changed') : t('planned'));
       },
       onError: (error) => toast.error(getErrorMessage(error, t('suggestError'))),
@@ -76,36 +80,22 @@ export function TodayActions({
   const suggest = useSuggestToday(today);
   const lookbook = useLookbook();
   const [swapping, setSwapping] = useState(false);
-  const [pending, setPending] = useState(() => pendingWears.has(look.id));
+  // Where "I wore it" is (lib/today-wear.ts); worn once the server says so or a wear is on its way.
+  const phase = useWearPhase(look.id);
+  const wornOnServer = !!look.feedback?.worn_at;
+  const worn = wornOnServer || phase !== 'idle';
+  useEffect(() => {
+    if (wornOnServer) settle(look.id);
+  }, [wornOnServer, look.id]);
 
-  useEffect(() => setPending(pendingWears.has(look.id)), [look]);
-
-  const worn = !!look.feedback?.worn_at || pending;
-  const wore = () => {
-    const id = look.id;
-    setPending(true);
-    pendingWears.set(
-      id,
-      setTimeout(async () => {
-        pendingWears.delete(id);
-        try {
-          await api.post(`/outfits/${id}/feedback`, { worn: true });
-        } catch (error) {
-          toast.error(getErrorMessage(error, t('woreError')));
-        }
-        queryClient.invalidateQueries({ queryKey: queryKeys.outfits.all });
-        queryClient.invalidateQueries({ queryKey: queryKeys.items.all });
-        queryClient.invalidateQueries({ queryKey: queryKeys.everyLaundry });
-        queryClient.invalidateQueries({ queryKey: queryKeys.laundryStates });
-        setPending(false);
-      }, UNDO_FOR)
-    );
-  };
-  const undo = () => {
-    clearTimeout(pendingWears.get(look.id));
-    pendingWears.delete(look.id);
-    setPending(false);
-  };
+  const markWorn = () =>
+    wore(look.id, (ok, error) => {
+      if (!ok) toast.error(getErrorMessage(error, t('woreError')));
+      queryClient.invalidateQueries({ queryKey: queryKeys.outfits.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.items.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.everyLaundry });
+      queryClient.invalidateQueries({ queryKey: queryKeys.laundryStates });
+    });
 
   return (
     <div className="space-y-2.5">
@@ -116,8 +106,8 @@ export function TodayActions({
             <Check className="h-4 w-4" aria-hidden="true" />
             {t('wornToday')}
           </span>
-          {pending && (
-            <button type="button" onClick={undo} className="font-extrabold">
+          {phase === 'undoable' && (
+            <button type="button" onClick={() => undo(look.id)} className="font-extrabold">
               {t('undo')}
             </button>
           )}
@@ -128,7 +118,7 @@ export function TodayActions({
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
             {t('swap')}
           </button>
-          <button type="button" onClick={wore} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-primary font-extrabold text-primary-foreground hover:opacity-90">
+          <button type="button" onClick={markWorn} className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-primary font-extrabold text-primary-foreground hover:opacity-90">
             <Check className="h-4 w-4" aria-hidden="true" />
             {t('wore')}
           </button>
@@ -284,17 +274,27 @@ function SwapSheet({
   const shown = mode === 'pick' || all ? choices : choices.slice(0, SWAP_SHOWN);
 
   const wear = async (look: Outfit) => {
+    // A look already worn today stays; it is part of the wear history.
+    if (current?.feedback?.worn_at) return;
     if (busy.current) return;
     busy.current = true;
     try {
-      await create.mutateAsync({
+      const added = await create.mutateAsync({
         items: look.items.map((item) => item.id),
         occasion: look.occasion,
         name: look.name ?? undefined,
         scheduled_for: today,
       });
       // The plan it replaces was made for today only, so it goes.
-      if (current) await remove.mutateAsync(current.id);
+      if (current) {
+        try {
+          await remove.mutateAsync(current.id);
+        } catch (error) {
+          // Keep one look on the day: take the new one back off rather than leave two.
+          await remove.mutateAsync(added.id).catch(() => undefined);
+          throw error;
+        }
+      }
       toast.success(current ? t('changed') : t('planned'));
       close();
     } catch (error) {
