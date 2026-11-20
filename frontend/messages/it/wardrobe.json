@@ -968,6 +968,31 @@
         "back": "Di nuovo nell’armadio"
       },
       "count": "{count, plural, one {# nel bucato} other {# nel bucato}}"
+    },
+    "today": {
+      "title": "Oggi",
+      "wornToday": "Indossato oggi",
+      "undo": "Annulla",
+      "swap": "Cambia",
+      "wore": "L’ho indossato",
+      "woreError": "Impossibile registrare. Riprova.",
+      "planned": "Il look di oggi è pianificato",
+      "suggestError": "Impossibile suggerire un look. Riprova.",
+      "nothing": "Niente di pianificato per oggi.",
+      "suggest": "Suggerisci per il meteo",
+      "suggestFor": "Look per {temp} e {sky}",
+      "pick": "Scegli dal lookbook",
+      "savedLooks": "{count, plural, one {# look salvato} other {# look salvati}}",
+      "makeNew": "Creane uno nuovo",
+      "swapFor": "Per {temp} e {sky} · capi in questa casa, niente in lavatrice",
+      "pickTitle": "Scegli un look per oggi",
+      "swapTitle": "Cambia il look di oggi",
+      "swapHint": "Capi in questa casa, niente in lavatrice",
+      "noChoices": "Nessun look salvato va bene oggi: ognuno ha un capo in lavatrice, in un’altra casa o troppo caldo.",
+      "changed": "Look di oggi cambiato",
+      "swapError": "Impossibile cambiare il look di oggi. Riprova.",
+      "more": "Altri dal lookbook",
+      "newSuggestion": "Nuovo suggerimento"
     }
   }
 }

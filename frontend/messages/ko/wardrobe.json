@@ -968,6 +968,31 @@
         "back": "옷장으로 돌려놓기"
       },
       "count": "세탁물 {count}개"
+    },
+    "today": {
+      "title": "오늘",
+      "wornToday": "오늘 입었어요",
+      "undo": "되돌리기",
+      "swap": "바꾸기",
+      "wore": "입었어요",
+      "woreError": "착용을 기록하지 못했어요. 다시 시도해 주세요.",
+      "planned": "오늘의 룩을 계획했어요",
+      "suggestError": "룩을 제안하지 못했어요. 다시 시도해 주세요.",
+      "nothing": "오늘은 계획이 없어요.",
+      "suggest": "날씨에 맞게 제안",
+      "suggestFor": "{temp}, {sky}에 맞는 룩",
+      "pick": "룩북에서 고르기",
+      "savedLooks": "저장한 룩 {count}개",
+      "makeNew": "새로 만들기",
+      "swapFor": "{temp}, {sky} · 이 집의 옷, 세탁 중 제외",
+      "pickTitle": "오늘의 룩 고르기",
+      "swapTitle": "오늘의 룩 바꾸기",
+      "swapHint": "이 집의 옷, 세탁 중 제외",
+      "noChoices": "오늘 맞는 저장 룩이 없어요. 모두 세탁 중이거나 다른 집에 있거나 너무 따뜻한 옷이 있어요.",
+      "changed": "오늘의 룩을 바꿨어요",
+      "swapError": "오늘의 룩을 바꾸지 못했어요. 다시 시도해 주세요.",
+      "more": "룩북에서 더 보기",
+      "newSuggestion": "새 제안"
     }
   }
 }

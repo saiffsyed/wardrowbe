@@ -968,6 +968,31 @@
         "back": "Zurück in den Schrank"
       },
       "count": "{count, plural, one {# in der Wäsche} other {# in der Wäsche}}"
+    },
+    "today": {
+      "title": "Heute",
+      "wornToday": "Heute getragen",
+      "undo": "Rückgängig",
+      "swap": "Tauschen",
+      "wore": "Getragen",
+      "woreError": "Das Tragen konnte nicht gespeichert werden. Bitte versuche es erneut.",
+      "planned": "Der Look für heute ist geplant",
+      "suggestError": "Es konnte kein Look vorgeschlagen werden. Bitte versuche es erneut.",
+      "nothing": "Für heute ist nichts geplant.",
+      "suggest": "Passend zum Wetter",
+      "suggestFor": "Looks für {temp} und {sky}",
+      "pick": "Aus dem Lookbook",
+      "savedLooks": "{count, plural, one {# gespeicherter Look} other {# gespeicherte Looks}}",
+      "makeNew": "Neu zusammenstellen",
+      "swapFor": "Für {temp} und {sky} · Kleidung in diesem Zuhause, nichts in der Wäsche",
+      "pickTitle": "Look für heute wählen",
+      "swapTitle": "Heutigen Look tauschen",
+      "swapHint": "Kleidung in diesem Zuhause, nichts in der Wäsche",
+      "noChoices": "Kein gespeicherter Look passt heute: Bei jedem ist etwas in der Wäsche, in einem anderen Zuhause oder zu warm.",
+      "changed": "Der heutige Look wurde geändert",
+      "swapError": "Der heutige Look konnte nicht geändert werden. Bitte versuche es erneut.",
+      "more": "Mehr aus dem Lookbook",
+      "newSuggestion": "Neuer Vorschlag"
     }
   }
 }

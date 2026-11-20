@@ -15,6 +15,7 @@ import { useUserToday } from '@/lib/hooks/use-user';
 import { displayValue } from '@/lib/temperature';
 import { formatDateKey } from '@/lib/utils';
 import { AddOutfitSheet, piecesOf } from './add-outfit-sheet';
+import { TodayCard } from './today-card';
 import { AddStayDialog } from './add-stay-dialog';
 import { weatherIcon } from './home-weather';
 import { LookTile, type Arranged } from './look-tile';
@@ -227,53 +228,66 @@ function DayView({
         </button>
       </div>
 
-      {day?.forecast && (
-        <button
-          type="button"
-          onClick={() => onOpenWeather(selected)}
-          className="mx-auto flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent"
-        >
-          {(() => {
-            const Icon = weatherIcon(day.forecast.condition);
-            return <Icon className="h-[18px] w-[18px] text-primary" aria-hidden="true" />;
-          })()}
-          <b className="tabular-nums text-foreground">{deg(day.forecast.temp_max)}</b>
-          <span>
-            {conditionLabel(day.forecast.condition)} · {deg(day.forecast.temp_min)}–{deg(day.forecast.temp_max)} ·{' '}
-            {t('rain', { percent: day.forecast.precipitation_chance })}
-          </span>
-          <ChevronRight className="h-4 w-4" aria-hidden="true" />
-        </button>
-      )}
+      {selected === today ? (
+        <TodayCard
+          today={today}
+          look={look}
+          arranged={look ? layouts?.get(look.id) : undefined}
+          weather={day}
+          deg={deg}
+          onOpenWeather={() => onOpenWeather(selected)}
+        />
+      ) : (
+        <>
+          {day?.forecast && (
+            <button
+              type="button"
+              onClick={() => onOpenWeather(selected)}
+              className="mx-auto flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent"
+            >
+              {(() => {
+                const Icon = weatherIcon(day.forecast.condition);
+                return <Icon className="h-[18px] w-[18px] text-primary" aria-hidden="true" />;
+              })()}
+              <b className="tabular-nums text-foreground">{deg(day.forecast.temp_max)}</b>
+              <span>
+                {conditionLabel(day.forecast.condition)} · {deg(day.forecast.temp_min)}–{deg(day.forecast.temp_max)} ·{' '}
+                {t('rain', { percent: day.forecast.precipitation_chance })}
+              </span>
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          )}
 
-      <h2 className="text-center font-bold">{heading}</h2>
+          <h2 className="text-center font-bold">{heading}</h2>
 
-      <div
-        className="relative mx-auto flex min-h-[22rem] max-w-sm items-center justify-center rounded-3xl border bg-card p-4"
-        onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
-        onTouchEnd={(event) => {
-          if (touchX.current === null) return;
-          const dx = event.changedTouches[0].clientX - touchX.current;
-          touchX.current = null;
-          if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
-        }}
-      >
-        {look ? (
-          <Link href={`/dashboard/outfits/${look.id}`} className="block w-48">
-            <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} />
-            <p className="mt-2 truncate text-center font-semibold">{outfitTitle(look)}</p>
-          </Link>
-        ) : (
-          <button
-            type="button"
-            onClick={onAdd}
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-base font-bold text-background hover:opacity-90"
+          <div
+            className="relative mx-auto flex min-h-[22rem] max-w-sm items-center justify-center rounded-3xl border bg-card p-4"
+            onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
+            onTouchEnd={(event) => {
+              if (touchX.current === null) return;
+              const dx = event.changedTouches[0].clientX - touchX.current;
+              touchX.current = null;
+              if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
+            }}
           >
-            <Plus className="h-5 w-5" aria-hidden="true" />
-            {t('addOutfit')}
-          </button>
-        )}
-      </div>
+            {look ? (
+              <Link href={`/dashboard/outfits/${look.id}`} className="block w-48">
+                <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} />
+                <p className="mt-2 truncate text-center font-semibold">{outfitTitle(look)}</p>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={onAdd}
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-base font-bold text-background hover:opacity-90"
+              >
+                <Plus className="h-5 w-5" aria-hidden="true" />
+                {t('addOutfit')}
+              </button>
+            )}
+          </div>
+        </>
+      )}
 
       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
         <MapPin className={`h-4 w-4 ${stay ? 'text-violet-600 dark:text-violet-300' : ''}`} aria-hidden="true" />

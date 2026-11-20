@@ -968,6 +968,31 @@
         "back": "放回衣柜"
       },
       "count": "洗衣 {count} 件"
+    },
+    "today": {
+      "title": "今天",
+      "wornToday": "今天已穿",
+      "undo": "撤销",
+      "swap": "换一套",
+      "wore": "我穿了",
+      "woreError": "无法记录穿着，请重试。",
+      "planned": "今天的造型已安排",
+      "suggestError": "无法推荐造型，请重试。",
+      "nothing": "今天还没有安排。",
+      "suggest": "按天气推荐",
+      "suggestFor": "适合 {temp}、{sky} 的造型",
+      "pick": "从造型册挑选",
+      "savedLooks": "已保存 {count} 套造型",
+      "makeNew": "新建一套",
+      "swapFor": "{temp}、{sky} · 本住处的衣服，不含洗涤中",
+      "pickTitle": "为今天挑一套",
+      "swapTitle": "换掉今天的造型",
+      "swapHint": "本住处的衣服，不含洗涤中",
+      "noChoices": "今天没有合适的已保存造型：每套都有衣服在洗、在别的住处或太厚。",
+      "changed": "已更换今天的造型",
+      "swapError": "无法更换今天的造型，请重试。",
+      "more": "造型册中更多",
+      "newSuggestion": "新推荐"
     }
   }
 }

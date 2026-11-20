@@ -968,6 +968,31 @@
         "back": "Back in the wardrobe"
       },
       "count": "{count, plural, one {# in the laundry} other {# in the laundry}}"
+    },
+    "today": {
+      "title": "Today",
+      "wornToday": "Worn today",
+      "undo": "Undo",
+      "swap": "Swap",
+      "wore": "I wore it",
+      "woreError": "Could not record the wear. Please try again.",
+      "planned": "Today’s look is planned",
+      "suggestError": "Could not suggest a look. Please try again.",
+      "nothing": "Nothing planned for today.",
+      "suggest": "Suggest for the weather",
+      "suggestFor": "Looks for {temp} and {sky}",
+      "pick": "Pick from Lookbook",
+      "savedLooks": "{count, plural, one {# saved look} other {# saved looks}}",
+      "makeNew": "Make a new one",
+      "swapFor": "For {temp} and {sky} · clothes in this home, none in the wash",
+      "pickTitle": "Pick a look for today",
+      "swapTitle": "Swap today’s look",
+      "swapHint": "Clothes in this home, none in the wash",
+      "noChoices": "No saved look fits today: every one has something in the wash, in another home or too warm.",
+      "changed": "Today’s look changed",
+      "swapError": "Could not change today’s look. Please try again.",
+      "more": "More from Lookbook",
+      "newSuggestion": "New suggestion"
     }
   }
 }

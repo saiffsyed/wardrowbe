@@ -95,6 +95,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Planner (the Plan tab, route `app/dashboard/plan`): `components/wardrobe/planner-screen.tsx`
   (Day and Month, URL `?view=month&day=YYYY-MM-DD`), `add-outfit-sheet.tsx`. The bottom
   bar and "App starts in" point Plan there; upstream's `/dashboard` page is left as it was.
+  On today the Day view shows the Today card (`components/wardrobe/today-card.tsx`; which
+  saved looks Swap offers: `lib/today.ts`).
 - Outfit maker (the Outfits tab, route `app/dashboard/outfits/make`, `?date=` to plan a day,
   `?edit=` to rearrange a look): `components/wardrobe/outfit-maker.tsx`, the board in
   `outfit-board.tsx`, starting layout in `lib/board-layout.ts`. Saved arrangements: backend

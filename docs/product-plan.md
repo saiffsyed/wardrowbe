@@ -163,6 +163,17 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     temperature, low to high, rain, humidity, UV, wind, the clothes hint, "Suggest an
     outfit for this weather", "I'll be somewhere else this day" (or "Remove the stay"),
     and "See the next 7 days" (the weather screen).
+  - **Today card** (built, preview; mock-up https://claude.ai/artifact/Fx7wWQDZpcSnszFzFUUet5):
+    on today, the Day view shows one card instead of the weather line and day card: the
+    weather with its clothes hint (tap for the weather sheet), today's look with its name and
+    occasion, **Swap** and **I wore it**. Swap offers three saved looks that suit the weather
+    (every piece in this home, none to wash or away, nothing warm on a hot day, warm looks
+    first on a cold one, least recently worn first), "More from Lookbook", "New suggestion"
+    and "Make a new one"; the chosen look replaces today's plan. I wore it counts the wears
+    after a 5-second Undo. With nothing planned: two equal tiles, Suggest for the weather and
+    Pick from Lookbook (Saiff wanted both to share the focus), and a smaller "Make a new
+    one". Heads-ups come next (Stage 3, step 2), then couple coordination; Google Calendar
+    waits until the app is online.
   - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
     longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on
     Insights under More.
@@ -271,7 +282,7 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 ## Build order
 
 1. **Wardrobe** — in progress, see below
-2. **Outfits** — collage, dressing room, Collections, laundry / repair
+2. **Outfits** — collage, dressing room, Collections, laundry (done)
 3. **Daily use** — home screen, planner, Calendar, couple coordination, suggestions
 4. **AI try-on** — with a spending cap
 5. **Extras** — add by outfit photo / link / receipt, packing, Insights, colours, rate my

@@ -968,6 +968,31 @@
         "back": "De retour dans l’armoire"
       },
       "count": "{count, plural, one {# au linge} other {# au linge}}"
+    },
+    "today": {
+      "title": "Aujourd’hui",
+      "wornToday": "Porté aujourd’hui",
+      "undo": "Annuler",
+      "swap": "Changer",
+      "wore": "Je l’ai porté",
+      "woreError": "Impossible d’enregistrer le port. Veuillez réessayer.",
+      "planned": "Le look du jour est prévu",
+      "suggestError": "Impossible de proposer un look. Veuillez réessayer.",
+      "nothing": "Rien de prévu aujourd’hui.",
+      "suggest": "Proposer selon la météo",
+      "suggestFor": "Looks pour {temp} et {sky}",
+      "pick": "Choisir dans le lookbook",
+      "savedLooks": "{count, plural, one {# look enregistré} other {# looks enregistrés}}",
+      "makeNew": "En créer un",
+      "swapFor": "Pour {temp} et {sky} · vêtements de ce logement, rien au lavage",
+      "pickTitle": "Choisir un look pour aujourd’hui",
+      "swapTitle": "Changer le look du jour",
+      "swapHint": "Vêtements de ce logement, rien au lavage",
+      "noChoices": "Aucun look enregistré ne convient : chacun a une pièce au lavage, dans un autre logement ou trop chaude.",
+      "changed": "Look du jour changé",
+      "swapError": "Impossible de changer le look du jour. Veuillez réessayer.",
+      "more": "Plus du lookbook",
+      "newSuggestion": "Nouvelle proposition"
     }
   }
 }
