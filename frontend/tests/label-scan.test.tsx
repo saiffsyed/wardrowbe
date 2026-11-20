@@ -162,4 +162,13 @@ describe('LabelScanDialog', () => {
     await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false))
     expect(updateMutate).not.toHaveBeenCalled()
   })
+
+  it('can go back to the photos and try again after nothing could be read', () => {
+    scanAnswers({ status: 'ai_unreachable', reading: null, photos: [] })
+    render(<LabelScanDialog item={item()} open onOpenChange={vi.fn()} initialFiles={[photo()]} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'tryAgain' }))
+    expect(screen.queryByText('unread.ai_unreachable')).toBeNull()
+    expect(screen.getAllByRole('img').length).toBeGreaterThan(0)
+  })
 })

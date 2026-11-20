@@ -335,7 +335,19 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
           <div className="space-y-3">
             <p className="text-sm">{t(`unread.${result.status}`)}</p>
             <p className="text-sm text-muted-foreground">{t('photosKept')}</p>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  // Back to the photos, to add a clearer one or read them again.
+                  setResult(null);
+                  setChoices({});
+                  scan.reset();
+                }}
+              >
+                {t('tryAgain')}
+              </Button>
               <Button type="button" onClick={() => onOpenChange(false)}>
                 {t('close')}
               </Button>

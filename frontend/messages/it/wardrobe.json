@@ -474,7 +474,8 @@
       "deletePhoto": "Elimina foto",
       "removeFailed": "Impossibile eliminare la foto",
       "optionalStep": "Foto dell'etichetta (facoltativo)",
-      "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te."
+      "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te.",
+      "tryAgain": "Riprova"
     },
     "display": {
       "title": "Aspetto",

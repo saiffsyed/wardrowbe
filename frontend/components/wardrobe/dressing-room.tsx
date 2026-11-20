@@ -140,7 +140,8 @@ export function DressingRoom({
   const [sheet, setSheet] = useState<'clothes' | 'occasion' | null>(null);
   const [group, setGroup] = useState('all');
   const [occasion, setOccasion] = useState<string | null>(null);
-  const [undo, setUndo] = useState<Outfit | null>(null);
+  // What Shuffle replaced, for Undo (the occasion too, when one was chosen).
+  const [undo, setUndo] = useState<{ outfit: Outfit; occasion: string | null } | null>(null);
   const undoTimer = useRef<ReturnType<typeof setTimeout>>();
   const { area, size } = useFit();
 
@@ -158,19 +159,28 @@ export function DressingRoom({
   const pieces = (): RoomPiece[] => onFigure.map(({ item }) => ({ id: item.id, type: item.type, thumb: item.thumb, image: item.image }));
 
   const unlockFirst = () => toast(t('unlockFirst'));
-  const offerUndo = (before: Outfit) => {
-    setUndo(before);
+  const offerUndo = (before: Outfit, occasionBefore: string | null) => {
+    setUndo({ outfit: before, occasion: occasionBefore });
     clearTimeout(undoTimer.current);
     undoTimer.current = setTimeout(() => setUndo(null), UNDO_FOR);
   };
-  const shuffle = (forOccasion = occasion) => {
+  const shuffle = (forOccasion = occasion, occasionBefore = occasion) => {
     const before = outfit;
     setOutfit(shuffleOutfit(outfit, items, { locked, occasion: forOccasion, warmth }));
-    offerUndo(before);
+    offerUndo(before, occasionBefore);
   };
-  const putOn = (spot: Spot, id: string | null) => {
-    if (locked.has(spot)) return unlockFirst();
+  const dropUndo = () => {
+    clearTimeout(undoTimer.current);
+    setUndo(null);
+  };
+  // Changes a place unless it is locked; says whether it did.
+  const putOn = (spot: Spot, id: string | null): boolean => {
+    if (locked.has(spot)) {
+      unlockFirst();
+      return false;
+    }
     setOutfit((current) => ({ ...current, [spot]: id }));
+    return true;
   };
 
   // Swiping, or the shuffle button beside a piece, moves through the clothes for its place.
@@ -211,7 +221,7 @@ export function DressingRoom({
     setSelected(spot);
     setKind('all');
     setSheet(null);
-    setUndo(null);
+    dropUndo();
   };
   const calm = () => {
     setSelected(null);
@@ -231,8 +241,11 @@ export function DressingRoom({
   const isOn = (item: DressItem) => Object.values(outfit).includes(item.id) && onFigure.some((entry) => entry.item.id === item.id);
   const tapThumb = (item: DressItem) => {
     const spot = spotOf(item.type)!;
-    if (sheet === 'clothes' && isOn(item)) return putOn(spot, null);
-    putOn(spot, item.id);
+    if (sheet === 'clothes' && isOn(item)) {
+      putOn(spot, null);
+      return;
+    }
+    if (!putOn(spot, item.id)) return;
     // Putting on a top for under a saree's place brings a bottom back with it.
     if (spot === 'top' && !coversBottom(item.type) && !outfit.bottom && !locked.has('bottom')) {
       const bottom = pickOne(choices(items, 'bottom', occasion, warmth));
@@ -367,7 +380,8 @@ export function DressingRoom({
             type="button"
             aria-label={t('remove')}
             onClick={() => {
-              putOn(selected, null);
+              // Taking a piece off is a clear choice, so it works on a locked place too.
+              setOutfit((current) => ({ ...current, [selected]: null }));
               setLocked((current) => {
                 const next = new Set(current);
                 next.delete(selected);
@@ -389,8 +403,9 @@ export function DressingRoom({
             <button
               type="button"
               onClick={() => {
-                setOutfit(undo);
-                setUndo(null);
+                setOutfit(undo.outfit);
+                setOccasion(undo.occasion);
+                dropUndo();
               }}
               className="absolute left-1/2 top-16 z-30 inline-flex h-10 -translate-x-1/2 items-center gap-2.5 whitespace-nowrap rounded-full bg-[#16201d] px-4 text-sm font-bold text-white shadow-lg"
             >
@@ -403,8 +418,8 @@ export function DressingRoom({
           )}
           <div className="absolute inset-x-3 bottom-3 z-30 grid grid-cols-4 gap-2">
             {[
-              { icon: Shirt, label: t('clothes'), onClick: () => (setSheet('clothes'), setGroup('all'), setUndo(null)) },
-              { icon: Tag, label: occasion ? occasionLabel(occasion) : t('occasion'), onClick: () => (setSheet('occasion'), setUndo(null)) },
+              { icon: Shirt, label: t('clothes'), onClick: () => (setSheet('clothes'), setGroup('all'), dropUndo()) },
+              { icon: Tag, label: occasion ? occasionLabel(occasion) : t('occasion'), onClick: () => (setSheet('occasion'), dropUndo()) },
               { icon: Shuffle, label: t('shuffle'), onClick: () => shuffle() },
               { icon: Repeat, label: t('switchMode'), onClick: () => onBoard(pieces()) },
             ].map(({ icon: Icon, label, onClick }) => (
@@ -436,9 +451,9 @@ export function DressingRoom({
                     type="button"
                     aria-pressed={occasion === value}
                     onClick={() => {
-                      setOccasion(value);
                       setSheet(null);
-                      shuffle(value);
+                      shuffle(value, occasion);
+                      setOccasion(value);
                     }}
                     className={`h-9 shrink-0 rounded-xl px-3.5 text-sm font-bold ${occasion === value ? 'bg-white text-[#16201d]' : ''}`}
                   >

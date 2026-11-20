@@ -474,7 +474,8 @@
       "deletePhoto": "Foto löschen",
       "removeFailed": "Das Foto konnte nicht gelöscht werden",
       "optionalStep": "Etikettfotos (optional)",
-      "optionalHint": "Füge ein Foto des Pflegeetiketts hinzu, dann werden Größe, Material und Pflege für dich gelesen."
+      "optionalHint": "Füge ein Foto des Pflegeetiketts hinzu, dann werden Größe, Material und Pflege für dich gelesen.",
+      "tryAgain": "Erneut versuchen"
     },
     "display": {
       "title": "Darstellung",

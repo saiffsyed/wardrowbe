@@ -474,7 +474,8 @@
       "deletePhoto": "刪除照片",
       "removeFailed": "無法刪除照片",
       "optionalStep": "標籤照片（選填）",
-      "optionalHint": "新增洗滌標籤的照片，尺寸、材質和保養方式會自動讀取。"
+      "optionalHint": "新增洗滌標籤的照片，尺寸、材質和保養方式會自動讀取。",
+      "tryAgain": "再試一次"
     },
     "display": {
       "title": "顯示",

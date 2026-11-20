@@ -474,7 +474,8 @@
       "deletePhoto": "Delete photo",
       "removeFailed": "Couldn't delete the photo",
       "optionalStep": "Label photos (optional)",
-      "optionalHint": "Add a photo of the care label and the size, material and care are read for you."
+      "optionalHint": "Add a photo of the care label and the size, material and care are read for you.",
+      "tryAgain": "Try again"
     },
     "display": {
       "title": "Display",

@@ -474,7 +474,8 @@
       "deletePhoto": "删除照片",
       "removeFailed": "无法删除照片",
       "optionalStep": "标签照片（可选）",
-      "optionalHint": "添加洗涤标签的照片，尺码、材质和护理方式会自动读取。"
+      "optionalHint": "添加洗涤标签的照片，尺码、材质和护理方式会自动读取。",
+      "tryAgain": "重试"
     },
     "display": {
       "title": "显示",

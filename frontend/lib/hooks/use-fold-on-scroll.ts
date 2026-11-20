@@ -23,8 +23,14 @@ export function useFoldOnScroll(threshold = 160): boolean {
       setFolded(roomToScroll > threshold * 3 && y > threshold && y > last);
       last = y;
     };
+    // Turning a tablet or widening the window to laptop size unfolds at once.
+    const onWide = () => wide?.matches && setFolded(false);
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    wide?.addEventListener?.('change', onWide);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      wide?.removeEventListener?.('change', onWide);
+    };
   }, [threshold]);
   return folded;
 }

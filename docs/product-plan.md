@@ -339,6 +339,8 @@ Still to do in Stage 1:
   needed for Google sign-in)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
+- After a trip, should the app offer to switch the wardrobe back to your usual home? It
+  asks on arrival but not on return, and it does not yet know which home is "usual".
 
 ## Going online (agreed, not ordered)
 
