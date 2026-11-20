@@ -15,8 +15,8 @@ import { useUserToday } from '@/lib/hooks/use-user';
 import { useWeather } from '@/lib/hooks/use-weather';
 import { displayValue } from '@/lib/temperature';
 import { formatDateKey } from '@/lib/utils';
-import { AddOutfitSheet, piecesOf } from './add-outfit-sheet';
-import { LookName, TodayActions, TodayEmpty } from './today-card';
+import { piecesOf } from './add-outfit-sheet';
+import { DayEmpty, LookName, TodayActions } from './today-card';
 import { weatherIcon } from './home-weather';
 import { LookTile, type Arranged } from './look-tile';
 import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
@@ -58,7 +58,6 @@ export function PlannerScreen() {
   const view: View = searchParams.get('view') === 'month' ? 'month' : 'day';
   const selected = searchParams.get('day') || today;
   const [sheetFor, setSheetFor] = useState<string | null>(null);
-  const [adding, setAdding] = useState(false);
 
   const go = (next: { view?: View; day?: string }) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -152,7 +151,6 @@ export function PlannerScreen() {
           weatherByDay={weatherByDay}
           stays={stays}
           canPlan={canPlan}
-          onAdd={() => setAdding(true)}
         />
       ) : (
         <MonthView
@@ -172,13 +170,6 @@ export function PlannerScreen() {
         open={sheetFor !== null}
         onOpenChange={(open) => !open && setSheetFor(null)}
       />
-      <AddOutfitSheet
-        day={selected}
-        dayLabel={selected === today ? t('today') : `${weekdayShort(selected, locale)} ${dayAndMonth(selected, locale)}`}
-        canSuggest={canPlan(selected)}
-        open={adding}
-        onOpenChange={setAdding}
-      />
     </div>
   );
 }
@@ -190,7 +181,6 @@ function DayView({
   weatherByDay,
   stays,
   canPlan,
-  onAdd,
 }: {
   today: string;
   selected: string;
@@ -198,7 +188,6 @@ function DayView({
   weatherByDay: Map<string, WeatherDay>;
   stays: Stay[] | undefined;
   canPlan: (day: string) => boolean;
-  onAdd: () => void;
 }) {
   const t = useTranslations('wardrobe.closet.planner');
   const locale = useLocale();
@@ -270,17 +259,14 @@ function DayView({
           >
             <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} bare />
           </Link>
-        ) : isToday ? (
-          <TodayEmpty today={today} forecast={forecast} deg={deg} />
         ) : (
-          <button
-            type="button"
-            onClick={onAdd}
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-base font-bold text-background hover:opacity-90"
-          >
-            <Plus className="h-5 w-5" aria-hidden="true" />
-            {t('addOutfit')}
-          </button>
+          <DayEmpty
+            day={selected}
+            isToday={isToday}
+            canSuggest={canPlan(selected)}
+            forecast={forecast}
+            deg={deg}
+          />
         )}
       </div>
 

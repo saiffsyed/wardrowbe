@@ -978,7 +978,7 @@
       "swap": "바꾸기",
       "wore": "입었어요",
       "woreError": "착용을 기록하지 못했어요. 다시 시도해 주세요.",
-      "planned": "오늘의 룩을 계획했어요",
+      "planned": "룩을 계획했어요",
       "suggestError": "룩을 제안하지 못했어요. 다시 시도해 주세요.",
       "nothing": "오늘은 계획이 없어요.",
       "suggest": "날씨에 맞게 제안",
@@ -994,7 +994,8 @@
       "changed": "오늘의 룩을 바꿨어요",
       "swapError": "오늘의 룩을 바꾸지 못했어요. 다시 시도해 주세요.",
       "more": "룩북에서 더 보기",
-      "newSuggestion": "새 제안"
+      "newSuggestion": "새 제안",
+      "nothingOn": "아직 계획이 없어요."
     }
   }
 }

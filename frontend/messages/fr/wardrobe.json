@@ -978,7 +978,7 @@
       "swap": "Changer",
       "wore": "Je l’ai porté",
       "woreError": "Impossible d’enregistrer le port. Veuillez réessayer.",
-      "planned": "Le look du jour est prévu",
+      "planned": "Look prévu",
       "suggestError": "Impossible de proposer un look. Veuillez réessayer.",
       "nothing": "Rien de prévu aujourd’hui.",
       "suggest": "Proposer selon la météo",
@@ -994,7 +994,8 @@
       "changed": "Look du jour changé",
       "swapError": "Impossible de changer le look du jour. Veuillez réessayer.",
       "more": "Plus du lookbook",
-      "newSuggestion": "Nouvelle proposition"
+      "newSuggestion": "Nouvelle proposition",
+      "nothingOn": "Rien de prévu pour l’instant."
     }
   }
 }

@@ -158,12 +158,18 @@ export function LookName({ title, occasion }: { title: string; occasion: string 
   );
 }
 
-export function TodayEmpty({
-  today,
+// Any day with nothing planned: a suggestion for its weather (while the forecast reaches it)
+// and a look from the Lookbook share the focus; making a new one is smaller below.
+export function DayEmpty({
+  day: today,
+  isToday,
+  canSuggest,
   forecast,
   deg,
 }: {
-  today: string;
+  day: string;
+  isToday: boolean;
+  canSuggest: boolean;
   forecast: DayForecast | null;
   deg: (value: number) => string;
 }) {
@@ -176,26 +182,28 @@ export function TodayEmpty({
 
   return (
     <div className="w-full max-w-sm space-y-2.5">
-      <p className="text-center text-sm text-muted-foreground">{t('nothing')}</p>
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          type="button"
-          disabled={suggest.pending || !forecast}
-          onClick={() => suggest.run()}
-          className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent disabled:opacity-50"
-        >
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
-            {suggest.pending ? (
-              <Loader2 className="h-5 w-5 animate-spin text-primary" aria-hidden="true" />
-            ) : (
-              <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
+      <p className="text-center text-sm text-muted-foreground">{isToday ? t('nothing') : t('nothingOn')}</p>
+      <div className={`grid gap-2 ${canSuggest && forecast ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        {canSuggest && forecast && (
+          <button
+            type="button"
+            disabled={suggest.pending || !forecast}
+            onClick={() => suggest.run()}
+            className="flex min-h-[7.5rem] flex-col items-center justify-center gap-1.5 rounded-2xl border bg-muted/60 p-3 text-center hover:bg-accent disabled:opacity-50"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-card">
+              {suggest.pending ? (
+                <Loader2 className="h-5 w-5 animate-spin text-primary" aria-hidden="true" />
+              ) : (
+                <Sparkles className="h-5 w-5 text-primary" aria-hidden="true" />
+              )}
+            </span>
+            <b className="text-sm leading-tight">{t('suggest')}</b>
+            {forecast && (
+              <span className="text-xs text-muted-foreground">{t('suggestFor', { temp: tempText, sky: conditionLabel(forecast.condition) })}</span>
             )}
-          </span>
-          <b className="text-sm leading-tight">{t('suggest')}</b>
-          {forecast && (
-            <span className="text-xs text-muted-foreground">{t('suggestFor', { temp: tempText, sky: conditionLabel(forecast.condition) })}</span>
-          )}
-        </button>
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setPicking(true)}
@@ -286,7 +294,7 @@ function SwapSheet({
       });
       // The plan it replaces was made for today only, so it goes.
       if (current) await remove.mutateAsync(current.id);
-      toast.success(t('changed'));
+      toast.success(current ? t('changed') : t('planned'));
       close();
     } catch (error) {
       toast.error(getErrorMessage(error, t('swapError')));

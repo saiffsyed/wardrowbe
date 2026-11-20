@@ -978,7 +978,7 @@
       "swap": "换一套",
       "wore": "我穿了",
       "woreError": "无法记录穿着，请重试。",
-      "planned": "今天的造型已安排",
+      "planned": "已安排造型",
       "suggestError": "无法推荐造型，请重试。",
       "nothing": "今天还没有安排。",
       "suggest": "按天气推荐",
@@ -994,7 +994,8 @@
       "changed": "已更换今天的造型",
       "swapError": "无法更换今天的造型，请重试。",
       "more": "造型册中更多",
-      "newSuggestion": "新推荐"
+      "newSuggestion": "新推荐",
+      "nothingOn": "还没有安排。"
     }
   }
 }

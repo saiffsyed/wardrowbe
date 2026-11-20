@@ -178,7 +178,8 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     "More from Lookbook", "New suggestion" and "Make a new one"; the chosen look replaces
     today's plan. I wore it counts the wears after a 5-second Undo. With nothing planned: two
     equal tiles, Suggest for the weather and Pick from Lookbook (Saiff wanted both to share
-    the focus), and a smaller "Make a new one". Heads-ups come next (Stage 3, step 2), then
+    the focus), and a smaller "Make a new one". **Every empty day** shows the same two tiles
+    (Saiff agreed); past the 16-day forecast only Pick from Lookbook and Make a new one. Heads-ups come next (Stage 3, step 2), then
     couple coordination; Google Calendar waits until the app is online.
   - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
     longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on

@@ -978,7 +978,7 @@
       "swap": "Cambia",
       "wore": "L’ho indossato",
       "woreError": "Impossibile registrare. Riprova.",
-      "planned": "Il look di oggi è pianificato",
+      "planned": "Look pianificato",
       "suggestError": "Impossibile suggerire un look. Riprova.",
       "nothing": "Niente di pianificato per oggi.",
       "suggest": "Suggerisci per il meteo",
@@ -994,7 +994,8 @@
       "changed": "Look di oggi cambiato",
       "swapError": "Impossibile cambiare il look di oggi. Riprova.",
       "more": "Altri dal lookbook",
-      "newSuggestion": "Nuovo suggerimento"
+      "newSuggestion": "Nuovo suggerimento",
+      "nothingOn": "Ancora niente di pianificato."
     }
   }
 }

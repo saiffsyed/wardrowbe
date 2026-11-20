@@ -978,7 +978,7 @@
       "swap": "Tauschen",
       "wore": "Getragen",
       "woreError": "Das Tragen konnte nicht gespeichert werden. Bitte versuche es erneut.",
-      "planned": "Der Look für heute ist geplant",
+      "planned": "Look geplant",
       "suggestError": "Es konnte kein Look vorgeschlagen werden. Bitte versuche es erneut.",
       "nothing": "Für heute ist nichts geplant.",
       "suggest": "Passend zum Wetter",
@@ -994,7 +994,8 @@
       "changed": "Der heutige Look wurde geändert",
       "swapError": "Der heutige Look konnte nicht geändert werden. Bitte versuche es erneut.",
       "more": "Mehr aus dem Lookbook",
-      "newSuggestion": "Neuer Vorschlag"
+      "newSuggestion": "Neuer Vorschlag",
+      "nothingOn": "Noch nichts geplant."
     }
   }
 }

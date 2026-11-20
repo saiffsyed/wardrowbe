@@ -78,6 +78,17 @@ describe('PlannerScreen', () => {
     expect(replace.mock.calls.at(-1)![0]).toContain('day=2026-11-20')
   })
 
+  it('offers the same two choices on any empty day, and only the Lookbook past the forecast', () => {
+    search = 'day=2026-11-20'
+    const { unmount } = render(<PlannerScreen />)
+    expect(screen.getByRole('button', { name: /pick/ })).toBeTruthy()
+    unmount()
+    search = 'day=2026-12-30'
+    render(<PlannerScreen />)
+    expect(screen.queryByRole('button', { name: /^suggest/ })).toBeNull()
+    expect(screen.getByRole('button', { name: /pick/ })).toBeTruthy()
+  })
+
   it('shows the whole month with a look on the days that have one', () => {
     search = 'view=month'
     render(<PlannerScreen />)

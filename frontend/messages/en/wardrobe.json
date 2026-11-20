@@ -978,7 +978,7 @@
       "swap": "Swap",
       "wore": "I wore it",
       "woreError": "Could not record the wear. Please try again.",
-      "planned": "Today’s look is planned",
+      "planned": "Look planned",
       "suggestError": "Could not suggest a look. Please try again.",
       "nothing": "Nothing planned for today.",
       "suggest": "Suggest for the weather",
@@ -994,7 +994,8 @@
       "changed": "Today’s look changed",
       "swapError": "Could not change today’s look. Please try again.",
       "more": "More from Lookbook",
-      "newSuggestion": "New suggestion"
+      "newSuggestion": "New suggestion",
+      "nothingOn": "Nothing planned yet."
     }
   }
 }
