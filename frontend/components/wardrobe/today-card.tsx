@@ -17,7 +17,7 @@ import { useDeleteOutfit, useInfiniteOutfits, type Outfit } from '@/lib/hooks/us
 import { useOutfitTitle } from '@/lib/hooks/use-outfit-title';
 import { usePlanDayOutfit, type DayForecast } from '@/lib/hooks/use-stays';
 import { useCreateStudioOutfit } from '@/lib/hooks/use-studio';
-import { useOccasionLabel, useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
+import { useOccasionLabel, useTypeLabel, useWeatherConditionLabel } from '@/lib/hooks/use-translated-constants';
 import { lookChoices } from '@/lib/today';
 import { settle, undo, useWearPhase, wore } from '@/lib/today-wear';
 import { GRID_PAGE_SIZE } from '@/lib/pagination';
@@ -88,14 +88,22 @@ export function TodayActions({
     if (wornOnServer) settle(look.id);
   }, [wornOnServer, look.id]);
 
-  const markWorn = () =>
+  // Pieces of this look marked away in the laundry: wearing them means they came back clean
+  // (laundry_service records that), so say so rather than change it silently.
+  const typeLabel = useTypeLabel();
+  const { data: awayStates } = useLaundryStates();
+  const markWorn = () => {
+    const cameBack = look.items.filter((piece) => awayStates?.has(piece.id));
     wore(look.id, (ok, error) => {
       if (!ok) toast.error(getErrorMessage(error, t('woreError')));
+      else if (cameBack.length)
+        toast(t('backFromWash', { count: cameBack.length, name: cameBack[0].name || typeLabel(cameBack[0].type) }));
       queryClient.invalidateQueries({ queryKey: queryKeys.outfits.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.items.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.everyLaundry });
       queryClient.invalidateQueries({ queryKey: queryKeys.laundryStates });
     });
+  };
 
   return (
     <div className="space-y-2.5">

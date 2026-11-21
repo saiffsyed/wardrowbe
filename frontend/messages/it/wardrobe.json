@@ -997,7 +997,8 @@
       "swapError": "Impossibile cambiare il look di oggi. Riprova.",
       "more": "Altri dal lookbook",
       "newSuggestion": "Nuovo suggerimento",
-      "nothingOn": "Ancora niente di pianificato."
+      "nothingOn": "Ancora niente di pianificato.",
+      "backFromWash": "{count, plural, one {{name} era segnato in lavatrice — ora di nuovo nell’armadio} other {# capi erano segnati in lavatrice — ora di nuovo nell’armadio}}"
     }
   }
 }

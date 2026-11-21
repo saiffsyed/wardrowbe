@@ -997,7 +997,8 @@
       "swapError": "今日のルックを変更できませんでした。もう一度お試しください。",
       "more": "ルックブックからもっと",
       "newSuggestion": "新しい提案",
-      "nothingOn": "まだ予定はありません。"
+      "nothingOn": "まだ予定はありません。",
+      "backFromWash": "{count, plural, one {{name}は洗濯中でした。クローゼットに戻しました} other {洗濯中だった#点をクローゼットに戻しました}}"
     }
   }
 }

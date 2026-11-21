@@ -115,6 +115,12 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
   Back in the wardrobe. The Dressing room, Shuffle and outfit suggestions leave them out;
   the item's own "Mark washed" also brings it back. No tailor / repair status (Saiff
   decided against it). Reminders are left for Stage 3.
+  **Rules (Saiff agreed, 21 Nov):** archiving a piece that is in the wash or at the dry
+  cleaner takes it out of the laundry without recording a wash (restored, it comes back as it
+  was before, "needs washing" if it was dirty). Wearing a piece marked away counts it as
+  washed and back, never blocks; "I wore it" then says so ("Teal kurti was marked in the
+  wash — now back in your wardrobe"). A Today line for a planned look whose piece went to
+  the wash ("… is in the wash · Swap") comes with the heads-ups.
 - Manual builder including shoes and jewellery. Three modes:
   1. **Collage** (default): free arranging on a board, saved with the look (see Lookbook)
   2. **Dressing room**: mannequin outline, swipe to swap, lock, shuffle ("this feature is

@@ -997,7 +997,8 @@
       "swapError": "無法更換今天的造型，請再試一次。",
       "more": "造型冊中更多",
       "newSuggestion": "新推薦",
-      "nothingOn": "還沒有安排。"
+      "nothingOn": "還沒有安排。",
+      "backFromWash": "{count, plural, one {{name}原本標記為清洗中，現已放回衣櫃} other {#件原本標記為清洗中，現已放回衣櫃}}"
     }
   }
 }

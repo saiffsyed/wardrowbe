@@ -997,7 +997,8 @@
       "swapError": "Impossible de changer le look du jour. Veuillez réessayer.",
       "more": "Plus du lookbook",
       "newSuggestion": "Nouvelle proposition",
-      "nothingOn": "Rien de prévu pour l’instant."
+      "nothingOn": "Rien de prévu pour l’instant.",
+      "backFromWash": "{count, plural, one {{name} était marqué au lavage — de retour dans votre armoire} other {# pièces étaient marquées au lavage — de retour dans votre armoire}}"
     }
   }
 }

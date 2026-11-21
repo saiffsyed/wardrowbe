@@ -997,7 +997,8 @@
       "swapError": "오늘의 룩을 바꾸지 못했어요. 다시 시도해 주세요.",
       "more": "룩북에서 더 보기",
       "newSuggestion": "새 제안",
-      "nothingOn": "아직 계획이 없어요."
+      "nothingOn": "아직 계획이 없어요.",
+      "backFromWash": "{count, plural, one {{name}은(는) 세탁 중으로 표시돼 있었어요. 이제 옷장으로 돌아왔어요} other {세탁 중이던 #개가 옷장으로 돌아왔어요}}"
     }
   }
 }

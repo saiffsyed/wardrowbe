@@ -997,7 +997,8 @@
       "swapError": "Could not change today’s look. Please try again.",
       "more": "More from Lookbook",
       "newSuggestion": "New suggestion",
-      "nothingOn": "Nothing planned yet."
+      "nothingOn": "Nothing planned yet.",
+      "backFromWash": "{count, plural, one {{name} was marked in the wash — now back in your wardrobe} other {# pieces were marked in the wash — now back in your wardrobe}}"
     }
   }
 }

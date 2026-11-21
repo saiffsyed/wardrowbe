@@ -14,6 +14,7 @@ vi.mock('@/lib/hooks/use-preferences', () => ({ usePreferences: () => ({ data: {
 vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useWeatherConditionLabel: () => (c: string) => c,
   useOccasionLabel: () => (o: string) => o,
+  useTypeLabel: () => (t: string) => t,
 }))
 vi.mock('@/lib/hooks/use-outfit-title', () => ({ useOutfitTitle: () => (o: { name?: string }) => o.name ?? 'look' }))
 const look = { id: 'o1', name: 'Teal kurti day', scheduled_for: '2026-11-19', status: 'accepted', occasion: 'casual',
