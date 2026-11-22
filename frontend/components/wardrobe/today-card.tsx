@@ -66,11 +66,14 @@ export function TodayActions({
   look,
   forecast,
   deg,
+  swapAsk = 0,
 }: {
   today: string;
   look: Outfit;
   forecast: DayForecast | null;
   deg: (value: number) => string;
+  // Raised by a heads-up's Swap to open the Swap sheet.
+  swapAsk?: number;
 }) {
   const t = useTranslations('wardrobe.closet.today');
   const queryClient = useQueryClient();
@@ -80,6 +83,9 @@ export function TodayActions({
   const suggest = useSuggestToday(today);
   const lookbook = useLookbook();
   const [swapping, setSwapping] = useState(false);
+  useEffect(() => {
+    if (swapAsk > 0) setSwapping(true);
+  }, [swapAsk]);
   // Where "I wore it" is (lib/today-wear.ts); worn once the server says so or a wear is on its way.
   const phase = useWearPhase(look.id);
   const wornOnServer = !!look.feedback?.worn_at;

@@ -18,6 +18,7 @@ import { formatDateKey } from '@/lib/utils';
 import { lookForDay } from '@/lib/look-phase';
 import { piecesOf } from './add-outfit-sheet';
 import { DayEmpty, LookName, TodayActions } from './today-card';
+import { HeadsUps } from './heads-ups';
 import { weatherIcon } from './home-weather';
 import { LookTile, type Arranged } from './look-tile';
 import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
@@ -198,6 +199,10 @@ function DayView({
   const deg = (value: number) => `${displayValue(value, unit)}°`;
   const touchX = useRef<number | null>(null);
   const isToday = selected === today;
+  // A heads-up's Swap opens today's Swap sheet.
+  const [swapAsk, setSwapAsk] = useState(0);
+  // Heads-up lines above the look take some of its height.
+  const [headsUpLines, setHeadsUpLines] = useState(0);
 
   return (
     <div className="flex flex-col gap-2">
@@ -234,6 +239,16 @@ function DayView({
         </button>
       </div>
 
+      <HeadsUps
+        day={selected}
+        today={today}
+        look={look}
+        weatherByDay={weatherByDay}
+        stays={stays}
+        onSwap={() => setSwapAsk((count) => count + 1)}
+        onShown={setHeadsUpLines}
+      />
+
       {/* The look itself gets the rest of the screen; swipe it for the next or previous day. */}
       <div
         className={`flex items-center justify-center py-1 ${look ? '' : 'min-h-[max(18rem,calc(100dvh-19rem))]'}`}
@@ -250,7 +265,7 @@ function DayView({
             href={`/dashboard/outfits/${look.id}`}
             aria-label={outfitTitle(look)}
             className="block"
-            style={{ width: `min(80vw, 22rem, calc((100dvh - ${isToday ? '21rem' : '17rem'}) * 0.6))` }}
+            style={{ width: `min(80vw, 22rem, calc((100dvh - ${(isToday ? 21 : 17) + headsUpLines * 2.6}rem) * 0.6))` }}
           >
             <LookTile pieces={piecesOf(look)} arranged={layouts?.get(look.id)} bare />
           </Link>
@@ -267,7 +282,7 @@ function DayView({
 
       {look &&
         (isToday ? (
-          <TodayActions today={today} look={look} forecast={forecast} deg={deg} />
+          <TodayActions today={today} look={look} forecast={forecast} deg={deg} swapAsk={swapAsk} />
         ) : (
           <LookName title={outfitTitle(look)} occasion={occasionLabel(look.occasion)} />
         ))}

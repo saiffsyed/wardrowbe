@@ -41,8 +41,14 @@ const post = vi.fn(() => Promise.resolve({}))
 vi.mock('@/lib/api', () => ({ api: { post: (...args: unknown[]) => post(...(args as [])) }, getErrorMessage: () => 'error' }))
 vi.mock('@tanstack/react-query', () => ({ useQueryClient: () => ({ invalidateQueries: vi.fn() }) }))
 vi.mock('@/lib/hooks/use-items', () => ({ useItems: () => ({ data: { items: [] } }) }))
-vi.mock('@/lib/hooks/use-laundry', () => ({ useLaundryStates: () => ({ data: new Map() }) }))
-vi.mock('@/lib/hooks/use-homes', () => ({ useHomes: () => ({ data: [] }) }))
+vi.mock('@/lib/hooks/use-laundry', () => ({
+  useLaundryStates: () => ({ data: new Map() }),
+  useLaundry: () => ({ data: undefined }),
+}))
+vi.mock('@/lib/hooks/use-homes', () => ({
+  useHomes: () => ({ data: [] }),
+  useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-weather', () => ({ useWeather: () => ({ data: undefined }) }))
 vi.mock('@/lib/hooks/use-outfit-layouts', () => ({ useOutfitLayouts: () => ({ data: undefined }) }))
 

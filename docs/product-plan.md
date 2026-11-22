@@ -187,6 +187,17 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     the focus), and a smaller "Make a new one". **Every empty day** shows the same two tiles
     (Saiff agreed); past the 16-day forecast only Pick from Lookbook and Make a new one. Heads-ups come next (Stage 3, step 2), then
     couple coordination; Google Calendar waits until the app is online.
+  - **Heads-ups** (built, preview; mock-up https://claude.ai/artifact/GjwHsF3mQvJcqtZrEA3svu):
+    one short line under the week, only when something needs you, with one action and ✕
+    (hides it for that day); the most important shows, "+N more" opens the rest; the look
+    shrinks a little to keep Swap / I wore it on screen. Fixed rules, no AI, no phone
+    notifications yet. In order: a piece of the day's look is in the wash / at the dry
+    cleaner / needs washing (Swap); rain 60%+ against suede, silk, velvet or leather (Swap);
+    wool or a coat on a hot day, or no warm layer on a cold one (Swap); and on today only, a
+    stay within 3 days 8°+ colder or warmer (See weather), back from a trip (Yes: shows the
+    clothes of the home you were in before it, remembered on this phone when the arrival
+    prompt switched the wardrobe), and rain 3 days running ahead with 5+ pieces to wash
+    (Laundry). On other days Swap reads "Change" and opens the look in the outfit maker.
   - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
     longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on
     Insights under More.
@@ -345,8 +356,6 @@ Still to do in Stage 1:
   needed for Google sign-in)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
-- After a trip, should the app offer to switch the wardrobe back to your usual home? It
-  asks on arrival but not on return, and it does not yet know which home is "usual".
 
 ## Going online (agreed, not ordered)
 

@@ -999,6 +999,26 @@
       "newSuggestion": "Nuovo suggerimento",
       "nothingOn": "Ancora niente di pianificato.",
       "backFromWash": "{count, plural, one {{name} era segnato in lavatrice — ora di nuovo nell’armadio} other {# capi erano segnati in lavatrice — ora di nuovo nell’armadio}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name} è in lavatrice} dryCleaning {{name} è in lavanderia} other {{name} è da lavare}}",
+      "rain": "Pioggia {chance}% · {name} potrebbe bagnarsi",
+      "hot": "{temp} · {name} sarà troppo caldo",
+      "cold": "{temp} · questo look non ha uno strato caldo",
+      "trip": "{colder, select, colder {{day} a {city}: {temp}, {difference} più freddo · porta capi caldi} other {{day} a {city}: {temp}, {difference} più caldo · porta capi leggeri}}",
+      "home": "Sei tornato. Mostrare i capi di {home}?",
+      "washBeforeRain": "Pioggia {from}–{to} · {count} capi da lavare prima",
+      "actions": {
+        "swap": "Cambia",
+        "change": "Modifica",
+        "weather": "Meteo",
+        "home": "Sì",
+        "laundry": "Bucato"
+      },
+      "hide": "Nascondi per oggi",
+      "more": "+{count} altri",
+      "less": "Meno",
+      "homeError": "Impossibile cambiare casa. Riprova."
     }
   }
 }

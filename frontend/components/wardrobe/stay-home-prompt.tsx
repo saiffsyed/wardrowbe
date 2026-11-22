@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { getErrorMessage } from '@/lib/api';
 import { useHomes, useSetCurrentHome } from '@/lib/hooks/use-homes';
 import { useWeatherDays } from '@/lib/hooks/use-stays';
+import { rememberTrip } from '@/lib/trip-return';
 
 const DISMISSED_KEY = 'stay-home-prompt-dismissed';
 
@@ -50,6 +51,11 @@ export function StayHomePrompt() {
           disabled={setCurrent.isPending}
           onClick={() =>
             setCurrent.mutate(home.id, {
+              // Remembered, so the morning after the stay the app offers the way back.
+              onSuccess: () => {
+                const before = homes?.find((h) => h.is_current);
+                if (before && today.stay_id) rememberTrip({ from: before.id, to: home.id, stayId: today.stay_id });
+              },
               onError: (error) => toast.error(getErrorMessage(error, t('saveError'))),
             })
           }

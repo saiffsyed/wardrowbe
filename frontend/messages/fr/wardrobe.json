@@ -999,6 +999,26 @@
       "newSuggestion": "Nouvelle proposition",
       "nothingOn": "Rien de prévu pour l’instant.",
       "backFromWash": "{count, plural, one {{name} était marqué au lavage — de retour dans votre armoire} other {# pièces étaient marquées au lavage — de retour dans votre armoire}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name} est au lavage} dryCleaning {{name} est au pressing} other {{name} est à laver}}",
+      "rain": "Pluie {chance} % · {name} risque d’être mouillé",
+      "hot": "{temp} · {name} sera trop chaud",
+      "cold": "{temp} · ce look n’a pas de couche chaude",
+      "trip": "{colder, select, colder {{day} à {city} : {temp}, {difference} de moins · prévoyez chaud} other {{day} à {city} : {temp}, {difference} de plus · prévoyez léger}}",
+      "home": "Vous êtes rentré. Afficher les vêtements de {home} ?",
+      "washBeforeRain": "Pluie {from}–{to} · {count} pièces à laver avant",
+      "actions": {
+        "swap": "Changer",
+        "change": "Modifier",
+        "weather": "Météo",
+        "home": "Oui",
+        "laundry": "Linge"
+      },
+      "hide": "Masquer aujourd’hui",
+      "more": "+{count} de plus",
+      "less": "Moins",
+      "homeError": "Impossible de changer de logement. Veuillez réessayer."
     }
   }
 }

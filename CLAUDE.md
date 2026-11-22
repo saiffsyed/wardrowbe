@@ -98,6 +98,9 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   On today the Day view adds Swap / I wore it, or the empty-day tiles
   (`components/wardrobe/today-card.tsx`; which saved looks Swap offers: `lib/today.ts`;
   the stages of "I wore it" — Undo window, sending, sent — in `lib/today-wear.ts`).
+- Heads-ups on the Plan screen: rules in `frontend/lib/heads-ups.ts` (tested in
+  `tests/heads-ups.test.ts`), the line in `components/wardrobe/heads-ups.tsx`, the home before
+  a trip in `lib/trip-return.ts` (localStorage, written by `stay-home-prompt.tsx`).
 - A look's stage (template = Lookbook, planned, worn, declined) is named in
   `frontend/lib/look-phase.ts`, which also picks the look shown for a day (`lookForDay`). The
   server refuses to mark a Lookbook look worn (409 `OUTFIT_IS_TEMPLATE`, our guard in the

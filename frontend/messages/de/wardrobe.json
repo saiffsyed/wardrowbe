@@ -999,6 +999,26 @@
       "newSuggestion": "Neuer Vorschlag",
       "nothingOn": "Noch nichts geplant.",
       "backFromWash": "{count, plural, one {{name} war als in der Wäsche markiert – jetzt wieder im Schrank} other {# Teile waren als in der Wäsche markiert – jetzt wieder im Schrank}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name} ist in der Wäsche} dryCleaning {{name} ist in der Reinigung} other {{name} muss gewaschen werden}}",
+      "rain": "Regen {chance} % · {name} könnte nass werden",
+      "hot": "{temp} · {name} wird zu warm",
+      "cold": "{temp} · dieser Look hat keine warme Schicht",
+      "trip": "{colder, select, colder {{day} in {city}: {temp}, {difference} kälter · warm packen} other {{day} in {city}: {temp}, {difference} wärmer · leicht packen}}",
+      "home": "Wieder da. Die Kleidung in {home} zeigen?",
+      "washBeforeRain": "Regen {from}–{to} · {count} Teile vorher waschen",
+      "actions": {
+        "swap": "Tauschen",
+        "change": "Ändern",
+        "weather": "Wetter",
+        "home": "Ja",
+        "laundry": "Wäsche"
+      },
+      "hide": "Für heute ausblenden",
+      "more": "+{count} weitere",
+      "less": "Weniger",
+      "homeError": "Zuhause konnte nicht gewechselt werden. Bitte versuche es erneut."
     }
   }
 }

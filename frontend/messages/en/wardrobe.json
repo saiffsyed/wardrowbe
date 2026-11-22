@@ -999,6 +999,26 @@
       "newSuggestion": "New suggestion",
       "nothingOn": "Nothing planned yet.",
       "backFromWash": "{count, plural, one {{name} was marked in the wash — now back in your wardrobe} other {# pieces were marked in the wash — now back in your wardrobe}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name} is in the wash} dryCleaning {{name} is at the dry cleaner} other {{name} needs washing}}",
+      "rain": "Rain {chance}% · your {name} may get wet",
+      "hot": "{temp} · your {name} will be too warm",
+      "cold": "{temp} · this look has no warm layer",
+      "trip": "{colder, select, colder {{day} in {city}: {temp}, {difference} colder · pack warm} other {{day} in {city}: {temp}, {difference} warmer · pack light}}",
+      "home": "You’re back. Show the clothes kept in {home}?",
+      "washBeforeRain": "Rain {from}–{to} · {count} pieces to wash before then",
+      "actions": {
+        "swap": "Swap",
+        "change": "Change",
+        "weather": "See weather",
+        "home": "Yes",
+        "laundry": "Laundry"
+      },
+      "hide": "Hide for today",
+      "more": "+{count} more",
+      "less": "Show less",
+      "homeError": "Could not switch home. Please try again."
     }
   }
 }

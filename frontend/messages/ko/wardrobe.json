@@ -999,6 +999,26 @@
       "newSuggestion": "새 제안",
       "nothingOn": "아직 계획이 없어요.",
       "backFromWash": "{count, plural, one {{name}은(는) 세탁 중으로 표시돼 있었어요. 이제 옷장으로 돌아왔어요} other {세탁 중이던 #개가 옷장으로 돌아왔어요}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name}은(는) 세탁 중이에요} dryCleaning {{name}은(는) 세탁소에 있어요} other {{name}은(는) 세탁이 필요해요}}",
+      "rain": "비 {chance}% · {name}이(가) 젖을 수 있어요",
+      "hot": "{temp} · {name}은(는) 너무 더워요",
+      "cold": "{temp} · 이 룩에는 따뜻한 겉옷이 없어요",
+      "trip": "{colder, select, colder {{day} {city}: {temp}, {difference} 더 추워요 · 따뜻하게 챙기세요} other {{day} {city}: {temp}, {difference} 더 더워요 · 가볍게 챙기세요}}",
+      "home": "돌아오셨네요. {home}에 있는 옷을 보여줄까요?",
+      "washBeforeRain": "{from}–{to} 비 · 그 전에 {count}개 세탁",
+      "actions": {
+        "swap": "바꾸기",
+        "change": "변경",
+        "weather": "날씨",
+        "home": "네",
+        "laundry": "세탁"
+      },
+      "hide": "오늘 숨기기",
+      "more": "+{count}개 더",
+      "less": "접기",
+      "homeError": "집을 바꾸지 못했어요. 다시 시도해 주세요."
     }
   }
 }

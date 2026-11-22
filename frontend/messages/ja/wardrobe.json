@@ -999,6 +999,26 @@
       "newSuggestion": "新しい提案",
       "nothingOn": "まだ予定はありません。",
       "backFromWash": "{count, plural, one {{name}は洗濯中でした。クローゼットに戻しました} other {洗濯中だった#点をクローゼットに戻しました}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name}は洗濯中です} dryCleaning {{name}はクリーニング中です} other {{name}は洗濯が必要です}}",
+      "rain": "降水確率{chance}% · {name}が濡れるかもしれません",
+      "hot": "{temp} · {name}は暑すぎます",
+      "cold": "{temp} · このルックには防寒着がありません",
+      "trip": "{colder, select, colder {{day}は{city}：{temp}、{difference}寒い · 暖かい服を} other {{day}は{city}：{temp}、{difference}暑い · 軽い服を}}",
+      "home": "おかえりなさい。{home}の服を表示しますか？",
+      "washBeforeRain": "{from}〜{to}は雨 · その前に{count}点を洗濯",
+      "actions": {
+        "swap": "入れ替え",
+        "change": "変更",
+        "weather": "天気",
+        "home": "はい",
+        "laundry": "洗濯"
+      },
+      "hide": "今日は非表示",
+      "more": "+{count}件",
+      "less": "閉じる",
+      "homeError": "家を切り替えられませんでした。もう一度お試しください。"
     }
   }
 }

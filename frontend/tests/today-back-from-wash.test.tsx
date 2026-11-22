@@ -40,10 +40,16 @@ const post = vi.fn(() => Promise.resolve({}))
 vi.mock('@/lib/api', () => ({ api: { post: (...args: unknown[]) => post(...(args as [])) }, getErrorMessage: () => 'error' }))
 vi.mock('@tanstack/react-query', () => ({ useQueryClient: () => ({ invalidateQueries: vi.fn() }) }))
 vi.mock('@/lib/hooks/use-items', () => ({ useItems: () => ({ data: { items: [] } }) }))
-vi.mock('@/lib/hooks/use-laundry', () => ({ useLaundryStates: () => ({ data: new Map([['i1', 'wash']]) }) }))
+vi.mock('@/lib/hooks/use-laundry', () => ({
+  useLaundryStates: () => ({ data: new Map([['i1', 'wash']]) }),
+  useLaundry: () => ({ data: undefined }),
+}))
 const toastFn = vi.fn()
 vi.mock('sonner', () => ({ toast: Object.assign((...args: unknown[]) => toastFn(...args), { success: vi.fn(), error: vi.fn() }) }))
-vi.mock('@/lib/hooks/use-homes', () => ({ useHomes: () => ({ data: [] }) }))
+vi.mock('@/lib/hooks/use-homes', () => ({
+  useHomes: () => ({ data: [] }),
+  useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-weather', () => ({ useWeather: () => ({ data: undefined }) }))
 vi.mock('@/lib/hooks/use-outfit-layouts', () => ({ useOutfitLayouts: () => ({ data: undefined }) }))
 
@@ -58,3 +64,14 @@ describe('I wore it with a piece marked in the wash', () => {
     expect(toastFn).toHaveBeenCalledWith('backFromWash')
   })
 })
+
+describe('heads-up on the Plan screen', () => {
+  it('shows when a piece of today\'s look is in the wash, and its Swap opens Swap', () => {
+    search = ''
+    render(<PlannerScreen />)
+    expect(screen.getByText('away')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'actions.swap' }))
+    expect(screen.getByText('swapTitle')).toBeTruthy()
+  })
+})
+

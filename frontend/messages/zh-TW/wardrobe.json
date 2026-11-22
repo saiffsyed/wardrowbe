@@ -999,6 +999,26 @@
       "newSuggestion": "新推薦",
       "nothingOn": "還沒有安排。",
       "backFromWash": "{count, plural, one {{name}原本標記為清洗中，現已放回衣櫃} other {#件原本標記為清洗中，現已放回衣櫃}}"
+    },
+    "headsUps": {
+      "away": "{state, select, washing {{name}在洗} dryCleaning {{name}在乾洗店} other {{name}需要洗了}}",
+      "rain": "降雨 {chance}% · {name}可能會淋濕",
+      "hot": "{temp} · {name}會太熱",
+      "cold": "{temp} · 這套沒有保暖層",
+      "trip": "{colder, select, colder {{day}在{city}：{temp}，冷 {difference} · 多帶厚衣服} other {{day}在{city}：{temp}，熱 {difference} · 帶輕薄衣服}}",
+      "home": "回來了。顯示{home}的衣服嗎？",
+      "washBeforeRain": "{from}–{to}有雨 · 先洗 {count} 件",
+      "actions": {
+        "swap": "換一套",
+        "change": "修改",
+        "weather": "看天氣",
+        "home": "好",
+        "laundry": "洗衣"
+      },
+      "hide": "今天隱藏",
+      "more": "還有 {count} 則",
+      "less": "收起",
+      "homeError": "無法切換住處，請再試一次。"
     }
   }
 }
