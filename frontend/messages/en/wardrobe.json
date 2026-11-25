@@ -1032,7 +1032,26 @@
       "share": "Share my planned looks",
       "shareHint": "{name} sees the looks you plan on days.",
       "shareHintNoPartner": "Join a family with your partner first.",
-      "saveError": "Could not save. Please try again."
+      "saveError": "Could not save. Please try again.",
+      "matchTitle": "Looks that go with {name}’s",
+      "match": "♥ Match with partner",
+      "alreadyWorn": "You already wore a look this day.",
+      "reasonPair": "{mine} goes with {theirs}",
+      "reasonNeutral": "{mine} goes with anything",
+      "reasonTwin": "Twinning in {colour}",
+      "reasonIndian": "Indian wear together",
+      "reasonOccasion": "Same occasion",
+      "newLook": "New look",
+      "styleLabel": "How to match",
+      "noMatches": "Nothing in this home goes well with it yet. Try Twin, or another day.",
+      "wada": "Wada no. {id}",
+      "wadaCredit": "Colour pairs after Sanzo Wada, A Dictionary of Color Combinations.",
+      "planned": "Planned · goes with {name}’s look",
+      "planError": "Could not plan the look. Please try again.",
+      "style": {
+        "go": "Go with",
+        "twin": "Twin"
+      }
     }
   }
 }

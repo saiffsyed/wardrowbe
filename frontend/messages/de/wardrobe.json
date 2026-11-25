@@ -1032,7 +1032,26 @@
       "share": "Meine geplanten Looks teilen",
       "shareHint": "{name} sieht die Looks, die du für Tage planst.",
       "shareHintNoPartner": "Tritt zuerst mit deinem Partner einer Familie bei.",
-      "saveError": "Konnte nicht gespeichert werden. Bitte versuche es erneut."
+      "saveError": "Konnte nicht gespeichert werden. Bitte versuche es erneut.",
+      "matchTitle": "Looks passend zu {name}",
+      "match": "♥ Zum Partner passend",
+      "alreadyWorn": "Du hast an diesem Tag schon einen Look getragen.",
+      "reasonPair": "{mine} passt zu {theirs}",
+      "reasonNeutral": "{mine} passt zu allem",
+      "reasonTwin": "Partnerlook in {colour}",
+      "reasonIndian": "Zusammen in indischer Kleidung",
+      "reasonOccasion": "Gleicher Anlass",
+      "newLook": "Neuer Look",
+      "styleLabel": "Wie abstimmen",
+      "noMatches": "Noch passt nichts in diesem Zuhause gut dazu. Versuche Partnerlook oder einen anderen Tag.",
+      "wada": "Wada Nr. {id}",
+      "wadaCredit": "Farbpaare nach Sanzo Wada, A Dictionary of Color Combinations.",
+      "planned": "Geplant · passt zum Look von {name}",
+      "planError": "Look konnte nicht geplant werden. Bitte versuche es erneut.",
+      "style": {
+        "go": "Passend",
+        "twin": "Partnerlook"
+      }
     }
   }
 }

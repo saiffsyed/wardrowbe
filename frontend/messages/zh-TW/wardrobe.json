@@ -1032,7 +1032,26 @@
       "share": "分享我安排的造型",
       "shareHint": "{name}能看到你安排到某天的造型。",
       "shareHintNoPartner": "請先和伴侶加入同一個家庭。",
-      "saveError": "無法儲存，請再試一次。"
+      "saveError": "無法儲存，請再試一次。",
+      "matchTitle": "與{name}的造型相配",
+      "match": "♥ 與伴侶搭配",
+      "alreadyWorn": "這一天你已經穿過一套了。",
+      "reasonPair": "{mine}配{theirs}",
+      "reasonNeutral": "{mine}百搭",
+      "reasonTwin": "{colour}情侶裝",
+      "reasonIndian": "一起穿印度服飾",
+      "reasonOccasion": "同一場合",
+      "newLook": "新造型",
+      "styleLabel": "搭配方式",
+      "noMatches": "這個住處還沒有合適的衣服。試試情侶裝或換一天。",
+      "wada": "和田 {id} 號",
+      "wadaCredit": "配色參考和田三造《配色事典》。",
+      "planned": "已安排 · 與{name}的造型相配",
+      "planError": "無法安排造型，請再試一次。",
+      "style": {
+        "go": "相配",
+        "twin": "情侶裝"
+      }
     }
   }
 }

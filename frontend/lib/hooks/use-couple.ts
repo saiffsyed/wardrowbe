@@ -13,6 +13,9 @@ export interface PartnerInfo {
   avatar_url?: string | null;
 }
 
+// A partner's planned look, with each piece's pattern (for matching).
+export type PartnerPlan = Outfit & { item_patterns?: Record<string, string> };
+
 export interface Couple {
   partner: PartnerInfo | null;
   partner_shares: boolean;
@@ -42,7 +45,7 @@ export function usePartnerPlans(from: string, to: string, enabled = true) {
   const ready = useReady();
   return useQuery({
     queryKey: queryKeys.partnerPlans(from, to),
-    queryFn: () => api.get<Outfit[]>('/couple/plans', { params: { date_from: from, date_to: to } }),
+    queryFn: () => api.get<PartnerPlan[]>('/couple/plans', { params: { date_from: from, date_to: to } }),
     enabled: ready && enabled,
     staleTime: 60 * 1000,
   });

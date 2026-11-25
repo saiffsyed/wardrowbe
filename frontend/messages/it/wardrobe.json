@@ -1032,7 +1032,26 @@
       "share": "Condividi i miei look pianificati",
       "shareHint": "{name} vede i look che pianifichi per i giorni.",
       "shareHintNoPartner": "Prima unisciti a una famiglia con il tuo partner.",
-      "saveError": "Impossibile salvare. Riprova."
+      "saveError": "Impossibile salvare. Riprova.",
+      "matchTitle": "Look abbinati a quello di {name}",
+      "match": "♥ Abbina al partner",
+      "alreadyWorn": "Hai già indossato un look quel giorno.",
+      "reasonPair": "{mine} sta bene con {theirs}",
+      "reasonNeutral": "{mine} sta bene con tutto",
+      "reasonTwin": "Coordinati in {colour}",
+      "reasonIndian": "Abiti indiani insieme",
+      "reasonOccasion": "Stessa occasione",
+      "newLook": "Nuovo look",
+      "styleLabel": "Come abbinare",
+      "noMatches": "Niente in questa casa si abbina ancora. Prova Coordinati o un altro giorno.",
+      "wada": "Wada n. {id}",
+      "wadaCredit": "Abbinamenti di colore da Sanzo Wada, A Dictionary of Color Combinations.",
+      "planned": "Pianificato · si abbina al look di {name}",
+      "planError": "Impossibile pianificare il look. Riprova.",
+      "style": {
+        "go": "Abbina",
+        "twin": "Coordinati"
+      }
     }
   }
 }

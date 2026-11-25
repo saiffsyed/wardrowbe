@@ -1,6 +1,7 @@
 import { coversBottom, isWarm, spotOf, type Warmth } from '@/lib/dressing-room';
 import type { Outfit } from '@/lib/hooks/use-outfits';
 import type { Item } from '@/lib/types';
+import { wadaPairing, wadaStrength } from '@/lib/wada';
 
 // "Match with partner": which of your looks go with your partner's, by fixed rules (no AI).
 // Each look gets a score; the best three saved looks are offered, then one new look put
@@ -8,8 +9,9 @@ import type { Item } from '@/lib/types';
 //
 //   1. Occasion   the same occasion scores most, the same kind of day (dressed up, work,
 //                 casual, sport) a little less; other kinds are left out while any match.
-//   2. Colours    "Go with" (default): neutrals go with anything, known good pairs score
-//                 high, loud colours that fight lose. "Twin": the same colour family wins.
+//   2. Colours    after Sanzo Wada's dictionary (lib/wada.ts). "Go with" (default): colours
+//                 Wada often combines score high, neutrals go with anything, colours he
+//                 never combines lose. "Twin": the same colour family wins.
 //   3. Patterns   one patterned and one plain is best; two busy patterns lose points.
 //   4. Indian     with a saree, lehenga or the like on one side, Indian wear on the other
 //                 is preferred (not required: mixing is still offered).
@@ -18,7 +20,7 @@ import type { Item } from '@/lib/types';
 export type MatchStyle = 'go' | 'twin';
 
 export type MatchReason =
-  | { kind: 'pair'; mine: string; theirs: string }
+  | { kind: 'pair'; mine: string; theirs: string; wada?: { id: number; hexes: string[] } }
   | { kind: 'neutral'; mine: string }
   | { kind: 'twin'; colour: string }
   | { kind: 'indian' }
@@ -60,23 +62,14 @@ const FAMILY: Record<string, string> = {
   silver: 'gray',
   black: 'black',
 };
-const pairKey = (a: string, b: string) => [a, b].sort().join('+');
-const GOOD = new Set(
-  [
-    ['pink', 'white'], ['pink', 'gray'], ['pink', 'navy'], ['pink', 'cream'], ['pink', 'silver'],
-    ['burgundy', 'cream'], ['burgundy', 'gold'], ['burgundy', 'beige'], ['red', 'gold'], ['red', 'cream'],
-    ['red', 'navy'], ['green', 'cream'], ['green', 'gold'], ['olive', 'cream'], ['olive', 'white'],
-    ['blue', 'tan'], ['blue', 'white'], ['navy', 'beige'], ['navy', 'yellow'], ['navy', 'orange'],
-    ['purple', 'gold'], ['purple', 'silver'], ['purple', 'cream'], ['light-blue', 'white'],
-    ['light-blue', 'navy'], ['yellow', 'gray'], ['orange', 'cream'], ['brown', 'cream'], ['green', 'pink'],
-  ].map(([a, b]) => pairKey(a, b))
-);
-const CLASH = new Set(
-  [
-    ['pink', 'orange'], ['red', 'orange'], ['red', 'pink'], ['purple', 'orange'], ['red', 'purple'],
-    ['green', 'red'], ['orange', 'burgundy'], ['yellow', 'purple'],
-  ].map(([a, b]) => pairKey(a, b))
-);
+// Colour pairs come from Sanzo Wada's "A Dictionary of Color Combinations" (lib/wada.ts).
+const STRONG = 0.15; // Wada pairs these often
+const FAIR = 0.08; // …now and then
+const NEVER = 0.04; // (almost) never together: two such colours fight
+
+function clashes(a: string, b: string): boolean {
+  return !!a && !!b && a !== b && !NEUTRALS.has(a) && !NEUTRALS.has(b) && FAMILY[a] !== FAMILY[b] && wadaStrength(a, b) < NEVER;
+}
 
 const OCCASION_KIND: Record<string, string> = {
   wedding: 'dressy', party: 'dressy', formal: 'dressy', dinner: 'dressy', date: 'dressy',
@@ -116,21 +109,20 @@ export function colourScore(mine: string[], theirs: string[], style: MatchStyle)
   let best = -Infinity;
   for (const a of mine) {
     for (const b of theirs) {
-      const key = pairKey(a, b);
-      const sameFamily = FAMILY[a] && FAMILY[a] === FAMILY[b];
+      const strength = wadaStrength(a, b);
+      const sameFamily = !!FAMILY[a] && FAMILY[a] === FAMILY[b];
       let points = 0;
       let why: MatchReason | null = null;
-      if (CLASH.has(key)) points = -4;
+      if (clashes(a, b)) points = -3;
       else if (style === 'twin') {
         if (sameFamily) [points, why] = [4, { kind: 'twin', colour: b }];
-        else if (GOOD.has(key)) [points, why] = [1, { kind: 'pair', mine: a, theirs: b }];
-        else if (NEUTRALS.has(a)) points = 1;
-      } else {
-        if (GOOD.has(key)) [points, why] = [3, { kind: 'pair', mine: a, theirs: b }];
-        else if (NEUTRALS.has(a) && !NEUTRALS.has(b)) [points, why] = [2, { kind: 'neutral', mine: a }];
-        else if (sameFamily) points = 1;
-        else if (NEUTRALS.has(a) || NEUTRALS.has(b)) points = 1;
-      }
+        else if (strength >= STRONG) points = 1;
+      } else if (strength >= STRONG || (strength >= FAIR && !sameFamily)) {
+        const combination = wadaPairing(a, b).combination;
+        points = strength >= STRONG ? 3 : 2;
+        why = { kind: 'pair', mine: a, theirs: b, wada: combination };
+      } else if (NEUTRALS.has(a) && !NEUTRALS.has(b)) [points, why] = [1, { kind: 'neutral', mine: a }];
+      else if (NEUTRALS.has(a) || NEUTRALS.has(b)) points = 1;
       score += points;
       if (why && points > best) {
         best = points;
@@ -156,7 +148,7 @@ function scoreLook(
   partner: PartnerLook,
   style: MatchStyle,
   patternOf: (id: string) => string | undefined
-): { score: number; reason: MatchReason } {
+): { score: number; reason: MatchReason; clash: boolean } {
   let score = 0;
   if (occasion === partner.occasion) score += 5;
   else if (kindOf(occasion) === kindOf(partner.occasion)) score += 3;
@@ -169,7 +161,7 @@ function scoreLook(
   const indianBoth = items.some((item) => INDIAN.has(item.type)) && partner.items.some((item) => INDIAN.has(item.type));
   if (indianBoth) score += 3;
   const reason: MatchReason = colours.reason ?? (indianBoth ? { kind: 'indian' } : { kind: 'occasion' });
-  return { score, reason };
+  return { score, reason, clash: colours.score < 0 };
 }
 
 // The saved looks that go best with the partner's, from looks already checked as practical
@@ -186,10 +178,12 @@ export function matchSavedLooks(
   return pool
     .map((look) => {
       const items = look.items.map((piece) => ({ ...piece, colors: piece.colors ?? [] }));
-      const { score, reason } = scoreLook(items, look.occasion, partner, style, (id) => myItems.get(id)?.tags?.pattern);
-      return { look, itemIds: look.items.map((piece) => piece.id), score, reason };
+      const { score, reason, clash } = scoreLook(items, look.occasion, partner, style, (id) => myItems.get(id)?.tags?.pattern);
+      return { look, itemIds: look.items.map((piece) => piece.id), score, reason, clash };
     })
-    .filter((match) => match.score > 0)
+    // Colours that fight theirs are never offered, however well the rest fits.
+    .filter((match) => !match.clash && match.score > 0)
+    .map(({ clash: _clash, ...match }) => match)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 }
@@ -228,7 +222,7 @@ export function makeMatchingLook(
   const chosen = [top.item];
   if (!coversBottom(top.item.type)) {
     const bottom = best(
-      of('bottom').filter((item) => !CLASH.has(pairKey(item.primary_color ?? '', top.item.primary_color ?? ''))),
+      of('bottom').filter((item) => !clashes(item.primary_color ?? '', top.item.primary_color ?? '')),
       chosen
     );
     if (!bottom) return null;

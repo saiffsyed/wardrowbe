@@ -105,7 +105,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `GET /couple/plans`; partner = the chosen family member, or the other one of two),
   `backend/app/models/couple.py`; frontend `lib/hooks/use-couple.ts`,
   `components/wardrobe/partner-look.tsx` (corner tile, eye, large view, settings card on the
-  upstream Family page).
+  upstream Family page, Match with partner); matching rules `lib/partner-match.ts`, Wada colour
+  pairs `lib/wada.ts` with data `lib/data/wada-colors.json` (MIT, see `WADA-LICENSE.md`).
 - A look's stage (template = Lookbook, planned, worn, declined) is named in
   `frontend/lib/look-phase.ts`, which also picks the look shown for a day (`lookForDay`). The
   server refuses to mark a Lookbook look worn (409 `OUTFIT_IS_TEMPLATE`, our guard in the

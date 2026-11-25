@@ -1032,7 +1032,26 @@
       "share": "Partager mes looks prévus",
       "shareHint": "{name} voit les looks que vous prévoyez pour un jour.",
       "shareHintNoPartner": "Rejoignez d’abord une famille avec votre partenaire.",
-      "saveError": "Enregistrement impossible. Veuillez réessayer."
+      "saveError": "Enregistrement impossible. Veuillez réessayer.",
+      "matchTitle": "Looks assortis à celui de {name}",
+      "match": "♥ Assortir au partenaire",
+      "alreadyWorn": "Vous avez déjà porté un look ce jour-là.",
+      "reasonPair": "{mine} va avec {theirs}",
+      "reasonNeutral": "{mine} va avec tout",
+      "reasonTwin": "Assortis en {colour}",
+      "reasonIndian": "Tenues indiennes ensemble",
+      "reasonOccasion": "Même occasion",
+      "newLook": "Nouveau look",
+      "styleLabel": "Comment assortir",
+      "noMatches": "Rien dans ce logement ne s’accorde encore. Essayez Assortis ou un autre jour.",
+      "wada": "Wada n° {id}",
+      "wadaCredit": "Accords de couleurs d’après Sanzo Wada, A Dictionary of Color Combinations.",
+      "planned": "Prévu · va avec le look de {name}",
+      "planError": "Impossible de prévoir le look. Veuillez réessayer.",
+      "style": {
+        "go": "S’accorder",
+        "twin": "Assortis"
+      }
     }
   }
 }

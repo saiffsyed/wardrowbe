@@ -205,8 +205,20 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     they have none. An **eye** button under it hides / shows it (remembered on the phone);
     tapping the tile opens their look large. Sharing planned looks is **on by default** and
     goes both ways; More → Family → Partner has the "Share my planned looks" switch. Only
-    looks planned on days are shared, never the wardrobe. **Match with partner is not built
-    yet**: its rules are being discussed with Saiff.
+    looks planned on days are shared, never the wardrobe. The **eye sits on the tile's corner**
+    (Saiff asked to move it there).
+  - **Match with partner** (built, preview): in the partner's large view. **Go with** (default)
+    or **Twin**; up to three saved looks plus one **new look** put together from your clothes,
+    each with a short reason and, for colour pairs, the Wada combination's swatches. Picking
+    one plans it for that day (replacing your plan; not after you wore one). Rules
+    (`frontend/lib/partner-match.ts`): same occasion or kind of day; colours after **Sanzo
+    Wada's "A Dictionary of Color Combinations"** (Saiff's reference; data from
+    github.com/mattdesl/dictionary-of-colour-combinations, MIT, in `frontend/lib/data`):
+    each of the app's 20 colour names stands for up to six nearby Wada shades, and two colours
+    go together as often as Wada combined those shades; colours he never combines are never
+    offered; neutrals go with anything; one patterned and one plain; Indian wear together
+    preferred; only clean clothes in this home that suit the weather. No AI suggestion here
+    yet: the AI service cannot see the partner's look.
   - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
     longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on
     Insights under More.

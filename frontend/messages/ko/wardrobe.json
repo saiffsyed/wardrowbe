@@ -1032,7 +1032,26 @@
       "share": "계획한 룩 공유",
       "shareHint": "{name}님이 내가 날짜에 계획한 룩을 볼 수 있어요.",
       "shareHintNoPartner": "먼저 파트너와 가족에 참여하세요.",
-      "saveError": "저장하지 못했어요. 다시 시도해 주세요."
+      "saveError": "저장하지 못했어요. 다시 시도해 주세요.",
+      "matchTitle": "{name}의 룩에 어울리는 룩",
+      "match": "♥ 파트너와 맞추기",
+      "alreadyWorn": "이 날은 이미 룩을 입었어요.",
+      "reasonPair": "{mine}은(는) {theirs}와(과) 어울려요",
+      "reasonNeutral": "{mine}은(는) 무엇과도 어울려요",
+      "reasonTwin": "{colour} 커플룩",
+      "reasonIndian": "함께 인도 전통복",
+      "reasonOccasion": "같은 상황",
+      "newLook": "새 룩",
+      "styleLabel": "맞추는 방법",
+      "noMatches": "이 집에는 아직 어울리는 옷이 없어요. 커플룩이나 다른 날을 시도해 보세요.",
+      "wada": "와다 {id}번",
+      "wadaCredit": "배색은 와다 산조의 『배색 사전』을 따릅니다.",
+      "planned": "계획했어요 · {name}의 룩과 어울려요",
+      "planError": "룩을 계획하지 못했어요. 다시 시도해 주세요.",
+      "style": {
+        "go": "어울리게",
+        "twin": "커플룩"
+      }
     }
   }
 }

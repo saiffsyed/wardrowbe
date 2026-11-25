@@ -268,7 +268,7 @@ function DayView({
           if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
         }}
       >
-        <PartnerCorner day={selected} look={partnerLook} />
+        <PartnerCorner day={selected} look={partnerLook} myLook={look} forecast={forecast} />
         {look ? (
           <Link
             href={`/dashboard/outfits/${look.id}`}

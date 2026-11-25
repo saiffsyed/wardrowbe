@@ -15,6 +15,7 @@ vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useWeatherConditionLabel: () => (c: string) => c,
   useOccasionLabel: () => (o: string) => o,
   useTypeLabel: () => (t: string) => t,
+  useColorLabel: () => (c: string) => c,
 }))
 vi.mock('@/lib/hooks/use-outfit-title', () => ({ useOutfitTitle: () => (o: { name?: string }) => o.name ?? 'look' }))
 const look = { id: 'o1', name: 'Teal kurti day', scheduled_for: '2026-11-19', status: 'accepted', occasion: 'casual',
@@ -68,5 +69,15 @@ describe('partner on the Plan screen', () => {
     expect(screen.queryByRole('button', { name: 'open' })).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'show' }))
     expect(screen.getByRole('button', { name: 'open' })).toBeTruthy()
+  })
+
+  it('Match with partner offers Go with and Twin, and says when nothing fits', () => {
+    search = ''
+    render(<PlannerScreen />)
+    fireEvent.click(screen.getByRole('button', { name: 'open' }))
+    fireEvent.click(screen.getByRole('button', { name: 'match' }))
+    expect(screen.getByRole('radio', { name: 'style.go' }).getAttribute('aria-checked')).toBe('true')
+    expect(screen.getByText('noMatches')).toBeTruthy()
+    expect(screen.getByText('wadaCredit')).toBeTruthy()
   })
 })

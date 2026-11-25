@@ -1032,7 +1032,26 @@
       "share": "予定したルックを共有",
       "shareHint": "{name}はあなたが日付に予定したルックを見られます。",
       "shareHintNoPartner": "まずパートナーとファミリーに参加してください。",
-      "saveError": "保存できませんでした。もう一度お試しください。"
+      "saveError": "保存できませんでした。もう一度お試しください。",
+      "matchTitle": "{name}のルックに合うルック",
+      "match": "♥ パートナーに合わせる",
+      "alreadyWorn": "この日はすでにルックを着用しました。",
+      "reasonPair": "{mine}は{theirs}に合います",
+      "reasonNeutral": "{mine}は何にでも合います",
+      "reasonTwin": "{colour}でおそろい",
+      "reasonIndian": "インド服で一緒に",
+      "reasonOccasion": "同じシーン",
+      "newLook": "新しいルック",
+      "styleLabel": "合わせ方",
+      "noMatches": "この家にはまだ合う服がありません。おそろいか別の日を試してください。",
+      "wada": "和田 No.{id}",
+      "wadaCredit": "配色は和田三造『配色事典』より。",
+      "planned": "予定しました · {name}のルックに合います",
+      "planError": "ルックを予定できませんでした。もう一度お試しください。",
+      "style": {
+        "go": "合わせる",
+        "twin": "おそろい"
+      }
     }
   }
 }
