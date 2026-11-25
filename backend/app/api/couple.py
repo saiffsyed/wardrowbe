@@ -40,6 +40,11 @@ class CoupleResponse(BaseModel):
     choices: list[PartnerInfo]
 
 
+class PartnerPlan(OutfitResponse):
+    # Each piece's pattern ("solid", "floral"...), which matching needs and the outfit lacks.
+    item_patterns: dict[str, str] = {}
+
+
 class CoupleUpdate(BaseModel):
     share_plans: bool | None = None
     partner_id: UUID | None = None
@@ -119,13 +124,13 @@ async def update_couple(
     return await _response(db, current_user)
 
 
-@router.get("/plans", response_model=list[OutfitResponse])
+@router.get("/plans", response_model=list[PartnerPlan])
 async def partner_plans(
     db: DbSession,
     current_user: Annotated[User, Depends(get_current_user)],
     date_from: date = Query(...),
     date_to: date = Query(...),
-) -> list[OutfitResponse]:
+) -> list[PartnerPlan]:
     """The partner's looks planned between two days, when they share them."""
     if date_to < date_from or date_to - date_from > timedelta(days=MAX_DAYS):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Bad date range")
@@ -140,4 +145,12 @@ async def partner_plans(
         1,
         100,
     )
-    return [outfit_to_response(outfit) for outfit in outfits]
+    plans = []
+    for outfit in outfits:
+        patterns = {
+            str(entry.item_id): (entry.item.tags or {}).get("pattern") or "solid"
+            for entry in outfit.items
+            if entry.item is not None
+        }
+        plans.append(PartnerPlan(**outfit_to_response(outfit).model_dump(), item_patterns=patterns))
+    return plans

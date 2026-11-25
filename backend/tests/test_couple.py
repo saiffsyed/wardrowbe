@@ -89,6 +89,7 @@ class TestCouple:
             )
         ).json()
         assert [p["id"] for p in plans] == [str(look.id)]
+        assert list(plans[0]["item_patterns"].values()) == ["solid"]
 
     @pytest.mark.asyncio
     async def test_a_partner_who_stops_sharing_shows_nothing(
