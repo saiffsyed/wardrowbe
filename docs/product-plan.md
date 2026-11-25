@@ -1,6 +1,6 @@
 # Product plan and decisions
 
-Last updated: 19 November 2026. All points below were confirmed by Saiff unless marked
+Last updated: 25 November 2026. All points below were confirmed by Saiff unless marked
 "open".
 
 ## What the app is
@@ -373,15 +373,22 @@ Still to do in Stage 1:
 
 - Grouped categories: does the grouping make sense to his partner?
 - AI provider: OpenAI or Gemini (the label reader works with either)
-- App name (four letters at most, Saiff will choose), logo, and domain (a domain is
-  needed for Google sign-in)
+- App name: **Aina** ("mirror") is the favourite, to be confirmed; logo still open
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
 
-## Going online (agreed, not ordered)
+## Going online
 
-- Server: netcup VPS 1000 G12 (8 GB RAM, about €10 / month — check the current price).
-  It can also host future test apps.
+- **The app's idea, in one line: "Wear more of what you own."** It started from owning
+  clothes that are rarely worn; the wardrobe, Shuffle, suggestions and "not worn" filters
+  all serve it.
+- Domain: **myaina.fit** (Saiff's choice, 25 Nov; bought at Namecheap, not netcup:
+  privacy on, no extras, auto-renew on).
+- Server: **netcup VPS 500 G12.5** (2 cores, 4 GB RAM, 64 GB; €9.74 / month incl. VAT)
+  on the **monthly** term first, to test for a month or two before a 12-month contract
+  (€8.47 / month). Enough for this app; upgrading to VPS 1000 G12.5 later is free but
+  restarts the 12-month term, and only works within the same generation. Ubuntu 24.04,
+  IPv4 + IPv6. Set up from Saiff's Windows computer (Terminal), with copy-paste steps.
 - Google sign-in with an email allow-list (`OIDC_ALLOWED_EMAILS`), see
   `docs/google-sign-in.md`. Set the Google project to **"In production"**: in "Testing"
   mode Calendar access expires every 7 days. That doc still needs this note added.
