@@ -10,12 +10,13 @@ export const AINA_PERSON = {
   arms: 'M26.2 37.4 20.6 51M37.8 37.4 43.4 51',
 };
 
-export function AinaMark({ className = 'h-6 w-6' }: { className?: string }) {
+// The view box is cropped to the arch, so the mark lines up with text beside it.
+export function AinaMark({ className = 'h-[18px] w-[15.5px]' }: { className?: string }) {
   const mask = `aina-${useId().replace(/:/g, '')}`;
   return (
-    <svg viewBox="0 0 64 64" className={`shrink-0 text-primary ${className}`} aria-hidden="true">
+    <svg viewBox="10 9 44 51" className={`shrink-0 text-primary ${className}`} aria-hidden="true">
       <mask id={mask}>
-        <rect width="64" height="64" fill="white" />
+        <rect x="10" y="9" width="44" height="51" fill="white" />
         <circle {...AINA_PERSON.head} fill="black" />
         <path d={AINA_PERSON.body} fill="black" />
         <path d={AINA_PERSON.arms} stroke="black" strokeWidth="3.6" strokeLinecap="round" fill="none" />

@@ -11,8 +11,8 @@ import { HomePill } from './home-bar';
 export function AppTopBar({ homes, children }: { homes: Home[]; children?: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-1.5">
-      <div className="flex shrink-0 items-center gap-1">
-        <AinaMark />
+      <div className="flex shrink-0 items-baseline gap-1.5">
+        <AinaMark className="h-[16px] w-[13.8px]" />
         <span className="text-[17px] font-extrabold tracking-tight">{APP_NAME}</span>
       </div>
       <div className="flex min-w-0 flex-1 justify-center">
