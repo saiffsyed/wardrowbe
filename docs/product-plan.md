@@ -253,8 +253,10 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Top row like the Fits app** (preview): logo and app name on the left, the home in the
   middle ("📍 Chennai ▾", tap to switch home), round buttons on the
   right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
-  wardrobe tabs. The app is called **Aina** ("mirror", Saiff's choice, 25 Nov); the logo is still a
-  stand-in hanger. Both live in `frontend/lib/app-name.ts` and
+  wardrobe tabs. The app is called **Aina** ("mirror", Saiff's choice, 25 Nov). **Logo** (Saiff chose
+  it from the ideas at https://claude.ai/artifact/1JKK1d3HFTV4A27XkCJEFn, option P3): an arch
+  mirror with a person reflected in it, two arms at her sides, her A-line dress the letter A;
+  green in the top row, white on a green tile as the phone icon. Both live in `frontend/lib/app-name.ts` and
   `components/wardrobe/app-top-bar.tsx`. **No "Wardrobe" title and no counts** on the
   three tabs (Saiff: the name is in the top row and "Wardrobe" on the bottom bar); the
   title is kept only for screen readers.
@@ -373,7 +375,6 @@ Still to do in Stage 1:
 
 - Grouped categories: does the grouping make sense to his partner?
 - AI provider: OpenAI or Gemini (the label reader works with either)
-- Logo (the app is called **Aina**; a stand-in hanger shows until a logo is chosen)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
 

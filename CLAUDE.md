@@ -146,7 +146,10 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   "mirror"; domain myaina.fit; line "Wear more of what you own"). The name lives in
   `frontend/lib/app-name.ts` (top bar), `app/layout.tsx` (page title), `app/manifest.ts`
   (installed app) and the `brandName` / `brandAlt` / `greeting` / invitation keys in
-  `messages/*`. The logo is still a stand-in hanger (`components/wardrobe/app-top-bar.tsx`).
+  `messages/*`. **Logo** (chosen 25 Nov): an arch mirror with a person reflected in it, her
+  A-line dress the letter A; drawn in `components/wardrobe/aina-logo.tsx` (`AinaMark`, top
+  bar), `public/logo.svg` and the PNG icons / `favicon.ico` in `public/` (white on the green
+  `#1E5B4F` tile; regenerate all of them together if the drawing changes).
 
 ## Stack
 
