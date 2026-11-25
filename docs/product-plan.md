@@ -253,8 +253,8 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Top row like the Fits app** (preview): logo and app name on the left, the home in the
   middle ("📍 Chennai ▾", tap to switch home), round buttons on the
   right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
-  wardrobe tabs. The logo is a stand-in hanger and the name reads "Name" until Saiff picks
-  one (four letters at most); both live in `frontend/lib/app-name.ts` and
+  wardrobe tabs. The app is called **Aina** ("mirror", Saiff's choice, 25 Nov); the logo is still a
+  stand-in hanger. Both live in `frontend/lib/app-name.ts` and
   `components/wardrobe/app-top-bar.tsx`. **No "Wardrobe" title and no counts** on the
   three tabs (Saiff: the name is in the top row and "Wardrobe" on the bottom bar); the
   title is kept only for screen readers.
@@ -373,7 +373,7 @@ Still to do in Stage 1:
 
 - Grouped categories: does the grouping make sense to his partner?
 - AI provider: OpenAI or Gemini (the label reader works with either)
-- App name: **Aina** ("mirror") is the favourite, to be confirmed; logo still open
+- Logo (the app is called **Aina**; a stand-in hanger shows until a logo is chosen)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
 

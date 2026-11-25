@@ -78,6 +78,10 @@ if (!locales.includes(SOURCE_LOCALE)) {
 // else left identical across every translation was never translated, or was copied from an older
 // English text, which the presence and placeholder checks cannot see.
 const SAME_IN_EVERY_LOCALE = new Set([
+  // The app's name, Aina, is the same in every language.
+  'auth.brandName',
+  'nav.brandAlt',
+  'nav.brandName',
   'constants.timezones.UTC',
   'notifications.channels.placeholders.accessToken',
   'notifications.channels.types.mattermost',

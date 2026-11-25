@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 const appFont = Figtree({ subsets: ['latin', 'latin-ext'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'Wardrowbe',
+  title: 'Aina',
   description: 'AI-powered wardrobe management and outfit recommendations',
   icons: {
     icon: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   // needs these tags to open the app full screen with its own name.
   appleWebApp: {
     capable: true,
-    title: 'Wardrowbe',
+    title: 'Aina',
     statusBarStyle: 'default',
   },
 };

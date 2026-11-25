@@ -327,7 +327,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <img src="/logo.svg" alt="Wardrowbe" className="h-16 w-16" />
+            <img src="/logo.svg" alt="Aina" className="h-16 w-16" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
           <p className="mt-2 text-muted-foreground">

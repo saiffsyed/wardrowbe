@@ -4,8 +4,8 @@ import type { MetadataRoute } from 'next';
 // "Add to Home Screen") install the app so it opens full screen like a native app.
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Wardrowbe',
-    short_name: 'Wardrowbe',
+    name: 'Aina',
+    short_name: 'Aina',
     description: 'Your wardrobe and weekly outfit planner',
     start_url: '/dashboard/start',
     scope: '/',

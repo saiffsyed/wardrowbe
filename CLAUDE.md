@@ -142,9 +142,11 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `frontend/messages/*/constants.json`.
 - Every user-facing text needs a key in **all 8 languages** (`frontend/messages/`:
   en, de, fr, it, ja, ko, zh-CN, zh-TW). `npm run i18n:parity` must pass.
-- "Wardrowbe" is upstream's brand. The app's own name is undecided; do not invent one.
-  Until Saiff picks it, the top bar shows the stand-in "Name" (`frontend/lib/app-name.ts`)
-  beside a stand-in hanger logo (`components/wardrobe/app-top-bar.tsx`).
+- "Wardrowbe" is upstream's brand. **The app is called Aina** (Saiff's choice, 25 Nov 2026;
+  "mirror"; domain myaina.fit; line "Wear more of what you own"). The name lives in
+  `frontend/lib/app-name.ts` (top bar), `app/layout.tsx` (page title), `app/manifest.ts`
+  (installed app) and the `brandName` / `brandAlt` / `greeting` / invitation keys in
+  `messages/*`. The logo is still a stand-in hanger (`components/wardrobe/app-top-bar.tsx`).
 
 ## Stack
 

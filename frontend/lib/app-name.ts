@@ -1,3 +1,3 @@
-// The app's own name and logo are still to be chosen by Saiff (four letters at most).
-// "Name" is the agreed stand-in until then; change it here and it changes everywhere.
-export const APP_NAME = 'Name';
+// The app's own name, chosen by Saiff (25 Nov 2026): Aina, "mirror". The logo is still a
+// stand-in. Change the name here and the top bar follows.
+export const APP_NAME = 'Aina';
