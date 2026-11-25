@@ -46,6 +46,10 @@ vi.mock('@/lib/hooks/use-laundry', () => ({
 }))
 const toastFn = vi.fn()
 vi.mock('sonner', () => ({ toast: Object.assign((...args: unknown[]) => toastFn(...args), { success: vi.fn(), error: vi.fn() }) }))
+vi.mock('@/lib/hooks/use-couple', () => ({
+  useCouple: () => ({ data: { partner: null, partner_shares: false, share_plans: true, choices: [] } }),
+  usePartnerPlans: () => ({ data: [] }),
+}))
 vi.mock('@/lib/hooks/use-homes', () => ({
   useHomes: () => ({ data: [] }),
   useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),

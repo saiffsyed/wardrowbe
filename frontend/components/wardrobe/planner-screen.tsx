@@ -15,10 +15,12 @@ import { useUserToday } from '@/lib/hooks/use-user';
 import { useWeather } from '@/lib/hooks/use-weather';
 import { displayValue } from '@/lib/temperature';
 import { formatDateKey } from '@/lib/utils';
+import { usePartnerPlans } from '@/lib/hooks/use-couple';
 import { lookForDay } from '@/lib/look-phase';
 import { piecesOf } from './add-outfit-sheet';
 import { DayEmpty, LookName, TodayActions } from './today-card';
 import { HeadsUps } from './heads-ups';
+import { PartnerCorner } from './partner-look';
 import { weatherIcon } from './home-weather';
 import { LookTile, type Arranged } from './look-tile';
 import { useOutfitLayouts } from '@/lib/hooks/use-outfit-layouts';
@@ -193,6 +195,9 @@ function DayView({
   const week = weekOf(selected);
   const { data: outfits } = useOutfits({ date_from: week[0], date_to: week[6] }, 1, 50);
   const look = lookForDay(outfits?.outfits, selected);
+  // Your partner's planned looks this week (none without a partner or when they do not share).
+  const { data: partnerWeek } = usePartnerPlans(week[0], week[6]);
+  const partnerLook = lookForDay(partnerWeek, selected);
   const { data: layouts } = useOutfitLayouts((outfits?.outfits ?? []).map((outfit) => outfit.id));
   const forecast = weatherByDay.get(selected)?.forecast ?? null;
   const unit = prefs?.temperature_unit === 'fahrenheit' ? 'fahrenheit' : 'celsius';
@@ -228,7 +233,10 @@ function DayView({
                 >
                   {dayDate(date).getDate()}
                 </span>
-                <span className={`mx-auto mt-0.5 block h-1 w-1 rounded-full ${has ? 'bg-foreground/60' : 'bg-transparent'}`} />
+                <span className="mx-auto mt-0.5 flex h-1 justify-center gap-0.5" aria-hidden="true">
+                  <span className={`block h-1 w-1 rounded-full ${has ? 'bg-foreground/60' : 'bg-transparent'}`} />
+                  {lookForDay(partnerWeek, date) && <span className="block h-1 w-1 rounded-full bg-pink-500" />}
+                </span>
                 {stayOn(stays, date) && <span className="mx-1.5 mt-0.5 block h-0.5 rounded-full bg-violet-500" aria-hidden="true" />}
               </button>
             );
@@ -251,7 +259,7 @@ function DayView({
 
       {/* The look itself gets the rest of the screen; swipe it for the next or previous day. */}
       <div
-        className={`flex items-center justify-center py-1 ${look ? '' : 'min-h-[max(18rem,calc(100dvh-19rem))]'}`}
+        className={`relative flex items-center justify-center py-1 ${look ? '' : 'min-h-[max(18rem,calc(100dvh-19rem))]'}`}
         onTouchStart={(event) => (touchX.current = event.touches[0].clientX)}
         onTouchEnd={(event) => {
           if (touchX.current === null) return;
@@ -260,6 +268,7 @@ function DayView({
           if (Math.abs(dx) > 50) onSelect(addDays(selected, dx < 0 ? 1 : -1));
         }}
       >
+        <PartnerCorner day={selected} look={partnerLook} />
         {look ? (
           <Link
             href={`/dashboard/outfits/${look.id}`}

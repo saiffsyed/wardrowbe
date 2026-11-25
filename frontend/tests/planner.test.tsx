@@ -44,6 +44,10 @@ vi.mock('@/lib/hooks/use-laundry', () => ({
   useLaundryStates: () => ({ data: new Map() }),
   useLaundry: () => ({ data: undefined }),
 }))
+vi.mock('@/lib/hooks/use-couple', () => ({
+  useCouple: () => ({ data: { partner: null, partner_shares: false, share_plans: true, choices: [] } }),
+  usePartnerPlans: () => ({ data: [] }),
+}))
 vi.mock('@/lib/hooks/use-homes', () => ({
   useHomes: () => ({ data: [] }),
   useSetCurrentHome: () => ({ mutate: vi.fn(), isPending: false }),

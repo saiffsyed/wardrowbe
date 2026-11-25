@@ -1019,6 +1019,20 @@
       "more": "+{count}개 더",
       "less": "접기",
       "homeError": "집을 바꾸지 못했어요. 다시 시도해 주세요."
+    },
+    "partner": {
+      "show": "{name}의 룩 보기",
+      "hide": "{name}의 룩 숨기기",
+      "open": "{name}의 룩 크게 보기",
+      "nothing": "{name} · 아직 없음",
+      "title": "{name}의 룩",
+      "settingsTitle": "파트너",
+      "settingsHint": "플래너에서 서로의 계획한 룩을 볼 수 있어요. 날짜에 계획한 룩만 공유되고 옷장은 공유되지 않아요.",
+      "whoIsPartner": "파트너는 누구인가요?",
+      "share": "계획한 룩 공유",
+      "shareHint": "{name}님이 내가 날짜에 계획한 룩을 볼 수 있어요.",
+      "shareHintNoPartner": "먼저 파트너와 가족에 참여하세요.",
+      "saveError": "저장하지 못했어요. 다시 시도해 주세요."
     }
   }
 }

@@ -1019,6 +1019,20 @@
       "more": "+{count} weitere",
       "less": "Weniger",
       "homeError": "Zuhause konnte nicht gewechselt werden. Bitte versuche es erneut."
+    },
+    "partner": {
+      "show": "Look von {name} zeigen",
+      "hide": "Look von {name} ausblenden",
+      "open": "Look von {name} ansehen",
+      "nothing": "{name} · noch nichts",
+      "title": "Look von {name}",
+      "settingsTitle": "Partner",
+      "settingsHint": "Seht eure geplanten Looks im Planer. Geteilt werden nur Looks, die für Tage geplant sind, nie dein Kleiderschrank.",
+      "whoIsPartner": "Wer ist dein Partner?",
+      "share": "Meine geplanten Looks teilen",
+      "shareHint": "{name} sieht die Looks, die du für Tage planst.",
+      "shareHintNoPartner": "Tritt zuerst mit deinem Partner einer Familie bei.",
+      "saveError": "Konnte nicht gespeichert werden. Bitte versuche es erneut."
     }
   }
 }

@@ -58,6 +58,7 @@ import {
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatDate } from '@/lib/utils';
+import { CoupleSettingsCard } from '@/components/wardrobe/partner-look';
 
 function NoFamilyView() {
   const t = useTranslations('family');
@@ -343,6 +344,8 @@ function FamilyView() {
           </AlertDialog>
         </div>
       </div>
+      {/* Our fork: partner and sharing planned looks. */}
+      <CoupleSettingsCard />
 
       {/* Edit Name Dialog */}
       {editingName && (

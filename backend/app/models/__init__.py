@@ -1,4 +1,5 @@
 from app.models.collection import Collection, CollectionEntry
+from app.models.couple import CoupleSettings
 from app.models.dressing_room import DressingRoomSettings
 from app.models.family import Family, FamilyInvite
 from app.models.home import Home
@@ -28,6 +29,7 @@ __all__ = [
     "OutfitLayout",
     "DressingRoomSettings",
     "ItemLaundry",
+    "CoupleSettings",
     "Stay",
     "Family",
     "FamilyInvite",

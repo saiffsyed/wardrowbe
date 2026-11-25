@@ -1019,6 +1019,20 @@
       "more": "+{count} de plus",
       "less": "Moins",
       "homeError": "Impossible de changer de logement. Veuillez réessayer."
+    },
+    "partner": {
+      "show": "Afficher le look de {name}",
+      "hide": "Masquer le look de {name}",
+      "open": "Voir le look de {name}",
+      "nothing": "{name} · rien encore",
+      "title": "Le look de {name}",
+      "settingsTitle": "Partenaire",
+      "settingsHint": "Voyez vos looks prévus dans le planning. Seuls les looks prévus pour un jour sont partagés, jamais votre garde-robe.",
+      "whoIsPartner": "Qui est votre partenaire ?",
+      "share": "Partager mes looks prévus",
+      "shareHint": "{name} voit les looks que vous prévoyez pour un jour.",
+      "shareHintNoPartner": "Rejoignez d’abord une famille avec votre partenaire.",
+      "saveError": "Enregistrement impossible. Veuillez réessayer."
     }
   }
 }

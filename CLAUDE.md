@@ -73,7 +73,7 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   off that, and `a3d9f5b1c7e8_add_start_screen` off that, and `b4e0a6c2d8f9_add_stays` off
   that, and `c5f1b7d3e9a0_add_outfit_layouts` off that, and
   `d6a2c8e4f0b1_add_dressing_room_settings` off that, and `e7b3d9f5a1c2_add_item_laundry` off
-  that. After merging
+  that, and `f8c4e0a6b2d3_add_couple_settings` off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
   (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
@@ -101,6 +101,11 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
 - Heads-ups on the Plan screen: rules in `frontend/lib/heads-ups.ts` (tested in
   `tests/heads-ups.test.ts`), the line in `components/wardrobe/heads-ups.tsx`, the home before
   a trip in `lib/trip-return.ts` (localStorage, written by `stay-home-prompt.tsx`).
+- Partner (couple coordination): backend `backend/app/api/couple.py` (`GET/PATCH /couple`,
+  `GET /couple/plans`; partner = the chosen family member, or the other one of two),
+  `backend/app/models/couple.py`; frontend `lib/hooks/use-couple.ts`,
+  `components/wardrobe/partner-look.tsx` (corner tile, eye, large view, settings card on the
+  upstream Family page).
 - A look's stage (template = Lookbook, planned, worn, declined) is named in
   `frontend/lib/look-phase.ts`, which also picks the look shown for a day (`lookForDay`). The
   server refuses to mark a Lookbook look worn (409 `OUTFIT_IS_TEMPLATE`, our guard in the

@@ -1019,6 +1019,20 @@
       "more": "+{count} more",
       "less": "Show less",
       "homeError": "Could not switch home. Please try again."
+    },
+    "partner": {
+      "show": "Show {name}’s look",
+      "hide": "Hide {name}’s look",
+      "open": "See {name}’s look",
+      "nothing": "{name} · nothing yet",
+      "title": "{name}’s look",
+      "settingsTitle": "Partner",
+      "settingsHint": "See each other’s planned looks on the Plan screen. Only looks planned on days are shared, never your wardrobe.",
+      "whoIsPartner": "Who is your partner?",
+      "share": "Share my planned looks",
+      "shareHint": "{name} sees the looks you plan on days.",
+      "shareHintNoPartner": "Join a family with your partner first.",
+      "saveError": "Could not save. Please try again."
     }
   }
 }

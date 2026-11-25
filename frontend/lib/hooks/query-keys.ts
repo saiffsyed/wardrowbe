@@ -33,6 +33,9 @@ export const queryKeys = {
   laundry: (homeId: string) => ['laundry', homeId] as const,
   everyLaundry: ['laundry'] as const,
   laundryStates: ['laundry-states'] as const,
+  couple: ['couple'] as const,
+  partnerPlans: (from: string, to: string) => ['partner-plans', from, to] as const,
+  everyPartnerPlans: ['partner-plans'] as const,
   weatherDays: (days: number) => ['weather-days', days] as const,
   everyWeatherDays: ['weather-days'] as const,
   collections: {

@@ -1019,6 +1019,20 @@
       "more": "還有 {count} 則",
       "less": "收起",
       "homeError": "無法切換住處，請再試一次。"
+    },
+    "partner": {
+      "show": "顯示{name}的造型",
+      "hide": "隱藏{name}的造型",
+      "open": "查看{name}的造型",
+      "nothing": "{name} · 還沒有",
+      "title": "{name}的造型",
+      "settingsTitle": "伴侶",
+      "settingsHint": "在計畫中看到彼此安排的造型。只分享安排到某天的造型，不分享你的衣櫥。",
+      "whoIsPartner": "誰是你的伴侶？",
+      "share": "分享我安排的造型",
+      "shareHint": "{name}能看到你安排到某天的造型。",
+      "shareHintNoPartner": "請先和伴侶加入同一個家庭。",
+      "saveError": "無法儲存，請再試一次。"
     }
   }
 }

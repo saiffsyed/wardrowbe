@@ -1019,6 +1019,20 @@
       "more": "+{count}件",
       "less": "閉じる",
       "homeError": "家を切り替えられませんでした。もう一度お試しください。"
+    },
+    "partner": {
+      "show": "{name}のルックを表示",
+      "hide": "{name}のルックを隠す",
+      "open": "{name}のルックを見る",
+      "nothing": "{name} · まだ未定",
+      "title": "{name}のルック",
+      "settingsTitle": "パートナー",
+      "settingsHint": "予定したルックをお互いにプランナーで見られます。共有されるのは日付に予定したルックだけで、ワードローブは共有されません。",
+      "whoIsPartner": "パートナーは誰ですか？",
+      "share": "予定したルックを共有",
+      "shareHint": "{name}はあなたが日付に予定したルックを見られます。",
+      "shareHintNoPartner": "まずパートナーとファミリーに参加してください。",
+      "saveError": "保存できませんでした。もう一度お試しください。"
     }
   }
 }

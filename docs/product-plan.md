@@ -198,6 +198,15 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
     clothes of the home you were in before it, remembered on this phone when the arrival
     prompt switched the wardrobe), and rain 3 days running ahead with 5+ pieces to wash
     (Laundry). On other days Swap reads "Change" and opens the look in the outfit maker.
+  - **Partner's look** (built, preview; mock-up https://claude.ai/artifact/TjEk8tFap74AbdWy14nqhE):
+    with a partner in your family (More → Family; with more than two members you pick
+    who), their look for the day sits small in the top-right corner of the Plan screen, a
+    pink dot in the week marks days they planned, and "Partner · nothing yet" shows when
+    they have none. An **eye** button under it hides / shows it (remembered on the phone);
+    tapping the tile opens their look large. Sharing planned looks is **on by default** and
+    goes both ways; More → Family → Partner has the "Share my planned looks" switch. Only
+    looks planned on days are shared, never the wardrobe. **Match with partner is not built
+    yet**: its rules are being discussed with Saiff.
   - The original app's home screen is still at `/dashboard` (laptop side menu) but is no
     longer the Plan tab; its "Where I'll be" row was removed. Its weekly stats are on
     Insights under More.

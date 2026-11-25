@@ -1019,6 +1019,20 @@
       "more": "+{count} altri",
       "less": "Meno",
       "homeError": "Impossibile cambiare casa. Riprova."
+    },
+    "partner": {
+      "show": "Mostra il look di {name}",
+      "hide": "Nascondi il look di {name}",
+      "open": "Vedi il look di {name}",
+      "nothing": "{name} · ancora niente",
+      "title": "Il look di {name}",
+      "settingsTitle": "Partner",
+      "settingsHint": "Vedete i look pianificati nel planner. Si condividono solo i look pianificati per un giorno, mai il guardaroba.",
+      "whoIsPartner": "Chi è il tuo partner?",
+      "share": "Condividi i miei look pianificati",
+      "shareHint": "{name} vede i look che pianifichi per i giorni.",
+      "shareHintNoPartner": "Prima unisciti a una famiglia con il tuo partner.",
+      "saveError": "Impossibile salvare. Riprova."
     }
   }
 }
