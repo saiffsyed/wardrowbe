@@ -382,7 +382,7 @@ Still to do in Stage 1:
 - **The app's idea, in one line: "Wear more of what you own."** It started from owning
   clothes that are rarely worn; the wardrobe, Shuffle, suggestions and "not worn" filters
   all serve it.
-- Domain: **myaina.fit** (Saiff's choice, 25 Nov; bought at Namecheap, not netcup:
+- Domain: **myaina.fit** (Saiff's choice, 25 Nov; to be bought at Namecheap:
   privacy on, no extras, auto-renew on).
 - Server: **netcup VPS 500 G12.5** (2 cores, 4 GB RAM, 64 GB; €9.74 / month incl. VAT)
   on the **monthly** term first, to test for a month or two before a 12-month contract
