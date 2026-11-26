@@ -394,13 +394,14 @@ Still to do in Stage 1:
   clothes that are rarely worn; the wardrobe, Shuffle, suggestions and "not worn" filters
   all serve it.
 - Domain: **mywardrobe.fit** (Saiff's choice, 26 Nov, at Namecheap: €2.73 the first year,
-  then €31.07 a year; privacy on, no extras, auto-renew on). The app is still called Aina;
+  then €31.07 a year; privacy on, no extras; bought 26 Nov with **auto-renew off**, so a
+  reminder to renew is set for 26 Oct 2027 (phone and email)). The app is still called Aina;
   the address does not have to match the name.
 - Server: **netcup VPS 500 G12.5** (2 cores, 4 GB RAM, 64 GB; €9.74 / month incl. VAT)
   on the **monthly** term first, to test for a month or two before a 12-month contract
   (€8.47 / month). Enough for this app; upgrading to VPS 1000 G12.5 later is free but
-  restarts the 12-month term, and only works within the same generation. Ubuntu 24.04,
-  IPv4 + IPv6. Set up from Saiff's Windows computer (Terminal), with copy-paste steps.
+  restarts the 12-month term, and only works within the same generation. Debian 13 (as
+  delivered), IPv4 + IPv6, IP 62.83.136.19. Set up from Saiff's Windows computer (Terminal), with copy-paste steps.
 - Google sign-in with an email allow-list (`OIDC_ALLOWED_EMAILS`), see
   `docs/google-sign-in.md`. Set the Google project to **"In production"**: in "Testing"
   mode Calendar access expires every 7 days. That doc still needs this note added.
