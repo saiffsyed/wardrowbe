@@ -4,8 +4,6 @@
 # The first run writes /opt/aina/.env with fresh random passwords; later runs keep it.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-COMPOSE="docker compose -f docker-compose.prod.yml -f deploy/docker-compose.aina.yml"
-
 if [ ! -f .env ]; then
   echo "Writing .env with new random passwords..."
   umask 077
@@ -22,6 +20,15 @@ DEV_MODE=true
 # No AI until the Google key is added.
 AI_INTERNAL_ENABLED=false
 ENV
+fi
+
+COMPOSE="docker compose -f docker-compose.prod.yml -f deploy/docker-compose.aina.yml"
+# The public address (https) is added only when .env names one and the test login is off.
+if grep -q '^DOMAIN=' .env; then
+  if grep -qE '^(DEBUG|DEV_MODE)=true' .env; then
+    echo "Refusing to go public while the test login (DEBUG / DEV_MODE) is on."; exit 1
+  fi
+  COMPOSE="$COMPOSE -f deploy/docker-compose.https.yml"
 fi
 
 echo "Fetching the newest code..."

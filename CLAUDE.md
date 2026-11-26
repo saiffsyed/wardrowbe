@@ -163,8 +163,13 @@ builds our own images through `deploy/docker-compose.aina.yml` on top of upstrea
 opened through an SSH tunnel (`ssh -L 8080:localhost:8080 root@…`) at **http://127.0.0.1:8080**
 (Saiff's browsers force https on "localhost"), with dev login (`DEBUG` / `DEV_MODE`) and no
 AI. After containers are recreated, nginx must be restarted (it keeps old addresses → 502);
-`install.sh` does it. The domain mywardrobe.fit already points at the server (A records `@`
-and `www` at Namecheap); https and Google sign-in are next.
+`install.sh` does it. The domain mywardrobe.fit points at the server (A records `@` and `www`
+at Namecheap). **Going public:** `deploy/go-live.sh` asks for the Google client, the allowed
+addresses and (to keep test data) the test login's email, which it re-points at a Google
+address and marks verified so Google sign-in joins that account; it writes DOMAIN, https
+URLs, OIDC settings, `TRUSTED_PROXY_COUNT=2` and turns DEBUG / DEV_MODE off. With `DOMAIN` set,
+`install.sh` adds `deploy/docker-compose.https.yml` (Caddy on 80/443, `deploy/Caddyfile`,
+automatic certificates) and refuses while the test login is on.
 
 ## Stack
 
