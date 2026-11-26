@@ -1,0 +1,35 @@
+# Updates the app on our own server whenever stage-1 changes (Claude pushes there only after
+# Saiff confirms). The key in DEPLOY_SSH_KEY can do one thing on the server: run
+# deploy/install.sh (a forced command in root's authorized_keys), nothing else.
+name: Deploy to our server
+
+on:
+  push:
+    branches: [stage-1]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: deploy-our-server
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Update the app on the server
+        env:
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          if [ -z "$KEY" ] || [ -z "$KNOWN_HOSTS" ]; then
+            echo "Deploy secrets are not set yet; nothing to do."
+            exit 0
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o ServerAliveInterval=30 root@62.83.136.19

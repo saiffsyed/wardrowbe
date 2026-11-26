@@ -170,6 +170,11 @@ address and marks verified so Google sign-in joins that account; it writes DOMAI
 URLs, OIDC settings, `TRUSTED_PROXY_COUNT=2` and turns DEBUG / DEV_MODE off. With `DOMAIN` set,
 `install.sh` adds `deploy/docker-compose.https.yml` (Caddy on 80/443, `deploy/Caddyfile`,
 automatic certificates) and refuses while the test login is on.
+**Automatic updates** (Saiff's choice): every push to `stage-1` runs
+`.github/workflows/deploy-our-server.yml`, which logs into the server with the key in the
+`DEPLOY_SSH_KEY` secret (host key in `DEPLOY_KNOWN_HOSTS`). That key is a forced command in
+root's `authorized_keys`: it can only run `deploy/install.sh`. So **push to stage-1 only after
+Saiff confirms**: it goes live on both phones within minutes.
 
 ## Stack
 
