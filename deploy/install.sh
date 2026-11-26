@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs Aina on the server, or updates it to the newest code. Run as root from anywhere:
+# Installs the Wardrobe app on the server, or updates it to the newest code. Run as root from anywhere:
 #   bash /opt/aina/deploy/install.sh
 # The first run writes /opt/aina/.env with fresh random passwords; later runs keep it.
 set -euo pipefail
@@ -40,4 +40,4 @@ echo "Updating the database..."
 $COMPOSE exec -T backend alembic upgrade head
 
 echo
-echo "AINA IS RUNNING"
+echo "WARDROBE IS RUNNING"
