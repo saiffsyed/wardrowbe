@@ -393,8 +393,9 @@ Still to do in Stage 1:
 - **The app's idea, in one line: "Wear more of what you own."** It started from owning
   clothes that are rarely worn; the wardrobe, Shuffle, suggestions and "not worn" filters
   all serve it.
-- Domain: **myaina.fit** (Saiff's choice, 25 Nov; to be bought at Namecheap:
-  privacy on, no extras, auto-renew on).
+- Domain: **mywardrobe.fit** (Saiff's choice, 26 Nov, at Namecheap: €2.73 the first year,
+  then €31.07 a year; privacy on, no extras, auto-renew on). The app is still called Aina;
+  the address does not have to match the name.
 - Server: **netcup VPS 500 G12.5** (2 cores, 4 GB RAM, 64 GB; €9.74 / month incl. VAT)
   on the **monthly** term first, to test for a month or two before a 12-month contract
   (€8.47 / month). Enough for this app; upgrading to VPS 1000 G12.5 later is free but
