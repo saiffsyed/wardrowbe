@@ -151,6 +151,17 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   bar), `public/logo.svg` and the PNG icons / `favicon.ico` in `public/` (white on the green
   `#1E5B4F` tile; regenerate all of them together if the drawing changes).
 
+## Our server
+
+netcup VPS (Debian 13), IP 62.83.136.19, logged into as root with Saiff's SSH key only
+(passwords off, firewall `ufw` allowing SSH, 80, 443, automatic security updates). The app
+lives in `/opt/aina`, a clone of `stage-1` made with a read-only GitHub deploy key.
+`deploy/install.sh` installs or updates it: it writes `.env` once (random passwords), pulls,
+builds our own images through `deploy/docker-compose.aina.yml` on top of upstream's
+`docker-compose.prod.yml`, and migrates. Test phase: no domain yet, nginx listens on
+127.0.0.1:8080 only, opened through an SSH tunnel (`ssh -L 8080:localhost:8080 root@…`), with
+dev login (`DEBUG` / `DEV_MODE`) and no AI.
+
 ## Stack
 
 Backend: FastAPI, SQLAlchemy (async), Alembic, PostgreSQL, Redis + arq workers.
