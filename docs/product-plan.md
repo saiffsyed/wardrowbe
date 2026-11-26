@@ -139,6 +139,22 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
   Google account and in the app (the app stops at the limit). Prices from comparison sites
   in Nov 2026; check Google's own price page before going live.
 
+### Better photos (agreed 27 Nov, mock-up https://claude.ai/artifact/TdsASFMz2V2qm99q9QyB6q)
+Build order, all after the Gemini key is on the server:
+1. **Find this exact product** from the scanned tag: the AI searches the web with brand,
+   article number, colour and kind; up to three matches (a tick when the article number
+   matches); picking one makes the shop's photo the item's photo (own photo kept) and fills
+   empty or wrong details, saved only on Save. Not found: offers the catalogue photo.
+2. **Catalogue photo** (option "a": a button on the item and in ⋯, never automatic): Nano
+   Banana tidies the own photo (creases, angle, light; same colour, print, buttons), shows
+   before / after with Use / Try again / Keep mine and the cost against the €10 limit; the
+   original is always kept and can be restored.
+3. Paste a shop link (Stage 5). Photo-only "Find it online" later or never.
+Also found on the live app (to fix): the loading placeholders do not match the chosen view;
+the tiles view crops long pieces (should show the whole piece); background removal can leave
+loose bits that shrink the cut-out (drop small unconnected bits, then trim, also for existing
+cut-outs).
+
 ### Planning and suggestions
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.
 - Google Calendar sync and couple coordination.
