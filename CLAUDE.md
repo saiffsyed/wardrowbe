@@ -170,6 +170,8 @@ address and marks verified so Google sign-in joins that account; it writes DOMAI
 URLs, OIDC settings, `TRUSTED_PROXY_COUNT=2` and turns DEBUG / DEV_MODE off. With `DOMAIN` set,
 `install.sh` adds `deploy/docker-compose.https.yml` (Caddy on 80/443, `deploy/Caddyfile`,
 automatic certificates) and refuses while the test login is on.
+**AI:** `deploy/set-ai.sh` asks for a Gemini API key, picks the newest plain `gemini-*-flash`
+model through Google's OpenAI-compatible endpoint, test-calls it and writes the AI_* lines.
 **Automatic updates** (Saiff's choice): every push to `stage-1` runs
 `.github/workflows/deploy-our-server.yml`, which logs into the server with the key in the
 `DEPLOY_SSH_KEY` secret (host key in `DEPLOY_KNOWN_HOSTS`). That key is a forced command in
