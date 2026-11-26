@@ -142,11 +142,12 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `frontend/messages/*/constants.json`.
 - Every user-facing text needs a key in **all 8 languages** (`frontend/messages/`:
   en, de, fr, it, ja, ko, zh-CN, zh-TW). `npm run i18n:parity` must pass.
-- "Wardrowbe" is upstream's brand. **The app is called Aina** (Saiff's choice, 25 Nov 2026;
-  "mirror"; domain mywardrobe.fit; line "Wear more of what you own"). The name lives in
-  `frontend/lib/app-name.ts` (top bar), `app/layout.tsx` (page title), `app/manifest.ts`
-  (installed app) and the `brandName` / `brandAlt` / `greeting` / invitation keys in
-  `messages/*`. **Logo** (chosen 25 Nov): an arch mirror with a person reflected in it, her
+- "Wardrowbe" is upstream's brand. **The app is called plain "Wardrobe"** (Saiff and his
+  partner, 26 Nov 2026; it replaced "Aina"; domain mywardrobe.fit; line "Wear more of what you
+  own"). The top bar shows **only the logo** (the name is there for screen readers), since
+  "Wardrobe" is already on the bottom bar. The name lives in `frontend/lib/app-name.ts`,
+  `app/layout.tsx` (page title), `app/manifest.ts` (installed app) and the `brandName` /
+  `brandAlt` / `greeting` / invitation keys in `messages/*`. **Logo** (chosen 25 Nov): an arch mirror with a person reflected in it, her
   A-line dress the letter A; drawn in `components/wardrobe/aina-logo.tsx` (`AinaMark`, top
   bar), `public/logo.svg` and the PNG icons / `favicon.ico` in `public/` (white on the green
   `#1E5B4F` tile; regenerate all of them together if the drawing changes).

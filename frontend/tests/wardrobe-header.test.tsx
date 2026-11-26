@@ -148,9 +148,9 @@ describe('HomesFilter', () => {
 })
 
 describe('AppTopBar', () => {
-  it('shows the app name beside the home button', () => {
+  it('shows the logo, with the app name for screen readers, beside the home button', () => {
     setup()
-    expect(screen.getByText('Aina')).toBeTruthy()
+    expect(screen.getByText('Wardrobe')).toBeTruthy()
     expect(screen.getByText('Chennai')).toBeTruthy()
   })
 })

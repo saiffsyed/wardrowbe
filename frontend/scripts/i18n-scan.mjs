@@ -36,7 +36,7 @@ const NOT_COPY = [
 ];
 
 // The product name is a proper noun and stays identical in every locale.
-const BRAND = new Set(['Wardrowbe', 'wardrowbe', 'Aina']);
+const BRAND = new Set(['Wardrowbe', 'wardrowbe', 'Wardrobe']);
 
 function isCopy(raw, { identifierIsCopy = false } = {}) {
   // &ldquo; &rarr; &#8212; are typographic punctuation, not translatable copy, but their

@@ -264,7 +264,9 @@ https://claude.ai/artifact/JoQmJaArbh4N7Jy6dcstTH (private to Saiff).
 - **Top row like the Fits app** (preview): logo and app name on the left, the home in the
   middle ("📍 Chennai ▾", tap to switch home), round buttons on the
   right (Clothes: filter, search, +; Lookbook and Collections: +). Same row on all three
-  wardrobe tabs. The app is called **Aina** ("mirror", Saiff's choice, 25 Nov). **Logo** (Saiff chose
+  wardrobe tabs. The app is called plain **"Wardrobe"** (26 Nov; Saiff's partner wanted it
+  plain and simple, so it replaced "Aina"). The top row shows **only the logo**, no name,
+  because "Wardrobe" is already on the bottom bar. **Logo** (kept when the name changed; Saiff chose
   it from the ideas at https://claude.ai/artifact/1JKK1d3HFTV4A27XkCJEFn, option P3): an arch
   mirror with a person reflected in it, two arms at her sides, her A-line dress the letter A;
   green in the top row, white on a green tile as the phone icon. Both live in `frontend/lib/app-name.ts` and
@@ -395,8 +397,7 @@ Still to do in Stage 1:
   all serve it.
 - Domain: **mywardrobe.fit** (Saiff's choice, 26 Nov, at Namecheap: €2.73 the first year,
   then €31.07 a year; privacy on, no extras; bought 26 Nov with **auto-renew off**, so a
-  reminder to renew is set for 26 Oct 2027 (phone and email)). The app is still called Aina;
-  the address does not have to match the name.
+  reminder to renew is set for 26 Oct 2027 (phone and email)). The app is called "Wardrobe".
 - Server: **netcup VPS 500 G12.5** (2 cores, 4 GB RAM, 64 GB; €9.74 / month incl. VAT)
   on the **monthly** term first, to test for a month or two before a 12-month contract
   (€8.47 / month). Enough for this app; upgrading to VPS 1000 G12.5 later is free but

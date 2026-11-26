@@ -76,6 +76,6 @@
     "feature3": "Teile mit der Familie",
     "feature3Desc": "Jeder kann seinen eigenen personalisierten Kleiderschrank haben",
     "getStarted": "Los geht's",
-    "greeting": "Willkommen bei Aina{name}!"
+    "greeting": "Willkommen bei Wardrobe{name}!"
   }
 }
