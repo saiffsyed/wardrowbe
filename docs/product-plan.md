@@ -1,6 +1,6 @@
 # Product plan and decisions
 
-Last updated: 25 November 2026. All points below were confirmed by Saiff unless marked
+Last updated: 26 November 2026. All points below were confirmed by Saiff unless marked
 "open".
 
 ## What the app is
@@ -127,6 +127,17 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
      very good so let's keep this")
   3. **AI photo try-on**: both users are comfortable sending body photos to an AI
      service. No 3D avatar.
+
+### AI provider (Saiff's choice, 26 Nov; comparison https://claude.ai/artifact/42NuVRqPhvvPbWDixmmCaT)
+- **Google for everything**, on the **paid** API (paid data is not used for training;
+  check when signing up).
+- **Try-on pictures: Nano Banana 2** (Gemini 3.1 Flash Image, about $0.067 a picture), plus
+  an occasional **"Best quality"** button that uses **Nano Banana Pro** (about $0.134).
+- **Understanding** (label reader, tagging new clothes, suggestions): **Gemini Flash**,
+  pennies a month.
+- Expected use 20–100 try-ons a month; **spending limit €10 a month**, set both in the
+  Google account and in the app (the app stops at the limit). Prices from comparison sites
+  in Nov 2026; check Google's own price page before going live.
 
 ### Planning and suggestions
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.
@@ -374,7 +385,6 @@ Still to do in Stage 1:
 ## Open questions for Saiff
 
 - Grouped categories: does the grouping make sense to his partner?
-- AI provider: OpenAI or Gemini (the label reader works with either)
 - Confirm the starter list of traditional garments
 - Merge PR #1, then PR #2
 
