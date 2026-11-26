@@ -14,9 +14,9 @@ if [ ! -f .env ]; then
 POSTGRES_PASSWORD=$(openssl rand -hex 24)
 SECRET_KEY=$(openssl rand -hex 32)
 NEXTAUTH_SECRET=$(openssl rand -hex 32)
-# Test phase: opened through an SSH tunnel at http://localhost:8080 on your computer.
-NEXTAUTH_URL=http://localhost:8080
-APP_URL=http://localhost:8080
+# Test phase: opened through an SSH tunnel at http://127.0.0.1:8080 on your computer.
+NEXTAUTH_URL=http://127.0.0.1:8080
+APP_URL=http://127.0.0.1:8080
 DEBUG=true
 DEV_MODE=true
 # No AI until the Google key is added.
