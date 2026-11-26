@@ -29,6 +29,9 @@ git pull --ff-only
 
 echo "Building and starting the app (the first time takes 10-20 minutes)..."
 $COMPOSE up -d --build
+# nginx remembers the addresses of the containers it started with; rebuilt ones get new
+# addresses, so restart it or it answers "502 Bad Gateway".
+$COMPOSE restart nginx
 
 echo "Waiting for the app to start..."
 for i in $(seq 1 60); do
