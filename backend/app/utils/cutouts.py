@@ -16,7 +16,7 @@ Cut-outs are found by file name, not stored in the database: `abc.jpg` has `abc_
 from io import BytesIO
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageChops, ImageFilter
 
 from app.config import get_settings
 
@@ -27,6 +27,11 @@ _CUT = "_cut"
 _SOLID_ALPHA = 12
 # Margin kept round the garment when trimming, as a share of its longer side.
 _TRIM_MARGIN = 0.02
+# A separate patch smaller than this share of the biggest one is a leftover bit of floor or of
+# something lying beside the garment, not part of it (an earring's twin is far bigger than this).
+_LOOSE_BIT_SHARE = 0.06
+# Patches are found on a smaller copy of the mask: plenty to tell bits from garment, and quick.
+_MASK_PX = 512
 
 
 def _storage_root() -> Path:
@@ -70,10 +75,37 @@ def _encode(image: Image.Image, max_px: int, quality: int) -> bytes:
     return buffer.getvalue()
 
 
+def drop_loose_bits(rgba: Image.Image) -> Image.Image:
+    """The cut-out without small patches that are not joined to the garment. Without numpy and
+    scipy (not installed) it comes back as it was."""
+    try:
+        import numpy as np
+        from scipy import ndimage
+    except ImportError:
+        return rgba
+    alpha = rgba.getchannel("A")
+    small = alpha.copy()
+    small.thumbnail((_MASK_PX, _MASK_PX), Image.Resampling.BILINEAR)
+    solid = np.asarray(small) > _SOLID_ALPHA
+    labels, count = ndimage.label(solid, structure=np.ones((3, 3), dtype=bool))
+    if count < 2:
+        return rgba
+    sizes = np.bincount(labels.ravel())[1:]
+    keep = np.flatnonzero(sizes >= sizes.max() * _LOOSE_BIT_SHARE) + 1
+    if len(keep) == count:
+        return rgba
+    kept = Image.fromarray((np.isin(labels, keep) * 255).astype(np.uint8))
+    # Grown a little before scaling back up, so the garment's own soft edge is not shaved off.
+    kept = kept.filter(ImageFilter.MaxFilter(5)).resize(rgba.size, Image.Resampling.BILINEAR)
+    cleaned = rgba.copy()
+    cleaned.putalpha(ImageChops.multiply(alpha, kept))
+    return cleaned
+
+
 def trim(cutout: Image.Image) -> Image.Image:
-    """The cut-out cropped to the garment with a thin margin. One with nothing solid in it,
-    or already trimmed, comes back the same size."""
-    rgba = cutout.convert("RGBA")
+    """The cut-out without loose bits, cropped to the garment with a thin margin. One with
+    nothing solid in it, or already trimmed, comes back the same size."""
+    rgba = drop_loose_bits(cutout.convert("RGBA"))
     solid = rgba.getchannel("A").point(lambda a: 255 if a > _SOLID_ALPHA else 0)
     box = solid.getbbox()
     if box is None:

@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
@@ -53,6 +52,7 @@ import {
   CutoutTile,
   ItemListRow,
   ViewModeToggle,
+  WardrobeLoading,
   useWardrobeViewMode,
 } from '@/components/wardrobe/wardrobe-views';
 import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
@@ -136,7 +136,7 @@ function ItemCard({
             src={item.thumbnail_url}
             alt={item.name || typeLabel(item.type)}
             fill
-            className="object-cover"
+            className="object-contain p-1"
             sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
           />
         ) : (
@@ -311,18 +311,6 @@ function ItemCard({
             {t('ai.completeness', { percent: Math.round(item.ai_confidence * 100) })}
           </p>
         )}
-      </CardContent>
-    </Card>
-  );
-}
-
-function ItemCardSkeleton() {
-  return (
-    <Card className="overflow-hidden">
-      <Skeleton className="aspect-square" />
-      <CardContent className="p-3">
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-3 w-1/2 mt-1" />
       </CardContent>
     </Card>
   );
@@ -1020,11 +1008,7 @@ export default function WardrobePage() {
           </Button>
         </div>
       ) : isLoading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <ItemCardSkeleton key={i} />
-          ))}
-        </div>
+        <WardrobeLoading mode={viewMode} />
       ) : items.length === 0 ? (
         search || typeFilter !== 'all' || category !== 'all' || needsWash !== undefined || favoriteFilter !== undefined || activeFacetCount(facetSelection) > 0 || scopedHomeId ? (
           <div className="text-center py-8">

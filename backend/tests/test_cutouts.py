@@ -195,3 +195,26 @@ class TestTrim:
     def test_an_empty_cutout_is_left_alone(self):
         empty = Image.new("RGBA", (50, 80), (0, 0, 0, 0))
         assert trim(empty).size == (50, 80)
+
+
+class TestLooseBits:
+    def _cutout(self) -> Image.Image:
+        image = Image.new("RGBA", (1000, 1200), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((300, 100, 700, 900), fill=(90, 90, 90, 255))  # the trousers
+        return image
+
+    def test_a_small_bit_apart_from_the_garment_is_dropped_before_trimming(self):
+        image = self._cutout()
+        ImageDraw.Draw(image).rectangle((150, 1100, 190, 1140), fill=(120, 80, 40, 255))
+        trimmed = trim(image)
+        # Framed round the trousers alone, as if the bit had never been there.
+        assert trimmed.size == trim(self._cutout()).size
+
+    def test_two_pieces_of_a_pair_are_both_kept(self):
+        image = Image.new("RGBA", (1000, 600), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        draw.ellipse((100, 200, 400, 400), fill=(30, 30, 30, 255))
+        draw.ellipse((600, 220, 880, 410), fill=(30, 30, 30, 255))
+        left, _, right, _ = trim(image).getchannel("A").getbbox()
+        assert right - left > 700

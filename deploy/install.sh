@@ -49,5 +49,8 @@ done
 echo "Updating the database..."
 $COMPOSE exec -T backend alembic upgrade head
 
+echo "Tidying cut-outs (only those that need it)..."
+$COMPOSE exec -T backend python -m scripts.make_cutouts --trim || echo "(cut-outs left as they were)"
+
 echo
 echo "WARDROBE IS RUNNING"

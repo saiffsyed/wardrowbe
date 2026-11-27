@@ -28,7 +28,7 @@ describe('CataloguePhotoDialog', () => {
     render(<CataloguePhotoDialog item={ITEM} open onOpenChange={vi.fn()} />)
     expect(make).toHaveBeenCalledWith('item-1', expect.anything())
     const images = document.querySelectorAll('img')
-    expect([...images].map((img) => img.getAttribute('src'))).toEqual(['/own.jpg', READY.preview])
+    expect(Array.from(images).map((img) => img.getAttribute('src'))).toEqual(['/own.jpg', READY.preview])
   })
 
   it('uses the draft only when asked', () => {

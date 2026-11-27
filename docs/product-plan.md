@@ -150,10 +150,10 @@ Build order, all after the Gemini key is on the server:
    before / after with Use / Try again / Keep mine and the cost against the €10 limit; the
    original is always kept and can be restored.
 3. Paste a shop link (Stage 5). Photo-only "Find it online" later or never.
-Also found on the live app (to fix): the loading placeholders do not match the chosen view;
-the tiles view crops long pieces (should show the whole piece); background removal can leave
-loose bits that shrink the cut-out (drop small unconnected bits, then trim, also for existing
-cut-outs).
+Fixed after the first days on the live app (preview, 28 Nov): the loading placeholders now
+take the shape of the chosen view (faint, no text bars); the tiles view shows the whole piece
+instead of cropping it; cut-outs drop small loose bits not joined to the garment before they
+are trimmed, and every server update re-tidies existing cut-outs that need it.
 
 ### Planning and suggestions
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.

@@ -234,3 +234,45 @@ export function ItemListRow({
     </li>
   );
 }
+
+// While the wardrobe loads: faint shapes in the layout of the chosen view, so the screen does not
+// jump from one look to another when the clothes arrive.
+const LOADING_SHAPE = 'animate-pulse rounded-xl bg-foreground/[0.05] motion-reduce:animate-none';
+
+export function WardrobeLoading({ mode }: { mode: ViewMode }) {
+  if (mode === 'list') {
+    return (
+      <ul aria-hidden="true">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <li key={i} className="flex items-center gap-3 border-b py-2.5">
+            <div className={`${LOADING_SHAPE} h-14 w-14 shrink-0`} />
+            <div className="flex-1 space-y-2">
+              <div className={`${LOADING_SHAPE} h-3.5 w-2/5 rounded-full`} />
+              <div className={`${LOADING_SHAPE} h-3 w-1/4 rounded-full`} />
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  if (mode === 'cutouts') {
+    return (
+      <div aria-hidden="true" className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className={`${LOADING_SHAPE} aspect-square`} />
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div aria-hidden="true" className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} className="space-y-2">
+          <div className={`${LOADING_SHAPE} aspect-square`} />
+          <div className={`${LOADING_SHAPE} h-3.5 w-3/5 rounded-full`} />
+          <div className={`${LOADING_SHAPE} h-3 w-2/5 rounded-full`} />
+        </div>
+      ))}
+    </div>
+  );
+}
