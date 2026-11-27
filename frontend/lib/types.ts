@@ -18,6 +18,7 @@ export interface LabelPhoto {
 // What the AI read off an item's labels. Only ever a suggestion for the person to confirm.
 export interface LabelReading {
   brand: string | null;
+  article_number?: string | null;
   size: string | null;
   size_system: string | null;
   composition: MaterialShare[];
@@ -67,6 +68,7 @@ export interface ItemTags {
   size?: string;
   care_instructions?: string;
   source_url?: string;
+  article_number?: string;
   size_system?: string;
   fit_note?: string;
   // Where the item was bought (a shop, city or country), not where it was made.

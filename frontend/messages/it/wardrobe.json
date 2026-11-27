@@ -408,6 +408,7 @@
       "home": "Si trova a",
       "none": "Non impostato",
       "brand": "Marca",
+      "articleNumber": "Codice articolo",
       "size": "Taglia",
       "sizeSystem": "Sistema di taglie",
       "sizeSystemPlaceholder": "es. EU, UK, IN",

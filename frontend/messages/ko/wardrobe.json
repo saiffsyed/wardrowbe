@@ -408,6 +408,7 @@
       "home": "보관 장소",
       "none": "미설정",
       "brand": "브랜드",
+      "articleNumber": "품번",
       "size": "사이즈",
       "sizeSystem": "사이즈 체계",
       "sizeSystemPlaceholder": "예: EU, UK, IN",

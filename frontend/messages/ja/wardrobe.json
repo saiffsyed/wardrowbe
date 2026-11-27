@@ -408,6 +408,7 @@
       "home": "保管場所",
       "none": "未設定",
       "brand": "ブランド",
+      "articleNumber": "品番",
       "size": "サイズ",
       "sizeSystem": "サイズ規格",
       "sizeSystemPlaceholder": "例：EU、UK、IN",

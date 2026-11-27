@@ -1,10 +1,10 @@
 import type { ClosetDetailEdits } from '@/lib/hooks/use-homes';
 import type { Item, LabelReading, MaterialShare } from '@/lib/types';
 
-export type LabelTextField = 'brand' | 'size' | 'size_system' | 'care_instructions';
+export type LabelTextField = 'brand' | 'article_number' | 'size' | 'size_system' | 'care_instructions';
 export type LabelField = LabelTextField | 'composition';
 
-export const LABEL_FIELDS: LabelField[] = ['brand', 'size', 'size_system', 'composition', 'care_instructions'];
+export const LABEL_FIELDS: LabelField[] = ['brand', 'article_number', 'size', 'size_system', 'composition', 'care_instructions'];
 
 // new: the item has nothing for this detail. different: it has something else. same: the label
 // agrees with what is saved, so there is nothing to decide.

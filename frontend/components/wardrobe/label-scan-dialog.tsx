@@ -40,6 +40,7 @@ interface Picked {
 
 const FIELD_KEYS: Record<LabelField, string> = {
   brand: 'brand',
+  article_number: 'articleNumber',
   size: 'size',
   size_system: 'sizeSystem',
   composition: 'materials',

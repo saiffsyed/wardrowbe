@@ -23,6 +23,8 @@ export interface ClosetDetailEdits {
   purchase_price?: number | null;
   tags?: {
     size?: string | null;
+    article_number?: string | null;
+    source_url?: string | null;
     size_system?: string | null;
     fit_note?: string | null;
     purchase_place?: string | null;

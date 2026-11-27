@@ -27,6 +27,7 @@ READING_MAX_PX = 1568
 MAX_SIZE_LENGTH = 32
 MAX_CARE_LENGTH = 255
 MAX_BRAND_LENGTH = 100
+MAX_ARTICLE_LENGTH = 60
 MAX_MATERIAL_LENGTH = 40
 MAX_MATERIALS = 8
 # Labels round their percentages, so a total a little over 100 is still a faithful copy.
@@ -41,6 +42,7 @@ ONE garment. Combine what all the photos say.
 Answer with ONLY a JSON object, no other text:
 {{
   "brand": string or null,
+  "article_number": string or null,
   "size": string or null,
   "size_system": string or null,
   "composition": [{{"material": string, "percent": number}}],
@@ -51,6 +53,9 @@ Rules:
 - Report only what is printed on the labels. If something is not there or cannot be read, use \
 null (or an empty list). Never guess.
 - brand: the brand name as printed. Not the manufacturer's address, not the shop.
+- article_number: the article, style or model number the brand uses for this product, exactly \
+as printed (often labelled Art., Style, Ref., Model or a long code like 1234/567/800). Not a \
+barcode number, price, batch, factory or registration number.
 - size: the size as printed, without the system: "M", "42", "32/34", "10". If the label lists the \
 same size in several systems, give the one size and system printed first or largest.
 - size_system: one of {size_systems} when the label says which system the size is in, otherwise \
@@ -73,6 +78,7 @@ class LabelReading(BaseModel):
     """What the labels say. Every field is optional: a label rarely has all of them."""
 
     brand: str | None = None
+    article_number: str | None = None
     size: str | None = None
     size_system: str | None = None
     composition: list[MaterialReading] = Field(default_factory=list)
@@ -81,6 +87,7 @@ class LabelReading(BaseModel):
     def has_content(self) -> bool:
         return bool(
             self.brand
+            or self.article_number
             or self.size
             or self.size_system
             or self.composition
@@ -185,6 +192,7 @@ def parse_label_reading(response_text: str) -> LabelReading:
         return LabelReading()
     return LabelReading(
         brand=_text(data.get("brand"), MAX_BRAND_LENGTH),
+        article_number=_text(data.get("article_number"), MAX_ARTICLE_LENGTH),
         size=_text(data.get("size"), MAX_SIZE_LENGTH),
         size_system=_size_system(data.get("size_system")),
         composition=_composition(data.get("composition")),

@@ -80,6 +80,7 @@ interface MaterialRow {
 
 interface DetailsForm {
   brand: string;
+  articleNumber: string;
   size: string;
   sizeSystem: string;
   fitNote: string;
@@ -96,6 +97,7 @@ interface DetailsForm {
 function formFromItem(item: Item): DetailsForm {
   return {
     brand: item.brand ?? '',
+    articleNumber: item.tags?.article_number ?? '',
     size: item.tags?.size ?? '',
     sizeSystem: item.tags?.size_system ?? '',
     fitNote: item.tags?.fit_note ?? '',
@@ -141,6 +143,7 @@ function editsFrom(form: DetailsForm): ClosetDetailEdits {
     purchase_price: hasPrice ? price : null,
     tags: {
       currency: hasPrice ? form.currency : null,
+      article_number: text(form.articleNumber),
       size: text(form.size),
       size_system: text(form.sizeSystem),
       fit_note: text(form.fitNote),
@@ -309,7 +312,7 @@ export function ClosetDetails({ item }: { item: Item }) {
     const boughtOn = item.purchase_date
       ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(new Date(`${item.purchase_date}T00:00:00`))
       : undefined;
-    const hasFacts = !!(item.brand || size || tags.fit_note || tags.purchase_place || boughtOn || price);
+    const hasFacts = !!(item.brand || tags.article_number || size || tags.fit_note || tags.purchase_place || boughtOn || price);
 
     return (
       <div className="space-y-4 border-t pt-3">
@@ -351,6 +354,7 @@ export function ClosetDetails({ item }: { item: Item }) {
           {hasFacts ? (
             <dl className={`${CARD} divide-y px-3.5`}>
               <Fact label={t('brand')} value={item.brand ?? undefined} />
+              <Fact label={t('articleNumber')} value={tags.article_number} />
               <Fact label={t('size')} value={size} />
               <Fact label={t('fitNote')} value={tags.fit_note} />
               <Fact label={t('boughtIn')} value={tags.purchase_place} />
@@ -427,6 +431,16 @@ export function ClosetDetails({ item }: { item: Item }) {
       <div className="space-y-1.5">
         <Label htmlFor={field('brand')}>{t('brand')}</Label>
         <Input id={field('brand')} value={form.brand} maxLength={100} onChange={(e) => set('brand', e.target.value)} />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor={field('article')}>{t('articleNumber')}</Label>
+        <Input
+          id={field('article')}
+          value={form.articleNumber}
+          maxLength={60}
+          onChange={(e) => set('articleNumber', e.target.value)}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-3">

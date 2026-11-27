@@ -91,6 +91,7 @@ describe('ClosetDetails', () => {
       purchase_price: null,
       tags: {
         currency: null,
+        article_number: null,
         size: '40',
         size_system: null,
         fit_note: 'Slim at the shoulders',

@@ -61,6 +61,8 @@ class ItemTags(BaseModel):
     size: str | None = Field(None, max_length=32)
     care_instructions: str | None = Field(None, max_length=255)
     source_url: str | None = Field(None, max_length=500)
+    # The article / style number printed on the label or hang tag; used to find the product.
+    article_number: str | None = Field(None, max_length=60)
     # More user-owned keys: what a care label and a receipt say about the item.
     size_system: str | None = Field(None, max_length=32)
     fit_note: str | None = Field(None, max_length=120)
@@ -90,6 +92,7 @@ USER_TAG_KEYS = frozenset(
         "size",
         "care_instructions",
         "source_url",
+        "article_number",
         "size_system",
         "fit_note",
         "purchase_place",

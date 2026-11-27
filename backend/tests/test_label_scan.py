@@ -102,6 +102,11 @@ class TestParseLabelReading:
 
         assert not reading.has_content()
 
+    def test_the_article_number_is_read_as_printed(self):
+        reading = parse_label_reading('{"article_number": " 1234/567/800 "}')
+        assert reading.article_number == "1234/567/800"
+        assert reading.has_content()
+
     def test_a_numeric_size_is_kept_as_text(self):
         assert parse_label_reading('{"size": 40}').size == "40"
 
