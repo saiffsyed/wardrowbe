@@ -1,3 +1,4 @@
+from app.models.ai_spend import AISpend
 from app.models.collection import Collection, CollectionEntry
 from app.models.couple import CoupleSettings
 from app.models.dressing_room import DressingRoomSettings
@@ -24,6 +25,7 @@ from app.models.wardrobe_category import WardrobeCategoryTree
 from app.models.wardrobe_kind import WardrobeCustomKind
 
 __all__ = [
+    "AISpend",
     "Collection",
     "CollectionEntry",
     "OutfitLayout",

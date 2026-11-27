@@ -20,6 +20,7 @@ from app.api.outfit_layouts import router as outfit_layouts_router
 from app.api.outfits import router as outfits_router
 from app.api.pairings import router as pairings_router
 from app.api.preferences import router as preferences_router
+from app.api.product_finder import router as product_finder_router
 from app.api.split import router as split_router
 from app.api.stays import days_router as weather_days_router
 from app.api.stays import router as stays_router
@@ -55,4 +56,5 @@ api_router.include_router(outfit_layouts_router)
 api_router.include_router(dressing_room_router)
 api_router.include_router(laundry_router)
 api_router.include_router(couple_router)
+api_router.include_router(product_finder_router)
 api_router.include_router(weather_days_router)
