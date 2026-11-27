@@ -45,14 +45,16 @@ async def replace_main_photo(
             position=count,
         )
     )
-    old_backup = item.original_image_path
+    # No "undo background removal" for the new photo: a backup would stay with the item when the
+    # own photo is made the main one again, and undoing would then paint it over the own photo.
+    for backup in (item.original_image_path, paths.get("original_backup_path")):
+        if backup:
+            full = images.get_image_path(backup)
+            if full.exists():
+                full.unlink()
     item.image_path = paths["image_path"]
     item.medium_path = paths["medium_path"]
     item.thumbnail_path = paths["thumbnail_path"]
     item.image_hash = paths["image_hash"]
-    item.original_image_path = paths.get("original_backup_path")
+    item.original_image_path = None
     await db.flush()
-    if old_backup and old_backup != item.original_image_path:
-        full = images.get_image_path(old_backup)
-        if full.exists():
-            full.unlink()

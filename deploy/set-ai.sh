@@ -19,14 +19,16 @@ if [ -z "$MODEL" ]; then
   echo "No plain Flash model found. Models offered:"; printf '%s\n' "$MODELS" | grep -i flash || true
   read -rp "Type the model to use: " MODEL
 fi
-echo "Using $MODEL. Testing it..."
+# The newest Flash picture model ("Nano Banana") for catalogue photos.
+IMAGE_MODEL=$(printf '%s\n' "$MODELS" | grep -E '^gemini-[0-9.]+-flash-image' | sort -V | tail -1 || true)
+echo "Using $MODEL${IMAGE_MODEL:+ and $IMAGE_MODEL for pictures}. Testing it..."
 CODE=$(curl -sS -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $KEY" -H 'Content-Type: application/json' \
   -d "{\"model\":\"$MODEL\",\"messages\":[{\"role\":\"user\",\"content\":\"Say OK\"}],\"max_tokens\":5}" "$BASE/chat/completions")
 if [ "$CODE" != "200" ]; then
   echo "The test call failed (code $CODE). If it is 429 or mentions billing, turn on billing for the project first."; exit 1
 fi
 
-KEYS='AI_INTERNAL_ENABLED|AI_BASE_URL|AI_API_KEY|AI_VISION_MODEL|AI_TEXT_MODEL'
+KEYS='AI_INTERNAL_ENABLED|AI_BASE_URL|AI_API_KEY|AI_VISION_MODEL|AI_TEXT_MODEL|AI_IMAGE_MODEL'
 umask 077
 grep -vE "^($KEYS)=" .env > .env.new || true
 cat >> .env.new <<ENV
@@ -36,6 +38,7 @@ AI_BASE_URL=$BASE
 AI_API_KEY=$KEY
 AI_VISION_MODEL=$MODEL
 AI_TEXT_MODEL=$MODEL
+AI_IMAGE_MODEL=$IMAGE_MODEL
 ENV
 mv .env.new .env
 bash deploy/install.sh

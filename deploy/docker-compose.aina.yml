@@ -10,6 +10,9 @@ services:
       # Test phase only: dev login, reachable through the SSH tunnel alone (nginx listens on
       # 127.0.0.1). Turned off once Google sign-in is set up.
       DEBUG: ${DEBUG:-false}
+      # Our paid-AI extras: the picture model (catalogue photo) and the monthly limit.
+      AI_IMAGE_MODEL: ${AI_IMAGE_MODEL:-}
+      AI_MONTHLY_LIMIT_EUR: ${AI_MONTHLY_LIMIT_EUR:-10}
   worker:
     image: aina-backend:latest
     pull_policy: never

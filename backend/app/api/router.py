@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from app.api.analytics import router as analytics_router
 from app.api.auth import router as auth_router
+from app.api.catalogue_photo import router as catalogue_photo_router
 from app.api.collections import router as collections_router
 from app.api.couple import router as couple_router
 from app.api.dressing_room import router as dressing_room_router
@@ -57,4 +58,5 @@ api_router.include_router(dressing_room_router)
 api_router.include_router(laundry_router)
 api_router.include_router(couple_router)
 api_router.include_router(product_finder_router)
+api_router.include_router(catalogue_photo_router)
 api_router.include_router(weather_days_router)
