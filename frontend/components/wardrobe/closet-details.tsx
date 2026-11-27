@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/select';
 import { LabelPhotos } from '@/components/wardrobe/label-photos';
 import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
+import { CataloguePhotoDialog } from '@/components/wardrobe/catalogue-photo-dialog';
 import { ProductFinderDialog } from '@/components/wardrobe/product-finder-dialog';
 import { getErrorMessage } from '@/lib/api';
 import {
@@ -249,6 +250,7 @@ export function ClosetDetails({ item }: { item: Item }) {
   const [occasionDraft, setOccasionDraft] = useState('');
   const [scanning, setScanning] = useState(false);
   const [finding, setFinding] = useState(false);
+  const [tidying, setTidying] = useState(false);
 
   const tags = item.tags ?? {};
   const home = homes?.find((candidate) => candidate.id === item.home_id);
@@ -398,7 +400,13 @@ export function ClosetDetails({ item }: { item: Item }) {
 
         <LabelPhotos itemId={item.id} />
         <LabelScanDialog item={item} open={scanning} onOpenChange={setScanning} onFindProduct={() => setFinding(true)} />
-        <ProductFinderDialog item={item} open={finding} onOpenChange={setFinding} />
+        <ProductFinderDialog
+          item={item}
+          open={finding}
+          onOpenChange={setFinding}
+          onCataloguePhoto={() => setTidying(true)}
+        />
+        <CataloguePhotoDialog item={item} open={tidying} onOpenChange={setTidying} />
       </div>
     );
   }

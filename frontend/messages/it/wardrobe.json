@@ -1079,7 +1079,25 @@
       "noBrand": "Aggiungi prima la marca o scansiona l'etichetta.",
       "aiDisabled": "L'IA è disattivata su questo server.",
       "overLimit": "Il limite IA di questo mese è esaurito.",
-      "unreachable": "Ricerca non disponibile ora. Riprova più tardi."
+      "unreachable": "Ricerca non disponibile ora. Riprova più tardi.",
+      "cataloguePhoto": "Crea foto catalogo"
+    },
+    "cataloguePhoto": {
+      "menu": "Crea foto catalogo",
+      "title": "Foto catalogo",
+      "working": "Sistemazione…",
+      "before": "Prima",
+      "after": "Dopo",
+      "spent": "{spent} di {limit} questo mese",
+      "useNew": "Usa la nuova foto",
+      "tryAgain": "Riprova",
+      "keepMine": "Tieni la mia",
+      "close": "Chiudi",
+      "saved": "Nuova foto salvata. La tua resta.",
+      "failed": "Impossibile creare la foto. Riprova.",
+      "tooManyPhotos": "Questo capo ha già 4 foto extra. Eliminane una prima.",
+      "aiDisabled": "Le immagini IA sono disattivate su questo server.",
+      "overLimit": "Il limite IA di questo mese è esaurito."
     }
   }
 }

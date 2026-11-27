@@ -1079,7 +1079,25 @@
       "noBrand": "Ajoute d'abord la marque, ou scanne l'étiquette.",
       "aiDisabled": "L'IA est désactivée sur ce serveur.",
       "overLimit": "La limite IA de ce mois est atteinte.",
-      "unreachable": "Recherche impossible pour le moment. Réessaie plus tard."
+      "unreachable": "Recherche impossible pour le moment. Réessaie plus tard.",
+      "cataloguePhoto": "Créer une photo catalogue"
+    },
+    "cataloguePhoto": {
+      "menu": "Créer une photo catalogue",
+      "title": "Photo catalogue",
+      "working": "Retouche…",
+      "before": "Avant",
+      "after": "Après",
+      "spent": "{spent} sur {limit} ce mois-ci",
+      "useNew": "Utiliser la nouvelle photo",
+      "tryAgain": "Réessayer",
+      "keepMine": "Garder la mienne",
+      "close": "Fermer",
+      "saved": "Nouvelle photo enregistrée. La tienne est conservée.",
+      "failed": "Impossible de créer la photo. Réessaie.",
+      "tooManyPhotos": "Cet article a déjà 4 photos en plus. Supprimes-en une d'abord.",
+      "aiDisabled": "Les images IA sont désactivées sur ce serveur.",
+      "overLimit": "La limite IA de ce mois est atteinte."
     }
   }
 }

@@ -1079,7 +1079,25 @@
       "noBrand": "Add the brand first, or scan the label.",
       "aiDisabled": "AI is off on this server.",
       "overLimit": "This month's AI limit is used up.",
-      "unreachable": "Couldn't search right now. Try again later."
+      "unreachable": "Couldn't search right now. Try again later.",
+      "cataloguePhoto": "Make a catalogue photo"
+    },
+    "cataloguePhoto": {
+      "menu": "Make a catalogue photo",
+      "title": "Catalogue photo",
+      "working": "Tidying up…",
+      "before": "Before",
+      "after": "After",
+      "spent": "{spent} of {limit} this month",
+      "useNew": "Use the new photo",
+      "tryAgain": "Try again",
+      "keepMine": "Keep mine",
+      "close": "Close",
+      "saved": "New photo saved. Your own is kept.",
+      "failed": "Couldn't make the photo. Try again.",
+      "tooManyPhotos": "This item already keeps 4 extra photos. Remove one first.",
+      "aiDisabled": "AI pictures are off on this server.",
+      "overLimit": "This month's AI limit is used up."
     }
   }
 }

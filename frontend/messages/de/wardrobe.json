@@ -1079,7 +1079,25 @@
       "noBrand": "Füge zuerst die Marke hinzu oder scanne das Etikett.",
       "aiDisabled": "KI ist auf diesem Server aus.",
       "overLimit": "Das KI-Limit für diesen Monat ist aufgebraucht.",
-      "unreachable": "Suche gerade nicht möglich. Später erneut versuchen."
+      "unreachable": "Suche gerade nicht möglich. Später erneut versuchen.",
+      "cataloguePhoto": "Katalogfoto erstellen"
+    },
+    "cataloguePhoto": {
+      "menu": "Katalogfoto erstellen",
+      "title": "Katalogfoto",
+      "working": "Wird aufgeräumt…",
+      "before": "Vorher",
+      "after": "Nachher",
+      "spent": "{spent} von {limit} diesen Monat",
+      "useNew": "Neues Foto verwenden",
+      "tryAgain": "Nochmal",
+      "keepMine": "Meins behalten",
+      "close": "Schließen",
+      "saved": "Neues Foto gespeichert. Dein eigenes bleibt.",
+      "failed": "Foto konnte nicht erstellt werden. Bitte erneut versuchen.",
+      "tooManyPhotos": "Dieses Teil hat schon 4 weitere Fotos. Lösche zuerst eines.",
+      "aiDisabled": "KI-Bilder sind auf diesem Server aus.",
+      "overLimit": "Das KI-Limit für diesen Monat ist aufgebraucht."
     }
   }
 }

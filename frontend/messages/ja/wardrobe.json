@@ -1079,7 +1079,25 @@
       "noBrand": "先にブランドを追加するか、タグをスキャンしてください。",
       "aiDisabled": "このサーバーではAIがオフです。",
       "overLimit": "今月のAI上限に達しました。",
-      "unreachable": "今は検索できません。後でもう一度お試しください。"
+      "unreachable": "今は検索できません。後でもう一度お試しください。",
+      "cataloguePhoto": "カタログ写真を作る"
+    },
+    "cataloguePhoto": {
+      "menu": "カタログ写真を作る",
+      "title": "カタログ写真",
+      "working": "整えています…",
+      "before": "前",
+      "after": "後",
+      "spent": "今月 {limit} 中 {spent}",
+      "useNew": "新しい写真を使う",
+      "tryAgain": "もう一度",
+      "keepMine": "自分の写真のまま",
+      "close": "閉じる",
+      "saved": "新しい写真を保存しました。自分の写真も残ります。",
+      "failed": "写真を作れませんでした。もう一度お試しください。",
+      "tooManyPhotos": "このアイテムには追加写真が既に4枚あります。先に1枚削除してください。",
+      "aiDisabled": "このサーバーではAI画像がオフです。",
+      "overLimit": "今月のAI上限に達しました。"
     }
   }
 }

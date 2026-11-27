@@ -148,6 +148,13 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `f8c4e0a6b2d3`; `AI_MONTHLY_LIMIT_EUR`, default 10); frontend
   `components/wardrobe/product-finder-dialog.tsx`, `lib/hooks/use-product-finder.ts`, "Find
   online" in the Details card and "Save & find" in the label scan.
+- Catalogue photo: backend `app/api/catalogue_photo.py` (`POST /items/{id}/catalogue-photo` makes
+  a paid draft, `.../{draft}/use`, `DELETE .../{draft}`), `app/services/catalogue_photo.py` (Nano
+  Banana through the native Gemini API, model `AI_IMAGE_MODEL` picked by `set-ai.sh`; drafts are
+  files in `<storage>/<user>/drafts`, cleared after a day); frontend
+  `components/wardrobe/catalogue-photo-dialog.tsx`, `lib/hooks/use-catalogue-photo.ts`, opened
+  from the item's ⋯ menu and from the finder's "None of these". New main photos (shop or
+  catalogue) keep no background-removal backup, so making the own photo main again is safe.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

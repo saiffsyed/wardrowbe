@@ -104,6 +104,7 @@ import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
 import { ClosetDetails } from '@/components/wardrobe/closet-details';
 import { AddToCollectionDialog } from '@/components/wardrobe/add-to-collection';
+import { CataloguePhotoDialog } from '@/components/wardrobe/catalogue-photo-dialog';
 import { LaundryMenuItems } from '@/components/wardrobe/laundry';
 import { CUSTOM_KIND_PREFIX, useCustomKinds } from '@/lib/hooks/use-wardrobe-categories';
 import { formatDate } from '@/lib/utils';
@@ -197,6 +198,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
   const [showWashHistory, setShowWashHistory] = useState(false);
   const [showSplit, setShowSplit] = useState(false);
   const [showCollections, setShowCollections] = useState(false);
+  const [showCatalogue, setShowCatalogue] = useState(false);
   const [showWearHistory, setShowWearHistory] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -445,6 +447,10 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="min-w-[15rem]">
+                  <DropdownMenuItem title={tw('closet.cataloguePhoto.menu')} onSelect={() => setShowCatalogue(true)}>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    {tw('closet.cataloguePhoto.menu')}
+                  </DropdownMenuItem>
                   <DropdownMenuItem title={tw('closet.collections.addTitle')} onSelect={() => setShowCollections(true)}>
                     <FolderPlus className="mr-2 h-4 w-4" />
                     {tw('closet.collections.addTitle')}
@@ -1131,6 +1137,8 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
           </div>
         </DialogContent>
       </Dialog>
+
+      <CataloguePhotoDialog item={item} open={showCatalogue} onOpenChange={setShowCatalogue} />
 
       <AddToCollectionDialog
         open={showCollections}

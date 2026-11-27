@@ -22,6 +22,8 @@ interface ProductFinderDialogProps {
   item: Item;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  // "None of these" / nothing found: offer a catalogue photo of the own picture instead.
+  onCataloguePhoto?: () => void;
 }
 
 type Field = 'name' | 'colour' | 'price';
@@ -60,7 +62,7 @@ export function changeRows(item: Item, match: ProductMatch, labels: { colour: (c
   return rows;
 }
 
-export function ProductFinderDialog({ item, open, onOpenChange }: ProductFinderDialogProps) {
+export function ProductFinderDialog({ item, open, onOpenChange, onCataloguePhoto }: ProductFinderDialogProps) {
   const t = useTranslations('wardrobe.closet.productFinder');
   const locale = useLocale();
   const colourLabel = useColorLabel();
@@ -86,6 +88,11 @@ export function ProductFinderDialog({ item, open, onOpenChange }: ProductFinderD
     // One search per opening.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  const toCatalogue = () => {
+    onOpenChange(false);
+    onCataloguePhoto?.();
+  };
 
   const choose = (match: ProductMatch) => {
     setPicked(match);
@@ -149,7 +156,12 @@ export function ProductFinderDialog({ item, open, onOpenChange }: ProductFinderD
         {!searching && message && (
           <div className="space-y-4 py-2">
             <p className="text-sm">{message}</p>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              {result?.status === 'nothing' && onCataloguePhoto && (
+                <Button type="button" variant="ghost" onClick={toCatalogue}>
+                  {t('cataloguePhoto')}
+                </Button>
+              )}
               <Button type="button" onClick={() => onOpenChange(false)}>
                 {t('close')}
               </Button>
@@ -190,7 +202,7 @@ export function ProductFinderDialog({ item, open, onOpenChange }: ProductFinderD
               ))}
             </ul>
             <div className="flex justify-end">
-              <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
+              <Button type="button" variant="ghost" onClick={onCataloguePhoto ? toCatalogue : () => onOpenChange(false)}>
                 {t('noneOfThese')}
               </Button>
             </div>

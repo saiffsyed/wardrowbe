@@ -1079,7 +1079,25 @@
       "noBrand": "먼저 브랜드를 추가하거나 라벨을 스캔해 주세요.",
       "aiDisabled": "이 서버에서는 AI가 꺼져 있어요.",
       "overLimit": "이번 달 AI 한도를 다 썼어요.",
-      "unreachable": "지금은 검색할 수 없어요. 나중에 다시 시도해 주세요."
+      "unreachable": "지금은 검색할 수 없어요. 나중에 다시 시도해 주세요.",
+      "cataloguePhoto": "카탈로그 사진 만들기"
+    },
+    "cataloguePhoto": {
+      "menu": "카탈로그 사진 만들기",
+      "title": "카탈로그 사진",
+      "working": "정리하는 중…",
+      "before": "전",
+      "after": "후",
+      "spent": "이번 달 {limit} 중 {spent}",
+      "useNew": "새 사진 사용",
+      "tryAgain": "다시 시도",
+      "keepMine": "내 사진 유지",
+      "close": "닫기",
+      "saved": "새 사진을 저장했어요. 내 사진도 남아 있어요.",
+      "failed": "사진을 만들지 못했어요. 다시 시도해 주세요.",
+      "tooManyPhotos": "이 아이템에는 추가 사진이 이미 4장 있어요. 먼저 하나를 지워 주세요.",
+      "aiDisabled": "이 서버에서는 AI 이미지가 꺼져 있어요.",
+      "overLimit": "이번 달 AI 한도를 다 썼어요."
     }
   }
 }

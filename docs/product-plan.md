@@ -145,7 +145,7 @@ Build order, all after the Gemini key is on the server:
    article number, colour and kind; up to three matches (a tick when the article number
    matches); picking one makes the shop's photo the item's photo (own photo kept) and fills
    empty or wrong details, saved only on Save. Not found: offers the catalogue photo.
-2. **Catalogue photo** (option "a": a button on the item and in ⋯, never automatic): Nano
+2. **Catalogue photo** (built, preview; not yet tried with the real picture model; in the item's ⋯ menu and after "None of these", never automatic): Nano
    Banana tidies the own photo (creases, angle, light; same colour, print, buttons), shows
    before / after with Use / Try again / Keep mine and the cost against the €10 limit; the
    original is always kept and can be restored.

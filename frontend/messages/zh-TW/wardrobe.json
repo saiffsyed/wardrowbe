@@ -1079,7 +1079,25 @@
       "noBrand": "請先新增品牌，或掃描標籤。",
       "aiDisabled": "此伺服器上的 AI 已關閉。",
       "overLimit": "本月的 AI 額度已用完。",
-      "unreachable": "目前無法搜尋，請稍後再試。"
+      "unreachable": "目前無法搜尋，請稍後再試。",
+      "cataloguePhoto": "產生商品圖"
+    },
+    "cataloguePhoto": {
+      "menu": "產生商品圖",
+      "title": "商品圖",
+      "working": "正在整理…",
+      "before": "之前",
+      "after": "之後",
+      "spent": "本月已用 {spent}，共 {limit}",
+      "useNew": "使用新照片",
+      "tryAgain": "再試一次",
+      "keepMine": "保留我的",
+      "close": "關閉",
+      "saved": "新照片已儲存。你自己的照片也會保留。",
+      "failed": "無法產生照片，請再試一次。",
+      "tooManyPhotos": "這件衣物已有 4 張附加照片，請先刪除一張。",
+      "aiDisabled": "此伺服器上的 AI 圖片已關閉。",
+      "overLimit": "本月的 AI 額度已用完。"
     }
   }
 }

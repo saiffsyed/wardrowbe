@@ -32,6 +32,11 @@ vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useOccasionLabel: () => (value: string) => value,
   useColorLabel: () => (value: string) => value,
 }))
+vi.mock('@/lib/hooks/use-catalogue-photo', () => ({
+  useMakeCataloguePhoto: () => ({ mutate: vi.fn(), isPending: false }),
+  useUseCataloguePhoto: () => ({ mutate: vi.fn(), isPending: false }),
+  useDropCataloguePhoto: () => ({ mutate: vi.fn(), isPending: false }),
+}))
 vi.mock('@/lib/hooks/use-product-finder', () => ({
   useFindProduct: () => ({ mutate: vi.fn(), isPending: false }),
   useUseProduct: () => ({ mutate: vi.fn(), isPending: false }),
