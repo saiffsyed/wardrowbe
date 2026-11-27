@@ -12,9 +12,10 @@ far, what is built, and what comes next. Keep it up to date when decisions chang
 
 ## Working with the owner
 
-- Saiff is not a programmer. Explain in plain language, avoid jargon. **Keep replies very
-  short and human** (27 Nov: "don't give me over texts"): a few lines, no long lists, no
-  repeated summaries. The same goes for text inside the app and the mock-ups.
+- Saiff is not a programmer. Explain in plain language, avoid jargon, keep replies short.
+  **Mock-ups and app screens: very little text** (27 Nov: "don't give me over texts, it
+  should look human, not filled with AI-made text"): short labels only, no explanatory
+  captions, notes or intro paragraphs on the page.
 - He makes every product decision. **Ask clarifying questions before building or
   detailing anything**; put choices as short questions with a recommendation.
 - Show a design or screenshots before and after building screens.
