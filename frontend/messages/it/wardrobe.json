@@ -404,6 +404,7 @@
       "edit": "Modifica dettagli",
       "add": "Aggiungi dettagli",
       "scanLabel": "Scansiona etichetta",
+      "findOnline": "Trova online",
       "empty": "Aggiungi taglia, materiale e dove lo hai comprato.",
       "home": "Si trova a",
       "none": "Non impostato",
@@ -476,7 +477,8 @@
       "removeFailed": "Impossibile eliminare la foto",
       "optionalStep": "Foto dell'etichetta (facoltativo)",
       "optionalHint": "Aggiungi una foto dell'etichetta di manutenzione: taglia, materiale e cura vengono letti per te.",
-      "tryAgain": "Riprova"
+      "tryAgain": "Riprova",
+      "saveAndFind": "Salva e cerca"
     },
     "display": {
       "title": "Aspetto",
@@ -1053,6 +1055,31 @@
         "go": "Abbina",
         "twin": "Coordinati"
       }
+    },
+    "productFinder": {
+      "title": "Trova il prodotto",
+      "searching": "Ricerca…",
+      "pickTitle": "È uno di questi?",
+      "sameArticle": "Stesso codice articolo",
+      "noneOfThese": "Nessuno di questi",
+      "confirmTitle": "Usare questi dettagli?",
+      "shopPhoto": "Foto del negozio",
+      "name": "Nome",
+      "colour": "Colore",
+      "price": "Prezzo",
+      "new": "nuovo",
+      "changed": "cambiato",
+      "back": "Indietro",
+      "save": "Salva",
+      "close": "Chiudi",
+      "saved": "Salvato. La tua foto resta.",
+      "failed": "Salvataggio non riuscito. Riprova.",
+      "tooManyPhotos": "Questo capo ha già 4 foto extra. Eliminane una prima.",
+      "nothing": "Non trovato online.",
+      "noBrand": "Aggiungi prima la marca o scansiona l'etichetta.",
+      "aiDisabled": "L'IA è disattivata su questo server.",
+      "overLimit": "Il limite IA di questo mese è esaurito.",
+      "unreachable": "Ricerca non disponibile ora. Riprova più tardi."
     }
   }
 }

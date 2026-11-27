@@ -31,6 +31,8 @@ interface LabelScanDialogProps {
   onOpenChange: (open: boolean) => void;
   // Photos already chosen elsewhere (the add-item form): reading starts at once.
   initialFiles?: File[];
+  // Offered as "Save & find" when the item will have a brand: saves, then looks for the product.
+  onFindProduct?: () => void;
 }
 
 interface Picked {
@@ -169,7 +171,7 @@ function ReviewRow({
 
 // Photograph an item's labels, let the AI read them, and confirm what to save. Nothing on the
 // item changes until Confirm, and only the details ticked or picked here are written.
-export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: LabelScanDialogProps) {
+export function LabelScanDialog({ item, open, onOpenChange, initialFiles, onFindProduct }: LabelScanDialogProps) {
   const t = useTranslations('wardrobe.closet.labelScan');
   const scan = useScanLabel();
   const update = useUpdateClosetDetails();
@@ -233,9 +235,13 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
     setPicked((previous) => previous.filter((_, i) => i !== index));
   };
 
-  const confirm = () => {
-    if (!edits) {
+  const confirm = (thenFind = false) => {
+    const done = () => {
       onOpenChange(false);
+      if (thenFind) onFindProduct?.();
+    };
+    if (!edits) {
+      done();
       return;
     }
     update.mutate(
@@ -243,7 +249,7 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
       {
         onSuccess: () => {
           toast.success(t('saved'));
-          onOpenChange(false);
+          done();
         },
         onError: (error) => toast.error(getErrorMessage(error, t('saveFailed'))),
       }
@@ -251,6 +257,7 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
   };
 
   const busy = scan.isPending || update.isPending;
+  const canFind = !!onFindProduct && !!(edits?.brand || item.brand);
   const step = scan.isPending ? 'reading' : result ? (result.reading ? 'review' : 'unread') : 'pick';
 
   return (
@@ -379,9 +386,14 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles }: Labe
               <Button type="button" variant="ghost" disabled={busy} onClick={() => onOpenChange(false)}>
                 {t('cancel')}
               </Button>
-              <Button type="submit" disabled={busy}>
+              <Button type="submit" variant={canFind ? 'outline' : 'default'} disabled={busy}>
                 {edits ? t('confirm') : t('close')}
               </Button>
+              {canFind && (
+                <Button type="button" disabled={busy} onClick={() => confirm(true)}>
+                  {t('saveAndFind')}
+                </Button>
+              )}
             </div>
           </form>
         )}

@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 import { useLocale } from 'next-intl';
-import { Pencil, Plus, ScanLine, Tag, X } from 'lucide-react';
+import { Pencil, Plus, ScanLine, Search, Tag, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/select';
 import { LabelPhotos } from '@/components/wardrobe/label-photos';
 import { LabelScanDialog } from '@/components/wardrobe/label-scan-dialog';
+import { ProductFinderDialog } from '@/components/wardrobe/product-finder-dialog';
 import { getErrorMessage } from '@/lib/api';
 import {
   useHomes,
@@ -247,6 +248,7 @@ export function ClosetDetails({ item }: { item: Item }) {
   const [form, setForm] = useState<DetailsForm>(() => formFromItem(item));
   const [occasionDraft, setOccasionDraft] = useState('');
   const [scanning, setScanning] = useState(false);
+  const [finding, setFinding] = useState(false);
 
   const tags = item.tags ?? {};
   const home = homes?.find((candidate) => candidate.id === item.home_id);
@@ -345,6 +347,12 @@ export function ClosetDetails({ item }: { item: Item }) {
                 <ScanLine className="h-3.5 w-3.5" aria-hidden="true" />
                 {t('scanLabel')}
               </Button>
+              {item.brand && (
+                <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={() => setFinding(true)}>
+                  <Search className="h-3.5 w-3.5" aria-hidden="true" />
+                  {t('findOnline')}
+                </Button>
+              )}
               <Button variant="ghost" size="sm" className="h-9 gap-1.5 text-xs" onClick={startEditing}>
                 <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
                 {hasAnything ? t('edit') : t('add')}
@@ -389,7 +397,8 @@ export function ClosetDetails({ item }: { item: Item }) {
         )}
 
         <LabelPhotos itemId={item.id} />
-        <LabelScanDialog item={item} open={scanning} onOpenChange={setScanning} />
+        <LabelScanDialog item={item} open={scanning} onOpenChange={setScanning} onFindProduct={() => setFinding(true)} />
+        <ProductFinderDialog item={item} open={finding} onOpenChange={setFinding} />
       </div>
     );
   }

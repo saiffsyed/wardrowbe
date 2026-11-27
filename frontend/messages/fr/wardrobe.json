@@ -404,6 +404,7 @@
       "edit": "Modifier les détails",
       "add": "Ajouter des détails",
       "scanLabel": "Scanner l'étiquette",
+      "findOnline": "Trouver en ligne",
       "empty": "Ajoutez la taille, la matière et le lieu d'achat.",
       "home": "Rangé à",
       "none": "Non défini",
@@ -476,7 +477,8 @@
       "removeFailed": "Impossible de supprimer la photo",
       "optionalStep": "Photos de l'étiquette (facultatif)",
       "optionalHint": "Ajoutez une photo de l'étiquette d'entretien : la taille, la matière et l'entretien seront lus pour vous.",
-      "tryAgain": "Réessayer"
+      "tryAgain": "Réessayer",
+      "saveAndFind": "Enregistrer et chercher"
     },
     "display": {
       "title": "Affichage",
@@ -1053,6 +1055,31 @@
         "go": "S’accorder",
         "twin": "Assortis"
       }
+    },
+    "productFinder": {
+      "title": "Trouver le produit",
+      "searching": "Recherche…",
+      "pickTitle": "Est-ce l'un d'eux ?",
+      "sameArticle": "Même réf. article",
+      "noneOfThese": "Aucun",
+      "confirmTitle": "Utiliser ces infos ?",
+      "shopPhoto": "Photo boutique",
+      "name": "Nom",
+      "colour": "Couleur",
+      "price": "Prix",
+      "new": "nouveau",
+      "changed": "modifié",
+      "back": "Retour",
+      "save": "Enregistrer",
+      "close": "Fermer",
+      "saved": "Enregistré. Ta photo est conservée.",
+      "failed": "Échec de l'enregistrement. Réessaie.",
+      "tooManyPhotos": "Cet article a déjà 4 photos en plus. Supprimes-en une d'abord.",
+      "nothing": "Introuvable en ligne.",
+      "noBrand": "Ajoute d'abord la marque, ou scanne l'étiquette.",
+      "aiDisabled": "L'IA est désactivée sur ce serveur.",
+      "overLimit": "La limite IA de ce mois est atteinte.",
+      "unreachable": "Recherche impossible pour le moment. Réessaie plus tard."
     }
   }
 }

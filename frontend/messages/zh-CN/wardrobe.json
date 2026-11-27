@@ -404,6 +404,7 @@
       "edit": "编辑详情",
       "add": "添加详情",
       "scanLabel": "扫描标签",
+      "findOnline": "网上查找",
       "empty": "添加尺码、材质和购买地点。",
       "home": "存放于",
       "none": "未设置",
@@ -476,7 +477,8 @@
       "removeFailed": "无法删除照片",
       "optionalStep": "标签照片（可选）",
       "optionalHint": "添加洗涤标签的照片，尺码、材质和护理方式会自动读取。",
-      "tryAgain": "重试"
+      "tryAgain": "重试",
+      "saveAndFind": "保存并查找"
     },
     "display": {
       "title": "显示",
@@ -1053,6 +1055,31 @@
         "go": "相配",
         "twin": "情侣装"
       }
+    },
+    "productFinder": {
+      "title": "查找商品",
+      "searching": "正在搜索…",
+      "pickTitle": "是其中之一吗？",
+      "sameArticle": "货号一致",
+      "noneOfThese": "都不是",
+      "confirmTitle": "使用这些信息？",
+      "shopPhoto": "店铺图片",
+      "name": "名称",
+      "colour": "颜色",
+      "price": "价格",
+      "new": "新",
+      "changed": "已改",
+      "back": "返回",
+      "save": "保存",
+      "close": "关闭",
+      "saved": "已保存。你自己的照片也会保留。",
+      "failed": "保存失败，请重试。",
+      "tooManyPhotos": "这件衣物已有 4 张附加照片，请先删除一张。",
+      "nothing": "网上没有找到。",
+      "noBrand": "请先添加品牌，或扫描标签。",
+      "aiDisabled": "此服务器上的 AI 已关闭。",
+      "overLimit": "本月的 AI 额度已用完。",
+      "unreachable": "暂时无法搜索，请稍后再试。"
     }
   }
 }

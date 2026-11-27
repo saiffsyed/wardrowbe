@@ -76,7 +76,7 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   off that, and `a3d9f5b1c7e8_add_start_screen` off that, and `b4e0a6c2d8f9_add_stays` off
   that, and `c5f1b7d3e9a0_add_outfit_layouts` off that, and
   `d6a2c8e4f0b1_add_dressing_room_settings` off that, and `e7b3d9f5a1c2_add_item_laundry` off
-  that, and `f8c4e0a6b2d3_add_couple_settings` off that. After merging
+  that, and `f8c4e0a6b2d3_add_couple_settings` off that, and `a9e5f1b3c7d0_add_ai_spend` off that. After merging
   upstream migrations, re-parent the first of ours onto the new head.
 - Wardrobe tabs and collections: tab switch `frontend/components/wardrobe/wardrobe-tabs.tsx`
   (URL `?tab=lookbook|collections`, read in `app/dashboard/wardrobe/page.tsx`),
@@ -138,6 +138,16 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   side mirrors the table in `frontend/lib/laundry.ts`. Frontend `lib/hooks/use-laundry.ts`,
   `components/wardrobe/laundry.tsx` (badge, ⋯ menu entries, More count),
   `laundry-screen.tsx`, route `app/dashboard/more/laundry`.
+- Find the exact product (from the tag's brand and article number, `tags.article_number`):
+  backend `backend/app/api/product_finder.py` (`POST /items/{id}/find-product`, `/use-product`),
+  `app/services/product_finder.py` (Gemini with Google Search through the native API, then each
+  page fetched and read for picture, title, price; "same article" only when printed on the
+  page), `app/utils/safe_fetch.py` (public addresses only, every redirect checked),
+  `app/services/photo_swap.py` (new main photo, own photo kept as an extra one), monthly AI
+  limit `app/services/ai_spend.py` + table `ai_spend` (migration `a9e5f1b3c7d0`, off
+  `f8c4e0a6b2d3`; `AI_MONTHLY_LIMIT_EUR`, default 10); frontend
+  `components/wardrobe/product-finder-dialog.tsx`, `lib/hooks/use-product-finder.ts`, "Find
+  online" in the Details card and "Save & find" in the label scan.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

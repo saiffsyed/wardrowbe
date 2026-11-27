@@ -404,6 +404,7 @@
       "edit": "상세 정보 수정",
       "add": "상세 정보 추가",
       "scanLabel": "라벨 스캔",
+      "findOnline": "온라인에서 찾기",
       "empty": "사이즈, 소재, 구매 장소를 추가하세요.",
       "home": "보관 장소",
       "none": "미설정",
@@ -476,7 +477,8 @@
       "removeFailed": "사진을 삭제하지 못했습니다",
       "optionalStep": "라벨 사진 (선택)",
       "optionalHint": "케어 라벨 사진을 추가하면 사이즈, 소재, 관리 방법을 자동으로 읽어 드립니다.",
-      "tryAgain": "다시 시도"
+      "tryAgain": "다시 시도",
+      "saveAndFind": "저장하고 찾기"
     },
     "display": {
       "title": "화면",
@@ -1053,6 +1055,31 @@
         "go": "어울리게",
         "twin": "커플룩"
       }
+    },
+    "productFinder": {
+      "title": "상품 찾기",
+      "searching": "검색 중…",
+      "pickTitle": "이 중에 있나요?",
+      "sameArticle": "품번 일치",
+      "noneOfThese": "해당 없음",
+      "confirmTitle": "이 정보를 사용할까요?",
+      "shopPhoto": "쇼핑몰 사진",
+      "name": "이름",
+      "colour": "색상",
+      "price": "가격",
+      "new": "새로",
+      "changed": "변경",
+      "back": "뒤로",
+      "save": "저장",
+      "close": "닫기",
+      "saved": "저장했어요. 내 사진도 남아 있어요.",
+      "failed": "저장하지 못했어요. 다시 시도해 주세요.",
+      "tooManyPhotos": "이 아이템에는 추가 사진이 이미 4장 있어요. 먼저 하나를 지워 주세요.",
+      "nothing": "온라인에서 찾지 못했어요.",
+      "noBrand": "먼저 브랜드를 추가하거나 라벨을 스캔해 주세요.",
+      "aiDisabled": "이 서버에서는 AI가 꺼져 있어요.",
+      "overLimit": "이번 달 AI 한도를 다 썼어요.",
+      "unreachable": "지금은 검색할 수 없어요. 나중에 다시 시도해 주세요."
     }
   }
 }

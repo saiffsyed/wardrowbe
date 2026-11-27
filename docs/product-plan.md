@@ -1,6 +1,6 @@
 # Product plan and decisions
 
-Last updated: 26 November 2026. All points below were confirmed by Saiff unless marked
+Last updated: 27 November 2026. All points below were confirmed by Saiff unless marked
 "open".
 
 ## What the app is
@@ -141,7 +141,7 @@ Three main areas: **Wardrobe** (tabs Clothes / Lookbook / Collections), **Outfit
 
 ### Better photos (agreed 27 Nov, mock-up https://claude.ai/artifact/TdsASFMz2V2qm99q9QyB6q)
 Build order, all after the Gemini key is on the server:
-1. **Find this exact product** from the scanned tag: the AI searches the web with brand,
+1. **Find this exact product** (built, preview; not yet tried against real Google search) from the scanned tag: the AI searches the web with brand,
    article number, colour and kind; up to three matches (a tick when the article number
    matches); picking one makes the shop's photo the item's photo (own photo kept) and fills
    empty or wrong details, saved only on Save. Not found: offers the catalogue photo.

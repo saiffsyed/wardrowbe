@@ -404,6 +404,7 @@
       "edit": "詳細を編集",
       "add": "詳細を追加",
       "scanLabel": "ラベルをスキャン",
+      "findOnline": "ネットで探す",
       "empty": "サイズ、素材、購入場所を追加しましょう。",
       "home": "保管場所",
       "none": "未設定",
@@ -476,7 +477,8 @@
       "removeFailed": "写真を削除できませんでした",
       "optionalStep": "ラベルの写真（任意）",
       "optionalHint": "洗濯表示ラベルの写真を追加すると、サイズ・素材・お手入れ方法が自動で読み取られます。",
-      "tryAgain": "もう一度試す"
+      "tryAgain": "もう一度試す",
+      "saveAndFind": "保存して探す"
     },
     "display": {
       "title": "表示",
@@ -1053,6 +1055,31 @@
         "go": "合わせる",
         "twin": "おそろい"
       }
+    },
+    "productFinder": {
+      "title": "商品を探す",
+      "searching": "検索中…",
+      "pickTitle": "この中にありますか？",
+      "sameArticle": "品番一致",
+      "noneOfThese": "どれでもない",
+      "confirmTitle": "この情報を使いますか？",
+      "shopPhoto": "ショップの写真",
+      "name": "名前",
+      "colour": "色",
+      "price": "価格",
+      "new": "新規",
+      "changed": "変更",
+      "back": "戻る",
+      "save": "保存",
+      "close": "閉じる",
+      "saved": "保存しました。自分の写真も残ります。",
+      "failed": "保存できませんでした。もう一度お試しください。",
+      "tooManyPhotos": "このアイテムには追加写真が既に4枚あります。先に1枚削除してください。",
+      "nothing": "オンラインで見つかりませんでした。",
+      "noBrand": "先にブランドを追加するか、タグをスキャンしてください。",
+      "aiDisabled": "このサーバーではAIがオフです。",
+      "overLimit": "今月のAI上限に達しました。",
+      "unreachable": "今は検索できません。後でもう一度お試しください。"
     }
   }
 }

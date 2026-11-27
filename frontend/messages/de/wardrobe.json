@@ -404,6 +404,7 @@
       "edit": "Details bearbeiten",
       "add": "Details hinzufügen",
       "scanLabel": "Etikett scannen",
+      "findOnline": "Online finden",
       "empty": "Füge Größe, Material und Kaufort hinzu.",
       "home": "Liegt in",
       "none": "Nicht festgelegt",
@@ -476,7 +477,8 @@
       "removeFailed": "Das Foto konnte nicht gelöscht werden",
       "optionalStep": "Etikettfotos (optional)",
       "optionalHint": "Füge ein Foto des Pflegeetiketts hinzu, dann werden Größe, Material und Pflege für dich gelesen.",
-      "tryAgain": "Erneut versuchen"
+      "tryAgain": "Erneut versuchen",
+      "saveAndFind": "Speichern & finden"
     },
     "display": {
       "title": "Darstellung",
@@ -1053,6 +1055,31 @@
         "go": "Passend",
         "twin": "Partnerlook"
       }
+    },
+    "productFinder": {
+      "title": "Produkt finden",
+      "searching": "Wird gesucht…",
+      "pickTitle": "Ist es eines davon?",
+      "sameArticle": "Gleiche Artikelnr.",
+      "noneOfThese": "Keines davon",
+      "confirmTitle": "Diese Angaben übernehmen?",
+      "shopPhoto": "Shop-Foto",
+      "name": "Name",
+      "colour": "Farbe",
+      "price": "Preis",
+      "new": "neu",
+      "changed": "geändert",
+      "back": "Zurück",
+      "save": "Speichern",
+      "close": "Schließen",
+      "saved": "Gespeichert. Dein eigenes Foto bleibt erhalten.",
+      "failed": "Speichern fehlgeschlagen. Bitte erneut versuchen.",
+      "tooManyPhotos": "Dieses Teil hat schon 4 weitere Fotos. Lösche zuerst eines.",
+      "nothing": "Online nicht gefunden.",
+      "noBrand": "Füge zuerst die Marke hinzu oder scanne das Etikett.",
+      "aiDisabled": "KI ist auf diesem Server aus.",
+      "overLimit": "Das KI-Limit für diesen Monat ist aufgebraucht.",
+      "unreachable": "Suche gerade nicht möglich. Später erneut versuchen."
     }
   }
 }

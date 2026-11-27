@@ -404,6 +404,7 @@
       "edit": "Edit details",
       "add": "Add details",
       "scanLabel": "Scan label",
+      "findOnline": "Find online",
       "empty": "Add the size, material and where you bought it.",
       "home": "Kept in",
       "none": "Not set",
@@ -476,7 +477,8 @@
       "removeFailed": "Couldn't delete the photo",
       "optionalStep": "Label photos (optional)",
       "optionalHint": "Add a photo of the care label and the size, material and care are read for you.",
-      "tryAgain": "Try again"
+      "tryAgain": "Try again",
+      "saveAndFind": "Save & find"
     },
     "display": {
       "title": "Display",
@@ -1053,6 +1055,31 @@
         "go": "Go with",
         "twin": "Twin"
       }
+    },
+    "productFinder": {
+      "title": "Find the product",
+      "searching": "Searching…",
+      "pickTitle": "Is it one of these?",
+      "sameArticle": "Same article no.",
+      "noneOfThese": "None of these",
+      "confirmTitle": "Use these details?",
+      "shopPhoto": "Shop photo",
+      "name": "Name",
+      "colour": "Colour",
+      "price": "Price",
+      "new": "new",
+      "changed": "changed",
+      "back": "Back",
+      "save": "Save",
+      "close": "Close",
+      "saved": "Saved. Your own photo is kept.",
+      "failed": "Couldn't save. Try again.",
+      "tooManyPhotos": "This item already keeps 4 extra photos. Remove one first.",
+      "nothing": "Not found online.",
+      "noBrand": "Add the brand first, or scan the label.",
+      "aiDisabled": "AI is off on this server.",
+      "overLimit": "This month's AI limit is used up.",
+      "unreachable": "Couldn't search right now. Try again later."
     }
   }
 }

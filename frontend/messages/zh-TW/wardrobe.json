@@ -404,6 +404,7 @@
       "edit": "編輯詳情",
       "add": "新增詳情",
       "scanLabel": "掃描標籤",
+      "findOnline": "網路查找",
       "empty": "新增尺碼、材質和購買地點。",
       "home": "存放於",
       "none": "未設定",
@@ -476,7 +477,8 @@
       "removeFailed": "無法刪除照片",
       "optionalStep": "標籤照片（選填）",
       "optionalHint": "新增洗滌標籤的照片，尺寸、材質和保養方式會自動讀取。",
-      "tryAgain": "再試一次"
+      "tryAgain": "再試一次",
+      "saveAndFind": "儲存並查找"
     },
     "display": {
       "title": "顯示",
@@ -1053,6 +1055,31 @@
         "go": "相配",
         "twin": "情侶裝"
       }
+    },
+    "productFinder": {
+      "title": "尋找商品",
+      "searching": "搜尋中…",
+      "pickTitle": "是其中之一嗎？",
+      "sameArticle": "貨號相同",
+      "noneOfThese": "都不是",
+      "confirmTitle": "使用這些資訊？",
+      "shopPhoto": "店家圖片",
+      "name": "名稱",
+      "colour": "顏色",
+      "price": "價格",
+      "new": "新",
+      "changed": "已改",
+      "back": "返回",
+      "save": "儲存",
+      "close": "關閉",
+      "saved": "已儲存。你自己的照片也會保留。",
+      "failed": "無法儲存，請再試一次。",
+      "tooManyPhotos": "這件衣物已有 4 張附加照片，請先刪除一張。",
+      "nothing": "網路上找不到。",
+      "noBrand": "請先新增品牌，或掃描標籤。",
+      "aiDisabled": "此伺服器上的 AI 已關閉。",
+      "overLimit": "本月的 AI 額度已用完。",
+      "unreachable": "目前無法搜尋，請稍後再試。"
     }
   }
 }

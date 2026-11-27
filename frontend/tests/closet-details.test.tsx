@@ -30,6 +30,11 @@ vi.mock('@/lib/hooks/use-label-scan', () => ({
 vi.mock('@/lib/hooks/use-translated-constants', () => ({
   useMaterialLabel: () => (value: string) => value,
   useOccasionLabel: () => (value: string) => value,
+  useColorLabel: () => (value: string) => value,
+}))
+vi.mock('@/lib/hooks/use-product-finder', () => ({
+  useFindProduct: () => ({ mutate: vi.fn(), isPending: false }),
+  useUseProduct: () => ({ mutate: vi.fn(), isPending: false }),
 }))
 
 function item(overrides: Partial<Item> = {}): Item {
