@@ -3,6 +3,7 @@ import hmac
 import time
 
 from app.config import get_settings
+from app.utils.cutouts import display_path
 
 DEFAULT_EXPIRY_SECONDS = 3600
 
@@ -13,6 +14,9 @@ def _get_image_signing_key() -> bytes:
 
 
 def sign_image_url(path: str, expiry_seconds: int = DEFAULT_EXPIRY_SECONDS) -> str:
+    # Every link to a clothes photo is made here, so this is where a photo with a see-through
+    # cut-out is swapped for it, for every screen at once.
+    path = display_path(path)
     expires = int(time.time()) + expiry_seconds
 
     message = f"{path}:{expires}"

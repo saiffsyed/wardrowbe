@@ -13,6 +13,7 @@ import {
   FORWARD_AUTH_USERNAME_CONFLICT,
 } from '@/lib/auth-errors';
 import { useAuthConfig } from '@/lib/hooks/use-auth-config';
+import { START_PATH } from '@/lib/start-screen';
 
 function OIDCLoginButton({ getCallbackUrl }: { getCallbackUrl: () => string }) {
   const t = useTranslations('auth');
@@ -210,7 +211,7 @@ function LoginContent() {
   // Resolved on use rather than during render, because the page is server-rendered too and
   // the same-origin check needs window.location.
   const getCallbackUrl = useCallback(
-    () => safeCallbackUrl(callbackParam, window.location.origin),
+    () => safeCallbackUrl(callbackParam ?? START_PATH, window.location.origin),
     [callbackParam]
   );
   const [backendError, setBackendError] = useState<string | null>(null);
@@ -326,7 +327,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <div className="flex justify-center mb-4">
-            <img src="/logo.svg" alt="Wardrowbe" className="h-16 w-16" />
+            <img src="/logo.svg" alt="Wardrobe" className="h-16 w-16" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
           <p className="mt-2 text-muted-foreground">

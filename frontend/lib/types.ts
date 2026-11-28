@@ -2,6 +2,58 @@ import { CLOTHING_TYPE_VALUES, OCCASION_VALUES } from '@/lib/generated/garment-v
 
 // API response types matching backend schemas
 
+// One line of a care label's fibre content, e.g. 70% silk.
+export interface MaterialShare {
+  material: string;
+  percent: number;
+}
+
+// A kept photo of an item's care label or hang tag.
+export interface LabelPhoto {
+  id: string;
+  image_url: string;
+  thumbnail_url: string;
+}
+
+// What the AI read off an item's labels. Only ever a suggestion for the person to confirm.
+export interface LabelReading {
+  brand: string | null;
+  article_number?: string | null;
+  size: string | null;
+  size_system: string | null;
+  composition: MaterialShare[];
+  care_instructions: string | null;
+}
+
+export interface LabelScanResult {
+  // read: at least one detail was found. Otherwise nothing was read, and the photos are kept.
+  status: 'read' | 'nothing_read' | 'ai_disabled' | 'ai_unreachable';
+  reading: LabelReading | null;
+  photos: LabelPhoto[];
+}
+
+export interface Home {
+  id: string;
+  name: string;
+  city: string;
+  lat?: number | null;
+  lon?: number | null;
+  is_current: boolean;
+  item_count: number;
+}
+
+export interface FacetValue {
+  value: string;
+  count: number;
+}
+
+export interface WardrobeFacets {
+  brands: FacetValue[];
+  occasions: FacetValue[];
+  materials: FacetValue[];
+  colors: FacetValue[];
+}
+
 export interface ItemTags {
   colors: string[];
   primary_color?: string;
@@ -16,6 +68,15 @@ export interface ItemTags {
   size?: string;
   care_instructions?: string;
   source_url?: string;
+  article_number?: string;
+  size_system?: string;
+  fit_note?: string;
+  // Where the item was bought (a shop, city or country), not where it was made.
+  purchase_place?: string;
+  composition?: MaterialShare[];
+  occasions?: string[];
+  // Currency of the purchase price (ISO 4217, e.g. INR, EUR).
+  currency?: string;
   // Tag keys changed by hand. Maintained by the server; "re-analyse and replace" leaves these alone.
   user_edited_keys?: string[];
 }
@@ -23,6 +84,7 @@ export interface ItemTags {
 export interface Item {
   id: string;
   user_id: string;
+  home_id?: string | null;
   type: string;
   subtype?: string | null;
   name?: string;
@@ -131,6 +193,19 @@ export interface ItemFilter {
   needs_wash?: boolean;
   is_archived?: boolean;
   search?: string;
+  home_id?: string;
+  occasion?: string;
+  brand?: string;
+  material?: string;
+  season?: string;
+  // One of the wardrobe's category chips (lib/wardrobe-categories.ts).
+  category?: string;
+  // The item's main colour.
+  color?: string;
+  // never: not worn yet; not_recently: not worn in about three months.
+  worn?: string;
+  // 'true' or 'false': in at least one saved outfit, or in none.
+  in_outfits?: string;
   sort_by?: string;
   sort_order?: 'asc' | 'desc';
   ids?: string;
@@ -165,6 +240,7 @@ export interface Preferences {
   avoid_repeat_days: number;
   prefer_underused_items: boolean;
   variety_level: 'low' | 'moderate' | 'high';
+  start_screen?: 'wardrobe' | 'lookbook' | 'outfits' | 'plan';
   ai_endpoints: AIEndpoint[];
 }
 

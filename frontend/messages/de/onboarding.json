@@ -49,6 +49,7 @@
   "steps": {
     "family": "Familie",
     "firstItem": "Erstes Stück",
+    "homes": "Zuhause",
     "location": "Standort",
     "style": "Stil",
     "welcome": "Willkommen"
@@ -75,6 +76,6 @@
     "feature3": "Teile mit der Familie",
     "feature3Desc": "Jeder kann seinen eigenen personalisierten Kleiderschrank haben",
     "getStarted": "Los geht's",
-    "greeting": "Willkommen bei Wardrowbe{name}!"
+    "greeting": "Willkommen bei Wardrobe{name}!"
   }
 }

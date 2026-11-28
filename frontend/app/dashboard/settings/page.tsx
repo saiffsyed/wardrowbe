@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 import { Loader2, Save, RotateCcw, Check, Plus, Trash2, ChevronUp, ChevronDown, Server, MapPin, Navigation, Ruler } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,6 +36,8 @@ import { AVOID_REPEAT_DAYS, STYLE_SCORE, TEMPERATURE_THRESHOLDS_CELSIUS } from '
 import { DEFAULT_STYLE_PROFILE } from '@/lib/preferences';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+
+const SETTINGS_SECTIONS = ['style', 'body', 'weather', 'suggestions'] as const;
 
 // Kept out of the catalogs because model names are example input, identical in every locale.
 const EXAMPLE_VISION_MODEL = 'moondream';
@@ -171,6 +174,12 @@ function StyleSlider({
 }
 
 export default function SettingsPage() {
+  // Our fork: More opens this page one part at a time (?section=style|body|weather|suggestions),
+  // so each screen holds one subject. Without a section it is the whole original page.
+  const sectionParam = useSearchParams().get('section');
+  const section = SETTINGS_SECTIONS.find((name) => name === sectionParam);
+  const show = (name: string) => !section || section === name;
+  const tSections = useTranslations('wardrobe.closet.settingsSections');
   const t = useTranslations('settings');
   const aiUiEnabled = useAiUiEnabled();
   const tc = useTranslations('common');
@@ -544,16 +553,20 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {section ? tSections(`${section}.title`) : t('title')}
+          </h1>
           <p className="text-sm text-muted-foreground">
-            {t('subtitle')}
+            {section ? tSections(`${section}.hint`) : t('subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={handleReset} disabled={resetPreferences.isPending}>
-            <RotateCcw className="mr-2 h-4 w-4" />
-            {t('reset')}
-          </Button>
+          {!section && (
+            <Button variant="outline" size="sm" onClick={handleReset} disabled={resetPreferences.isPending}>
+              <RotateCcw className="mr-2 h-4 w-4" />
+              {t('reset')}
+            </Button>
+          )}
           <Button size="sm" onClick={handleSave} disabled={!hasChanges || updatePreferences.isPending}>
             {updatePreferences.isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -567,6 +580,8 @@ export default function SettingsPage() {
 
       <div className="grid gap-6">
         {/* Account Section */}
+        {show('account') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle>{t('account.title')}</CardTitle>
@@ -585,8 +600,12 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Location Section */}
+        {show('location') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -686,8 +705,12 @@ export default function SettingsPage() {
             )}
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Body Measurements */}
+        {show('body') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -767,8 +790,12 @@ export default function SettingsPage() {
             )}
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Color Preferences */}
+        {show('style') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle>{t('colors.favoriteColors')}</CardTitle>
@@ -789,8 +816,12 @@ export default function SettingsPage() {
             />
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Style Profile */}
+        {show('style') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle>{t('styleProfile.title')}</CardTitle>
@@ -826,8 +857,12 @@ export default function SettingsPage() {
             />
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Temperature & Comfort */}
+        {show('weather') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle>{t('temperature.title')}</CardTitle>
@@ -935,8 +970,12 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+          </>
+        )}
 
         {/* Recommendation Settings */}
+        {show('suggestions') && (
+          <>
         <Card>
           <CardHeader>
             <CardTitle>{t('recommendations.title')}</CardTitle>
@@ -1016,8 +1055,10 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+          </>
+        )}
 
-        {aiUiEnabled && (
+        {aiUiEnabled && !section && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

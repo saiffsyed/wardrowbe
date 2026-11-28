@@ -1,0 +1,26 @@
+# Aina on our own server. Builds the images from this repository instead of pulling upstream's,
+# and passes the switches for the test phase. Always used together with upstream's file:
+#   docker compose -f docker-compose.prod.yml -f deploy/docker-compose.aina.yml ...
+# deploy/install.sh does this for you.
+services:
+  backend:
+    image: aina-backend:latest
+    build: ./backend
+    environment:
+      # Test phase only: dev login, reachable through the SSH tunnel alone (nginx listens on
+      # 127.0.0.1). Turned off once Google sign-in is set up.
+      DEBUG: ${DEBUG:-false}
+      # Our paid-AI extras: the picture model (catalogue photo) and the monthly limit.
+      AI_IMAGE_MODEL: ${AI_IMAGE_MODEL:-}
+      AI_MONTHLY_LIMIT_EUR: ${AI_MONTHLY_LIMIT_EUR:-10}
+  worker:
+    image: aina-backend:latest
+    pull_policy: never
+  image-worker:
+    image: aina-backend:latest
+    pull_policy: never
+  frontend:
+    image: aina-frontend:latest
+    build: ./frontend
+    environment:
+      DEV_MODE: ${DEV_MODE:-false}

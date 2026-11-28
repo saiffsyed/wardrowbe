@@ -63,6 +63,11 @@ class UserPreference(Base):
     )
     variety_level: Mapped[str] = mapped_column(String(20), default=DEFAULT_VARIETY_LEVEL)
 
+    # The screen the app opens on (our fork): wardrobe, lookbook, outfits or plan.
+    start_screen: Mapped[str] = mapped_column(
+        String(20), default="wardrobe", server_default="wardrobe"
+    )
+
     # Restrictions
     excluded_item_ids: Mapped[list[uuid.UUID]] = mapped_column(
         ARRAY(UUID(as_uuid=True)), default=list

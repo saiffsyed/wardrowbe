@@ -1,0 +1,25 @@
+# The app on its public address with https (Caddy). install.sh adds this file only when .env
+# has DOMAIN set and the test login is off, so the test version is never public.
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: wardrobe_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN in .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - nginx
+    networks:
+      - wardrobe_net
+
+volumes:
+  caddy_data:
+  caddy_config:

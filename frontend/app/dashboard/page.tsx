@@ -83,7 +83,7 @@ function WeatherCard() {
             {t('weather.locationNotSet')}
           </p>
           <Button size="sm" variant="outline" asChild>
-            <Link href="/dashboard/settings">{t('weather.setLocation')}</Link>
+            <Link href="/dashboard/more/homes">{t('weather.setLocation')}</Link>
           </Button>
         </CardContent>
       </Card>

@@ -49,6 +49,7 @@
   "steps": {
     "family": "ファミリー",
     "firstItem": "最初のアイテム",
+    "homes": "住まい",
     "location": "位置情報",
     "style": "スタイル",
     "welcome": "ようこそ"
@@ -75,6 +76,6 @@
     "feature3": "家族と共有",
     "feature3Desc": "一人ひとりが自分専用のワードローブを持てます",
     "getStarted": "始める",
-    "greeting": "Wardrowbeへようこそ{name}！"
+    "greeting": "Wardrobeへようこそ{name}！"
   }
 }

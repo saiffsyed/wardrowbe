@@ -1,6 +1,13 @@
+from app.models.ai_spend import AISpend
+from app.models.collection import Collection, CollectionEntry
+from app.models.couple import CoupleSettings
+from app.models.dressing_room import DressingRoomSettings
 from app.models.family import Family, FamilyInvite
+from app.models.home import Home
 from app.models.identity import UserIdentity
 from app.models.item import ClothingItem, ItemHistory, ItemImage, WashHistory
+from app.models.label_photo import ItemLabelPhoto
+from app.models.laundry import ItemLaundry
 from app.models.learning import (
     ItemPairScore,
     OutfitPerformance,
@@ -9,13 +16,26 @@ from app.models.learning import (
 )
 from app.models.notification import Notification, NotificationSettings
 from app.models.outfit import FamilyOutfitRating, Outfit, OutfitItem, UserFeedback
+from app.models.outfit_layout import OutfitLayout
 from app.models.preference import UserPreference
 from app.models.schedule import Schedule
+from app.models.stay import Stay
 from app.models.user import User
+from app.models.wardrobe_category import WardrobeCategoryTree
+from app.models.wardrobe_kind import WardrobeCustomKind
 
 __all__ = [
+    "AISpend",
+    "Collection",
+    "CollectionEntry",
+    "OutfitLayout",
+    "DressingRoomSettings",
+    "ItemLaundry",
+    "CoupleSettings",
+    "Stay",
     "Family",
     "FamilyInvite",
+    "Home",
     "User",
     "UserIdentity",
     "UserPreference",
@@ -28,10 +48,13 @@ __all__ = [
     "ClothingItem",
     "ItemHistory",
     "ItemImage",
+    "ItemLabelPhoto",
     "WashHistory",
     "FamilyOutfitRating",
     "Outfit",
     "OutfitItem",
     "UserFeedback",
     "Notification",
+    "WardrobeCategoryTree",
+    "WardrobeCustomKind",
 ]

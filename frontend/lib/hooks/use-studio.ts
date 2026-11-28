@@ -85,6 +85,7 @@ export function useWearToday(templateId: string) {
 export interface PatchOutfitPayload {
   name?: string;
   items?: string[];
+  occasion?: string;
 }
 
 export function usePatchOutfit() {

@@ -2,10 +2,11 @@ from collections import Counter
 from datetime import UTC, date, datetime, timedelta
 from uuid import UUID, uuid4
 
-from sqlalchemy import and_, func, or_, select, text, update
+from sqlalchemy import and_, exists, func, or_, select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import attributes, selectinload
 
+from app.models.home import Home
 from app.models.item import (
     TAG_COLUMNS,
     ClothingItem,
@@ -14,6 +15,8 @@ from app.models.item import (
     TaggingStatus,
     WashHistory,
 )
+from app.models.outfit import OutfitItem
+from app.models.user import User
 from app.schemas.item import (
     DEFAULT_WASH_INTERVALS,
     USER_TAG_KEYS,
@@ -22,14 +25,26 @@ from app.schemas.item import (
     ItemFilterFields,
     ItemUpdate,
 )
+from app.services.auto_background import remove_background_on_add
+from app.services.laundry_service import LaundryService
+from app.services.wardrobe_category_service import category_filter
 from app.utils.tag_validation import normalize_tag_edits
+from app.utils.wardrobe_categories import CategoryFilter, subtype_as_kind
 
 # Values the AI fills in that can also be changed on the item itself rather than inside tags.
 _EDITABLE_ITEM_FIELDS = ("type", "subtype", "primary_color", "colors")
 
 
+# "Not worn recently" means not in this many days: about a season.
+NOT_WORN_DAYS = 90
+
+
 class TagVocabularyError(ValueError):
     """A tag value outside its vocabulary that the item did not already have."""
+
+
+class UnknownHomeError(ValueError):
+    """A home that does not exist or belongs to someone else."""
 
 
 def _keep_colours_in_step(update_data: dict, incoming: dict, current: dict, existing: dict) -> None:
@@ -110,7 +125,15 @@ class ItemService:
         )
         return result.scalar() or 0
 
-    def _build_filter_clauses(self, user_id: UUID, filters: ItemFilterFields) -> list:
+    async def _category_filter(self, user_id: UUID, category: str | None) -> CategoryFilter | None:
+        """What one of the person's categories holds; None when not filtering by one."""
+        if not category:
+            return None
+        return await category_filter(self.db, user_id, category)
+
+    def _build_filter_clauses(
+        self, user_id: UUID, filters: ItemFilterFields, category: CategoryFilter | None = None
+    ) -> list:
         clauses = [
             ClothingItem.user_id == user_id,
             ClothingItem.is_archived == filters.is_archived,
@@ -130,6 +153,47 @@ class ItemService:
             clauses.append(ClothingItem.colors.overlap(filters.colors))
         if filters.needs_wash is not None:
             clauses.append(ClothingItem.needs_wash == filters.needs_wash)
+        if filters.home_id:
+            clauses.append(ClothingItem.home_id == filters.home_id)
+        if filters.occasion:
+            clauses.append(ClothingItem.tags["occasions"].contains([filters.occasion.lower()]))
+        if filters.brand:
+            clauses.append(func.lower(ClothingItem.brand) == filters.brand.strip().lower())
+        if filters.material:
+            material = filters.material.strip().lower()
+            # Either the single material the tagger saw or a line of the label's composition.
+            clauses.append(
+                or_(
+                    func.lower(ClothingItem.material) == material,
+                    ClothingItem.tags["composition"].contains([{"material": material}]),
+                )
+            )
+        if filters.season:
+            clauses.append(ClothingItem.season.contains([filters.season]))
+        if filters.color:
+            clauses.append(ClothingItem.primary_color == filters.color)
+        if filters.worn == "never":
+            clauses.append(ClothingItem.last_worn_at.is_(None))
+        elif filters.worn == "not_recently":
+            cutoff = date.today() - timedelta(days=NOT_WORN_DAYS)
+            clauses.append(
+                or_(ClothingItem.last_worn_at.is_(None), ClothingItem.last_worn_at < cutoff)
+            )
+        if filters.in_outfits is not None:
+            in_an_outfit = exists().where(OutfitItem.item_id == ClothingItem.id)
+            clauses.append(in_an_outfit if filters.in_outfits else ~in_an_outfit)
+        if category is not None:
+            # A person's own kind of item is its built-in type plus its name as the subtype.
+            kind = subtype_as_kind(ClothingItem.subtype)
+
+            def is_kind(pair: tuple[str, str]):
+                return and_(ClothingItem.type == pair[0], kind == pair[1])
+
+            # An id that is not a category has no types, so it matches nothing, not everything.
+            of_its_types = ClothingItem.type.in_(category.types)
+            if category.moved_out:
+                of_its_types = and_(of_its_types, ~or_(*map(is_kind, category.moved_out)))
+            clauses.append(or_(of_its_types, *map(is_kind, category.moved_in)))
         if filters.search:
             search_term = f"%{filters.search}%"
             clauses.append(
@@ -150,9 +214,10 @@ class ItemService:
         page: int = 1,
         page_size: int = 20,
     ) -> tuple[list[ClothingItem], int]:
+        category = await self._category_filter(user_id, filters.category)
         query = (
             select(ClothingItem)
-            .where(*self._build_filter_clauses(user_id, filters))
+            .where(*self._build_filter_clauses(user_id, filters, category))
             .options(selectinload(ClothingItem.additional_images))
         )
 
@@ -168,6 +233,11 @@ class ItemService:
             "wear_count": ClothingItem.wear_count,
             "name": ClothingItem.name,
             "type": ClothingItem.type,
+            "brand": ClothingItem.brand,
+            "purchase_price": ClothingItem.purchase_price,
+            # For grouping the wardrobe by colour or by home.
+            "primary_color": ClothingItem.primary_color,
+            "home": ClothingItem.home_id,
         }
         sort_col = sort_columns.get(filters.sort_by or "", ClothingItem.created_at)
         if filters.sort_order == "asc":
@@ -189,8 +259,10 @@ class ItemService:
         after_id: UUID | None = None,
         limit: int | None = None,
     ) -> list[UUID]:
+        filters = filters or ItemFilterFields()
+        category = await self._category_filter(user_id, filters.category)
         query = select(ClothingItem.id).where(
-            *self._build_filter_clauses(user_id, filters or ItemFilterFields())
+            *self._build_filter_clauses(user_id, filters, category)
         )
 
         if excluded_ids:
@@ -260,13 +332,24 @@ class ItemService:
         if item_data.tags:
             tags = item_data.tags.model_dump(exclude_none=True)
 
+        # Mutates image_paths, so a caller that cleans up after a failed create also removes
+        # the kept original.
+        await remove_background_on_add(image_paths)
+
+        # A new item goes into the home the user says they are in, if they have set one.
+        home_id = (
+            await self.db.execute(select(User.current_home_id).where(User.id == user_id))
+        ).scalar_one_or_none()
+
         # Create item
         item = ClothingItem(
             user_id=user_id,
+            home_id=home_id,
             image_path=image_paths["image_path"],
             thumbnail_path=image_paths.get("thumbnail_path"),
             medium_path=image_paths.get("medium_path"),
             image_hash=image_paths.get("image_hash"),
+            original_image_path=image_paths.get("original_backup_path"),
             type=item_data.type,
             subtype=item_data.subtype,
             tags=tags,
@@ -289,6 +372,15 @@ class ItemService:
 
     async def update(self, item: ClothingItem, item_data: ItemUpdate) -> ClothingItem:
         update_data = item_data.model_dump(exclude_unset=True)
+
+        if update_data.get("home_id") is not None:
+            owned = await self.db.scalar(
+                select(Home.id).where(
+                    Home.id == update_data["home_id"], Home.user_id == item.user_id
+                )
+            )
+            if owned is None:
+                raise UnknownHomeError("Home not found")
 
         # A null (or empty) tags object means "no change". Clearing one tag is a null
         # *inside* the object; writing None for the whole thing would wipe every tag, the
@@ -531,6 +623,8 @@ class ItemService:
         item.archived_at = datetime.now(UTC)
         item.archive_reason = reason
         item.status = ItemStatus.archived
+        # Our fork: an archived piece leaves the laundry (see laundry_service).
+        await LaundryService(self.db).forget([item.id])
         await self.db.flush()
         # Re-fetch with eager loading to ensure relationships are properly loaded
         result = await self.get_by_id(item.id, item.user_id)
@@ -571,6 +665,8 @@ class ItemService:
         notes: str | None = None,
         outfit_id: UUID | None = None,
     ) -> list[ItemHistory]:
+        # Our fork: a piece worn while marked away came back clean first (see laundry_service).
+        await LaundryService(self.db).worn(user_id, item_ids, worn_at)
         result = await self.db.execute(
             select(ClothingItem).where(
                 ClothingItem.id.in_(item_ids), ClothingItem.user_id == user_id

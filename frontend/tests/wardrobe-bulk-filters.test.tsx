@@ -6,10 +6,19 @@ import WardrobePage from '@/app/dashboard/wardrobe/page'
 import { api } from '@/lib/api'
 import { useItems } from '@/lib/hooks/use-items'
 
+vi.mock('@/components/wardrobe/stay-home-prompt', () => ({ StayHomePrompt: () => null }))
+vi.mock('@/components/wardrobe/weather-bar', () => ({ WeatherBar: () => null }))
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn(), back: vi.fn() }),
   usePathname: () => '/dashboard/wardrobe',
   useSearchParams: () => new URLSearchParams('needsWash=true&favorite=true&type=shirt&search=blue'),
+}))
+vi.mock('@/lib/hooks/use-wardrobe-categories', () => ({
+  useWardrobeCategories: () => ({ data: { customised: false, groups: [], unplaced_types: [] }, refetch: vi.fn() }),
+  useCategoryLabel: () => (node: { name?: string | null; key?: string | null; id: string }) =>
+    node.name ?? node.key ?? node.id,
+  useCustomKinds: () => ({ kinds: [], resolve: (type: string) => ({ type }) }),
+  CUSTOM_KIND_PREFIX: 'kind:',
 }))
 vi.mock('@/lib/api', () => ({
   api: { get: vi.fn(), post: vi.fn() },
@@ -45,13 +54,14 @@ describe('wardrobe select-all', () => {
           has_more: true,
         }
       }
-      return path === '/items/types' ? [] : {}
+      return path === '/items/types' || path === '/homes' ? [] : {}
     })
     vi.mocked(api.post).mockResolvedValue({ queued: 29, failed: 0, has_more: false })
 
     render(<WardrobePage />, { wrapper })
 
-    await screen.findAllByText('Blue shirt')
+    // The wardrobe opens on photos only, where an item's name is its accessible name.
+    await screen.findAllByLabelText('Blue shirt')
     fireEvent.click(await screen.findByText('selectAll'))
     fireEvent.click(await screen.findByText('bulkActions.selectAllMatching'))
     fireEvent.click(screen.getByRole('button', { name: 'bulkActions.rotateCw' }))

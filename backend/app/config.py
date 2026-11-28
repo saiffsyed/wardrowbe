@@ -188,6 +188,8 @@ class Settings(BaseSettings):
     bg_removal_model: str = Field(default="u2net")  # rembg model name
     bg_removal_url: str | None = Field(default=None)  # URL for http provider (e.g. withoutbg)
     bg_removal_api_key: str | None = Field(default=None)  # API key for http provider
+    # Remove the background of every clothes photo as its item is added (fork addition).
+    auto_remove_background: bool = Field(default=True)
 
     @property
     def effective_ai_vision_enabled(self) -> bool:

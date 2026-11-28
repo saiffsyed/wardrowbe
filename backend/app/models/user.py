@@ -52,6 +52,14 @@ class User(Base):
     location_lat: Mapped[Decimal | None] = mapped_column(Numeric(10, 8))
     location_lon: Mapped[Decimal | None] = mapped_column(Numeric(11, 8))
     location_name: Mapped[str | None] = mapped_column(String(100))
+    # The home the user says they are in. Setting it also copies the home's city into the
+    # location fields above, so weather keeps reading from one place.
+    current_home_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey(
+            "homes.id", ondelete="SET NULL", use_alter=True, name="fk_users_current_home_id"
+        ),
+    )
 
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

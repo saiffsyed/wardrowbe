@@ -1,5 +1,6 @@
 'use client';
 
+import { AccountBar } from '@/components/wardrobe/account-bar';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -80,12 +81,17 @@ export function MobileSidebar({ open, onClose }: MobileSidebarProps) {
           <X className="h-6 w-6" />
         </button>
 
-        <div className="flex h-full flex-col gap-y-5 overflow-y-auto px-6 pb-4">
+        <div className="flex h-full flex-col gap-y-5 overflow-y-auto px-6 pb-[5.5rem]">
           <div className="flex h-16 shrink-0 items-center">
             <Link href="/dashboard" className="flex items-center gap-3" onClick={onClose}>
               <img src="/logo.svg" alt={t('brandAlt')} className="h-8 w-8" />
               <span className="text-xl font-bold">{t('brandName')}</span>
             </Link>
+          </div>
+          {/* At the top, not the foot: the bottom bar and the wardrobe's select button sit over
+              the foot of the open menu. */}
+          <div className="-mt-2 shrink-0 border-b pb-3">
+            <AccountBar showName />
           </div>
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
