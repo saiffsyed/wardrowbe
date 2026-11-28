@@ -531,7 +531,8 @@
       "scarves": "Écharpes",
       "hats": "Chapeaux",
       "ties": "Cravates et boutons de manchette",
-      "other-accessories": "Autres"
+      "other-accessories": "Autres",
+      "anyCategory": "Catégorie : toutes"
     },
     "categorySettings": {
       "title": "Catégories",

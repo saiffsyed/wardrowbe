@@ -531,7 +531,8 @@
       "scarves": "Scarves",
       "hats": "Hats",
       "ties": "Ties & cufflinks",
-      "other-accessories": "Other"
+      "other-accessories": "Other",
+      "anyCategory": "Category: any"
     },
     "categorySettings": {
       "title": "Categories",

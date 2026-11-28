@@ -531,7 +531,8 @@
       "scarves": "Schals",
       "hats": "Hüte",
       "ties": "Krawatten & Manschettenknöpfe",
-      "other-accessories": "Sonstiges"
+      "other-accessories": "Sonstiges",
+      "anyCategory": "Kategorie: alle"
     },
     "categorySettings": {
       "title": "Kategorien",

@@ -9,8 +9,7 @@ import { AppTopBar } from '@/components/wardrobe/app-top-bar';
 import { WeatherBar } from '@/components/wardrobe/weather-bar';
 import { StayHomePrompt } from '@/components/wardrobe/stay-home-prompt';
 import { useFoldOnScroll } from '@/lib/hooks/use-fold-on-scroll';
-import { useCategoryLabel } from '@/lib/hooks/use-wardrobe-categories';
-import { groupOfCategory, type CategoryGroup } from '@/lib/wardrobe-categories';
+import type { CategoryGroup } from '@/lib/wardrobe-categories';
 import type { Home } from '@/lib/types';
 import { WardrobeTabs } from './wardrobe-tabs';
 
@@ -38,39 +37,6 @@ interface WardrobeHeaderProps {
   toolbar?: React.ReactNode;
 }
 
-const CHIP_ROW =
-  '-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-wrap lg:px-0 [&::-webkit-scrollbar]:hidden';
-
-function Chip({
-  selected,
-  small = false,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  small?: boolean;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  // Main chips fill solid when chosen; the second row uses the soft accent, so the two rows
-  // read as "where you are" and "narrowed to".
-  const chosen = small
-    ? 'border-primary bg-accent font-semibold text-accent-foreground'
-    : 'border-foreground bg-foreground font-semibold text-background';
-  return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={onClick}
-      className={`shrink-0 rounded-full border text-sm transition-colors ${small ? 'h-10 px-3.5' : 'h-11 px-4'} ${
-        selected ? chosen : 'bg-card font-medium text-foreground hover:bg-accent hover:text-accent-foreground'
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
 const ROUND = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors';
 const ROUND_QUIET = `${ROUND} border bg-card text-foreground hover:bg-accent hover:text-accent-foreground`;
 
@@ -93,7 +59,6 @@ export function WardrobeHeader({
   toolbar,
 }: WardrobeHeaderProps) {
   const t = useTranslations('wardrobe');
-  const tc = useTranslations('wardrobe.closet.categories');
   // Search stays open while it holds text, so a search can never be active and invisible.
   const [searchOpen, setSearchOpen] = useState(false);
   const showSearch = searchOpen || !!search;
@@ -112,13 +77,6 @@ export function WardrobeHeader({
   }, []);
   const folded = scrolledAway && !filtersOpen && !showSearch;
   const showingAllHomes = scope === 'all' && homes.some((home) => home.is_current);
-  const categoryLabel = useCategoryLabel();
-  const openGroup = category === 'all' ? undefined : groupOfCategory(groups, category);
-  // What is chosen stays on show even if its last item has just gone.
-  const shownGroups = groups.filter((group) => group.item_count > 0 || group.id === openGroup?.id);
-  const shownChildren = (openGroup?.children ?? []).filter(
-    (child) => child.item_count > 0 || child.id === category
-  );
 
   return (
     // Stays at the top of the screen on a phone, so the home, filter, search and add buttons
@@ -217,44 +175,6 @@ export function WardrobeHeader({
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
-        </div>
-      )}
-
-      {/* Bleeds to the screen edges so the row visibly scrolls on, instead of ending at the margin. */}
-      {shownGroups.length > 0 && (
-        <div role="group" aria-label={tc('label')} className={CHIP_ROW}>
-          <Chip selected={category === 'all'} onClick={() => onCategoryChange('all')}>
-            {tc('all')}
-          </Chip>
-          {shownGroups.map((group) => (
-            <Chip
-              key={group.id}
-              selected={openGroup?.id === group.id}
-              onClick={() => onCategoryChange(group.id)}
-            >
-              {categoryLabel(group)}
-            </Chip>
-          ))}
-        </div>
-      )}
-
-      {/* The chosen group's own row. With one kind of thing in the group there is nothing to
-          narrow down to. */}
-      {openGroup && shownChildren.length > 1 && (
-        <div role="group" aria-label={categoryLabel(openGroup)} className={CHIP_ROW}>
-          <Chip small selected={category === openGroup.id} onClick={() => onCategoryChange(openGroup.id)}>
-            {tc('allOf', { group: categoryLabel(openGroup) })}
-          </Chip>
-          {shownChildren.map((child) => (
-            <Chip
-              key={child.id}
-              small
-              selected={category === child.id}
-              onClick={() => onCategoryChange(child.id)}
-            >
-              {categoryLabel(child)}
-            </Chip>
-          ))}
         </div>
       )}
 

@@ -531,7 +531,8 @@
       "scarves": "圍巾",
       "hats": "帽子",
       "ties": "領帶與袖扣",
-      "other-accessories": "其他"
+      "other-accessories": "其他",
+      "anyCategory": "類別：全部"
     },
     "categorySettings": {
       "title": "類別",

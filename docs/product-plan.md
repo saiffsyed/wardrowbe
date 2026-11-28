@@ -157,7 +157,9 @@ are trimmed, and every server update re-tidies existing cut-outs that need it. E
 sentences (legends, hints, tips, setting subtitles) are gone from the screens; the filter panel
 is a two-column grid on phones; **selecting several clothes starts by pressing and holding a
 piece** (no floating select button; while selecting, a tap ticks or unticks; the selection bar
-shows only then).
+shows only then). **The category chips left the wardrobe screen** (28 Nov, Saiff): the
+categories are a "Category" choice at the top of the filter panel (groups, with their
+smaller categories set in under them; empty ones left out) and count on the filter button.
 
 ### Planning and suggestions
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.

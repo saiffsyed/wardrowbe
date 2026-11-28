@@ -49,51 +49,19 @@ function setup(overrides: Partial<Parameters<typeof WardrobeHeader>[0]> = {}) {
 }
 
 describe('WardrobeHeader', () => {
-  it('shows the home you are in and only the groups that hold something', () => {
+  it('shows the home you are in, and no category chips (they are in the filter panel)', () => {
     setup()
 
     expect(screen.getByRole('button', { name: 'youAreIn' }).textContent).toContain('Chennai')
-    expect(screen.getByRole('button', { name: 'all' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'indian' })).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'shoes' })).toBeTruthy()
-    expect(screen.queryByRole('button', { name: 'jewellery' })).toBeNull()
-    // No group is open, so there is no second row.
-    expect(screen.queryByRole('button', { name: 'sarees' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'indian' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'all' })).toBeNull()
   })
 
-  it('opens a second row for the chosen group, without its empty sub-groups', () => {
-    const { props } = setup({ category: 'indian' })
-
-    expect(screen.getByRole('button', { name: 'indian' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'allOf' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.queryByRole('button', { name: 'dupattas' })).toBeNull()
-
-    fireEvent.click(screen.getByRole('button', { name: 'sarees' }))
-    expect(props.onCategoryChange).toHaveBeenCalledWith('sarees')
-  })
-
-  it('keeps the group marked while one of its sub-groups is chosen', () => {
-    setup({ category: 'sarees' })
-
-    expect(screen.getByRole('button', { name: 'indian' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'sarees' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'allOf' })).toHaveAttribute('aria-pressed', 'false')
-  })
-
-  it('has no second row for a group with only one kind of thing in it', () => {
-    setup({ category: 'shoes' })
-
-    expect(screen.queryByRole('button', { name: 'heels' })).toBeNull()
-    expect(screen.queryByRole('button', { name: 'allOf' })).toBeNull()
-  })
-
-  it('reports the category and add taps, leaving the home scope to the filter panel', () => {
+  it('reports the add tap, leaving the home scope to the filter panel', () => {
     const { props } = setup()
 
-    fireEvent.click(screen.getByRole('button', { name: 'shoes' }))
     fireEvent.click(screen.getByRole('button', { name: 'actions.addItem' }))
 
-    expect(props.onCategoryChange).toHaveBeenCalledWith('shoes')
     expect(props.onAdd).toHaveBeenCalled()
     expect(screen.queryByRole('button', { name: 'everywhere' })).toBeNull()
   })

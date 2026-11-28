@@ -531,7 +531,8 @@
       "scarves": "スカーフ",
       "hats": "帽子",
       "ties": "ネクタイ・カフス",
-      "other-accessories": "その他"
+      "other-accessories": "その他",
+      "anyCategory": "カテゴリ：すべて"
     },
     "categorySettings": {
       "title": "カテゴリー",

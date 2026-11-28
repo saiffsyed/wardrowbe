@@ -531,7 +531,8 @@
       "scarves": "스카프",
       "hats": "모자",
       "ties": "넥타이·커프스",
-      "other-accessories": "기타"
+      "other-accessories": "기타",
+      "anyCategory": "카테고리: 전체"
     },
     "categorySettings": {
       "title": "카테고리",

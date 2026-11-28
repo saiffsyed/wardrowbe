@@ -531,7 +531,8 @@
       "scarves": "Sciarpe",
       "hats": "Cappelli",
       "ties": "Cravatte e gemelli",
-      "other-accessories": "Altro"
+      "other-accessories": "Altro",
+      "anyCategory": "Categoria: tutte"
     },
     "categorySettings": {
       "title": "Categorie",

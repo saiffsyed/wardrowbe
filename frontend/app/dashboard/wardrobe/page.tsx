@@ -59,6 +59,7 @@ import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
 import { useWardrobeTab } from '@/components/wardrobe/wardrobe-tabs';
 import { HomesFilter } from '@/components/wardrobe/home-bar';
 import { PressToSelect } from '@/components/wardrobe/press-to-select';
+import { CategorySelect } from '@/components/wardrobe/category-select';
 import { LookbookTab } from '@/components/wardrobe/lookbook-tab';
 import { CollectionsTab } from '@/components/wardrobe/collections-tab';
 
@@ -484,6 +485,7 @@ export default function WardrobePage() {
     needsWash !== undefined,
     favoriteFilter !== undefined,
     typeFilter !== 'all',
+    category !== 'all',
     // Showing every home is set in the filter panel, so it counts on the filter button.
     homeScope === 'all' && !!homes?.some((home) => home.is_current),
   ].filter(Boolean).length + activeFacetCount(facetSelection);
@@ -870,6 +872,16 @@ export default function WardrobePage() {
                 setPage(1);
               }} />
             </div>
+            <div className="col-span-2 sm:col-auto">
+              <CategorySelect
+                groups={categories?.groups ?? []}
+                value={category}
+                onChange={(value) => {
+                  setCategory(value);
+                  setPage(1);
+                }}
+              />
+            </div>
             <Select
               value={typeFilter}
               onValueChange={(value) => {
@@ -951,6 +963,7 @@ export default function WardrobePage() {
                 className="col-span-2 h-8 text-xs gap-1 sm:ml-auto"
                 onClick={() => {
                   setTypeFilter('all');
+                  setCategory('all');
                   setNeedsWash(undefined);
                   setFavoriteFilter(undefined);
                   clearFacets();
