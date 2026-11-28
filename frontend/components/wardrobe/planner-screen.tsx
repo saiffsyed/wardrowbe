@@ -403,7 +403,6 @@ function MonthView({
           </span>
         ))}
       </div>
-      <p className="text-xs text-muted-foreground">{t('monthLegend')}</p>
     </div>
   );
 }

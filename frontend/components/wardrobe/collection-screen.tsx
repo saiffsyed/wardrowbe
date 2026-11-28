@@ -156,7 +156,6 @@ export function CollectionScreen({ collectionId }: { collectionId: string }) {
       {collection.entries.length === 0 && (
         <div className="px-4 py-12 text-center">
           <p className="font-medium">{t('emptyCollection')}</p>
-          <p className="mx-auto mt-1 max-w-xs text-sm text-muted-foreground">{t('emptyCollectionHint')}</p>
         </div>
       )}
 

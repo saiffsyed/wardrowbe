@@ -56,7 +56,6 @@ export function CollectionsTab() {
       ) : !collections?.length ? (
         <div className="flex flex-col items-center px-4 py-14 text-center">
           <p className="font-medium">{t('emptyTitle')}</p>
-          <p className="mt-1 max-w-xs text-sm text-muted-foreground">{t('emptyHint')}</p>
           <Button className="mt-5 rounded-full" onClick={() => setCreating(true)}>
             <Plus className="mr-1.5 h-4 w-4" aria-hidden="true" />
             {t('new')}

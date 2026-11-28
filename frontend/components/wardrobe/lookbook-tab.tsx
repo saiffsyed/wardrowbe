@@ -45,7 +45,6 @@ export function LookbookTab() {
       ) : outfits.length === 0 ? (
         <div className="flex flex-col items-center px-4 py-14 text-center">
           <p className="font-medium">{t('emptyTitle')}</p>
-          <p className="mt-1 max-w-xs text-sm text-muted-foreground">{t('emptyHint')}</p>
         </div>
       ) : (
         <>

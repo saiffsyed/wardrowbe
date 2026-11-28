@@ -418,7 +418,6 @@ export function OutfitMaker() {
             setSelected(null);
           }}
         />
-        <p className="text-center text-xs text-muted-foreground">{t('boardHint')}</p>
         {swatches && (
           <div className="mx-auto flex gap-2 rounded-full border bg-card p-2" role="group" aria-label={t('background')}>
             {BOARD_BACKGROUNDS.map((colour) => (

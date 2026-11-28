@@ -268,8 +268,8 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles, onFind
             <ScanLine className="h-5 w-5" aria-hidden="true" />
             {t('title')}
           </DialogTitle>
-          <DialogDescription>
-            {step === 'review' ? t('reviewHint') : step === 'unread' ? t('unreadTitle') : t('pickHint')}
+          <DialogDescription className={step === 'unread' ? undefined : 'sr-only'}>
+            {step === 'unread' ? t('unreadTitle') : t('title')}
           </DialogDescription>
         </DialogHeader>
 
@@ -320,7 +320,6 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles, onFind
                 {picked.length ? t('addAnother') : t('addPhoto')}
               </Button>
             )}
-            <p className="text-xs text-muted-foreground">{t('tip')}</p>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
                 {t('cancel')}
@@ -342,7 +341,6 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles, onFind
         {step === 'unread' && result && (
           <div className="space-y-3">
             <p className="text-sm">{t(`unread.${result.status}`)}</p>
-            <p className="text-sm text-muted-foreground">{t('photosKept')}</p>
             <div className="flex justify-end gap-2">
               <Button
                 type="button"
@@ -381,7 +379,6 @@ export function LabelScanDialog({ item, open, onOpenChange, initialFiles, onFind
                 />
               ))}
             </div>
-            <p className="text-xs text-muted-foreground">{t('photosKept')}</p>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="ghost" disabled={busy} onClick={() => onOpenChange(false)}>
                 {t('cancel')}

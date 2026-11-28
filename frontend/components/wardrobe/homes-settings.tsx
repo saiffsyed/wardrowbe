@@ -113,14 +113,9 @@ export function HomesSettings({ bare = false }: { bare?: boolean } = {}) {
             <HomeIcon className="h-5 w-5" aria-hidden="true" />
             {t('title')}
           </CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
       )}
       <CardContent className={`space-y-4 ${bare ? 'pt-6' : ''}`}>
-        {!bare && !isLoading && homes?.length === 0 && !adding && (
-          <p className="text-sm text-muted-foreground">{t('setUpHint')}</p>
-        )}
-
         {!!homes?.length && (
           <ul className="divide-y rounded-lg border">
             {homes.map((home) =>

@@ -28,7 +28,6 @@ export function StartScreenSettings() {
     <Card>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div role="radiogroup" aria-label={t('title')} className="grid grid-cols-2 gap-2">

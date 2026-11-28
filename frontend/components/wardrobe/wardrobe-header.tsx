@@ -174,7 +174,9 @@ export function WardrobeHeader({
         className={`${filtersOpen ? 'relative' : 'sticky'} z-20 -mx-4 bg-background px-4 pb-3 transition-[transform,opacity] duration-200 motion-reduce:transition-none sm:-mx-6 sm:px-6 lg:static lg:m-0 lg:p-0 lg:opacity-100 lg:translate-y-0 ${
           folded ? 'pointer-events-none -translate-y-full opacity-0 lg:pointer-events-auto' : ''
         }`}
-        style={{ top: topRowHeight }}
+        // Only a sticky box uses top; on a relative one it would push everything down by the
+        // top row's height and leave a gap.
+        style={filtersOpen ? undefined : { top: topRowHeight }}
         aria-hidden={folded || undefined}
         // Folded controls must not be reachable by keyboard either.
         {...(folded ? ({ inert: '' } as Record<string, string>) : {})}

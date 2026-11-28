@@ -461,7 +461,6 @@ export function DressingRoom({
                   </button>
                 ))}
               </div>
-              <p className="mt-1 px-1 text-xs text-[#9aa6a1]">{t('occasionHint')}</p>
             </>
           ) : (
             <>

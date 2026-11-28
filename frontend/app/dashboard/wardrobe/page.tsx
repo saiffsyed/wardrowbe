@@ -841,11 +841,13 @@ export default function WardrobePage() {
 
         {/* Expandable filter row */}
         {showFilters && (
-          <div className="flex flex-wrap gap-2 items-center p-3 rounded-lg border bg-muted/30">
-            <HomesFilter homes={homes ?? []} scope={homeScope} onScopeChange={(scope) => {
-              setHomeScope(scope);
-              setPage(1);
-            }} />
+          <div className="grid grid-cols-2 gap-2 items-center p-3 rounded-lg border bg-muted/30 sm:flex sm:flex-wrap">
+            <div className="col-span-2 sm:col-auto">
+              <HomesFilter homes={homes ?? []} scope={homeScope} onScopeChange={(scope) => {
+                setHomeScope(scope);
+                setPage(1);
+              }} />
+            </div>
             <Select
               value={typeFilter}
               onValueChange={(value) => {
@@ -853,7 +855,7 @@ export default function WardrobePage() {
                 setPage(1);
               }}
             >
-              <SelectTrigger className="w-[150px] h-8 text-xs">
+              <SelectTrigger className="w-full sm:w-[150px] h-8 text-xs">
                 <SelectValue placeholder={t('allTypes')} />
               </SelectTrigger>
               <SelectContent>
@@ -882,7 +884,7 @@ export default function WardrobePage() {
                 setPage(1);
               }}
             >
-              <SelectTrigger className="w-[130px] h-8 text-xs">
+              <SelectTrigger className="w-full sm:w-[130px] h-8 text-xs">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -897,7 +899,7 @@ export default function WardrobePage() {
             <Button
               variant={needsWash === true ? 'default' : 'outline'}
               size="sm"
-              className="h-8 text-xs gap-1.5"
+              className="h-8 w-full text-xs gap-1.5 sm:w-auto"
               onClick={() => {
                 setNeedsWash(needsWash === true ? undefined : true);
                 setPage(1);
@@ -910,7 +912,7 @@ export default function WardrobePage() {
             <Button
               variant={favoriteFilter === true ? 'default' : 'outline'}
               size="sm"
-              className="h-8 text-xs gap-1.5"
+              className="h-8 w-full text-xs gap-1.5 sm:w-auto"
               onClick={() => {
                 setFavoriteFilter(favoriteFilter === true ? undefined : true);
                 setPage(1);
@@ -924,7 +926,7 @@ export default function WardrobePage() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 text-xs gap-1 ml-auto"
+                className="col-span-2 h-8 text-xs gap-1 sm:ml-auto"
                 onClick={() => {
                   setTypeFilter('all');
                   setNeedsWash(undefined);

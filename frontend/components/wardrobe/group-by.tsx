@@ -53,7 +53,7 @@ export function GroupBySelect({ value, onChange }: { value: GroupBy; onChange: (
   const t = useTranslations('wardrobe.closet.groupBy');
   return (
     <Select value={value} onValueChange={(next) => isGroupBy(next) && onChange(next)}>
-      <SelectTrigger className="h-8 w-[150px] text-xs" aria-label={t('label')}>
+      <SelectTrigger className="h-8 w-full text-xs sm:w-[150px]" aria-label={t('label')}>
         <Rows3 className="mr-1 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
         <SelectValue />
       </SelectTrigger>

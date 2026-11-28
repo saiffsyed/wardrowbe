@@ -31,7 +31,6 @@ export function AccountScreen() {
     <Card>
       <CardHeader>
         <CardTitle>{t('items.account.title')}</CardTitle>
-        <CardDescription>{t('accountHint')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
         <div className="flex items-center gap-4 pb-3">

@@ -371,9 +371,7 @@ export function ClosetDetails({ item }: { item: Item }) {
               <Fact label={t('boughtOn')} value={boughtOn} />
               <Fact label={t('price')} value={price} />
             </dl>
-          ) : (
-            !hasAnything && <p className="text-xs text-muted-foreground">{t('empty')}</p>
-          )}
+          ) : null}
         </section>
 
         {!!tags.composition?.length && (

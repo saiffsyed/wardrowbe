@@ -18,7 +18,6 @@ export function LabelPhotoPicker({ files, onChange }: { files: File[]; onChange:
   return (
     <div className="space-y-2">
       <p className="text-sm font-medium leading-none">{t('optionalStep')}</p>
-      <p className="text-xs text-muted-foreground">{t('optionalHint')}</p>
       <input
         ref={inputRef}
         type="file"

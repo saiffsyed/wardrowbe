@@ -293,7 +293,6 @@ export function CoupleSettingsCard() {
     <Card>
       <CardHeader>
         <CardTitle>{t('settingsTitle')}</CardTitle>
-        <CardDescription>{t('settingsHint')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {couple.choices.length > 0 && (

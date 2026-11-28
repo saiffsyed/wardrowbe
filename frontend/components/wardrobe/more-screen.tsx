@@ -106,7 +106,6 @@ export function MoreScreen() {
                 </span>
                 <span>
                   <span className="block text-[15px] font-semibold">{t(`items.${key}.title`)}</span>
-                  <span className="block text-xs text-muted-foreground">{t(`items.${key}.hint`)}</span>
                 </span>
               </Link>
             </li>

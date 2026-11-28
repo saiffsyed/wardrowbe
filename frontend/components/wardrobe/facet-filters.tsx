@@ -62,7 +62,7 @@ function FacetSelect({
 
   return (
     <Select value={value ?? ANY} onValueChange={(next) => onChange(next === ANY ? undefined : next)}>
-      <SelectTrigger className="h-8 w-[150px] text-xs" aria-label={label}>
+      <SelectTrigger className="h-8 w-full text-xs sm:w-[150px]" aria-label={label}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

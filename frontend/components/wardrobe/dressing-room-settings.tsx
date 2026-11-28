@@ -51,7 +51,6 @@ export function DressingRoomSettings() {
     <Card>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="flex gap-4">

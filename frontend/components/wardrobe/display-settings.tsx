@@ -27,7 +27,6 @@ export function DisplaySettings() {
     <Card>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div role="radiogroup" aria-label={t('title')} className="grid grid-cols-3 gap-2">

@@ -230,7 +230,6 @@ export function CategoriesSettings() {
           <LayoutList className="h-5 w-5" aria-hidden="true" />
           {t('title')}
         </CardTitle>
-        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {groups.map((group) => (
@@ -290,7 +289,6 @@ export function CategoriesSettings() {
 
         <section className="space-y-2 border-t pt-4">
           <h3 className="text-sm font-semibold">{t('kindsTitle')}</h3>
-          <p className="text-xs text-muted-foreground">{t('kindsHint')}</p>
           {kinds.length > 0 && (
             <ul className="divide-y rounded-2xl border">
               {kinds.map((kind) => (
@@ -368,7 +366,7 @@ export function CategoriesSettings() {
                   : t('newSubgroup')
                 : t('editTitle')}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="sr-only">
               {editing?.kind === 'group' ? t('groupHint') : t('subgroupHint')}
             </DialogDescription>
           </DialogHeader>
@@ -473,7 +471,7 @@ export function CategoriesSettings() {
         <DialogContent className="max-h-[90dvh] max-w-md overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{t('addKind')}</DialogTitle>
-            <DialogDescription>{t('kindSheetHint')}</DialogDescription>
+            <DialogDescription className="sr-only">{t('kindSheetHint')}</DialogDescription>
           </DialogHeader>
           <form
             className="space-y-4"
@@ -509,7 +507,6 @@ export function CategoriesSettings() {
                   ))}
                 </SelectContent>
               </Select>
-              <p className="text-xs text-muted-foreground">{t('kindBaseHint')}</p>
             </div>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="ghost" disabled={busy} onClick={() => setNewKind(null)}>

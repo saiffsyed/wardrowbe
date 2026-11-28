@@ -66,7 +66,7 @@ export function AddStayDialog({
       <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
-          <DialogDescription>{t('hint')}</DialogDescription>
+          <DialogDescription className="sr-only">{t('hint')}</DialogDescription>
         </DialogHeader>
         <form
           className="space-y-4"

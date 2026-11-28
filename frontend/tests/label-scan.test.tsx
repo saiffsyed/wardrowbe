@@ -150,13 +150,13 @@ describe('LabelScanDialog', () => {
     expect(screen.getByRole('button', { name: 'confirm' })).toBeTruthy()
   })
 
-  it('says the photos are kept when nothing could be read', async () => {
+  it('says why nothing could be read, without extra sentences', async () => {
     scanAnswers({ status: 'ai_unreachable', reading: null, photos: [] })
     const onOpenChange = vi.fn()
     render(<LabelScanDialog item={item()} open onOpenChange={onOpenChange} initialFiles={[photo()]} />)
 
     expect(screen.getByText('unread.ai_unreachable')).toBeTruthy()
-    expect(screen.getByText('photosKept')).toBeTruthy()
+    expect(screen.queryByText('photosKept')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'close' }))
 
     await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false))
