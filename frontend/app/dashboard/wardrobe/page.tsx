@@ -58,6 +58,7 @@ import {
 import { useHomes, useWardrobeFacets } from '@/lib/hooks/use-homes';
 import { useWardrobeTab } from '@/components/wardrobe/wardrobe-tabs';
 import { HomesFilter } from '@/components/wardrobe/home-bar';
+import { PressToSelect } from '@/components/wardrobe/press-to-select';
 import { LookbookTab } from '@/components/wardrobe/lookbook-tab';
 import { CollectionsTab } from '@/components/wardrobe/collections-tab';
 
@@ -459,6 +460,9 @@ export default function WardrobePage() {
   // In "select all matching" mode everything is selected except what was unticked.
   const isItemSelected = (id: string) =>
     selection.mode === 'all' ? !selection.excludedIds.has(id) : selection.selectedIds.has(id);
+  // Selecting starts by pressing and holding a piece; the selection bar shows only then (on a
+  // laptop it stays, as before).
+  const selecting = selection.mode === 'all' || selection.selectedIds.size > 0;
 
   const listFilters: BulkItemFilters = {
     search: search || undefined,
@@ -737,21 +741,32 @@ export default function WardrobePage() {
     viewMode === 'cutouts' ? (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3">
           {list.map((item) => (
-            <CutoutTile
+            <PressToSelect
               key={item.id}
+              selecting={selecting}
+              selected={isItemSelected(item.id)}
+              onSelect={(next) => handleSelect(item.id, next)}
+            >
+            <CutoutTile
               item={item}
               selected={isItemSelected(item.id)}
               onSelect={handleSelect}
               onClick={() => setDetailItemId(item.id)}
               errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
             />
+            </PressToSelect>
           ))}
         </div>
       ) : viewMode === 'list' ? (
         <ul>
           {list.map((item) => (
-            <ItemListRow
+            <PressToSelect
               key={item.id}
+              selecting={selecting}
+              selected={isItemSelected(item.id)}
+              onSelect={(next) => handleSelect(item.id, next)}
+            >
+            <ItemListRow
               item={item}
               selected={isItemSelected(item.id)}
               onSelect={handleSelect}
@@ -759,6 +774,7 @@ export default function WardrobePage() {
               errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
               home={scopedHomeId ? undefined : homes?.find((home) => home.id === item.home_id)}
             />
+            </PressToSelect>
           ))}
         </ul>
       ) : (
@@ -766,9 +782,14 @@ export default function WardrobePage() {
           {list.map((item) => {
             const isSelected = isItemSelected(item.id);
             return (
-              <ItemCard
+              <PressToSelect
                 key={item.id}
-                item={item}
+                selecting={selecting}
+                selected={isItemSelected(item.id)}
+                onSelect={(next) => handleSelect(item.id, next)}
+              >
+              <ItemCard
+                  item={item}
                 selected={isSelected}
                 onSelect={handleSelect}
                 onRetry={aiUiEnabled ? handleRetry : undefined}
@@ -779,6 +800,7 @@ export default function WardrobePage() {
                 errorDismissed={dismissedErrors.has(`${item.id}:${item.updated_at}`)}
                 userTimezone={userTimezone}
               />
+              </PressToSelect>
             );
           })}
         </div>
@@ -1042,6 +1064,7 @@ export default function WardrobePage() {
         )} />
       )}
 
+      <div className={selecting ? undefined : 'hidden lg:block'}>
       <BulkActionToolbar
         selection={selection}
         totalItems={total}
@@ -1061,6 +1084,7 @@ export default function WardrobePage() {
         pagination={{ page, pageSize, onPageChange: handlePageChange }}
         extraActions={<MoveToHomeButton getSelection={getBulkParams} onDone={handleClearSelection} />}
       />
+      </div>
 
       <AddItemDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />
       {aiUiEnabled && (

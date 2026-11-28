@@ -155,6 +155,8 @@ Upstream remote: `https://github.com/Anyesh/wardrowbe`.
   `components/wardrobe/catalogue-photo-dialog.tsx`, `lib/hooks/use-catalogue-photo.ts`, opened
   from the item's ⋯ menu and from the finder's "None of these". New main photos (shop or
   catalogue) keep no background-removal backup, so making the own photo main again is safe.
+- Selecting clothes: press and hold a piece (`components/wardrobe/press-to-select.tsx`, wrapping
+  each tile in the wardrobe page); the bulk bar is hidden on phones until something is selected.
 - Item details the user owns go in the `clothing_items.tags` JSON (`USER_TAG_KEYS` in
   `backend/app/schemas/item.py`) rather than new columns. `home_id` is a real column.
 - Garment types come from `backend/app/data/garment_vocabulary.json`; after editing it

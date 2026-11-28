@@ -153,7 +153,11 @@ Build order, all after the Gemini key is on the server:
 Fixed after the first days on the live app (preview, 28 Nov): the loading placeholders now
 take the shape of the chosen view (faint, no text bars); the tiles view shows the whole piece
 instead of cropping it; cut-outs drop small loose bits not joined to the garment before they
-are trimmed, and every server update re-tidies existing cut-outs that need it.
+are trimmed, and every server update re-tidies existing cut-outs that need it. Explanatory
+sentences (legends, hints, tips, setting subtitles) are gone from the screens; the filter panel
+is a two-column grid on phones; **selecting several clothes starts by pressing and holding a
+piece** (no floating select button; while selecting, a tap ticks or unticks; the selection bar
+shows only then).
 
 ### Planning and suggestions
 - AI suggestions using city weather, humidity and fair rotation of the wardrobe.
